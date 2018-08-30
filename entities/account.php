@@ -1,4 +1,5 @@
 <?php
+//entities/account.php
 
 namespace entities;
 
@@ -10,14 +11,17 @@ namespace entities;
 class Account
 {
     private static $idMap = [];
-    
     protected $id;
     protected $name;
     protected $contactPerson;
     protected $email;
     protected $password;
     protected $confirmed;
+    protected $website;
+    protected $logo;
+    protected $info;
     protected $administrator;
+
     
     /**
      * @param string $name
@@ -26,6 +30,9 @@ class Account
      * @param string $password
      * @param int|null $id
      * @param int $confirmed
+     * @param string $website
+     * @param string $logo
+     * @param string $info
      * @param int $administrator
      */
     private function __construct(
@@ -35,6 +42,9 @@ class Account
         $email,
         $password,
         $confirmed = 0,
+        $website = 0,
+        $logo = 0,
+        $info = 0,
         $administrator = 0
     ) {
         $this->id            = $id;
@@ -43,6 +53,9 @@ class Account
         $this->email         = $email;
         $this->password      = $password;
         $this->confirmed     = $confirmed;
+        $this->website       = $website;
+        $this->logo          = $logo;
+        $this->info          = $info;
         $this->administrator = $administrator;
     }
     
@@ -53,6 +66,9 @@ class Account
      * @param string $email
      * @param string $password
      * @param int $confirmed
+     * @param string $website
+     * @param string $logo
+     * @param string $info
      * @param int $administrator
      * 
      * @return object
@@ -64,6 +80,9 @@ class Account
         $email,
         $password,
         $confirmed = 0,
+        $website,
+        $logo,
+        $info,
         $administrator = 0
     ) {
         if (!isset(self::$idMap[$id])) {
@@ -74,6 +93,9 @@ class Account
                 $email,
                 $password,
                 $confirmed,
+                $website,
+                $logo,
+                $info,
                 $administrator
             );
         }
@@ -181,6 +203,54 @@ class Account
     {
         $this->confirmed = $confirmed;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * @param mixed $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param mixed $logo
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param mixed $info
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
     }
     
     /**
