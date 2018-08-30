@@ -5,7 +5,6 @@ require_once("DBConfig.php");
 require_once("entities/account.php");
 
 
-
 class AccountDAO
 {
     public function getAll()
@@ -15,7 +14,7 @@ class AccountDAO
         $resultSet = $dbh->query($sql);
         $list = array();
         foreach ($resultSet as $row) {
-            $account = Account::create($row["name"], $row["contactPerson"], $row["email"], $row["password"], $row["confirmed"], $row["logo"], $row["website"], $row["info"], $row["administrator"]);
+            $account = entities\Account::create($row["name"], $row["contactPerson"], $row["email"], $row["password"], $row["confirmed"], $row["logo"], $row["website"], $row["info"], $row["administrator"]);
             array_push($list, $account);
         }
         $dbh = null;
