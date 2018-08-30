@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kamil.bebenek
- * Date: 25/06/2018
- * Time: 14:23
- */
+//data/DBConfig.php
 
 class DBConfig
 {
@@ -12,5 +7,3 @@ class DBConfig
     public static $DB_USERNAME = "atos_vdab";
     public static $DB_PASSWORD = "vdab";
 }
-
-?>
