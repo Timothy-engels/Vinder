@@ -1,15 +1,22 @@
 <?php
 
-var_dump($_POST);
-
-//$post_data = file_get_contents("php://input");
-//var_dump($post_data);
-
 // Validate the fields
 $errors = []; 
 
-//if (array_key_exists($_POST['name']) && trim($_POST['name']) === '') {
-//    $errors['name'] = "Dit is een verplicht veld";
-//} 
+if (array_key_exists('name', $_POST)) {
+    
+    if (trim($_POST['name']) === '') {
+        $errors['name'] = "Dit is een verplicht veld";
+    } 
+    
+    if (array_key_exists('name', $_POST) && strlen($_POST['name']) > 255) {
+        $errors['name'] = "Het veld mag maximaal 255 karakters bevatten";
+    }
+
+} else {
+    
+    $errors['name'] = "Dit is een verplicht veld";
+    
+}
 
 include("view/register.php");
