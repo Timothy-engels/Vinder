@@ -106,7 +106,7 @@ class Account
     /**
      * @return int
      */
-    protected function getId()
+    public function getId()
     {
         return $this->id;
     }
@@ -114,7 +114,7 @@ class Account
     /**
      * @return string;
      */
-    protected function getName()
+    public function getName()
     {
         return $this->string;
     }
@@ -124,7 +124,7 @@ class Account
      * 
      * @return object
      */
-    protected function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
@@ -133,7 +133,7 @@ class Account
     /**
      * @return string
      */
-    protected function getContactPerson()
+    public function getContactPerson()
     {
         return $this->contactPerson;
     }
@@ -143,7 +143,7 @@ class Account
      * 
      * @return object
      */
-    protected function setContactPerson($contactPerson)
+    public function setContactPerson($contactPerson)
     {
         $this->contactPerson = $contactPerson;
         return $this;
@@ -152,7 +152,7 @@ class Account
     /**
      * @return string
      */
-    protected function getEmail()
+    public function getEmail()
     {
         return $this->email;
     }
@@ -162,7 +162,7 @@ class Account
      * 
      * @return object
      */
-    protected function setEmail($email)
+    public function setEmail($email)
     {
         $this->email = $email;
         return $this;
@@ -171,7 +171,7 @@ class Account
     /**
      * @return string
      */
-    protected function getPassword()
+    public function getPassword()
     {
         return $this->password;
     }
@@ -179,7 +179,7 @@ class Account
     /**
      * @param string $password
      */
-    protected function setPassword($password)
+    public function setPassword($password)
     {
         $this->password = $password;
         
@@ -189,7 +189,7 @@ class Account
     /**
      * @return int
      */
-    protected function getConfirmed()
+    public function getConfirmed()
     {
         return $this->confirmed;
     }
@@ -199,7 +199,7 @@ class Account
      * 
      * @return $this
      */
-    protected function setConfirmed($confirmed) 
+    public function setConfirmed($confirmed)
     {
         $this->confirmed = $confirmed;
         return $this;
@@ -256,7 +256,7 @@ class Account
     /**
      * @return int
      */
-    protected function getAdministrator()
+    public function getAdministrator()
     {
         return $this->administrator;
     }
@@ -266,7 +266,7 @@ class Account
      * 
      * @return $this
      */
-    protected function setAdministrator($administrator)
+    public function setAdministrator($administrator)
     {
         $this->administrator = $administrator;
         return $this;

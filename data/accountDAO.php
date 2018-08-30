@@ -20,5 +20,4 @@ class AccountDAO
         $dbh = null;
         return $list;
     }
-
 }
