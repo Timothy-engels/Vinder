@@ -42,9 +42,9 @@ class Account
         $email,
         $password,
         $confirmed = 0,
-        $website,
-        $logo,
-        $info,
+        $website = 0,
+        $logo = 0,
+        $info = 0,
         $administrator = 0
     ) {
         $this->id            = $id;
