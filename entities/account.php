@@ -20,11 +20,11 @@ class Account
     protected $administrator;
     
     /**
+     * @param int|null $id
      * @param string $name
      * @param string $contactPerson
      * @param string $email
      * @param string $password
-     * @param int|null $id
      * @param int $confirmed
      * @param int $administrator
      */
