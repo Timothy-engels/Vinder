@@ -4,8 +4,8 @@
 
     require_once("LogIn.php");
         
-    if (isset($_SESSION["id"])) {
-        $id = $_SESSION["id"];
+    if (isset($_SESSION["ID"])) {
+        header("location: end.php");
     }
     else if(isset($_POST["mail"]) && isset($_POST["pass"])) {
         $mail = $_POST["mail"];

@@ -2,8 +2,8 @@
     
     session_start();
         
-    if (isset($_SESSION["id"])) {
-        header("location: processor.php");
+    if (isset($_SESSION["ID"])) {
+        header("location: end.php");
     }
 ?>
 <!DOCTYPE HTML>
