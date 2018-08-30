@@ -9,6 +9,8 @@ namespace entities;
  */
 class Account
 {
+    private static $idMap = [];
+    
     protected $id;
     protected $name;
     protected $contactPerson;
@@ -22,10 +24,12 @@ class Account
      * @param string $contactPerson
      * @param string $email
      * @param string $password
+     * @param int|null $id
      * @param int $confirmed
      * @param int $administrator
      */
-    protected function __construct(
+    private function __construct(
+        $id,
         $name,
         $contactPerson,
         $email,
@@ -33,12 +37,48 @@ class Account
         $confirmed = 0,
         $administrator = 0
     ) {
+        $this->id            = $id;
         $this->name          = $name;
         $this->contactPerson = $contactPerson;
         $this->email         = $email;
         $this->password      = $password;
         $this->confirmed     = $confirmed;
         $this->administrator = $administrator;
+    }
+    
+    /**
+     * @param int $id
+     * @param string $name
+     * @param string $contactPerson
+     * @param string $email
+     * @param string $password
+     * @param int $confirmed
+     * @param int $administrator
+     * 
+     * @return object
+     */
+    public static function create(
+        $id,
+        $name,
+        $contactPerson,
+        $email,
+        $password,
+        $confirmed = 0,
+        $administrator = 0
+    ) {
+        if (!isset(self::$idMap[$id])) {
+            self::$idMap[$id] = new Account(
+                $id,
+                $name,
+                $contactPerson,
+                $email,
+                $password,
+                $confirmed,
+                $administrator
+            );
+        }
+        
+        return self::$idMap[$id];
     }
     
     /**
