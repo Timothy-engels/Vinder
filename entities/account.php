@@ -11,6 +11,7 @@ namespace entities;
 class Account
 {
     private static $idMap = array();
+    
     protected $id;
     protected $name;
     protected $contactPerson;
@@ -275,5 +276,3 @@ class Account
     }
     
 }
-
-
