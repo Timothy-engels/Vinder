@@ -22,17 +22,16 @@ class Account
     protected $info;
     protected $administrator;
 
-    
     /**
+     * @param int $id
      * @param string $name
      * @param string $contactPerson
      * @param string $email
      * @param string $password
-     * @param int|null $id
      * @param int $confirmed
-     * @param string $website
-     * @param string $logo
-     * @param string $info
+     * @param string|null $website
+     * @param string|null $logo
+     * @param string|null $info
      * @param int $administrator
      */
     private function __construct(
@@ -66,9 +65,9 @@ class Account
      * @param string $email
      * @param string $password
      * @param int $confirmed
-     * @param string $website
-     * @param string $logo
-     * @param string $info
+     * @param string|null $website
+     * @param string|null $logo
+     * @param string|null $info
      * @param int $administrator
      * 
      * @return object
@@ -206,7 +205,7 @@ class Account
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getWebsite()
     {
@@ -214,15 +213,16 @@ class Account
     }
 
     /**
-     * @param mixed $website
+     * @param string|null $website
      */
     public function setWebsite($website)
     {
         $this->website = $website;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getLogo()
     {
@@ -230,15 +230,16 @@ class Account
     }
 
     /**
-     * @param mixed $logo
+     * @param string|null $logo
      */
     public function setLogo($logo)
     {
         $this->logo = $logo;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getInfo()
     {
@@ -246,11 +247,12 @@ class Account
     }
 
     /**
-     * @param mixed $info
+     * @param string|null $info
      */
     public function setInfo($info)
     {
         $this->info = $info;
+        return $this;
     }
     
     /**
@@ -262,7 +264,7 @@ class Account
     }
     
     /**
-     * @param $administrator
+     * @param int $administrator
      * 
      * @return $this
      */
