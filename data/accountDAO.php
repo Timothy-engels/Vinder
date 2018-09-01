@@ -123,4 +123,20 @@ class AccountDAO
         return $account;
     }
 
+    public function UpdateProfile() {
+        $sql = "UPDATE `accounts` SET `Naam`= :naam,`Contactpersoon`= :contactpersoon,`Emailadres`=:email,`Website`= :website,`Logo`= :Logo,`Info`= :Info";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+
+        $stmt = $resultSet->execute(array(
+            ":naam" => $_POST["naam"],
+            ":contactpersoon" => $_POST["contacpersoon"],
+            ":email" => $_POST["email"],
+            ":website" => $_POST["website"],
+            ":Logo" => $_POST["Logo"],
+            ":Info" => $_POST["info"]
+        ));
+
+        $dbh = null;
+    }
 }

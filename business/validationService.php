@@ -17,7 +17,7 @@ class ValidationService
      * @return string
      */
     public function checkRequiredAndMaxLength($value, $length)
-    {
+    {        
         $result = $this->checkRequired($value);
         
         // Check the max length of the value
