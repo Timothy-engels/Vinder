@@ -1,7 +1,7 @@
 <?php
 //business/accountService.php
 
-require_once("../data/accountDAO.php");
+require_once("data/accountDAO.php");
 
 class AccountService
 {
