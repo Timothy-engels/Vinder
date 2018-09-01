@@ -9,7 +9,7 @@
         <h1> Hoofding </h1>
 
         <form action="#" method="post">
-            naam : <input type="text" name="naam" placeholder="<?php?>" />
+            naam : <input type="text" name="naam" placeholder="<?php print($accounts->getName()); ?>" />
         </form>
     </body>
 </html>
