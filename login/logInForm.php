@@ -5,6 +5,7 @@
     if (isset($_SESSION["ID"])) {
         header("location: end.php");
     }
+	
 ?>
 <!DOCTYPE HTML>
 <html>

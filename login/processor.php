@@ -19,6 +19,7 @@
             $hash = $hash->getPassword($id);
             if(password_verify($pass, $hash)) {
                 $_SESSION["ID"] = $id;
+				$_POST["process"] = TRUE;
                 header("location: end.php");
             }
             else {
