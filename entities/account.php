@@ -42,9 +42,9 @@ class Account
         $email,
         $password,
         $confirmed = 0,
-        $website = 0,
-        $logo = 0,
-        $info = 0,
+        $website = null,
+        $logo = null,
+        $info = null,
         $administrator = 0
     ) {
         $this->id            = $id;
@@ -80,9 +80,9 @@ class Account
         $email,
         $password,
         $confirmed = 0,
-        $website,
-        $logo,
-        $info,
+        $website = null,
+        $logo = null,
+        $info = null,
         $administrator = 0
     ) {
         if (!isset(self::$idMap[$id])) {
