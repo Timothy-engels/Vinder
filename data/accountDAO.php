@@ -124,7 +124,16 @@ class AccountDAO
     }
 
     public function UpdateProfile() {
-        $sql = "UPDATE `accounts` SET `Naam`= :naam,`Contactpersoon`= :contactpersoon,`Emailadres`=:email,`Website`= :website,`Logo`= :Logo,`Info`= :Info";
+        // code voor update van Database
+        $sql = "UPDATE `accounts` 
+                SET 
+                `Naam`= :naam,
+                `Contactpersoon`= :contactpersoon,
+                `Emailadres`=:email,
+                `Website`= :website,
+                `Logo`= :Logo,
+                `Info`= :Info"
+                ;
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->prepare($sql);
 
