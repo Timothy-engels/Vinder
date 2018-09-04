@@ -60,6 +60,9 @@ class AccountDAO
             );
         }
         
+        // Close the db connection
+        $dbh = null;
+        
         // Return the account information
         return $account;                
     }

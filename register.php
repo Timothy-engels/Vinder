@@ -11,11 +11,12 @@ $repeatPassword = (filter_input(INPUT_POST, 'repeatPassword') !== null ? filter_
 
 // Check if the form is posted
 
+$errors = []; 
+
 if ($_POST) {
     
     // Validate the fields
     $validation = new ValidationService();
-    $errors     = []; 
 
     $nameErrors = $validation->checkRequiredAndMaxLength($name, 255);
 
