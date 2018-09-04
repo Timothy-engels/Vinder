@@ -30,7 +30,7 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="Vinder">
+      <paths name="vinder">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />

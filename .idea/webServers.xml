@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="967e0634-04c7-4981-8f05-3c1c248b50bc" name="Vinder" url="http://core.band/vinder">
-        <fileTransfer host="core.band" port="21" accessType="FTPS">
+      <webServer id="64500e54-0ee8-49a6-811c-360d184f72a9" name="vinder" url="http://core.band/vinder">
+        <fileTransfer host="ftp.core.band" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" />
           </advancedOptions>
