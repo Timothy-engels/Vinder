@@ -18,7 +18,7 @@
             <section id="register">
                 <h1>Registreer</h1>
                            
-                <form name="frm-register" method="POST" action="register.php">
+                <form name="frmRegister" method="POST" action="register.php">
 
                     <p><small>Velden met een * zijn verplicht in te vullen</small></p>
 
