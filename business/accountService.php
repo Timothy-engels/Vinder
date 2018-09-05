@@ -42,5 +42,19 @@ class AccountService
         $account    = $accountDAO->insert($name, $contactPerson, $email, $password);
         return $account;
     }
+
+    public function confirmAccount($email){
+        $confirmDAO = new AccountDAO();
+        $confrim = $confirmDAO->confirm($email);
+        return $confrim;
+    }
+
+    public function sendEmail($email){
+        // the message
+        $code = password_hash($email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS',PASSWORD_BCRYPT);
+        $msg = "Hallo, click op de link om het account te activeren: http://core.band/vinder/confirmEmail.php?email=".$email."&hash=".$code;
+        // send email
+        mail($email,"Vinder account activeren",$msg);
+    }
 }
 

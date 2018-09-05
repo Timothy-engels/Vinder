@@ -12,16 +12,16 @@ class Account
 {
     private static $idMap = array();
     
-    protected $id;
-    protected $name;
-    protected $contactPerson;
-    protected $email;
-    protected $password;
-    protected $confirmed;
-    protected $website;
-    protected $logo;
-    protected $info;
-    protected $administrator;
+    private $id;
+    private $name;
+    private $contactPerson;
+    private $email;
+    private $password;
+    private $confirmed;
+    private $website;
+    private $logo;
+    private $info;
+    private $administrator;
 
     /**
      * @param int $id
@@ -35,7 +35,7 @@ class Account
      * @param string|null $info
      * @param int $administrator
      */
-    private function __construct(
+    public function __construct(
         $id,
         $name,
         $contactPerson,

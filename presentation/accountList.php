@@ -17,7 +17,7 @@
 
 
     <?php
-
+    print_r($accounts);
     foreach ($accounts as $account)
           { ?>
             <div>
