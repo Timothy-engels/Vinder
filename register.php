@@ -88,6 +88,9 @@ if ($_POST) {
             $email,
             $passwordHash
         );
+
+        $sendEmail = new AccountService();
+        $sendEmail->sendEmail($email);
         
         // Show the confirmation
         include("presentation/registerSuccess.php");
