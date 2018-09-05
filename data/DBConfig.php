@@ -7,3 +7,4 @@ class DBConfig
     public static $DB_USERNAME = "atos_vdab";
     public static $DB_PASSWORD = "vdab";
 }
+
