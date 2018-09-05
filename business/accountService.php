@@ -42,5 +42,11 @@ class AccountService
         $account    = $accountDAO->insert($name, $contactPerson, $email, $password);
         return $account;
     }
+
+    public function confirmAccount($email){
+        $confirmDAO = new AccountDAO();
+        $confrim = $confirmDAO->confirm($email);
+        return $confrim;
+    }
 }
 

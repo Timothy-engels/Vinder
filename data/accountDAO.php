@@ -8,12 +8,12 @@ class AccountDAO
 {
     public function getAll()
     {
-        $sql = "select naam as name, contactpersoon as contactPerson, emailadres as email, wachtwoord as password, bevestigd as confirmed, logo, website, admin as adniminstrator from accounts";
+        $sql = "select id, naam as name, contactpersoon as contactPerson, emailadres as email, wachtwoord as password, bevestigd as confirmed, website, logo, info, admin as adniminstrator from accounts";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         $list = array();
         foreach ($resultSet as $row) {
-            $account = entities\Account::create($row["name"], $row["contactPerson"], $row["email"], $row["password"], $row["confirmed"], $row["logo"], $row["website"], $row["info"], $row["administrator"]);
+            $account = entities\Account::create($row["id"],$row["name"], $row["contactPerson"], $row["email"], $row["password"], $row["confirmed"],$row["website"], $row["logo"],  $row["info"], $row["administrator"]);
             array_push($list, $account);
         }
         $dbh = null;
@@ -148,4 +148,41 @@ class AccountDAO
 
         $dbh = null;
     }
+
+    /**
+     * Registration confirmation
+
+     * @param string $email
+     *
+     * @return bool
+     */
+    public function confirm(
+        $email
+    ) {
+        // Insert the account
+        $sql = "UPDATE accounts SET Bevestigd = 1 WHERE emailadres = :email";
+
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([
+            ':email'         => $email
+        ]);
+
+        $count = $stmt->rowCount();
+
+        if($count =='0'){
+            $update = false;
+        }
+        else{
+
+            $update = true;
+        }
+
+        // Close the db connection
+        $dbh = null;
+
+        return $update;
+    }
+
 }
