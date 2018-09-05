@@ -6,3 +6,4 @@ $usersSvc = new AccountService();
 $accounts = $usersSvc->getAccounts();
 
 include("presentation/accountList.php");
+
