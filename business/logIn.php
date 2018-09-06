@@ -17,13 +17,20 @@
         if ($account !== NULL) {
             $id = $account->getId();
             $hash = $account->getPassword();
+            $admin = $account->getAdministrator();
             if(password_verify($pass, $hash)) {
-                $_SESSION["ID"] = $id;
-				$_POST["process"] = NULL;
-                header("location: ../presentation/end.php");
+                if($admin == 1) {
+                    $_SESSION["admin"] = TRUE;
+                    $_SESSION["ID"] = $id;
+                    header("location: admin.php");
+                }
+                else {
+                    $_SESSION["ID"] = $id;
+				    $_POST["process"] = NULL;
+                    header("location: ../presentation/end.php");
+                }
             }
             else {
-                print("iets");
 ;               header("location: ../presentation/logInForm.php");
             }
         }
@@ -36,8 +43,8 @@
 		$mail = $_POST["mail"];
         $_POST["mail"] = NULL;
 		$_POST["reset"] = NULL;
-		$contactName = new Validation;
-		$contactName = $contactName->getContactName($mail);
+		$accDAO = new AccountDAO;
+        $account = $accDAO->getByEmail($mail);
 		if($contactName != NULL) {
 			$message = "Beste , er is een aanvraag gebeurd om het wachtwoord van uv Vinder-account te wijzigen, klik <a>hier</a> om een nieuw wachtwoord aan te maken.<br>
 			            Indien u deze aanvraag niet hebt gedaan, gelieve deze mail dan te negeren.<br>
