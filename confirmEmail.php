@@ -5,12 +5,12 @@ $email = $_GET["email"];
 $hash = $_GET["hash"];
 
 
-
 $verify = password_verify ( $email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS' , $hash);
 
 if($verify){
+    echo "hash en e-mail zijn correct<br>";
     $accountService = new AccountService();
-    $confirm = $accountServiceervice->confirmAccount($email);
+    $confirm = $accountService->confirmAccount($email);
 
     if($confirm){
         echo "<br>Bevestiging van het account was succesvol";
