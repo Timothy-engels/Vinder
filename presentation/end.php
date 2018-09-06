@@ -8,11 +8,7 @@
     else {
         header("location: logInForm.php");
     }
-    if (isset($_POST["logOut"])) {
-		$_POST["logOut"] = NULL;
-		session_destroy();
-		header("location: logInForm.php");
-	}
+
 ?>
 <!DOCTYPE html>
 <html>
