@@ -89,7 +89,7 @@ if ($_POST) {
             $email,
             $passwordHash
         );
-        
+       
         // Show the confirmation
         include("presentation/registerSuccess.php");
         exit();

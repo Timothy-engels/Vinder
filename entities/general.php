@@ -1,44 +1,50 @@
 <?php
 
-//entities/settings.php
+//entities/general.php
 
 namespace entities;
 
 /**
- * Class Settings
+ * Class General
  *
- * Hold the properties of the settings
+ * Hold the properties of the general settings
  */
-class Settings
+class General
 {
    private static $idMap = null;
    
    protected $registerDate;
    protected $swipeDate;
+   protected $mail;
    
    /**
     * @param dateTime $registerDate
     * @param dateTime $swipeDate
+    * @param string $mail
+    * 
+    * @return void
     */
-   private function __construct($registerDate, $swipeDate)
+   private function __construct($registerDate, $swipeDate, $mail)
    {
        $this->registerDate = $registerDate;
        $this->swipeDate    = $swipeDate;
+       $this->mail         = $mail;
    }
    
    /**
     * @param dateTime $registerDate
     * @param dateTime $swipeDate
+    * @param string $mail
     * 
     * @return object
     */
-   public static function create($registerDate, $swipeDate)
+   public static function create($registerDate, $swipeDate, $mail)
    {
        if (self::$idMap === null) {
-           self::$idMap = new Settings($registerDate, $swipeDate);
+           self::$idMap = new General($registerDate, $swipeDate, $mail);
        }
        
-       return $self::$idMap;
+       return self::$idMap;
    }
    
    /**
@@ -76,6 +82,25 @@ class Settings
    public function setSwipeDate($swipeDate)
    {
        $this->swipeDate = $swipeDate;
+       return $this;
+   }
+   
+   /**
+    * @return string
+    */
+   public function getMail()
+   {
+       return $this->mail;
+   }
+   
+   /**
+    * @param string $mail
+    * 
+    * @return $this
+    */
+   public function setMail($mail)
+   {
+       $this->mail = $mail;
        return $this;
    }
 }
