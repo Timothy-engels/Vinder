@@ -6,5 +6,5 @@ session_start();
 
     if(isset($_POST["logOut"])) {
         $log = new AccountService();
-        $log->logOut($id);
+        $log->logOut();
     }
