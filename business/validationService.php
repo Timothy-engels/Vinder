@@ -161,5 +161,56 @@ class ValidationService
         
         return $result;
     } 
+    
+    /**
+     * Check if the date is valid
+     * 
+     * @param string $value
+     * @param string $format
+     * 
+     * @return string
+     */
+    public function checkValidDate($value, $format = 'd-m-Y')
+    {
+        $result = '';
+        $d      = DateTime::createFromFormat($format, $value);
+    
+        // The Y ( 4 digits year ) returns TRUE for any integer with any number 
+        // of digits so changing the comparison from == to === fixes the issue.
+        if (!$d || $d->format($format) !== $value) {
+            $result = 'Dit veld moet een geldige datum bevatten.';
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * 
+     * @param string $firstDate (date time notation)
+     * @param string $lastDate (date time notation)
+     * @param string $firstDateTranslation
+     * @param string $lastDateTranslation
+     * @param string $format
+     */
+    public function checkDateBiggerThen(
+        $firstDate,
+        $lastDate,
+        $firstDateTranslation,
+        $lastDateTranslation,
+        $format = 'd-m-Y'
+    ) {
+        // Set the result
+        $result = '';
+        
+        // Format the dates to a date time string
+        $fd = DateTime::createFromFormat($format, $firstDate);
+        $ld = DateTime::createFromFormat($format, $lastDate);
+        
+        if ($fd > $ld) {
+            $result = 'De \'' . $lastDateTranslation . '\' moet na de \'' . $firstDateTranslation . '\' liggen!';
+        }
+        
+        return $result;
+    }
  
 }

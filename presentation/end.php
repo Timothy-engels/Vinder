@@ -1,19 +1,3 @@
-<?php
-    
-    session_start();
-    
-    if (isset($_SESSION["ID"])) {
-        $id = $_SESSION["ID"];
-    }
-    else {
-        header("location: logInForm.php");
-    }
-    if (isset($_POST["logOut"])) {
-		$_POST["logOut"] = NULL;
-		session_destroy();
-		header("location: logInForm.php");
-	}
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +13,7 @@
     </head>
     <body>
         <h1>Profielpagina(alleen de uitlog-knop werkt)</h1>
-		<form action="../processor/processor.php" method="POST">
+		<form action="aanpassenProfiel.php" method="POST">
 			<p><label for="mail">Contactpersoon aanpassen: </label><input type="email" name="mail" required></p>
 			<!--<p><label for="mail">Website aanpassen: </label><input type="url" name="mail" required></p>
 			<p><label for="mail">Logo aanpassen: </label><input type="" name="mail" required></p>
@@ -39,9 +23,9 @@
             <input type="hidden" name ="adjust" value="1">
             <p><input type="reset" value="Reset"><input type="submit" value="Aanpassen"></p>
 		</form>
-		<form  action="end.php" method="POST">
+		<form  action="logOut.php" method="POST">
 			<input type="hidden" name="logOut" value="1">
-			<input type="submit"value="Uitloggen">
+			<input type="submit" value="Uitloggen">
 		</form>
         <?php
             print("<p>De SESSION id is: " . $id . "</p>");

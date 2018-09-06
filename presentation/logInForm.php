@@ -1,12 +1,3 @@
-<?php
-    
-    session_start();
-        
-    if (isset($_SESSION["ID"])) {
-        header("location: end.php");
-    }
-	
-?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -21,7 +12,7 @@
     </head> 
     <body>
 		<h1>Inloggen</h1>
-		<form action="../business/logIn.php" method="POST">
+		<form action="" method="POST">
             <p><label for="mail">E-mail: </label><input type="email" name="mail" required></p>
             <p><label for="pass">Wachtwoord: </label><input type="password" name="pass" required></p>
             <input type="hidden" name ="process" value="1">

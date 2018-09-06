@@ -83,5 +83,38 @@ class AccountService
         $subject = "Vinder account activeren";
         mail($mail, $subject, $msg);
     }
+    
+    public function logIn($mail, $pass) {
+        $accDAO = new AccountDAO;
+        $account = $accDAO->getByEmail($mail);
+        if ($account !== NULL) {
+            $id = $account->getId();
+            $hash = $account->getPassword();
+            $admin = $account->getAdministrator();
+            if(password_verify($pass, $hash)) {
+                if($admin == 1) {
+                    $_SESSION["admin"] = TRUE;
+                    $_SESSION["ID"] = $id;
+                    header("location: admin.php");
+                }
+                else {
+                    $_SESSION["ID"] = $id;
+                    header("location: ingelogd.php");
+                }
+            }
+            else {
+               header("location: logIn.php");
+            }
+        }
+        else {
+            header("location:logIn.php");
+        }
+    }
+    
+    public function logOut() {
+    	$_POST["logOut"] = NULL;
+		session_destroy();
+		//header("location: ../presentation/logInForm.php");
+	}
 }
 
