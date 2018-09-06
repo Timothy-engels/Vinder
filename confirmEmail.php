@@ -8,8 +8,8 @@ $hash = $_GET["hash"];
 $verify = password_verify ( $email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS' , $hash);
 
 if($verify){
-    $confrimService = new AccountService();
-    $confirm = $confrimService->confirmAccount($email);
+    $accountService = new AccountService();
+    $confirm = $accountServiceervice->confirmAccount($email);
 
     if($confirm){
         echo "<br>Bevestiging van het account was succesvol";
