@@ -2,7 +2,7 @@
 //data/accountDAO.php
 
 require_once("DBConfig.php");
-require_once("entities/account.php");
+require_once("../entities/account.php");
 
 class AccountDAO
 {
