@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset=utf-8>
-    <title>users</title>
+    <title><? echo $account->getName(); ?> Profile</title>
     <style>
         body{
             font-family: 'Lato', sans-serif;
@@ -13,39 +13,29 @@
 </head>
 <body>
 
-<h1>Users</h1>
+<h1><? echo $account->getName(); ?> profiel pagina</h1>
 
 
-    <?php
-    foreach ($accounts as $account)
-          { ?>
-            <div>
-                <span>
+    <div>
+                <div>
                     Id: <? echo $account->getId(); ?>
-                </span>
-                <span>
+                </div>
+                <div>
                     Name: <? echo $account->getName(); ?>
-                </span>
-                <span>
+                </div>
+               <div>
                     Contact person: <? echo $account->getContactPerson(); ?>
-                </span>
-                <span>
+                </div>
+                <div>
                     E-mail: <? echo $account->getEmail(); ?>
-                </span>
-                <span>
-                    Is confirmed?: <? echo $account->getConfirmed(); ?>
-                </span>
-                <span>
+                </div>
+
+                <div>
                     Website: <? echo $account->getWebsite(); ?>
-                </span>
-                <span>
+                </div>
+                <div>
                     Info: <? echo $account->getInfo(); ?>
-                </span>
-                <span>
-                    Is Admin?: <? print_r($account->getAdministrator()); ?>
-                </span>
-            </div>
-    <?php }
-    ?>
+                </div>
+    </div>
 </body>
 </html>

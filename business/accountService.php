@@ -25,6 +25,20 @@ class AccountService
         $account    = $accountDAO->getByEmail($email);
         return $account;
     }
+
+    /**
+     * Find an account by id
+     *
+     * @param int $id
+     *
+     * @return Account|null
+     */
+    public function getById($id)
+    {
+        $accountDAO = new AccountDAO();
+        $account    = $accountDAO->getById($id);
+        return $account;
+    }
     
     /**
      * Insert a new account

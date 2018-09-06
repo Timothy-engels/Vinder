@@ -2,7 +2,7 @@
 //data/accountDAO.php
 
 require_once("DBConfig.php");
-require_once("../entities/account.php");
+require_once("entities/account.php");
 
 class AccountDAO
 {
@@ -63,7 +63,43 @@ class AccountDAO
         // Return the account information
         return $account;                
     }
-    
+
+    public function getById($id)
+    {
+        // Find the account by the email address
+        $sql = "SELECT ID, Naam, Contactpersoon, Emailadres, Wachtwoord, Bevestigd, Website, Logo, Info, Admin
+                FROM accounts
+                WHERE ID = :id";
+
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([':id' => $id]);
+
+        // Get the acount information
+        $account = null;
+
+        if ($stmt->rowCount() > 0) {
+
+            $rij = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $account = entities\Account::create(
+                $rij['ID'],
+                $rij['Naam'],
+                $rij['Contactpersoon'],
+                $rij['Emailadres'],
+                $rij['Wachtwoord'],
+                $rij['Bevestigd'],
+                $rij['Website'],
+                $rij['Logo'],
+                $rij['Info'],
+                $rij['Admin']
+            );
+        }
+
+        // Return the account information
+        return $account;
+    }
     /**
      * Add a new account
      * 
