@@ -2,10 +2,10 @@
 
     session_start();
 
-    require_once("../business/accountService.php");
-        
+    require_once("business/accountService.php");
+
     if (isset($_SESSION["ID"])) {
-        header("location: ../logIn/end.php");
+        include("presentation/end.php");
     }
     else if(isset($_POST["mail"]) && isset($_POST["pass"])) {
         $mail = $_POST["mail"];
@@ -14,7 +14,8 @@
         $_POST["pass"] = NULL;
         $log = new AccountService();
         $log->logIn($mail, $pass);
+        
     }
     else {
-        header("location: ../presentation/logInForm.php");
+        include("presentation/logInForm.php");
     }

@@ -1,7 +1,7 @@
 <?php
 //business/accountService.php
 
-require_once("../data/accountDAO.php");
+require_once("data/accountDAO.php");
 
 class AccountService
 {
@@ -85,22 +85,22 @@ class AccountService
                 }
                 else {
                     $_SESSION["ID"] = $id;
-                    header("location: ../presentation/end.php");
+                    header("location: ingelogd.php");
                 }
             }
             else {
-               header("location: ../presentation/logInForm.php");
+               header("location: logIn.php");
             }
         }
         else {
-            header("location: ../presentation/logInForm.php");
+            header("location:logIn.php");
         }
     }
     
     public function logOut() {
     	$_POST["logOut"] = NULL;
 		session_destroy();
-		header("location: ../presentation/logInForm.php");
+		//header("location: ../presentation/logInForm.php");
 	}
 }
 
