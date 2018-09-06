@@ -41,13 +41,13 @@
                     <?php endif; ?>
 
                     <label for="password">Wachtwoord *</label>
-                    <input type="password" id="password" name="password" maxlength="255" />
+                    <input type="password" id="password" name="password" maxlength="50" />
                     <?php if (array_key_exists('password', $errors)) : ?>
                         <div class="error"><?= $errors['password']; ?></div>
                     <?php endif; ?>
                         
                     <label for="repeatPassword">Herhaal wachtwoord *</label>
-                    <input type="password" id="repeatPassword" name="repeatPassword" maxlength="255" />
+                    <input type="password" id="repeatPassword" name="repeatPassword" maxlength="50" />
                     <?php if (array_key_exists('repeatPassword', $errors)) : ?>
                         <div class="error"><?= $errors['repeatPassword']; ?></div>
                     <?php endif; ?>
