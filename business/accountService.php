@@ -80,5 +80,11 @@ class AccountService
         $subject = "Vinder account activeren";
         mail($mail, $subject, $msg);
     }
+    
+    public function logOut() {
+    	$_POST["logOut"] = NULL;
+		session_destroy();
+		header("location: ../presentation/logInForm.php");
+	}
 }
 

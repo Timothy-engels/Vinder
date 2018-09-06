@@ -38,23 +38,3 @@
 ;            header("location: ../presentation/logInForm.php");
         }
     }
-/*
-    else if(isset($_POST["mail"]) && isset($_POST["reset"])) {
-		$mail = $_POST["mail"];
-        $_POST["mail"] = NULL;
-		$_POST["reset"] = NULL;
-		$accDAO = new AccountDAO;
-        $account = $accDAO->getByEmail($mail);
-		if($contactName != NULL) {
-			$message = "Beste , er is een aanvraag gebeurd om het wachtwoord van uv Vinder-account te wijzigen, klik <a>hier</a> om een nieuw wachtwoord aan te maken.<br>
-			            Indien u deze aanvraag niet hebt gedaan, gelieve deze mail dan te negeren.<br>
-						Met vriendelijke groeten, het Vinder-team.";
-			$subject = "Vinder wachtwoord wijzigen";
-			mail($mail, $subject, $message);
-			header("location: ../logIn/gelukt.php");
-		}
-		else {
-			header("location: notRealURL.php");
-		}
-	}*/
-    
