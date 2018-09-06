@@ -8,7 +8,7 @@
     </head>
     <body>
         <form action="ingelogged.php">
-            <a> logout </a>
+            <input type="submit" value="logout" name="logout"/>
         </form>
         <h1> Hoofding </h1>
         

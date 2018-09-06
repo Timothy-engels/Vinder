@@ -116,7 +116,7 @@ class Account
      */
     public function getName()
     {
-        return $this->string;
+        return $this->name;
     }
     
     /**
