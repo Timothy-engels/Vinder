@@ -58,5 +58,16 @@ class AccountService
         // send email
         mail($email,"Vinder account activeren",$msg);
     }
+
+    public function resetPass($email){
+        $accountsDAO = new AccountDAO();
+        $account = $accountsDAO->getByEmail($email);
+        // the message
+        $code = password_hash($account->getPassword().$email,PASSWORD_BCRYPT);
+        $msg = "Hallo, click op de link om password te reseten : http://core.band/vinder/resetPassword.php?email=".$email."&hash=".$code;
+        echo "Verstuurd bericht (alleen om te testen): ".$msg;
+        // send email
+        mail($email,"Vinder account activeren",$msg);
+    }
 }
 

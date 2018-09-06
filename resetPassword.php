@@ -4,6 +4,8 @@ require_once("business/accountService.php");
 $email = $_GET["email"];
 $hash = $_GET["hash"];
 
+$accountService = new AccountService();
+$accountService->resetPass("kamil@bebenek.net");
 
 
 $verify = password_verify ( $email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS' , $hash);
