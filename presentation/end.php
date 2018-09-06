@@ -8,11 +8,7 @@
     else {
         header("location: logInForm.php");
     }
-    if (isset($_POST["logOut"])) {
-		$_POST["logOut"] = NULL;
-		session_destroy();
-		header("location: logInForm.php");
-	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +35,7 @@
             <input type="hidden" name ="adjust" value="1">
             <p><input type="reset" value="Reset"><input type="submit" value="Aanpassen"></p>
 		</form>
-		<form  action="end.php" method="POST">
+		<form  action="../business/logOut.php" method="POST">
 			<input type="hidden" name="logOut" value="1">
 			<input type="submit"value="Uitloggen">
 		</form>
