@@ -1,6 +1,6 @@
 <?php
 
-require_once 'business/beheerderService.php';
+require_once 'business/accountService.php';
 
 session_start();
 
@@ -11,8 +11,8 @@ if ($_Session["admin"] == false){
 }
 else{
     
-    $beheerder = new beheerder();
-    $lijst = $beheerder -> lijstGebruikers();
+    $accountSvc = new AccountService();
+    $lijst      = $accountSvc->getAccounts();
     
     include 'presentation/lijstGebruikers.php';
 }
