@@ -7,7 +7,7 @@ $accountSvc = new AccountService();
 $accountSvc->checkUserLoggedIn(true);
 
 // Get a list with all the accounts
-$lijst = $accountSvc->getAccounts();
+$list = $accountSvc->getAccounts();
 
 // Show the view
-include 'presentation/lijstGebruikers.php';
+include 'presentation/userList.php';
