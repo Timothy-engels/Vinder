@@ -136,12 +136,21 @@ class AccountService
      * 
      * @return void
      */
-    public function checkUserLoggedIn()
+    public function checkUserLoggedIn($admin = false)
     {
         session_start();
         
         if (!array_key_exists('ID', $_SESSION)) {
             header("location: logIn.php");
+        }
+        
+        if ($admin === true) {
+            if (
+                !array_key_exists('admin', $_SESSION)
+                || $_SESSION['admin'] === false
+            ) {
+                header("location: logIn.php");
+            }
         }
     }
     
@@ -157,6 +166,4 @@ class AccountService
         return $_SESSION['ID'];
     }
     
-    
 }
-

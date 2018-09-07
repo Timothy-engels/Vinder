@@ -3,6 +3,11 @@ require_once("entities/general.php");
 require_once("business/dateService.php");
 require_once("business/generalService.php");
 require_once("business/validationService.php");
+require_once("business/accountService.php");
+
+// Check if an admin is logged in
+$accountSvc = new AccountService();
+$accountSvc->checkUserLoggedIn(true);
 
 // Get the current values
 $generalService = new GeneralService();
