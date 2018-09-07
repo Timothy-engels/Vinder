@@ -2,17 +2,12 @@
 
 require_once 'business/accountService.php';
 
-session_start();
+// Check if a admin is logged in
+$accountSvc = new AccountService();
+$accountSvc->checkUserLoggedIn(true);
 
-$_Session["admin"] = true;
+// Get a list with all the accounts
+$lijst = $accountSvc->getAccounts();
 
-if ($_Session["admin"] == false){
-    header('location: login.php');
-}
-else{
-    
-    $accountSvc = new AccountService();
-    $lijst      = $accountSvc->getAccounts();
-    
-    include 'presentation/lijstGebruikers.php';
-}
+// Show the view
+include 'presentation/lijstGebruikers.php';
