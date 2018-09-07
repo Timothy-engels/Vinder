@@ -56,6 +56,20 @@ class AccountService
         $account    = $accountDAO->insert($name, $contactPerson, $email, $password);
         return $account;
     }
+    
+    /**
+     * Update the password
+     * 
+     * @param int $accountId
+     * @param string $password
+     * 
+     * @return string
+     */
+    public function updatePassword($accountId, $password)
+    {
+        $accountDAO = new AccountDAO();
+        $accountDAO->updatePassword($accountId, $password);
+    }
 
     public function confirmAccount($email){
         $confirmDAO = new AccountDAO();
@@ -116,5 +130,33 @@ class AccountService
 		session_destroy();
 		//header("location: ../presentation/logInForm.php");
 	}
+    
+    /**
+     * Returns to the login page when the user isn't logged in
+     * 
+     * @return void
+     */
+    public function checkUserLoggedIn()
+    {
+        session_start();
+        
+        if (!array_key_exists('ID', $_SESSION)) {
+            header("location: logIn.php");
+        }
+    }
+    
+    /**
+     * Return the ID of the logged in user
+     * (If no user is logged in -> redirect to the login page)
+     * 
+     * @return int
+     */
+    public function getLoggedInAccountId()
+    {
+        $this->checkUserLoggedIn();
+        return $_SESSION['ID'];
+    }
+    
+    
 }
 

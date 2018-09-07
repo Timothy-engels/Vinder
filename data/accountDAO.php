@@ -224,6 +224,28 @@ class AccountDAO
         return $update;
     }
     
-    
+    /**
+     * Update the password of the specified account
+     * 
+     * @param int $accountId
+     * @param string $password
+     * 
+     * @return void
+     */
+    public function updatePassword($accountId, $password)
+    {   
+        // Generate the query
+        $sql = "UPDATE accounts
+                SET Wachtwoord = :password
+                WHERE ID = :accountId";
+        
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([
+            ':password'      => $password,
+            ':accountId'     => $accountId
+        ]);                
+    }
     
 }
