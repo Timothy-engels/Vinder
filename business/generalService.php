@@ -37,4 +37,24 @@ class generalService
         }
         
     }
+    
+    /**f
+     * Update the mail (insert new record when no record is available)
+     * 
+     * @param object $generalObject
+     * 
+     * @return void
+     */
+    public function updateMail($generalObject)
+    {        
+        $generalDAO = new GeneralDAO();
+        
+        if ($generalDAO->get() !== null) {
+            $generalDAO->updateMail($generalObject);
+        } else {
+            $generalObject->setRegisterDate('2099-12-31 00:00:00');
+            $generalObject->setSwipeDate('2099-12-31 00:00:00');
+            $generalDAO->insert($generalObject);
+        }
+    }
 }

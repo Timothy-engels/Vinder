@@ -52,7 +52,7 @@ class GeneralDAO
      * @return void
      */
     public function insert($generalObject)
-    {       
+    {        
         // Generate the query
         $sql = "INSERT INTO `general` (RegisterDate, SwipeDate, Mail)
                 VALUES (:registerDate, :swipeDate, :mail)";
@@ -91,6 +91,29 @@ class GeneralDAO
             ':swipeDate'    => $generalObject->getSwipeDate()
         ]);   
         
+        $dbh = null;
+    }
+    
+    /**
+     * Update the existing mail
+     * 
+     * @param object $generalObject
+     * 
+     * @return void
+     */
+    public function updateMail($generalObject)
+    {        
+        // Generate the query
+        $sql = "UPDATE `general`
+               SET Mail = :mail";
+        
+        $dbh       = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        
+        $resultSet->execute([
+            ':mail' => $generalObject->getMail()
+        ]);
+
         $dbh = null;
     }
 }
