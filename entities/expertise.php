@@ -3,6 +3,9 @@
 
 
 class Expertise {
+
+    private static $idMap = array();
+
     /**
      * @param int $id
      * @param string $expertise
@@ -11,6 +14,7 @@ class Expertise {
     private $id;
     private $expertise;
     private $active;
+
 
     /**
      * @return mixed
@@ -71,5 +75,21 @@ class Expertise {
         $this->id = $id;
         $this->expertise = $expertise;
         $this->active = $active;
+    }
+
+    public static function create(
+        $id,
+        $expertise,
+        $active
+    ) {
+        if (!isset(self::$idMap[$id])) {
+            self::$idMap[$id] = new Expertise(
+                $id,
+                $expertise,
+                $active
+            );
+        }
+
+        return self::$idMap[$id];
     }
 }
