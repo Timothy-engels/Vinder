@@ -7,8 +7,16 @@ class ExpertiseService
 {
     public function getExpertises()
     {
-        $expertiseDAO = new AccountDAO();
+        $expertiseDAO = new ExpertiseDAO();
         $list = $expertiseDAO->getAll();
         return $list;
     }
+
+    public function getExpertisesById($id)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->getByUserId($id);
+        return $list;
+    }
 }
+

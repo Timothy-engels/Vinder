@@ -10,10 +10,28 @@ class Expertise {
      * @param int $id
      * @param string $expertise
      * @param bool $active
+     * @param string $info
      */
     private $id;
     private $expertise;
     private $active;
+    private $info;
+
+    /**
+     * @return mixed
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param mixed $info
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+    }
 
 
     /**
@@ -69,24 +87,28 @@ class Expertise {
      * @param $id
      * @param $expertise
      * @param $active
+     * @param string $info
      */
-    public function __construct($id, $expertise, $active)
+    public function __construct($id, $expertise, $active, $info)
     {
         $this->id = $id;
         $this->expertise = $expertise;
         $this->active = $active;
+        $this->info = $info;
     }
 
     public static function create(
         $id,
         $expertise,
-        $active
+        $active = 1,
+        $info
     ) {
         if (!isset(self::$idMap[$id])) {
             self::$idMap[$id] = new Expertise(
                 $id,
                 $expertise,
-                $active
+                $active = 1,
+                $info
             );
         }
 

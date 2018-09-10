@@ -1,4 +1,6 @@
 <?php
+namespace App\Controller;
+require_once ("expertise.php");
 //entities/account.php
 
 namespace entities;
@@ -22,6 +24,23 @@ class Account
     private $logo;
     private $info;
     private $administrator;
+    private $expertises = array();
+
+    /**
+     * @return array
+     */
+    public function getExpertises()
+    {
+        return $this->expertises;
+    }
+
+    /**
+     * @param array $expertises
+     */
+    public function setExpertises($expertises)
+    {
+        $this->expertises = $expertises;
+    }
 
     /**
      * @param int $id
@@ -34,6 +53,7 @@ class Account
      * @param string|null $logo
      * @param string|null $info
      * @param int $administrator
+     * @PARAM array Expertise $expertises;
      */
     public function __construct(
         $id,
@@ -45,7 +65,9 @@ class Account
         $website = null,
         $logo = null,
         $info = null,
-        $administrator = 0
+        $administrator = 0,
+        $expertises
+
     ) {
         $this->id            = $id;
         $this->name          = $name;
@@ -57,6 +79,7 @@ class Account
         $this->logo          = $logo;
         $this->info          = $info;
         $this->administrator = $administrator;
+        $this->expertises = $expertises;
     }
     
     /**
@@ -70,7 +93,8 @@ class Account
      * @param string|null $logo
      * @param string|null $info
      * @param int $administrator
-     * 
+     * @param array Expertise $expertises
+     *
      * @return object
      */
     public static function create(
@@ -83,7 +107,8 @@ class Account
         $website = null,
         $logo = null,
         $info = null,
-        $administrator = 0
+        $administrator = 0,
+        $expertises = []
     ) {
         if (!isset(self::$idMap[$id])) {
             self::$idMap[$id] = new Account(
@@ -96,7 +121,8 @@ class Account
                 $website,
                 $logo,
                 $info,
-                $administrator
+                $administrator,
+                $expertises
             );
         }
         

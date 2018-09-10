@@ -13,21 +13,21 @@ class ExpertiseDAO
         $resultSet = $dbh->query($sql);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"]);
+            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"], null);
             array_push($list, $exp);
         }
         $dbh = null;
         return $list;
     }
 
-    public function getById($id)
+    public function getByUserId($id)
     {
         $sql = "select expertises.id as id, expertises.Expertise as expertise, accountexpertises.Info as info from expertises, accountexpertises where accountexpertises.ExpertiseID = expertises.id and expertises.Actief = 1 and accountexpertises.AccountID = $id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], 1);
+            $exp = Expertise::create($row["id"],$row["expertise"], 1, $row["info"]);
             array_push($list, $exp);
         }
         $dbh = null;
