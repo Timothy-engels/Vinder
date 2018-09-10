@@ -13,7 +13,7 @@ class ExpertiseDAO
         $resultSet = $dbh->query($sql);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"]);
+            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"], null);
             array_push($list, $exp);
         }
         $dbh = null;
@@ -28,7 +28,7 @@ class ExpertiseDAO
         $resultSet->execute([":id"=>$id]);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], 1);
+            $exp = Expertise::create($row["id"],$row["expertise"], 1, $row["info"]);
             array_push($list, $exp);
         }
         $dbh = null;
