@@ -75,10 +75,18 @@ class AccountService
         $accountDAO->updatePassword($accountId, $password);
     }
 
-    public function confirmAccount($email){
+    /**
+     * Confirm the registration of an account
+     * 
+     * @param int $accountId
+     * 
+     * @return bool
+     */
+    public function confirmRegistration($accountId)
+    {
         $confirmDAO = new AccountDAO();
-        $confrim = $confirmDAO->confirm($email);
-        return $confrim;
+        $confirm    = $confirmDAO->confirmRegistration($accountId);
+        return $confirm;
     }
 
     /**
@@ -101,7 +109,7 @@ class AccountService
 
         // Generate the message
         $currentPath = $this->getCurrentPath();
-        $link        = $currentPath . "confirmEmail.php?code=" . $code;
+        $link        = $currentPath . "confirmRegistration.php?code=" . $code;
         
         $msg = "
             <p>Beste,<br/><br/>
@@ -178,14 +186,24 @@ class AccountService
     {
         $result = '';
         
-        $currentUrl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        $protocol   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $currentUrl = $protocol . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        
+        // Remove the extra parameters
+        $position = strrpos($currentUrl, '?');
+        
+        if ($position !== false) {
+            $currentUrl = substr($currentUrl, 0, $position);
+        }
+        
+        // Remove the file name
         $position   = strrpos($currentUrl, '/', -0);    
         
         if ($position !== false) {
-            $result = substr($currentUrl, 0, $position + 1);
+            $currentUrl = substr($currentUrl, 0, $position + 1);
         }
         
-        return $result;
+        return $currentUrl;
     }
     
     public function sendResetEmail($mail, $contactName, $pass) {
