@@ -6,6 +6,9 @@ require_once("business/mailService.php");
 
 class AccountService
 {
+    const CONFIRM_REGISTRATION_KEY = 'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS';
+    const CIPHER                   = 'aes-256-cbc';
+
     public function getAccounts()
     {
         $accountsDAO = new AccountDAO();
@@ -72,25 +75,42 @@ class AccountService
         $accountDAO->updatePassword($accountId, $password);
     }
 
-    public function confirmAccount($email){
+    /**
+     * Confirm the registration of an account
+     * 
+     * @param int $accountId
+     * 
+     * @return bool
+     */
+    public function confirmRegistration($accountId)
+    {
         $confirmDAO = new AccountDAO();
-        $confrim = $confirmDAO->confirm($email);
-        return $confrim;
+        $confirm    = $confirmDAO->confirmRegistration($accountId);
+        return $confirm;
     }
 
     /**
      * Send an email to confirm the registration
      * 
-     * @param string $email
+     * @param object $account
      * 
      * @return void
      */
-    public function sendRegistrationConfirmationMail($email)
+    public function sendConfirmRegistrationMail($account)
     {
+        $id    = $account->getId();
+        $email = $account->getEmail();
+        
+        // Get the confirmation string
+        $confirmationString  = $id . "|" . $email;
+        
+        // Get the encryption key
+        $code = $this->encryptString($confirmationString, self::CONFIRM_REGISTRATION_KEY);
+
         // Generate the message
-        $code = password_hash($email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS',PASSWORD_BCRYPT);
-        $link = "http://core.band/vinder/confirmEmail.php?email=".$email."&hash=".$code;
-            
+        $currentPath = $this->getCurrentPath();
+        $link        = $currentPath . "confirmRegistration.php?code=" . $code;
+        
         $msg = "
             <p>Beste,<br/><br/>
             Klik op de onderstaande link om je registratie te bevestigen:<br />
@@ -99,13 +119,93 @@ class AccountService
             VDAB</p>
         ";
         
-        echo "Verstuurd bericht (alleen om te testen): ".$msg;
-        
         // Send html email        
         $mailSvc = new MailService();
         $mailSvc->sendHtmlMail($email, "Vinder | Registratie bevestigen", $msg);
     }
+    
+    /**
+     * Encrypt a string
+     * 
+     * @param string $string
+     * @param string $key
+     * 
+     * @return string
+     */
+    public function encryptString($string, $key)
+    {
+        $ivlen  = openssl_cipher_iv_length(self::CIPHER);
+        $iv     = openssl_random_pseudo_bytes($ivlen);
+        
+        $encrypted = openssl_encrypt(
+            $string,
+            self::CIPHER,
+            $key,
+            $options = 0,
+            $iv
+        );
 
+        return base64_encode($encrypted . '::' . $iv);
+    }
+    
+    /**
+     * Decrypt a string
+     * 
+     * @param string $string
+     * @param string $key
+     * 
+     * @return type
+     */
+    public function decryptString($string, $key)
+    {
+        $result        = '';
+        $base64Decoded = base64_decode($string);
+        $position      = strrpos($base64Decoded, '::');
+        
+        if ($position !== false) {
+            list($encrypted_data, $iv) = explode('::', base64_decode($string), 2);
+
+            $result = openssl_decrypt(
+                $encrypted_data,
+                self::CIPHER,
+                $key,
+                $options = 0,
+                $iv
+            );  
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Get the current path (without filename)
+     * 
+     * @return string
+     */
+    public function getCurrentPath()
+    {
+        $result = '';
+        
+        $protocol   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $currentUrl = $protocol . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        
+        // Remove the extra parameters
+        $position = strrpos($currentUrl, '?');
+        
+        if ($position !== false) {
+            $currentUrl = substr($currentUrl, 0, $position);
+        }
+        
+        // Remove the file name
+        $position   = strrpos($currentUrl, '/', -0);    
+        
+        if ($position !== false) {
+            $currentUrl = substr($currentUrl, 0, $position + 1);
+        }
+        
+        return $currentUrl;
+    }
+    
     public function sendResetEmail($mail, $contactName, $pass) {
         $url = $mail . $pass;
         $url = password_hash($url, PASSWORD_DEFAULT);

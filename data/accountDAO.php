@@ -66,7 +66,14 @@ class AccountDAO
         // Return the account information
         return $account;                
     }
-
+    
+    /**
+     * Find an account by the email address
+     * 
+     * @param int $id
+     * 
+     * @return object
+     */
     public function getById($id)
     {
         // Find the account by the email address
@@ -191,36 +198,34 @@ class AccountDAO
     /**
      * Registration confirmation
 
-     * @param string $email
+     * @param int $accountId
      *
      * @return bool
      */
-    public function confirm(
-        $email
-    ) {
-        // Insert the account
-        $sql = "UPDATE accounts SET Bevestigd = 1 WHERE emailadres = :email";
+    public function confirmRegistration($accountId)
+    {
+        // Update the account
+        $sql = "UPDATE accounts
+                SET Bevestigd = 1
+                WHERE ID = :id";
 
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
 
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([
-            ':email'         => $email
-        ]);
+        $stmt->execute([':id' => $accountId]);
 
+        // Check if account are updated
         $count = $stmt->rowCount();
-
-        if($count =='0'){
-            $update = false;
-        }
-        else{
-
+        
+        $update = false;
+        if ($count === 1){
             $update = true;
         }
 
         // Close the db connection
         $dbh = null;
 
+        // Return the result
         return $update;
     }
     

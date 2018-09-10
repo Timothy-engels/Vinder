@@ -90,7 +90,7 @@ if ($_POST) {
             $passwordHash
         );
 
-        $accountService->sendRegistrationConfirmationMail($email);
+        $accountService->sendConfirmRegistrationMail($account);
         
         // Show the confirmation
         include("presentation/registerSuccess.php");

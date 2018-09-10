@@ -13,12 +13,14 @@ class ExpertiseDAO
         $resultSet = $dbh->query($sql);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"]);
+            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"], null);
             array_push($list, $exp);
         }
         $dbh = null;
         return $list;
     }
+
+
 
     public function getByUserId($id)
     {
@@ -28,11 +30,52 @@ class ExpertiseDAO
         $resultSet->execute([":id"=>$id]);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], 1);
+            $exp = Expertise::create($row["id"],$row["expertise"], 1, $row["info"]);
             array_push($list, $exp);
         }
         $dbh = null;
         return $list;
+    }
+
+    public function getExpectedByUserId($id)
+    {
+        $sql = "select expertises.id as id, expertises.Expertise as expertise, accountmeerinfo.Info as info from expertises, accountmeerinfo where accountmeerinfo.ExpertiseID = expertises.id and expertises.Actief = 1 and accountmeerinfo.AccountID = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([":id"=>$id]);
+        $list = array();
+        foreach ($resultSet as $row) {
+            $exp = Expertise::create($row["id"],$row["expertise"], 1, $row["info"]);
+            array_push($list, $exp);
+        }
+        $dbh = null;
+        return $list;
+    }
+
+    public function getExtraExpertise($id)
+    {
+        $sql = "SELECT accountexpertisesextra.ID as id, ExpertiseNaam as expertise, info FROM accountexpertisesextra where AccountID = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([":id"=>$id]);
+        foreach ($resultSet as $row) {
+            $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1,$row["info"]);
+        }
+        $dbh = null;
+        return $exp;
+    }
+
+    public function getExtraExpectedExpertise($id)
+    {
+        $sql = "SELECT accountmeerinfoextra.ID as id, MeerinfoNaam as expertise, info FROM accountmeerinfoextra where AccountID = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([":id"=>$id]);
+        foreach ($resultSet as $row) {
+            $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1, $row["info"]);
+        }
+        $dbh = null;
+        return $exp;
     }
     
     public function new($expertise)
