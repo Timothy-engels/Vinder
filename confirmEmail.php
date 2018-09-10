@@ -1,21 +1,45 @@
 <?php
 require_once("business/accountService.php");
 
-$email = $_GET["email"];
-$hash = $_GET["hash"];
+// Get the confirmation code
+$code = $_GET["code"];
 
+// Get the decrypted confirmation code
+$accountSvc    = new AccountService();
+$decryptedCode = $accountSvc->decryptString($code, $accountSvc::CONFIRM_REGISTRATION_KEY);
+$result        = "<p>Er is een onbekende fout opgetreden.</p>";
 
-$verify = password_verify ( $email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS' , $hash);
+if ($decryptedCode !== '') {
 
-if($verify){
-    echo "hash en e-mail zijn correct<br>";
-    $accountService = new AccountService();
-    $confirm = $accountService->confirmAccount($email);
+    // Get the account identifiers
+    list($accountId, $accountEmail) = explode('|', $decryptedCode);
 
-    if($confirm){
-        echo "<br>Bevestiging van het account was succesvol";
+    // Get the account by ID
+    $account = $accountSvc->getById($accountId);
+    
+    // Check if account is valid
+    if ($account !== null) {
+        
+        if ($account->getEmail() === $accountEmail) {
+            
+            // Check if account is already confirmed
+            if (!$account->getConfirmed()) {
+                
+                // Confirm the account
+                $confirmation = $accountSvc->confirmAccount($accountEmail);
+
+                if ($confirmation) {
+                    $result = "<p>Uw registratie is bevestigd!<br /><br />Klik hier om in te loggen.</p>";
+                } 
+                
+            } else {
+                
+                $result = "<p>Uw registratie was reeds bevestigd!<br /><br />Klik hier om in te loggen.</p>";
+                
+            }
+        }
     }
-    else
-        echo "<br>Bevestiging van het account was mislukt. Waarschijnlijk het account is al geactiveerd";
-}else
-    echo "code of e-mail is niet correct";
+
+}
+
+echo $result;

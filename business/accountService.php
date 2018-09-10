@@ -7,6 +7,7 @@ require_once("business/mailService.php");
 class AccountService
 {
     const CONFIRM_REGISTRATION_KEY = 'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS';
+    const CIPHER                   = 'aes-256-cbc';
 
     public function getAccounts()
     {
@@ -123,21 +124,49 @@ class AccountService
      * 
      * @return string
      */
-    private function encryptString($string, $key)
+    public function encryptString($string, $key)
     {
-        $cipher = "aes-128-gcm";
-        $ivlen  = openssl_cipher_iv_length($cipher);
+        $ivlen  = openssl_cipher_iv_length(self::CIPHER);
         $iv     = openssl_random_pseudo_bytes($ivlen);
-        $tag    =  "GCM";
-
-        return openssl_encrypt(
+        
+        $encrypted = openssl_encrypt(
             $string,
-            $cipher,
+            self::CIPHER,
             $key,
             $options = 0,
-            $iv,
-            $tag
+            $iv
         );
+
+        return base64_encode($encrypted . '::' . $iv);
+    }
+    
+    /**
+     * Decrypt a string
+     * 
+     * @param string $string
+     * @param string $key
+     * 
+     * @return type
+     */
+    public function decryptString($string, $key)
+    {
+        $result        = '';
+        $base64Decoded = base64_decode($string);
+        $position      = strrpos($base64Decoded, '::');
+        
+        if ($position !== false) {
+            list($encrypted_data, $iv) = explode('::', base64_decode($string), 2);
+
+            $result = openssl_decrypt(
+                $encrypted_data,
+                self::CIPHER,
+                $key,
+                $options = 0,
+                $iv
+            );  
+        }
+        
+        return $result;
     }
     
     /**
@@ -145,7 +174,7 @@ class AccountService
      * 
      * @return string
      */
-    private function getCurrentPath()
+    public function getCurrentPath()
     {
         $result = '';
         
@@ -158,7 +187,7 @@ class AccountService
         
         return $result;
     }
-
+    
     public function sendResetEmail($mail, $contactName, $pass) {
         $url = $mail . $pass;
         $url = password_hash($url, PASSWORD_DEFAULT);

@@ -1,7 +1,7 @@
 <?php
 require_once("business/validationService.php");
 require_once("business/accountService.php");
-        
+
 // Get the posted values
 $name           = (filter_input(INPUT_POST, 'name') !== null ? filter_input(INPUT_POST, 'name') : '');
 $contactPerson  = (filter_input(INPUT_POST, 'contactPerson') !== null ? filter_input(INPUT_POST, 'contactPerson') : '');

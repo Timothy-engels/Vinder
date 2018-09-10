@@ -66,7 +66,14 @@ class AccountDAO
         // Return the account information
         return $account;                
     }
-
+    
+    /**
+     * Find an account by the email address
+     * 
+     * @param int $id
+     * 
+     * @return object
+     */
     public function getById($id)
     {
         // Find the account by the email address
