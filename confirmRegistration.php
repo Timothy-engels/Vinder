@@ -22,19 +22,23 @@ if ($decryptedCode !== '') {
         
         if ($account->getEmail() === $accountEmail) {
             
+            $loginUrl = $accountSvc->getCurrentPath() . "logIn.php";
+            
             // Check if account is already confirmed
             if (!$account->getConfirmed()) {
                 
                 // Confirm the account
-                $confirmation = $accountSvc->confirmAccount($accountEmail);
+                $confirmation = $accountSvc->confirmRegistration($accountId);
 
                 if ($confirmation) {
-                    $result = "<p>Uw registratie is bevestigd!<br /><br />Klik hier om in te loggen.</p>";
+                    $result = "<p>Uw registratie is bevestigd!<br /><br />";
+                    $result .= "<a href=\"" . $loginUrl . "\">Klik hier om in te loggen</a>.</p>";
                 } 
                 
             } else {
                 
-                $result = "<p>Uw registratie was reeds bevestigd!<br /><br />Klik hier om in te loggen.</p>";
+                $result = "<p>Uw registratie was reeds bevestigd!<br /><br />";
+                $result .= "<a href=\"" . $loginUrl . "\">Klik hier om in te loggen</a>.</p>";
                 
             }
         }
@@ -42,4 +46,4 @@ if ($decryptedCode !== '') {
 
 }
 
-echo $result;
+include("presentation/confirmRegistration.php");
