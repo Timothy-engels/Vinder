@@ -46,7 +46,7 @@ class ExpertiseDAO
     
     public function update($expertise, $id)
     {
-        $sql = "UPDATE expertises SET Expertise=':expertise' WHERE ID=':id'";
+        $sql = "UPDATE expertises SET Expertise = :expertise WHERE ID = :id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $update = $dbh->prepare($sql);
         $update->execute([":expertise"=>$expertise, ":id"=>$id]);
@@ -56,7 +56,7 @@ class ExpertiseDAO
     
     public function activator3000($id, $choice)
     {
-        $sql = "UPDATE expertises SET Actief= :choice WHERE ID=':id'";
+        $sql = "UPDATE expertises SET Actief = :choice WHERE ID = :id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $adjust = $dbh->prepare($sql);
         $adjust->execute([':id'=>$id, ":choice"=>$choice]);
