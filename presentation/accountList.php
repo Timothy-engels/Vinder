@@ -18,7 +18,9 @@
 
     <?php
     foreach ($accounts as $account)
-          { ?>
+          { 
+            $logo = $account->getLogo;
+            ?>
             <div>
                 <span>
                     Id: <? echo $account->getId(); ?>
