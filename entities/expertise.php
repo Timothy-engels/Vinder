@@ -101,7 +101,7 @@ class Expertise {
         $id,
         $expertise,
         $active = 1,
-        $info
+        $info = null
     ) {
         if (!isset(self::$idMap[$id])) {
             self::$idMap[$id] = new Expertise(
@@ -114,4 +114,52 @@ class Expertise {
 
         return self::$idMap[$id];
     }
+}
+
+class ExtraExpertise extends Expertise{
+
+    private static $idMapExtra = array();
+
+    public static function create(
+        $id,
+        $expertise,
+        $active = 1,
+        $info = null
+    ) {
+        if (!isset(self::$idMapExtra[$id])) {
+            self::$idMapExtra[$id] = new Expertise(
+                $id,
+                $expertise,
+                $active = 1,
+                $info
+            );
+        }
+
+        return self::$idMapExtra[$id];
+    }
+
+}
+
+class ExtraExpectedExpertise extends Expertise{
+
+    private static $idMapExtraExpected = array();
+
+    public static function create(
+        $id,
+        $expertise,
+        $active = 1,
+        $info = null
+    ) {
+        if (!isset(self::$idMapExtraExpected[$id])) {
+            self::$idMapExtraExpected[$id] = new Expertise(
+                $id,
+                $expertise,
+                $active = 1,
+                $info
+            );
+        }
+
+        return self::$idMapExtraExpected[$id];
+    }
+
 }
