@@ -34,4 +34,31 @@ class ExpertiseDAO
         $dbh = null;
         return $list;
     }
+    
+    public function new($expertise)
+    {
+        $sql = "INSERT INTO expertises(Expertise, Actief) VALUES (':expertise', 0)";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $new = $dbh->prepare($sql);
+        $new->execute([":expertise"=>$expertise]);
+        $dbh = null;
+    }
+    
+    public function update($expertise, $id)
+    {
+        $sql = "UPDATE expertises SET Expertise=':expertise' WHERE ID=':id'";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $update = $dbh->prepare($sql);
+        $update->execute([":expertise"=>$expertise, ":id"=>$id]);
+        $dbh = null;
+    }
+    
+    public function delete($id)
+    {
+        $sql = "DELETE FROM expertises WHERE ID = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $delete = $dbh->prepare($sql);
+        $delete->execute([':id'=>$id]);
+        $dbh = null;
+    }
 }
