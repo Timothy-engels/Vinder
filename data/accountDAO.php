@@ -19,20 +19,6 @@ class AccountDAO
         $dbh = null;
         return $list;
     }
-
-    public function getAllWithExpertises()
-    {
-        $sql = "select id, naam as name, contactpersoon as contactPerson, emailadres as email, wachtwoord as password, bevestigd as confirmed, website, logo, info, admin as adminstrator from accounts";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $resultSet = $dbh->query($sql);
-        $list = array();
-        foreach ($resultSet as $row) {
-            $account = entities\Account::create($row["id"],$row["name"], $row["contactPerson"], $row["email"], $row["password"], $row["confirmed"],$row["website"], $row["logo"],  $row["info"], $row["adminstrator"]);
-            array_push($list, $account);
-        }
-        $dbh = null;
-        return $list;
-    }
     
     /**
      * Find an account by the email address
