@@ -37,7 +37,7 @@ class ExpertiseDAO
     
     public function new($expertise)
     {
-        $sql = "INSERT INTO expertises(Expertise, Actief) VALUES (':expertise', 0)";
+        $sql = "INSERT INTO expertises(Expertise, Actief) VALUES (':expertise', 1)";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $new = $dbh->prepare($sql);
         $new->execute([":expertise"=>$expertise]);
@@ -50,15 +50,16 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $update = $dbh->prepare($sql);
         $update->execute([":expertise"=>$expertise, ":id"=>$id]);
+        //var_dump($update->Querystring());
         $dbh = null;
     }
     
-    public function delete($id)
+    public function activator3000($id, $choice)
     {
-        $sql = "DELETE FROM expertises WHERE ID = :id";
+        $sql = "UPDATE expertises SET Actief= :choice WHERE ID=':id'";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $delete = $dbh->prepare($sql);
-        $delete->execute([':id'=>$id]);
+        $adjust = $dbh->prepare($sql);
+        $adjust->execute([':id'=>$id, ":choice"=>$choice]);
         $dbh = null;
     }
 }
