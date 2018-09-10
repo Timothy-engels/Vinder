@@ -6,6 +6,8 @@ require_once("business/mailService.php");
 
 class AccountService
 {
+    const CONFIRM_REGISTRATION_KEY = 'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS';
+
     public function getAccounts()
     {
         $accountsDAO = new AccountDAO();
@@ -81,16 +83,24 @@ class AccountService
     /**
      * Send an email to confirm the registration
      * 
-     * @param string $email
+     * @param object $account
      * 
      * @return void
      */
-    public function sendRegistrationConfirmationMail($email)
+    public function sendConfirmRegistrationMail($account)
     {
+        $id    = $account->getId();
+        $email = $account->getEmail();
+        
+        // Get the confirmation string
+        $confirmationString  = $id . "|" . $email;
+        
+        // Get the encryption key
+        $code = $this->encryptString($confirmationString, self::CONFIRMATION_KEY);
+
         // Generate the message
-        $code = password_hash($email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS',PASSWORD_BCRYPT);
-        $link = "http://core.band/vinder/confirmEmail.php?email=".$email."&hash=".$code;
-            
+        $link = "http://core.band/vinder/confirmEmail.php?code=" . $code;
+        
         $msg = "
             <p>Beste,<br/><br/>
             Klik op de onderstaande link om je registratie te bevestigen:<br />
@@ -99,11 +109,34 @@ class AccountService
             VDAB</p>
         ";
         
-        echo "Verstuurd bericht (alleen om te testen): ".$msg;
-        
         // Send html email        
         $mailSvc = new MailService();
         $mailSvc->sendHtmlMail($email, "Vinder | Registratie bevestigen", $msg);
+    }
+    
+    /**
+     * Encrypt a string
+     * 
+     * @param string $string
+     * @param string $key
+     * 
+     * @return string
+     */
+    private function encryptString($string, $key)
+    {
+        $cipher = "aes-128-gcm";
+        $ivlen  = openssl_cipher_iv_length($cipher);
+        $iv     = openssl_random_pseudo_bytes($ivlen);
+        $tag    =  "GCM";
+
+        return openssl_encrypt(
+            $string,
+            $cipher,
+            $key,
+            $options = 0,
+            $iv,
+            $tag
+        );
     }
 
     public function sendResetEmail($mail, $contactName, $pass) {
