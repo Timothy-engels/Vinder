@@ -2,6 +2,7 @@
 //business/accountService.php
 
 require_once("data/accountDAO.php");
+require_once("business/mailService.php");
 
 class AccountService
 {
@@ -86,13 +87,23 @@ class AccountService
      */
     public function sendRegistrationConfirmationMail($email)
     {
-        // the message
-
+        // Generate the message
         $code = password_hash($email.'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS',PASSWORD_BCRYPT);
-        $msg = "Hallo, click op de link om het account te activeren: http://core.band/vinder/confirmEmail.php?email=".$email."&hash=".$code;
+        $link = "http://core.band/vinder/confirmEmail.php?email=".$email."&hash=".$code;
+            
+        $msg = "
+            <p>Beste,<br/><br/>
+            Klik op de onderstaande link om je registratie te bevestigen:<br />
+            <a href=\"" . $link . "\">Bevestigen</a><br /><br />
+            Met vriendelijke groeten,<br/>
+            VDAB</p>
+        ";
+        
         echo "Verstuurd bericht (alleen om te testen): ".$msg;
-        // send email        
-        mail($email,"Vinder account activeren",$msg);
+        
+        // Send html email        
+        $mailSvc = new MailService();
+        $mailSvc->sendHtmlMail($email, "Vinder | Registratie bevestigen", $msg);
     }
 
     public function sendResetEmail($mail, $contactName, $pass) {
