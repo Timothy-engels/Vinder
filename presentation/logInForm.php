@@ -18,6 +18,6 @@
             <input type="hidden" name ="process" value="1">
             <p><input type="submit" value="Inloggen"></p>
 		</form>
-		<a href="resetPassword.php">Wachtwoord vergeten</a><br><a href="">Account aanmaken</a>
+		<a href="resetPassword.php">Wachtwoord vergeten</a><br><a href="register.php">Account aanmaken</a>
     </body>
 </html>

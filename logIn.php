@@ -5,7 +5,7 @@
     require_once("business/accountService.php");
 
     if (isset($_SESSION["ID"])) {
-        include("presentation/end.php");
+        header("location: ingelogd.php");
     }
     else if(isset($_POST["mail"]) && isset($_POST["pass"])) {
         $mail = $_POST["mail"];

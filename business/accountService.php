@@ -158,10 +158,11 @@ class AccountService
             $hash = $account->getPassword();
             $admin = $account->getAdministrator();
             if(password_verify($pass, $hash)) {
-                if($admin == 1) {
+                if($admin === 1) {
                     $_SESSION["admin"] = TRUE;
                     $_SESSION["ID"] = $id;
-                    header("location: admin.php");
+                    print($admin);
+                    //header("location: admin.php");
                 }
                 else {
                     $_SESSION["ID"] = $id;
