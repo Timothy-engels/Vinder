@@ -96,10 +96,11 @@ class AccountService
         $confirmationString  = $id . "|" . $email;
         
         // Get the encryption key
-        $code = $this->encryptString($confirmationString, self::CONFIRMATION_KEY);
+        $code = $this->encryptString($confirmationString, self::CONFIRM_REGISTRATION_KEY);
 
         // Generate the message
-        $link = "http://core.band/vinder/confirmEmail.php?code=" . $code;
+        $currentPath = $this->getCurrentPath();
+        $link        = $currentPath . "confirmEmail.php?code=" . $code;
         
         $msg = "
             <p>Beste,<br/><br/>
@@ -137,6 +138,25 @@ class AccountService
             $iv,
             $tag
         );
+    }
+    
+    /**
+     * Get the current path (without filename)
+     * 
+     * @return string
+     */
+    private function getCurrentPath()
+    {
+        $result = '';
+        
+        $currentUrl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        $position   = strrpos($currentUrl, '/', -0);    
+        
+        if ($position !== false) {
+            $result = substr($currentUrl, 0, $position + 1);
+        }
+        
+        return $result;
     }
 
     public function sendResetEmail($mail, $contactName, $pass) {
