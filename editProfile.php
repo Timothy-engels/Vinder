@@ -9,6 +9,7 @@ $usersSvc = new AccountService();
 $account = $usersSvc->getById($id);
 
 $expSrv = new ExpertiseService();
+$allExps = $expSrv->getExpertises();
 $exps = $expSrv->getExpertisesById($id);
 $expExps = $expSrv->getExpectedExpertisesById($id);
 $extraExp = $expSrv->getExtraExpertise($id);

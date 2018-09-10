@@ -7,39 +7,30 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
-        <form action="ingelogged.php">
-            <input type="submit" value="logout" name="logout"/>
-        </form>
-        <h1> Hoofding </h1>
+        <h1> Profiel wijzigen </h1>
         
         <div class="container">
-            <form action="aanpassenProfiel.php" method="post">
-                <img src="#" alt="Logo">
-                <p>Jouw logo</p>
-                <input type="submit" name="upload" value="upload">
-                <br>
-                naam : <input type="text" name="naam" placeholder=""/>
-                <br>
-                meer informatie : <input type="text" name="Info" placeholder="">
-                <br>
-                contactpersooon : <input type="text" name="contactpersoon" placeholder="">
-                <br>
-                <div class="dropdown">
-                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    expertise
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" >Action</a>
-                        <a class="dropdown-item" >Another action</a>
-                        <a class="dropdown-item" >Something else here</a>
-                    </div>
-                </div>
-                <br>
-                e-mail : <input type="email" name="email" placeholder="">
-                <br>
-                website : <input type="url" name="website" placeholder="">
-                <br>
-                <input type="submit" name="submit" value ="aanpassen">
+            <input action="aanpassenProfiel.php" method="post" type="hidden">
+                <img src="images/<? echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
+            <span class="btn btn-file" > Browse <input type="file">
+</span>
+                
+                <div class="row"><span class="col">naam :</span> <span class="col"><input type="text" name="naam" placeholder="" value = "<? echo $account->getName(); ?>"/></span></div>
+
+            <div class="row"><span class="col">meer informatie :</span> <span class="col"><input type="text" name="Info" placeholder="" value = "<? echo $account->getInfo(); ?>"></span></div>
+
+            <div class="row"><span class="col">website :</span> <span class="col"><input type="url" name="website" placeholder="" value = "<? echo $account->getWebsite(); ?>"></span></div>
+
+
+            <div class="custom-control custom-checkbox">
+                <?
+                foreach ($allExps as $expertise){ ?>
+                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label class="custom-control-label" for="defaultUnchecked"><? $expertise->getExpertise(); ?></label>
+                <? } ?>
+            </div>
+
+                <input type="submit" class="btn name="submit" value ="aanpassen">
             </form>
         </div>
     </body>
