@@ -37,5 +37,10 @@
                     Info: <? echo $account->getInfo(); ?>
                 </div>
     </div>
+    <div>
+        <? foreach($expertises as $expertise){
+            echo $expertise->getId;
+        }?>
+    </div>
 </body>
 </html>
