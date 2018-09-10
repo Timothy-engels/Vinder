@@ -10,7 +10,8 @@ $account = $usersSvc->getById($id);
 
 $expSrv = new ExpertiseService();
 $exps = $expSrv->getExpertisesById($id);
-
-
+$expExps = $expSrv->getExpectedExpertisesById($id);
+$extraExp = $expSrv->getExtraExpertise($id);
+$extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 
 include("presentation/accountShow.php");

@@ -49,5 +49,21 @@
             </div>
         <?}?>
     </div>
+<div>Extra expertise: <?= $extraExp->getExpertise();?></div>
+<div>Meer info: <?= $extraExp->getInfo();?></div>
+<h3>Meer info willen hebben:</h3>
+<div>
+    <?
+    foreach($expExps as $expertise){ ?>
+        <div>
+            Expertise: <?= $expertise->getExpertise(); ?>
+        </div>
+        <div>
+            Meer info: <?= $expertise->getInfo(); ?>
+        </div>
+    <?}?>
+</div>
+<div>Extra expertise: <?= $extraExpExp->getExpertise();?></div>
+<div>Meer info: <?= $extraExpExp->getInfo();?></div>
 </body>
 </html>

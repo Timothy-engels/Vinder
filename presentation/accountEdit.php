@@ -15,7 +15,7 @@
         <div class="container">
             <form action="aanpassenProfiel.php" method="post">
                 <img src="#" alt="Logo">
-                <p>jouw logo</p>
+                <p>Jouw logo</p>
                 <input type="submit" name="upload" value="upload">
                 <br>
                 naam : <input type="text" name="naam" placeholder=""/>
