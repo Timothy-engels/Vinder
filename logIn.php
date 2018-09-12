@@ -48,6 +48,7 @@ if ($_POST) {
         $account    = $accountSvc->getByEmail($mail);
         
         if ($account !== NULL) {
+            
             $id = $account->getId();
             $hash = $account->getPassword();
             $admin = $account->getAdministrator();
@@ -63,6 +64,11 @@ if ($_POST) {
                     header("location: ingelogd.php");
                 }
             }
+            
+        } else {
+            
+            $errors["general"] = "Foutief e-mailadres of wachtwoord.";
+            
         }
     }
             
