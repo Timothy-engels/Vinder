@@ -7,7 +7,7 @@ require_once("business/validationService.php");
 
 // Redirect to the login page when the user is already logged in
 if (isset($_SESSION["ID"])) {
-    header("location: ingelogd.php");
+    header("location: dashboard.php");
 }
 
 // Set the general values
@@ -53,19 +53,10 @@ if ($_POST) {
 
                 if (password_verify($pass, $account->getPassword())) {
                     
-                    $id = $account->getId();
-                    $admin = $account->getAdministrator();
-                
-                    if($admin == 1) {
-                        $_SESSION["admin"] = TRUE;
-                        $_SESSION["ID"] = $id;
-                        print($admin);
-                        header("location: admin.php");
-                    }
-                    else {
-                        $_SESSION["ID"] = $id;
-                        header("location: ingelogd.php");
-                    }
+                    $_SESSION["ID"]    = $account->getId();
+                    $_SESSION["admin"] = ($account->getAdministrator() === "1" ? true : false);
+                    
+                    header("location: dashboard.php");
                     
                 } else {
                     
