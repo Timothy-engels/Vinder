@@ -1,11 +1,6 @@
 <?php
 
 session_start();
+session_destroy();
 
-    require_once("business/accountService.php");
-
-    if(isset($_POST["logOut"])) {
-        $log = new AccountService();
-        $log->logOut();
-        header("location: logIn.php");
-    }
+header("location: logIn.php");

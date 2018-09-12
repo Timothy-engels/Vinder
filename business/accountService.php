@@ -217,12 +217,6 @@ class AccountService
         mail($mail, $subject, $msg);
     }
     
-    public function logOut() {
-    	$_POST["logOut"] = NULL;
-		session_destroy();
-		//header("location: ../presentation/logInForm.php");
-	}
-    
     /**
      * Returns to the login page when the user isn't logged in
      * 
