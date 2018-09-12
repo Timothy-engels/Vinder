@@ -15,7 +15,13 @@
     <h1>Inloggen</h1>
     <form action="logIn.php" method="POST">
         <p><label for="mail">E-mail: </label><input type="email" name="mail" id="mail" required></p>
+        <?php if (array_key_exists('mail', $errors)) : ?>
+            <div class="error"><?= $errors['mail']; ?></div>
+        <?php endif; ?>
         <p><label for="pass">Wachtwoord: </label><input type="password" name="pass" id="pass" required></p>
+        <?php if (array_key_exists('pass', $errors)) : ?>
+            <div class="error"><?= $errors['pass']; ?></div>
+        <?php endif; ?>
         <p><input type="submit" value="Inloggen"></p>
     </form>
     <!--<a href="business/forgotPassword.php">Wachtwoord vergeten</a><br>-->

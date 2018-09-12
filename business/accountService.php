@@ -236,12 +236,6 @@ class AccountService
                     header("location: ingelogd.php");
                 }
             }
-            else {
-               header("location: logIn.php");
-            }
-        }
-        else {
-            header("location:logIn.php");
         }
     }
     
