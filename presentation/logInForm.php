@@ -32,7 +32,7 @@
         <?php endif; ?>
         <p><input type="submit" value="Inloggen"></p>
     </form>
-    <!--<a href="business/forgotPassword.php">Wachtwoord vergeten</a><br>-->
+    <a href="forgotPassword.php">Wachtwoord vergeten</a><br>
     <a href="register.php">Account aanmaken</a>
 </body>
     

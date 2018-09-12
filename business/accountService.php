@@ -7,6 +7,7 @@ require_once("business/mailService.php");
 class AccountService
 {
     const CONFIRM_REGISTRATION_KEY = 'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS';
+    const FORGOTTEN_PASSWORD_KEY   = 'MxSxqv4NKjb4rwjfh7SzrYNV5uGEg45H';
     const CIPHER                   = 'aes-256-cbc';
 
     public function getAccounts()
@@ -204,17 +205,6 @@ class AccountService
         }
         
         return $currentUrl;
-    }
-    
-    public function sendResetEmail($mail, $contactName, $pass) {
-        $url = $mail . $pass;
-        $url = password_hash($url, PASSWORD_DEFAULT);
-        $msg = "<html><head><title>Wachtwoord Resetten</title></head>           <body>Beste " . $contactName . ", er is een aanvraag gebeurd om het wachtwoord van uw Vinder-account te wijzigen, klik <a href='http://www.vinder.be/resetPassword?" . $url . "'>hier</a> om een nieuw wachtwoord aan te maken.<br>
-		Indien u deze aanvraag niet hebt gedaan, gelieve deze mail dan te negeren.<br>
-        Met vriendelijke groeten, het Vinder-team.
-        </body></html>";
-        $subject = "Vinder account activeren";
-        mail($mail, $subject, $msg);
     }
     
     /**
