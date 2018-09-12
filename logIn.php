@@ -43,11 +43,30 @@ if ($_POST) {
     }
     
     if (empty($errors)) {
-        $log = new AccountService();
-        $log->logIn($mail, $pass);
+        
+        $accountSvc = new AccountService();
+        $account    = $accountSvc->getByEmail($mail);
+        
+        if ($account !== NULL) {
+            $id = $account->getId();
+            $hash = $account->getPassword();
+            $admin = $account->getAdministrator();
+            if(password_verify($pass, $hash)) {
+                if($admin == 1) {
+                    $_SESSION["admin"] = TRUE;
+                    $_SESSION["ID"] = $id;
+                    print($admin);
+                    header("location: admin.php");
+                }
+                else {
+                    $_SESSION["ID"] = $id;
+                    header("location: ingelogd.php");
+                }
+            }
+        }
     }
-
+            
 }
-
+        
 // Show the view
 include("presentation/logInForm.php");
