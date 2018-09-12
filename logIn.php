@@ -50,12 +50,12 @@ if ($_POST) {
         if ($account !== null) {
             
             if ($account->getConfirmed() === "1") {
+
+                if (password_verify($pass, $account->getPassword())) {
+                    
+                    $id = $account->getId();
+                    $admin = $account->getAdministrator();
                 
-                $id = $account->getId();
-                $hash = $account->getPassword();
-                $admin = $account->getAdministrator();
-                
-                if(password_verify($pass, $hash)) {
                     if($admin == 1) {
                         $_SESSION["admin"] = TRUE;
                         $_SESSION["ID"] = $id;
@@ -66,6 +66,11 @@ if ($_POST) {
                         $_SESSION["ID"] = $id;
                         header("location: ingelogd.php");
                     }
+                    
+                } else {
+                    
+                    $errors["general"] = "Foutief e-mailadres of wachtwoord.";
+                    
                 }
                 
             } else {
