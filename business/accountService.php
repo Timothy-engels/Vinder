@@ -223,7 +223,7 @@ class AccountService
      * @return void
      */
     public function checkUserLoggedIn($admin = false)
-    {
+    {        
         session_start();
         
         if (!array_key_exists('ID', $_SESSION)) {
@@ -250,6 +250,24 @@ class AccountService
     {
         $this->checkUserLoggedIn();
         return $_SESSION['ID'];
+    }
+    
+    /**
+     * Check if the user is logged in as an admin
+     * 
+     * @return boolean
+     */
+    public function isLoggedInAsAdmin()
+    {
+        $result = false;
+        
+        if (array_key_exists('admin', $_SESSION)) {
+            if ($_SESSION['admin'] === true) {
+                $result = true;
+            }
+        }
+        
+        return $result;
     }
     
 }

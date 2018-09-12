@@ -21,6 +21,9 @@
     </head>
     
     <body>
+        
+        <?php include('menu.php'); ?>
+        
         <main>
             <section id="changePassword">
                 

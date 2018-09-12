@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
+    <?php include('menu.php'); ?>
+    
     <h1>Expertises</h1>
     <ul>
         <?php

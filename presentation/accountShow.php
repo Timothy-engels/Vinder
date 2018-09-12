@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<?php include('menu.php'); ?>
+    
 <h1><? echo $account->getName(); ?> profiel pagina</h1>
 
 

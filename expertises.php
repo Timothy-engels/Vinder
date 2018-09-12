@@ -5,6 +5,8 @@
     
     $accService = new accountService();
     $accService->checkUserLoggedIn(true);
+    
+    $loggedInAsAdmin = $accService->isLoggedInAsAdmin();
 
     $expertSvc = new ExpertiseService();
     $expertises = $expertSvc->getExpertises();

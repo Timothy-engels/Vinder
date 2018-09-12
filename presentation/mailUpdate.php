@@ -39,6 +39,8 @@
         </script>    
     </head>
     <body>
+        <?php include('menu.php'); ?>
+        
         <section id="updateMail">
             <h1>Wijzig de mail instellingen </h1>
             

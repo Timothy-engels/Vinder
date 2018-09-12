@@ -39,6 +39,8 @@
         </script>
     </head>
     <body>
+        <?php include('menu.php'); ?>
+        
         <main>
             <section id="updateDateSettings">
                 <h1>Wijzig de datum instellingen</h1>

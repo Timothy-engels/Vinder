@@ -7,6 +7,8 @@ require_once("business/validationService.php");
 $accountSvc = new AccountService();
 $accountSvc->checkUserLoggedIn(true);
 
+$loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();
+
 // Set the default values
 $errors  = [];
 $message = '';

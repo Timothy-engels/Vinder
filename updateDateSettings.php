@@ -9,6 +9,8 @@ require_once("business/accountService.php");
 $accountSvc = new AccountService();
 $accountSvc->checkUserLoggedIn(true);
 
+$loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();
+
 // Get the current values
 $generalService = new GeneralService();
 $general        = $generalService->get();

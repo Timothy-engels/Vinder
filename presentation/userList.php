@@ -6,6 +6,8 @@
 </head>
 
 <body>
+    <?php include('menu.php'); ?>
+    
     <side>
         <p>Hier komt de banner</p>
     </side>

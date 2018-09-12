@@ -6,6 +6,8 @@ require_once 'business/accountService.php';
 $accountSvc = new AccountService();
 $accountSvc->checkUserLoggedIn(true);
 
+$loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();
+
 // Get a list with all the accounts
 $list = $accountSvc->getAccounts();
 
