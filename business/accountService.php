@@ -216,7 +216,9 @@ class AccountService
      */
     public function checkUserLoggedIn($admin = false)
     {        
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         
         if (!array_key_exists('ID', $_SESSION)) {
             header("location: logIn.php");

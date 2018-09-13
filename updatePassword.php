@@ -2,11 +2,37 @@
 require_once("business/accountService.php");
 require_once("business/validationService.php");
 
-// Check if a user is logged in
 $accountSvc = new AccountService();
-$accountSvc->checkUserLoggedIn();
-
-$loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();
+    
+// Check if a user is logged in or if the confirmation code is given
+if (filter_input(INPUT_GET, 'code') !== null) {
+    
+    $code          = filter_input(INPUT_GET, 'code');
+    $decryptedCode = $accountSvc->decryptString($code, $accountSvc::FORGOTTEN_PASSWORD_KEY);
+    
+    $account = $accountSvc->getByEmail($decryptedCode);
+    
+    if ($account !== null) {
+        $accountId = $account->getId();
+    } else {
+        header("location: logIn.php");
+    }
+    
+    $urlExtension    = "?code=" . $code;
+    $showMenu        = false;
+    $loggedInAsAdmin = false;
+    
+} else {
+    
+    $accountSvc->checkUserLoggedIn();
+    
+    $code            = '';
+    $accountId       = $accountSvc->getLoggedInAccountId();
+    $urlExtension    = "";
+    $showMenu        = true;
+    $loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();    
+    
+}
     
 // Initialize the values
 $errors  = [];
@@ -55,9 +81,6 @@ if ($_POST) {
     
     if (empty($errors)) {
         
-        // Get the ID of the logged in user
-        $accountId = $accountSvc->getLoggedInAccountId();
-        
         // Hash the password
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         
@@ -67,6 +90,7 @@ if ($_POST) {
         // Show the confirmation
         include("presentation/updatePasswordSuccess.php");
         exit();
+        
     }
     
 }

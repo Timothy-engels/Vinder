@@ -38,7 +38,7 @@ if ($_POST) {
         
         // Generate the message
         $currentPath = $accountSvc->getCurrentPath();
-        $link        = $currentPath . "resetPassword.php?code=" . $code;
+        $link        = $currentPath . "updatePassword.php?code=" . $code;
         
         $msg = "<p>Beste, <br><br>
                 Klik op de onderstaande link om je wachtwoord te resetten:<br>
