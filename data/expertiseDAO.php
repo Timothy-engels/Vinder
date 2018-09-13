@@ -78,9 +78,9 @@ class ExpertiseDAO
         return $exp;
     }
     
-    public function new($expertise)
+    public function newExpertise($expertise)
     {
-        $sql = "INSERT INTO expertises(Expertise, Actief) VALUES (':expertise', 1)";
+        $sql = "INSERT INTO expertises(Expertise, Actief) VALUES (:expertise, 1)";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $new = $dbh->prepare($sql);
         $new->execute([":expertise"=>$expertise]);
