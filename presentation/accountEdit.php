@@ -10,7 +10,7 @@
             <?php
             foreach ($allExps as $expertise){ ?>
             expertises.push("<?php echo $expertise->getId(); ?>");
-            <?}?>
+            <?php}?>
         </script>
     </head>
     <body>
@@ -37,7 +37,11 @@
                 foreach ($allExps as $expertise){ ?>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="expertise custom-control-input" id="expertise<?php echo $expertise->getId(); ?>">
+<<<<<<< HEAD
+                        <label class="custom-control-label" for="expertise<?= $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
+=======
                         <label class="custom-control-label" for="expertise<?php echo $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
+>>>>>>> 3d38e2634835801c227a80cb3634804a6db1f116
                     </div>
                 <?php } ?>
             </div>
@@ -54,7 +58,7 @@
             </div>
 
 
-                <input type="submit" class="btn name="submit" value ="aanpassen">
+                <input type="submit" class="btn" name="submit" value ="aanpassen">
         </div>
         <script src="javascript/javascript.js"></script>
     </body>
