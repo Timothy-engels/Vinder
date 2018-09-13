@@ -1,7 +1,6 @@
 <?php
 
     require_once("business/accountService.php");
-    require_once("data/expertiseDAO.php");
         
     $accService = new accountService();
     $accService->checkUserLoggedIn(true);
