@@ -17,6 +17,16 @@ class Expertise {
     private $active;
     private $info;
 
+    public function __construct($id, $expertise, $active, $info)
+    {
+        $this->id = $id;
+        $this->expertise = $expertise;
+        $this->active = $active;
+        $this->info = $info;
+    }
+
+
+    
     /**
      * @return mixed
      */
@@ -89,14 +99,6 @@ class Expertise {
      * @param $active
      * @param string $info
      */
-    public function __construct($id, $expertise, $active, $info)
-    {
-        $this->id = $id;
-        $this->expertise = $expertise;
-        $this->active = $active;
-        $this->info = $info;
-    }
-
     public static function create(
         $id,
         $expertise,

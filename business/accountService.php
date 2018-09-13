@@ -10,6 +10,8 @@ class AccountService
     const FORGOTTEN_PASSWORD_KEY   = 'MxSxqv4NKjb4rwjfh7SzrYNV5uGEg45H';
     const CIPHER                   = 'aes-256-cbc';
 
+    
+
     public function getAccounts()
     {
         $accountsDAO = new AccountDAO();

@@ -19,7 +19,11 @@
 <body>
     <h1>Inloggen</h1>
     <form action="logIn.php" method="POST">
-        <?php if (array_key_exists('general', $errors)) : ?>
+        <?php 
+        $pas = "Scrum55_";
+        $pass = password_hash($pas, PASSWORD_DEFAULT);
+        print($pass);
+        if (array_key_exists('general', $errors)) : ?>
             <div class="error"><?= $errors['general']; ?></div>
         <?php endif; ?>
         <p><label for="mail">E-mail: </label><input type="email" name="mail" id="mail" required value="<?= $mail; ?>"></p>

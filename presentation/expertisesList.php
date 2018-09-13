@@ -27,5 +27,9 @@
         }
         ?>
     </ul>
+    <form action="expertises.php" method="POST">
+        <inpuyt type="text" name="newExpertise">
+        <input type="submit" value="Toevoegen">
+    </form>
 </body>
 </html>
