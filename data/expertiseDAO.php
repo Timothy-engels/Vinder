@@ -58,6 +58,7 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->prepare($sql);
         $resultSet->execute([":id"=>$id]);
+        $exp = [];
         foreach ($resultSet as $row) {
             $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1,$row["info"]);
         }
@@ -71,6 +72,7 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->prepare($sql);
         $resultSet->execute([":id"=>$id]);
+        $exp = [];
         foreach ($resultSet as $row) {
             $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1, $row["info"]);
         }
@@ -93,7 +95,6 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $update = $dbh->prepare($sql);
         $update->execute([":expertise"=>$expertise, ":id"=>$id]);
-        //var_dump($update->Querystring());
         $dbh = null;
     }
     
