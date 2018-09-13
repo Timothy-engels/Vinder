@@ -1,13 +1,19 @@
 <?php
 require_once("business/accountService.php");
+require_once("business/encryptionService.php");
 
 // Get the confirmation code
 $code = $_GET["code"];
 
 // Get the decrypted confirmation code
-$accountSvc    = new AccountService();
-$decryptedCode = $accountSvc->decryptString($code, $accountSvc::CONFIRM_REGISTRATION_KEY);
-$result        = "<p>Er is een onbekende fout opgetreden.</p>";
+$encryptionSvc = new EncryptionService();
+$decryptedCode = $encryptionSvc->decryptString(
+    $code,
+    $encryptionSvc::CONFIRM_REGISTRATION_KEY
+);
+
+// Get the result
+$result = "<p>Er is een onbekende fout opgetreden.</p>";
 
 if ($decryptedCode !== '') {
 
@@ -15,7 +21,8 @@ if ($decryptedCode !== '') {
     list($accountId, $accountEmail) = explode('|', $decryptedCode);
 
     // Get the account by ID
-    $account = $accountSvc->getById($accountId);
+    $accountSvc = new AccountService();
+    $account    = $accountSvc->getById($accountId);
     
     // Check if account is valid
     if ($account !== null) {
