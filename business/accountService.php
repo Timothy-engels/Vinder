@@ -3,19 +3,19 @@
 
 require_once("data/accountDAO.php");
 require_once("business/mailService.php");
+require_once("business/encryptionService.php");
 
 class AccountService
 {
-    const CONFIRM_REGISTRATION_KEY = 'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS';
-    const FORGOTTEN_PASSWORD_KEY   = 'MxSxqv4NKjb4rwjfh7SzrYNV5uGEg45H';
-    const CIPHER                   = 'aes-256-cbc';
-
-    
-
+    /**
+     * Get an array with all accounts
+     * 
+     * @return array
+     */
     public function getAccounts()
     {
         $accountsDAO = new AccountDAO();
-        $list = $accountsDAO->getAll();
+        $list        = $accountsDAO->getAll();
         return $list;
     }
     
@@ -108,7 +108,11 @@ class AccountService
         $confirmationString  = $id . "|" . $email;
         
         // Get the encryption key
-        $code = $this->encryptString($confirmationString, self::CONFIRM_REGISTRATION_KEY);
+        $encryptionSvc = new EncryptionService();
+        $code          = $encryptionSvc->encryptString(
+            $confirmationString,
+            $encryptionSvc::CONFIRM_REGISTRATION_KEY
+        );
 
         // Generate the message
         $currentPath = $this->getCurrentPath();
@@ -125,59 +129,6 @@ class AccountService
         // Send html email        
         $mailSvc = new MailService();
         $mailSvc->sendHtmlMail($email, "Vinder | Registratie bevestigen", $msg);
-    }
-    
-    /**
-     * Encrypt a string
-     * 
-     * @param string $string
-     * @param string $key
-     * 
-     * @return string
-     */
-    public function encryptString($string, $key)
-    {
-        $ivlen  = openssl_cipher_iv_length(self::CIPHER);
-        $iv     = openssl_random_pseudo_bytes($ivlen);
-        
-        $encrypted = openssl_encrypt(
-            $string,
-            self::CIPHER,
-            $key,
-            $options = 0,
-            $iv
-        );
-
-        return base64_encode($encrypted . '::' . $iv);
-    }
-    
-    /**
-     * Decrypt a string
-     * 
-     * @param string $string
-     * @param string $key
-     * 
-     * @return type
-     */
-    public function decryptString($string, $key)
-    {
-        $result        = '';
-        $base64Decoded = base64_decode($string);
-        $position      = strrpos($base64Decoded, '::');
-        
-        if ($position !== false) {
-            list($encrypted_data, $iv) = explode('::', base64_decode($string), 2);
-
-            $result = openssl_decrypt(
-                $encrypted_data,
-                self::CIPHER,
-                $key,
-                $options = 0,
-                $iv
-            );  
-        }
-        
-        return $result;
     }
     
     /**

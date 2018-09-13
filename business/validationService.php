@@ -135,8 +135,8 @@ class ValidationService
     public function checkSafePassword($value)
     {
         $result = '';
-        
-        if (!preg_match('/^((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,50})/', $value)) {
+
+        if (!preg_match('/^((?=.*\d)(?=.*[A-Z])(?=.*[a-z])((?=.*\W)|(?=.*\_)).{8,50})/', $value)) {
             $result = 'Het wachtwoord moet minstens 1 letter, 1 hoofdletter, 1 cijfer en een speciaal karakter bevatten';
         }
         

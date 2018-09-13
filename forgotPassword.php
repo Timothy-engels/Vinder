@@ -1,5 +1,6 @@
 <?php
 require_once("business/accountService.php");
+require_once("business/encryptionService.php");
 require_once("business/validationService.php");
 require_once("business/mailService.php");
 
@@ -34,7 +35,11 @@ if ($_POST) {
     if (empty($errors)) {
         
         // Get the encryption key
-        $code = $accountSvc->encryptString($mail, $accountSvc::FORGOTTEN_PASSWORD_KEY);
+        $encryptionSvc = new EncryptionService();
+        $code          = $encryptionSvc->encryptString(
+            $mail,
+            $encryptionSvc::FORGOTTEN_PASSWORD_KEY
+        );
         
         // Generate the message
         $currentPath = $accountSvc->getCurrentPath();
