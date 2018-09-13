@@ -1,5 +1,6 @@
 <?php
 require_once("business/accountService.php");
+require_once("business/encryptionService.php");
 require_once("business/validationService.php");
 
 $accountSvc = new AccountService();
@@ -7,8 +8,13 @@ $accountSvc = new AccountService();
 // Check if a user is logged in or if the confirmation code is given
 if (filter_input(INPUT_GET, 'code') !== null) {
     
-    $code          = filter_input(INPUT_GET, 'code');
-    $decryptedCode = $accountSvc->decryptString($code, $accountSvc::FORGOTTEN_PASSWORD_KEY);
+    $code = filter_input(INPUT_GET, 'code');
+    
+    $encryptionSvc = new EncryptionService();
+    $decryptedCode = $encryptionSvc->decryptString(
+        $code,
+        $encryptionSvc::FORGOTTEN_PASSWORD_KEY
+    );
     
     $account = $accountSvc->getByEmail($decryptedCode);
     

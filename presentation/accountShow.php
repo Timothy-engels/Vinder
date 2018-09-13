@@ -25,7 +25,7 @@
                 <div>
                     Name: <?php echo $account->getName(); ?>
                 </div>
-               <div>
+                <div>
                     Contact person: <?php echo $account->getContactPerson(); ?>
                 </div>
                 <div>
@@ -82,17 +82,19 @@
             <div>
                 Meer info: <?php echo $expertise->getInfo(); ?>
             </div>
-        <?
+        <?php
         }
     }
 
-    else echo "Geen expertises";
+    else { echo "Geen expertises"; }
     ?>
 </div>
 <?php if($extraExpExp){ ?>
+
 <div>Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
 
 <div>Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
 <?php }?>
+>>>>>>> d7d96dd495110389b3ab9803e010d9b985c479ce
 </body>
 </html>
