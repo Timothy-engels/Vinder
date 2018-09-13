@@ -33,10 +33,12 @@
                 </div>
 
                 <div>
-                    Website: <?php if ($account->getWebsite()) {
-                        echo $account->getWebsite();
-                    } else echo "Geen website";
-                    ?>
+                    Website: 
+                    <?php if ($account->getWebsite()) : ?>
+                        <a href="<?= $account->getWebsite(); ?>" target="_blank"><?= $account->getWebsite(); ?></a>
+                    <?php else: ?>
+                        Geen website
+                    <?php endif; ?>
                 </div>
                 <div>
                     Info: <?php if ($account->getInfo()) {

@@ -42,5 +42,15 @@ class ExpertiseService
         $expertiseDAO = new ExpertiseDAO();
         $exp = $expertiseDAO->newExpertise($expertise);
     }
+    
+    public function updateExpertise($expertise, $eaid){
+        $expertiseDAO = new updateExpertiseDAO();
+        $exp = $expertiseDAO->Expertise($expertise, $eaid);
+    }
+    
+    public function deleteExpertise($edid){
+        $expertiseDAO = new ExpertiseDAO();
+        $exp = $expertiseDAO->deleteExpertise($edid);
+    }
 }
 

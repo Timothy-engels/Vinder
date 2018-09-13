@@ -58,6 +58,7 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->prepare($sql);
         $resultSet->execute([":id"=>$id]);
+        $exp = [];
         foreach ($resultSet as $row) {
             $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1,$row["info"]);
         }
@@ -71,6 +72,7 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->prepare($sql);
         $resultSet->execute([":id"=>$id]);
+        $exp = [];
         foreach ($resultSet as $row) {
             $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1, $row["info"]);
         }
@@ -87,13 +89,21 @@ class ExpertiseDAO
         $dbh = null;
     }
     
-    public function update($expertise, $id)
+    public function updateExpertise($expertise, $id)
     {
         $sql = "UPDATE expertises SET Expertise = :expertise WHERE ID = :id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $update = $dbh->prepare($sql);
         $update->execute([":expertise"=>$expertise, ":id"=>$id]);
-        //var_dump($update->Querystring());
+        $dbh = null;
+    }
+    
+    public function deleteExpertise($id)
+    {
+        $sql = "DELETE FROM expertises WHERE ID = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $delete = $dbh->prepare($sql);
+        $delete->execute([":id"=>$id]);
         $dbh = null;
     }
     
