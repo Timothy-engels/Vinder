@@ -90,9 +90,9 @@
     ?>
 </div>
 <?php if($extraExpExp){ ?>
-<div>Extra expertise: <?= $extraExpExp->getExpertise();?></div>
+<div>Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
 
-<div>Meer info: <? if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
+<div>Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
 <?php }?>
 </body>
 </html>
