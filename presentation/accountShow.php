@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset=utf-8>
-    <title><? echo $account->getName(); ?> Profile</title>
+    <title><?php echo $account->getName(); ?> Profile</title>
     <style>
         body{
             font-family: 'Lato', sans-serif;
@@ -15,31 +15,31 @@
 
 <?php include('menu.php'); ?>
     
-<h1><? echo $account->getName(); ?> profiel pagina</h1>
+<h1><?php echo $account->getName(); ?> profiel pagina</h1>
 
 
     <div>
                 <div>
-                    Id: <? echo $account->getId(); ?>
+                    Id: <?php echo $account->getId(); ?>
                 </div>
                 <div>
-                    Name: <? echo $account->getName(); ?>
-                </div>
-               <div>
-                    Contact person: <? echo $account->getContactPerson(); ?>
+                    Name: <?php echo $account->getName(); ?>
                 </div>
                 <div>
-                    E-mail: <? echo $account->getEmail(); ?>
+                    Contact person: <?php echo $account->getContactPerson(); ?>
+                </div>
+                <div>
+                    E-mail: <?php echo $account->getEmail(); ?>
                 </div>
 
                 <div>
-                    Website: <? if ($account->getWebsite()) {
+                    Website: <?php if ($account->getWebsite()) {
                         echo $account->getWebsite();
                     } else echo "Geen website";
                     ?>
                 </div>
                 <div>
-                    Info: <? if ($account->getInfo()) {
+                    Info: <?php if ($account->getInfo()) {
                         echo $account->getInfo();
                     } else echo "Geen info";
                     ?>
@@ -48,51 +48,53 @@
     <h3>Expertises:</h3>
 
     <div>
-        <? if($exps) {
+        <?php if($exps) {
             foreach ($exps as $expertise) { ?>
                 <div>
-                    <?= $expertise->getExpertise(); ?>
+                    <?php echo $expertise->getExpertise(); ?>
                 </div>
                 <div>
-                    Meer info: <? if ($expertise->getInfo()) {
+                    Meer info: <?php if ($expertise->getInfo()) {
                         echo $expertise->getInfo();
                     }
                     else echo "Geen info";
                     ?>
                 </div>
-            <?
+            <?php
             }
         }
         else echo "Geen expertises";
         ?>
     </div>
-<? if($extraExp){ ?>
-<div>Extra expertise: <?= $extraExp->getExpertise();?></div>
+<?php if($extraExp){ ?>
+<div>Extra expertise: <?php echo $extraExp->getExpertise();?></div>
 
-<div>Meer info: <? if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
-<? }?>
+<div>Meer info: <?php if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
+<?php }?>
 <h3>Meer info willen hebben:</h3>
 <div>
-    <?
+    <?php
     if($expExps) {
         foreach ($expExps as $expertise) { ?>
             <div>
-                Expertise: <?= $expertise->getExpertise(); ?>
+                Expertise: <?php echo $expertise->getExpertise(); ?>
             </div>
             <div>
-                Meer info: <?= $expertise->getInfo(); ?>
+                Meer info: <?php echo $expertise->getInfo(); ?>
             </div>
-        <?
+        <?php
         }
     }
 
-    else echo "Geen expertises";
+    else { echo "Geen expertises"; }
     ?>
 </div>
-<? if($extraExpExp){ ?>
-<div>Extra expertise: <?= $extraExpExp->getExpertise();?></div>
+<?php if($extraExpExp){ ?>
 
-<div>Meer info: <? if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
-<?}?>
+<div>Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
+
+<div>Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
+<?php }?>
+>>>>>>> d7d96dd495110389b3ab9803e010d9b985c479ce
 </body>
 </html>
