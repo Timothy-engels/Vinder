@@ -33,39 +33,66 @@
                 </div>
 
                 <div>
-                    Website: <? echo $account->getWebsite(); ?>
+                    Website: <? if ($account->getWebsite()) {
+                        echo $account->getWebsite();
+                    } else echo "Geen website";
+                    ?>
                 </div>
                 <div>
-                    Info: <? echo $account->getInfo(); ?>
+                    Info: <? if ($account->getInfo()) {
+                        echo $account->getInfo();
+                    } else echo "Geen info";
+                    ?>
                 </div>
     </div>
     <h3>Expertises:</h3>
+
     <div>
-        <?
-        foreach($exps as $expertise){ ?>
+        <? if($exps) {
+            foreach ($exps as $expertise) { ?>
+                <div>
+                    <?= $expertise->getExpertise(); ?>
+                </div>
+                <div>
+                    Meer info: <? if ($expertise->getInfo()) {
+                        echo $expertise->getInfo();
+                    }
+                    else echo "Geen info";
+                    ?>
+                </div>
+            <?
+            }
+        }
+        else echo "Geen expertises";
+        ?>
+    </div>
+<? if($extraExp){ ?>
+<div>Extra expertise: <?= $extraExp->getExpertise();?></div>
+
+<div>Meer info: <? if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
+<? }?>
+<h3>Meer info willen hebben:</h3>
+<div>
+    <?
+    if($expExps) {
+        foreach ($expExps as $expertise) { ?>
             <div>
-                <?= $expertise->getExpertise(); ?>
+                Expertise: <?= $expertise->getExpertise(); ?>
             </div>
             <div>
                 Meer info: <?= $expertise->getInfo(); ?>
             </div>
-        <?}?>
-    </div>
-<div>Extra expertise: <?= $extraExp->getExpertise();?></div>
-<div>Meer info: <?= $extraExp->getInfo();?></div>
-<h3>Meer info willen hebben:</h3>
-<div>
-    <?
-    foreach($expExps as $expertise){ ?>
-        <div>
-            Expertise: <?= $expertise->getExpertise(); ?>
-        </div>
-        <div>
-            Meer info: <?= $expertise->getInfo(); ?>
-        </div>
-    <?}?>
+        <?
+        }
+    }
+
+    else echo "Geen expertises";
+    ?>
 </div>
+<? if($extraExpExp){ ?>
 <div>Extra expertise: <?= $extraExpExp->getExpertise();?></div>
-<div>Meer info: <?= $extraExpExp->getInfo();?></div>
+
+<div>Meer info: <? if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
+<?}?>
 </body>
 </html>

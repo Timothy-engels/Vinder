@@ -10,7 +10,7 @@ $usersSvc = new AccountService();
 
 $usersSvc->checkUserLoggedIn();
 $loggedInAsAdmin = $usersSvc->isLoggedInAsAdmin();
-
+$id = $usersSvc->getLoggedInAccountId();
 
 $account = $usersSvc->getById($id);
 
