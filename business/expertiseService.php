@@ -38,6 +38,9 @@ class ExpertiseService
         return $exp;
     }
 
-
+    public function addExpertise($expertise){
+        $expertiseDAO = new ExpertiseDAO();
+        $exp = $expertiseDAO->newExpertise($expertise);
+    }
 }
 

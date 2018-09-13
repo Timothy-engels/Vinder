@@ -19,10 +19,7 @@
 <body>
     <h1>Inloggen</h1>
     <form action="logIn.php" method="POST">
-        <?php 
-        $pas = "Scrum55_";
-        $pass = password_hash($pas, PASSWORD_DEFAULT);
-        print($pass);
+        <?php
         if (array_key_exists('general', $errors)) : ?>
             <div class="error"><?= $errors['general']; ?></div>
         <?php endif; ?>

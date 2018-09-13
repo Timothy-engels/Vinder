@@ -31,6 +31,5 @@
         <input type="text" name="newExpertise">
         <input type="submit" value="Toevoegen">
     </form>
-    <h1>Tekst</h1>
 </body>
 </html>
