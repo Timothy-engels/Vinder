@@ -6,9 +6,12 @@ require_once("business/expertiseService.php");
 require_once("business/accountService.php");
 
 $usersSvc = new AccountService();
-$usersSvc->checkUserLoggedIn();
 
+
+$usersSvc->checkUserLoggedIn();
 $loggedInAsAdmin = $usersSvc->isLoggedInAsAdmin();
+
+
 
 $account = $usersSvc->getById($id);
 
