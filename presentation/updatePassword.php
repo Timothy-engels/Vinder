@@ -22,14 +22,18 @@
     
     <body>
         
-        <?php include('menu.php'); ?>
+        <?php
+        if ($showMenu) {
+            include('menu.php');
+        }
+        ?>
         
         <main>
             <section id="changePassword">
                 
                 <h1>Wachtwoord wijzigen</h1>
                 
-                <form name="frmChangePassword" method="POST" action="updatePassword.php">
+                <form name="frmChangePassword" method="POST" action="updatePassword.php<?= $urlExtension; ?>">
                     
                     <p><small>Velden met een * zijn verplicht in te vullen.</small></p>
                     
