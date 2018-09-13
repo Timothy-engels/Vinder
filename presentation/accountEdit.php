@@ -24,11 +24,11 @@
                 <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
                 <span class="btn btn-file" > Browse <input type="file"></span>
                 
-            <div class="row"><span class="col">naam :</span> <span class="col"><input type="text" name="naam" placeholder="" value = "<? echo $account->getName(); ?>"/></span></div>
+            <div class="row"><span class="col">naam :</span> <span class="col"><input type="text" name="naam" placeholder="" value = "<?php echo $account->getName(); ?>"/></span></div>
 
-            <div class="row"><span class="col">meer informatie :</span> <span class="col"><input type="text" name="Info" placeholder="" value = "<? echo $account->getInfo(); ?>"></span></div>
+            <div class="row"><span class="col">meer informatie :</span> <span class="col"><input type="text" name="Info" placeholder="" value = "<?php echo $account->getInfo(); ?>"></span></div>
 
-            <div class="row"><span class="col">website :</span> <span class="col"><input type="url" name="website" placeholder="" value = "<? echo $account->getWebsite(); ?>"></span></div>
+            <div class="row"><span class="col">website :</span> <span class="col"><input type="url" name="website" placeholder="" value = "<?php echo $account->getWebsite(); ?>"></span></div>
 
 
             <h3>Mijn expertise:</h3>
@@ -36,8 +36,8 @@
                 <?php
                 foreach ($allExps as $expertise){ ?>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="expertise custom-control-input" id="expertise<?= $expertise->getId(); ?>">
-                        <label class="custom-control-label" for="expertise<?= $expertise->getId(); ?>"><?= $expertise->getExpertise(); ?></label>
+                        <input type="checkbox" class="expertise custom-control-input" id="expertise<?php echo $expertise->getId(); ?>">
+                        <label class="custom-control-label" for="expertise<?php echo $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
                     </div>
                 <?php } ?>
             </div>
@@ -47,8 +47,8 @@
                 <?php
                 foreach ($allExps as $expertise){ ?>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="expectedExpertise custom-control-input" id="expected<?= $expertise->getId(); ?>">
-                        <label class="custom-control-label" for="expected<?= $expertise->getId(); ?>"><?= $expertise->getExpertise(); ?></label>
+                        <input type="checkbox" class="expectedExpertise custom-control-input" id="expected<?php echo $expertise->getId(); ?>">
+                        <label class="custom-control-label" for="expected<?= $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
                     </div>
                 <?php } ?>
             </div>
