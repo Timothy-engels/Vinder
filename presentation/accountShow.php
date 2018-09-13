@@ -51,7 +51,7 @@
         <?php if($exps) {
             foreach ($exps as $expertise) { ?>
                 <div>
-                    <?= $expertise->getExpertise(); ?>
+                    <?php echo $expertise->getExpertise(); ?>
                 </div>
                 <div>
                     Meer info: <?php if ($expertise->getInfo()) {
@@ -77,10 +77,10 @@
     if($expExps) {
         foreach ($expExps as $expertise) { ?>
             <div>
-                Expertise: <?= $expertise->getExpertise(); ?>
+                Expertise: <?php echo $expertise->getExpertise(); ?>
             </div>
             <div>
-                Meer info: <?= $expertise->getInfo(); ?>
+                Meer info: <?php echo $expertise->getInfo(); ?>
             </div>
         <?
         }
