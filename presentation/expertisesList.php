@@ -13,6 +13,9 @@
         ul {
             list-style-type: none;
         }
+        a {
+            padding: 0 25px;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
@@ -23,7 +26,7 @@
     <ul>
         <?php
         foreach($expertises as $expertise) { 
-            print("<li><a href='expertiseAdjust.php?eaid=" . $expertise->getId() . "'>" . $expertise->getExpertise() . "</a></li>");
+            print("<li><a href='expertiseDelete.php?edid=" . $expertise->getId() . "'>Verwijderen</a>" . $expertise->getExpertise() . "<a href='expertiseAdjust.php?eaid=" . $expertise->getId() . "'>Wijzigen</a></li>");
         }
         ?>
     </ul>
