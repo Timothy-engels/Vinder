@@ -95,6 +95,5 @@
 
 <div>Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
 <?php }?>
->>>>>>> d7d96dd495110389b3ab9803e010d9b985c479ce
 </body>
 </html>
