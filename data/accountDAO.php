@@ -194,6 +194,48 @@ class AccountDAO
 
         $dbh = null;
     }
+    
+    /**
+     * Update the account information
+     * 
+     * @param obj $account
+     * 
+     * @return void
+     */
+    public function update($account)
+    {
+        // Generate & execute the query
+        $query = "UPDATE `accounts`
+                  SET Naam = :name,
+                      ContactPersoon = :contactPerson,
+                      EmailAdres = :mail,
+                      Wachtwoord = :password,
+                      Bevestigd = :confirmed,
+                      Website = :website,
+                      Logo = :logo,
+                      Info = :info,
+                      Admin = :admin
+                  WHERE ID = :id"; 
+        
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        $stmt = $dbh->prepare($query);
+        $stmt->execute([
+            ':name'          => $account->getName(),
+            ':contactPerson' => $account->getContactPerson(),
+            ':mail'          => $account->getEmail(),
+            ':password'      => $account->getPassword(),
+            ':confirmed'     => $account->getConfirmed(),
+            ':website'       => $account->getWebsite(),
+            ':logo'          => $account->getLogo(),
+            ':info'          => $account->getInfo(),
+            ':admin'         => $account->getAdministrator(),
+            ':id'            => $account->getId()
+        ]);
+        
+        // Close the db connection
+        $dbh = null;
+    }
 
     /**
      * Registration confirmation

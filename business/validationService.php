@@ -107,10 +107,11 @@ class ValidationService
      * Check if the email address is unique
      * 
      * @param string $value
+     * @param int|null $accountId
      * 
      * @return string
      */
-    public function checkUniqueAccountEmail($email)
+    public function checkUniqueAccountEmail($email, $accountId = null)
     {        
         $result  = '';
         
@@ -118,7 +119,13 @@ class ValidationService
         $account        = $accountService->getByEmail($email);
                 
         if ($account !== null) {
-            $result = 'Dit veld moet een uniek e-mail adres bevatten.';
+            if ($accountId !== null) {
+                if ($account->getId() !== $accountId) {
+                    $result = 'Dit veld moet een uniek e-mail adres bevatten.';
+                }
+            } else {
+                $result = 'Dit veld moet een uniek e-mail adres bevatten.';
+            }
         }
         
         return $result;

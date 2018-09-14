@@ -1,6 +1,7 @@
 <ul>
     <li><a href="showProfile.php">Profiel bekijken</a></li>
     <li><a href="editProfile.php">Profiel wijzigen</a></li>
+    <li><a href="contactUpdate.php">Contactinfo wijzigen</a></li>
     <li><a href="updatePassword.php">Wachtwoord wijzigen</a></li>
     <?php if (isset($loggedInAsAdmin) && $loggedInAsAdmin === true) : ?>
         <li><a href="userList.php">Gebruikers bekijken (admin)</a></li>

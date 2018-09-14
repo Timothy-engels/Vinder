@@ -65,6 +65,19 @@ class AccountService
     }
     
     /**
+     * Update the account
+     * 
+     * @param obj $account (type : Account)
+     * 
+     * @return void
+     */
+    public function update($account)
+    {
+        $accountDAO = new AccountDAO();
+        $accountDAO->update($account);
+    }
+    
+    /**
      * Update the password
      * 
      * @param int $accountId
