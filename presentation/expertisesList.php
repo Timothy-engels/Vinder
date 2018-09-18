@@ -23,16 +23,36 @@
     <?php include('menu.php'); ?>
     
     <h1>Expertises</h1>
-    <ul>
-        <?php
-        foreach($expertises as $expertise) { 
-            print("<li><a href='expertiseDelete.php?edid=" . $expertise->getId() . "'>Verwijderen</a>" . $expertise->getExpertise() . "<a href='expertiseAdjust.php?eaid=" . $expertise->getId() . "'>Wijzigen</a></li>");
-        }
-        ?>
-    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Expertise</th>
+                <th>Status</th>
+                <th>Opties</th>
+            </tr>
+        </thead>
+        <?php foreach($expertises as $expertise) : ?>
+            <tr>
+                <td><?= $expertise->getExpertise(); ?></td>
+                <td><?= ($expertise->getActive() === 1 ? "Actief" : "Inactief"); ?></td>
+                <td>
+                    <a href='expertiseAdjust.php?eaid=<?= $expertise->getId(); ?>'>Wijzigen</a>
+                    <a href='expertiseDelete.php?edid=<?= $expertise->getId(); ?>'>Verwijderen</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+    <br/>
+    
     <form action="expertises.php" method="POST">
-        <input type="text" name="newExpertise">
-        <input type="submit" value="Toevoegen">
+        <input type="text" name="newExpertise" value="<?= $newExpertise; ?>">
+        <input type="submit" value="Toevoegen"><br/>
+        <?php if ($validation !== '') : ?>
+            <p class="error"><?= $validation; ?></div>
+        <?php endif; ?>
     </form>
+    
 </body>
 </html>
