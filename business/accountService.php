@@ -76,20 +76,6 @@ class AccountService
         $accountDAO = new AccountDAO();
         $accountDAO->update($account);
     }
-    
-    /**
-     * Update the password
-     * 
-     * @param int $accountId
-     * @param string $password
-     * 
-     * @return string
-     */
-    public function updatePassword($accountId, $password)
-    {
-        $accountDAO = new AccountDAO();
-        $accountDAO->updatePassword($accountId, $password);
-    }
 
     /**
      * Confirm the registration of an account

@@ -38,6 +38,8 @@ if (filter_input(INPUT_GET, 'code') !== null) {
     $showMenu        = true;
     $loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();    
     
+    $account = $accountSvc->getById($accountId);
+    
 }
     
 // Initialize the values
@@ -91,7 +93,8 @@ if ($_POST) {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         
         // Update the password
-        $accountSvc->updatePassword($accountId, $passwordHash);
+        $account->setPassword($passwordHash);
+        $accountSvc->update($account);
         
         // Show the confirmation
         include("presentation/updatePasswordSuccess.php");
