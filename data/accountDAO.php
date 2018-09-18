@@ -233,40 +233,17 @@ class AccountDAO
             ':id'            => $account->getId()
         ]);
         
-        // Close the db connection
-        $dbh = null;
-    }
-
-    /**
-     * Registration confirmation
-
-     * @param int $accountId
-     *
-     * @return bool
-     */
-    public function confirmRegistration($accountId)
-    {
-        // Update the account
-        $sql = "UPDATE accounts
-                SET Bevestigd = 1
-                WHERE ID = :id";
-
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute([':id' => $accountId]);
-
-        // Check if account are updated
+        // Check if the account is updated
         $count = $stmt->rowCount();
         
         $update = false;
         if ($count === 1){
             $update = true;
         }
-
+        
         // Close the db connection
         $dbh = null;
-
+        
         // Return the result
         return $update;
     }

@@ -35,7 +35,8 @@ if ($decryptedCode !== '') {
             if (!$account->getConfirmed()) {
                 
                 // Confirm the account
-                $confirmation = $accountSvc->confirmRegistration($accountId);
+                $account->setConfirmed(1);
+                $confirmation = $accountSvc->update($account);
 
                 if ($confirmation) {
                     $result = "<p>Uw registratie is bevestigd!<br /><br />";

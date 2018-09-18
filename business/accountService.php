@@ -69,26 +69,14 @@ class AccountService
      * 
      * @param obj $account (type : Account)
      * 
-     * @return void
+     * @return bool
      */
     public function update($account)
     {
         $accountDAO = new AccountDAO();
-        $accountDAO->update($account);
-    }
-
-    /**
-     * Confirm the registration of an account
-     * 
-     * @param int $accountId
-     * 
-     * @return bool
-     */
-    public function confirmRegistration($accountId)
-    {
-        $confirmDAO = new AccountDAO();
-        $confirm    = $confirmDAO->confirmRegistration($accountId);
-        return $confirm;
+        $updated    = $accountDAO->update($account);
+        
+        return $updated;
     }
 
     /**
