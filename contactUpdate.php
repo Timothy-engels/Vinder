@@ -7,16 +7,8 @@ $accountSvc    = new AccountService();
 $validationSvc = new ValidationService();
 
 // Check if the user is logged in
-$accountSvc->checkUserLoggedIn();
-$loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();
-
-// Get the account information
-$accountId = $accountSvc->getLoggedInAccountId();
-$account   = $accountSvc->getById($accountId);
-
-if ($account === null) {
-    header("location: logIn.php");
-}
+$account         = $accountSvc->getLoggedInUser(true);
+$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Set the variables
 $errors = [];
@@ -49,7 +41,7 @@ if ($_POST) {
     }
     
     if ($emailErrors == '') {
-        $emailErrors = $validationSvc->checkUniqueAccountEmail($email, $accountId);
+        $emailErrors = $validationSvc->checkUniqueAccountEmail($email, $account->getId());
     }
     
     if ($emailErrors !== '') {

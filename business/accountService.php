@@ -148,12 +148,15 @@ class AccountService
     }
     
     /**
-     * Returns to the login page when the user isn't logged in
+     * Get the information of the logged in user
+     * When no user is logged in, the function redirects to the login page
      * 
-     * @return void
+     * @param bool $checkedInAsAdmin (Should the user be an administrator?)
+     * 
+     * @return obj (type: Account)
      */
-    public function checkUserLoggedIn($admin = false)
-    {        
+    public function getLoggedInUser($checkedInAsAdmin = false)
+    {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -162,44 +165,19 @@ class AccountService
             header("location: logIn.php");
         }
         
-        if ($admin === true) {
-            if (
-                !array_key_exists('admin', $_SESSION)
-                || $_SESSION['admin'] === false
-            ) {
+        $account = $this->getById($_SESSION['ID']);
+        
+        if ($account === null) {
+            header("location: logIn.php");
+        }
+        
+        if ($checkedInAsAdmin === true) {
+            if ($account->getAdministrator() === "0") {
                 header("location: logIn.php");
             }
         }
-    }
-    
-    /**
-     * Return the ID of the logged in user
-     * (If no user is logged in -> redirect to the login page)
-     * 
-     * @return int
-     */
-    public function getLoggedInAccountId()
-    {
-        $this->checkUserLoggedIn();
-        return $_SESSION['ID'];
-    }
-    
-    /**
-     * Check if the user is logged in as an admin
-     * 
-     * @return boolean
-     */
-    public function isLoggedInAsAdmin()
-    {
-        $result = false;
         
-        if (array_key_exists('admin', $_SESSION)) {
-            if ($_SESSION['admin'] === true) {
-                $result = true;
-            }
-        }
-        
-        return $result;
+        return $account;
     }
     
 }

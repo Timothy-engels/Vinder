@@ -30,15 +30,14 @@ if (filter_input(INPUT_GET, 'code') !== null) {
     
 } else {
     
-    $accountSvc->checkUserLoggedIn();
+    $accountSvc      = new AccountService();
+    $account         = $accountSvc->getLoggedInUser();
     
     $code            = '';
-    $accountId       = $accountSvc->getLoggedInAccountId();
+    $accountId       = $account->getId();
     $urlExtension    = "";
     $showMenu        = true;
-    $loggedInAsAdmin = $accountSvc->isLoggedInAsAdmin();    
-    
-    $account = $accountSvc->getById($accountId);
+    $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);    
     
 }
     

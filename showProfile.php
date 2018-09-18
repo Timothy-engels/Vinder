@@ -5,17 +5,15 @@ require_once("business/accountService.php");
 $usersSvc = new AccountService();
 
 // Check if user is logged in
-$usersSvc->checkUserLoggedIn();
+$account = $usersSvc->getLoggedInUser(true);
 
 // Is the user logged in as an admin
-$loggedInAsAdmin = $usersSvc->isLoggedInAsAdmin();
+$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Get the ID from the logged in user
-$id = $usersSvc->getLoggedInAccountId();
+$id = $account->getId();
 
 // Get the necessary info to display the view
-$account = $usersSvc->getById($id);
-
 $expSrv      = new ExpertiseService();
 $exps        = $expSrv->getExpertisesById($id);
 $expExps     = $expSrv->getExpectedExpertisesById($id);
