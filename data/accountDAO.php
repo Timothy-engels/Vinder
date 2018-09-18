@@ -6,17 +6,37 @@ require_once("entities/account.php");
 
 class AccountDAO
 {
+    /**
+     * Get an array with all accounts
+     * 
+     * @return array
+     */
     public function getAll()
     {
-        $sql = "select id, naam as name, contactpersoon as contactPerson, emailadres as email, wachtwoord as password, bevestigd as confirmed, website, logo, info, admin as adminstrator from accounts";
+        $sql = "SELECT ID, Naam, Contactpersoon, Emailadres, Wachtwoord, 
+                  Bevestigd, Website, Logo, Info, Admin
+                FROM `accounts`";
+        
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
         $resultSet = $dbh->query($sql);
+        
         $list = array();
+        
         foreach ($resultSet as $row) {
-            $account = entities\Account::create($row["id"],$row["name"], $row["contactPerson"], $row["email"], $row["password"], $row["confirmed"],$row["website"], $row["logo"],  $row["info"], $row["adminstrator"]);
+            $account = entities\Account::create(
+                $row["ID"],
+                $row["Naam"],
+                $row["Contactpersoon"],
+                $row["Emailadres"],
+                $row["Wachtwoord"],
+                $row["Bevestigd"],$row["Website"], $row["Logo"],  $row["Logo"], $row["Admin"]
+            );
             array_push($list, $account);
         }
+        
         $dbh = null;
+        
         return $list;
     }
     
@@ -110,6 +130,7 @@ class AccountDAO
         // Return the account information
         return $account;
     }
+    
     /**
      * Add a new account
      * 
@@ -167,32 +188,6 @@ class AccountDAO
         );
         
         return $account;
-    }
-
-    public function UpdateProfile() {
-        // code voor update van Database
-        $sql = "UPDATE `accounts` 
-                SET 
-                `Naam`= :naam,
-                `Contactpersoon`= :contactpersoon,
-                `Emailadres`=:email,
-                `Website`= :website,
-                `Logo`= :Logo,
-                `Info`= :Info"
-                ;
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $resultSet = $dbh->prepare($sql);
-
-        $stmt = $resultSet->execute(array(
-            ":naam" => $_POST["naam"],
-            ":contactpersoon" => $_POST["contacpersoon"],
-            ":email" => $_POST["email"],
-            ":website" => $_POST["website"],
-            ":Logo" => $_POST["Logo"],
-            ":Info" => $_POST["info"]
-        ));
-
-        $dbh = null;
     }
     
     /**
