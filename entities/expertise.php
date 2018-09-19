@@ -109,7 +109,7 @@ class Expertise {
             self::$idMap[$id] = new Expertise(
                 $id,
                 $expertise,
-                $active = 1,
+                $active,
                 $info
             );
         }
