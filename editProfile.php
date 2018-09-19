@@ -20,4 +20,5 @@ $expExps     = $expSrv->getExpectedExpertisesById($id);
 $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 $allExps     = $expSrv->getExpertises();
+
 include("presentation/accountEdit.php");
