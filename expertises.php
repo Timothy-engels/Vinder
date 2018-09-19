@@ -18,6 +18,9 @@ if (isset($_POST["newExpertise"])) {
     
     $validation = $validationSvc->checkRequiredAndMaxLength($newExpertise, 255);
     
+    $expertiseSvc = new ExpertiseService();
+    $checkExcistingExpertise = $expertiseSvc->getExpertisesByName($newExpertise);
+    
     if ($validation === "") {
         $validation = $validationSvc->checkUniqueExpertise($newExpertise);
     }
