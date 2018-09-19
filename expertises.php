@@ -23,8 +23,10 @@ if (isset($_POST["newExpertise"])) {
     }
     
     if ($validation === "") {           
-        $expertSvc  = new ExpertiseService();
-        $expertSvc->addExpertise($newExpertise);
+        $expertSvc = new ExpertiseService();
+        $expertise = Expertise::create(null, $newExpertise);
+        
+        $expertSvc->addExpertise($expertise);
         
         $message      = 'De gegevens zijn met succes toegevoegd.';
         $newExpertise = '';

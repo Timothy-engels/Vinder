@@ -52,9 +52,17 @@ class ExpertiseService
         return $exp;
     }
 
-    public function addExpertise($expertise){
+    /**
+     * Add a new expertise
+     * 
+     * @param object $expertise
+     * 
+     * @return $expertise
+     */
+    public function addExpertise($expertise)
+    {
         $expertiseDAO = new ExpertiseDAO();
-        $exp = $expertiseDAO->newExpertise($expertise);
+        $expertiseDAO->newExpertise($expertise);
     }
     
     public function updateExpertise($expertise, $eaid){

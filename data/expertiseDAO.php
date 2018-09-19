@@ -118,12 +118,30 @@ class ExpertiseDAO
         return $exp;
     }
     
+    /**
+     * Add a new expertise
+     * 
+     * @param object $expertise
+     * 
+     * @return void
+     */
     public function newExpertise($expertise)
     {
-        $sql = "INSERT INTO expertises(Expertise, Actief) VALUES (:expertise, 1)";
+        // Create the query
+        $sql = "INSERT INTO expertises(Expertise, Actief)
+                VALUES (:expertise, :active)";
+        
+        // Open the connection 
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
         $new = $dbh->prepare($sql);
-        $new->execute([":expertise"=>$expertise]);
+        $new->execute([
+            ":expertise" => $expertise->getExpertise(),
+            ":active"    => $expertise->getActive()
+        ]);
+        
+        // Close the connection
         $dbh = null;
     }
     
