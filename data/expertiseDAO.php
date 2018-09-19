@@ -49,8 +49,63 @@ class ExpertiseDAO
             array_push($list, $exp);
         }
         $dbh = null;
+        print_r($list);
         return $list;
     }
+
+    public function addByUserId($id,$expertiseId,$text)
+    {
+        $sql = "INSERT INTO `accountexpertises` (`ID`, `AccountID`, `ExpertiseID`, `Info`) VALUES (NULL, :id, :expertiseId, :text)";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id,
+            ":expertiseId"=>$expertiseId,
+            ":text"=>$text
+            ]);
+        $dbh = null;
+        return $resultSet;
+    }
+
+    public function addExpectedByUserId($id,$expertiseId,$text)
+    {
+        $sql = "INSERT INTO `accountmeerinfo` (`ID`, `AccountID`, `ExpertiseID`, `Info`) VALUES (NULL, :id, :expertiseId, :text)";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id,
+            ":expertiseId"=>$expertiseId,
+            ":text"=>$text
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
+
+    public function deleteAllByUserId($id)
+    {
+        $sql = "DELETE FROM `accountexpertises` WHERE `accountexpertises`.`AccountID` = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
+
+    public function deleteAllExpectedByUserId($id)
+    {
+        $sql = "DELETE FROM `accountmeerinfo` WHERE `accountmeerinfo`.`AccountID` = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
+
+
 
     public function getExtraExpertise($id)
     {
@@ -64,6 +119,41 @@ class ExpertiseDAO
         }
         $dbh = null;
         return $exp;
+    }
+
+    public function addExtraExpertise($id,$name,$text){
+        $sql2 = "DELETE FROM `accountmeerinfoextra` WHERE `accountmeerinfoextra`.`AccountID` = :id";
+        $sql = "INSERT INTO `accountexpertisesextra` (`ID`, `AccountID`, `ExpertiseNaam`, `Info`) VALUES (NULL, :id, :name, :text);";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $delete = $dbh->prepare($sql2);
+        $delete->execute([
+            ":id"=>$id]);
+
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id,
+            ":name"=>$name,
+           ":text"=>$text]);
+
+        $dbh = null;
+        return $resultSet;
+    }
+
+    public function addExtraExpectedExpertise($id,$name,$text){
+        $sql2 = "DELETE FROM `accountmeerinfoextra` WHERE `accountmeerinfoextra`.`AccountID` = :id";
+        $sql = "INSERT INTO `accountmeerinfoextra` (`ID`, `AccountID`, `MeerinfoNaam`, `Info`) VALUES (NULL, :id, :name, :text);";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $delete = $dbh->prepare($sql2);
+        $delete->execute([
+            ":id"=>$id]);
+
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id,
+            ":name"=>$name,
+            ":text"=>$text]);
+        $dbh = null;
+        return $resultSet;
     }
 
     public function getExtraExpectedExpertise($id)

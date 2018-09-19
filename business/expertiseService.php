@@ -26,6 +26,49 @@ class ExpertiseService
         return $list;
     }
 
+
+    public function addExpertisesById($id,$eId,$text)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $result = $expertiseDAO->addByUserId($id,$eId,$text);
+        return $result;
+    }
+
+    public function addExpectedExpertisesById($id,$eId,$text)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $result = $expertiseDAO->addExpectedByUserId($id,$eId,$text);
+        return $result;
+    }
+
+    public function deleteExpertisesByUserId($id)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->deleteAllByUserId($id);
+        return $list;
+    }
+
+    public function deleteExpectedByUserId($id)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->deleteAllExpectedByUserId($id);
+        return $list;
+    }
+
+    public function addExtraExpertiseByUserId($id,$name,$text)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->addExtraExpertise($id,$name,$text);
+        return $list;
+    }
+
+    public function addExtraExpectedExpertiseByUserId($id,$name,$text)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->addExtraExpectedExpertise($id,$name,$text);
+        return $list;
+    }
+
     public function getExtraExpertise($id){
         $expertiseDAO = new ExpertiseDAO();
         $exp = $expertiseDAO->getExtraExpertise($id);

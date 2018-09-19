@@ -14,11 +14,12 @@
 <body>
 
 <?php include('menu.php'); ?>
-    
+
 <h1><?php echo $account->getName(); ?> profiel pagina</h1>
 
 
     <div>
+        <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
                 <div>
                     Id: <?php echo $account->getId(); ?>
                 </div>
