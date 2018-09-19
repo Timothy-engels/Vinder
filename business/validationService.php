@@ -1,5 +1,6 @@
 <?php
 require_once("accountService.php");
+require_once("expertiseService.php");
 
 /**
  * Validation Service
@@ -215,6 +216,28 @@ class ValidationService
         
         if ($fd > $ld) {
             $result = 'De \'' . $lastDateTranslation . '\' moet na de \'' . $firstDateTranslation . '\' liggen!';
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Check if the expertise has an unique name
+     * 
+     * @param string $expertise
+     * @param int|null $expertiseId
+     * 
+     * @return string
+     */
+    public function checkUniqueExpertise($expertise, $expertiseId = null)
+    {
+        $result = '';
+        
+        $expertiseSvc    = new ExpertiseService();
+        $uniqueExpertise = $expertiseSvc->checkUniqueExpertise($expertise, $expertiseId);
+        
+        if ($uniqueExpertise === false) {
+            $result = 'Dit veld moet een uniek expertise bevatten.';
         }
         
         return $result;

@@ -19,8 +19,8 @@
     <?php
     foreach ($accounts as $account)
           { 
-            $logo = $account->getLogo;
             ?>
+            <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
             <div>
                 <span>
                     Id: <? echo $account->getId(); ?>
