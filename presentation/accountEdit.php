@@ -48,14 +48,29 @@
                         <div class="custom-control custom-checkbox container">
                             <?php
                             $status = '';
+                            $info = '';
                             foreach($exps as $exp) {
-                                if ($exp===$expertise) $status = "checked";
+                                if ($exp===$expertise) {
+                                    $status = "checked";
+                                    $info = $exp->getInfo();
+                                }
                             };
                             ?>
-                            <input type="checkbox" class="row expertise custom-control-input" id="expertise<?php echo $expertise->getId(); ?>" <?= $status; ?> >
+                            <input type="checkbox" class="row expertise custom-control-input" id="expertise<?php echo $expertise->getId(); ?>" <?php echo $status; ?> >
                             <label class="row custom-control-label" for="expertise<?php echo $expertise->getId(); ?>"><?php echo $expertise->getExpertise();?></label>
+                            <?php if ($status === "checked"){?>
+                                <label id="inputlabelexpertise<?php echo $expertise->getId(); ?>" class="row">More info: </label>
+                                <input id="inputexpertise<?php echo $expertise->getId(); ?>" name="inputexpertise<?php echo $expertise->getId(); ?>" type="text" class="row" value = "<?php echo $info; ?>">
+                            <?php } ?>
                         </div>
                     <?php endforeach; ?>
+                    <div class="container">
+                    Extra expertise:
+                    <label id="extraexpertise" class="row">Expertise: </label>
+                    <input id="extraexpertise" name="extraexpertise" type="text" class="row" value = "<?php if($extraExp){ echo $extraExp->getExpertise();}?>">
+                    <label id="extraexpertiseinfo" class="row">More info: </label>
+                    <input id="extraexpertiseinfo" name="extraexpertiseinfo" type="text" class="row" value = "<?php if($extraExp){ echo $extraExp->getInfo();}?>">
+                    </div>
                 </div>
 
                 <h3>Waarover wil ik informatie?:</h3>
@@ -64,12 +79,20 @@
                         <div class="custom-control custom-checkbox container">
                             <?php
                             $status = '';
+                            $info = '';
                             foreach($expExps as $exp) {
-                                if ($exp === $expertise) $status = "checked";
+                                if ($exp === $expertise){
+                                    $status = "checked";
+                                    $info = $exp->getInfo();
+                                }
                             }
                             ?>
                             <input type="checkbox" class="row expectedExpertise custom-control-input" id="expected<?php echo $expertise->getId(); ?>" <?= $status; ?>>
                             <label class="row custom-control-label" for="expected<?= $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
+                            <?php if ($status === "checked"){?>
+                                <label id="inputlabelexpected<?php echo $expertise->getId(); ?>" class="row">More info: </label>
+                                <input id="inputexpected<?php echo $expertise->getId(); ?>" name="inputexpected<?php echo $expertise->getId(); ?>" type="text" class="row" value = "<?php echo $info; ?>">
+                            <?php } ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

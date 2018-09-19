@@ -1,20 +1,23 @@
 <?php
-//accountEdit.php
-
 require_once("business/expertiseService.php");
 require_once("business/accountService.php");
 
 $usersSvc = new AccountService();
 
-$account         = $usersSvc->getLoggedInUser();
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
-$id              = $account->getId();
+// Check if user is logged in
+$account = $usersSvc->getLoggedInUser(true);
 
+// Is the user logged in as an admin
+$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+
+// Get the ID from the logged in user
+$id = $account->getId();
+
+// Get the necessary info to display the view
 $expSrv      = new ExpertiseService();
-$allExps     = $expSrv->getExpertises();
 $exps        = $expSrv->getExpertisesById($id);
 $expExps     = $expSrv->getExpectedExpertisesById($id);
 $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
-
+$allExps     = $expSrv->getExpertises();
 include("presentation/accountEdit.php");
