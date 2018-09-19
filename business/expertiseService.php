@@ -12,20 +12,6 @@ class ExpertiseService
         return $list;
     }
     
-    /**
-     * Get a list with expertises by name
-     * 
-     * @param string $expertiseName
-     * 
-     * @return array 
-     */
-    public function getExpertisesByName($expertiseName)
-    {
-        $expertiseDAO = new ExpertiseDAO();
-        $expertises   = $expertiseDAO->getExpertisesByName($expertiseName);
-        return $expertises;
-    }
-    
     public function getExpertisesById($id)
     {
         $expertiseDAO = new ExpertiseDAO();
@@ -65,14 +51,53 @@ class ExpertiseService
         $expertiseDAO->newExpertise($expertise);
     }
     
-    public function updateExpertise($expertise, $eaid){
+    /**
+     * Update an expertise
+     * 
+     * @param object $expertise
+     * 
+     * @return void
+     */
+    public function updateExpertise($expertise)
+    {
         $expertiseDAO = new ExpertiseDAO();
-        $exp = $expertiseDAO->updateExpertise($expertise, $eaid);
+        $expertiseDAO->updateExpertise($expertise);
     }
     
     public function deleteExpertise($edid){
         $expertiseDAO = new ExpertiseDAO();
         $exp = $expertiseDAO->deleteExpertise($edid);
+    }
+    
+    /**
+     * Get the details of the specified expertise
+     * 
+     * @param int $expertiseId
+     * 
+     * @return null|object
+     */
+    public function getById($expertiseId)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $expertise    = $expertiseDAO->getById($expertiseId);
+        
+        return $expertise;
+    }       
+    
+    /**
+     * Check if the name of the expertises is unique
+     * 
+     * @param string $expertiseName
+     * @param int|null $expertiseId
+     * 
+     * @return bool 
+     */
+    public function checkUniqueExpertise($expertiseName, $expertiseId)
+    {
+        $expertiseDAO    = new ExpertiseDAO();
+        $uniqueExpertise = $expertiseDAO->checkUniqueExpertise($expertiseName, $expertiseId);
+        
+        return $uniqueExpertise;
     }
 }
 

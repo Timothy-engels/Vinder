@@ -93,7 +93,8 @@ class Expertise {
     }
 
     /**
-     * Expertise constructor.
+     * Expertise constructor
+     * 
      * @param $id
      * @param $expertise
      * @param $active
