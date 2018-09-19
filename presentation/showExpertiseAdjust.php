@@ -16,7 +16,7 @@
 <body>
     <h1>Expertises</h1>
     <form action="expertiseAdjust.php?eaid=<?=$eaid;?>" method="POST">
-        Nieuwe expertise-naam: <input type="text" name="update" value="<?php  ?>">
+        Nieuwe expertise-naam: <input type="text" name="update">
         <input type="submit">
     </form>
 </body>
