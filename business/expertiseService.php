@@ -11,14 +11,28 @@ class ExpertiseService
         $list = $expertiseDAO->getAll();
         return $list;
     }
-
+    
+    /**
+     * Get a list with expertises by name
+     * 
+     * @param string $expertiseName
+     * 
+     * @return array 
+     */
+    public function getExpertisesByName($expertiseName)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $expertises   = $expertiseDAO->getExpertisesByName($expertiseName);
+        return $expertises;
+    }
+    
     public function getExpertisesById($id)
     {
         $expertiseDAO = new ExpertiseDAO();
         $list = $expertiseDAO->getByUserId($id);
         return $list;
     }
-
+    
     public function getExpectedExpertisesById($id)
     {
         $expertiseDAO = new ExpertiseDAO();

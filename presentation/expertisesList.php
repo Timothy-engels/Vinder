@@ -16,6 +16,18 @@
         a {
             padding: 0 25px;
         }
+        
+        .error{
+            display: block;
+            color: red;
+            font-weight: bold;
+        }
+
+        .message{
+            display: block;
+            color: green;
+            font-weight: bold;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
@@ -24,6 +36,10 @@
     
     <h1>Expertises</h1>
 
+    <?php if ($message !== '') : ?>
+        <div class="message"><?= $message; ?></div>
+    <?php endif; ?>
+    
     <table>
         <thead>
             <tr>

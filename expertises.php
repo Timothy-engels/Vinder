@@ -8,6 +8,7 @@ $account         = $accService->getLoggedInUser(true);
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 $validation    = '';
+$message       = '';
 $newExpertise  = '';
 
 if (isset($_POST["newExpertise"])) {
@@ -18,12 +19,19 @@ if (isset($_POST["newExpertise"])) {
     $validation = $validationSvc->checkRequiredAndMaxLength($newExpertise, 255);
     
     if ($validation === "") {
-        $expertSvc = new ExpertiseService();
-        $expertSvc->addExpertise($_POST["newExpertise"]);
+        $validation = $validationSvc->checkUniqueExpertise($newExpertise);
     }
-}        
+    
+    if ($validation === "") {           
+        $expertSvc  = new ExpertiseService();
+        $expertSvc->addExpertise($newExpertise);
+        
+        $message      = 'De gegevens zijn met succes toegevoegd.';
+        $newExpertise = '';
+    }
+}
 
-$expertSvc = new ExpertiseService();
+$expertSvc  = new ExpertiseService();
 $expertises = $expertSvc->getExpertises();
 
 include("presentation/expertisesList.php");

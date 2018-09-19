@@ -19,8 +19,46 @@ class ExpertiseDAO
         $dbh = null;
         return $list;
     }
-
-
+    
+    /**
+     * Get a list with the expertises by name
+     * 
+     * @param string $expertiseName
+     * 
+     * @return array
+     */
+    public function getExpertisesByName($expertiseName)
+    {
+        // Find the expertise by the name
+        $query = "SELECT ID, Expertise, Actief
+                  FROM `expertises`
+                  WHERE Expertise = :expertiseName";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        $results = $dbh->prepare($query);
+        $results->execute([':expertiseName' => $expertiseName]);
+        
+        // Generate a list of expertises
+        $expertises = [];
+        
+        foreach ($results AS $result) {
+            $expertise = Expertise::create(
+                $result['ID'],
+                $result['Expertise'],
+                $result['Actief']
+            );
+            
+            array_push($expertises, $expertise);
+        } 
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
+        return $expertises;
+    }        
 
     public function getByUserId($id)
     {
