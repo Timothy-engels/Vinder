@@ -1,6 +1,9 @@
 <?php
 require_once("business/validationService.php");
 require_once("business/accountService.php");
+require_once("business/generalService.php");
+require_once("business/validationService.php");
+
 
 // Get the posted values
 $name           = (filter_input(INPUT_POST, 'name') !== null ? filter_input(INPUT_POST, 'name') : '');
@@ -8,6 +11,25 @@ $contactPerson  = (filter_input(INPUT_POST, 'contactPerson') !== null ? filter_i
 $email          = (filter_input(INPUT_POST, 'email') !== null ? filter_input(INPUT_POST, 'email') : '');
 $password       = (filter_input(INPUT_POST, 'password') !== null ? filter_input(INPUT_POST, 'password') : '');
 $repeatPassword = (filter_input(INPUT_POST, 'repeatPassword') !== null ? filter_input(INPUT_POST, 'repeatPassword') : '');
+
+// Getting the end-date of the registration
+$generalSvc = new GeneralService();
+$general = $generalSvc->get();
+$registryDate = $general->getRegisterDate();
+
+// Getting the current date
+$currentDate = date("Y-m-d H:i:s");
+
+// Checking if the registration date is expired
+$validationSvc = new ValidationService();
+$validation = $validationSvc->registryExpired($registryDate, $currentDate);
+
+// If expired, head back to the logIn page
+if($validation) {
+    header("location: logIn.php");
+}
+
+print("Registratiedatum: " . $registryDate . "<br> Huidige datum: " . $currentDate);
 
 // Check if the form is posted
 

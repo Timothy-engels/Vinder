@@ -4,7 +4,7 @@
 
 require_once("data/generalDAO.php");
 
-class generalService
+class GeneralService
 {
     /**
      * Find the general settings
