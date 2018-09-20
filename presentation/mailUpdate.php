@@ -27,7 +27,7 @@
         <script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
         <script>
             $(document).ready(function() {                
-                CKEDITOR.replace('mail', {startupFocus : true});
+                CKEDITOR.replace('mail', {startupFocus : true, htmlEncodeOutput:true, entities: true});
             })
         </script>    
     </head>
@@ -50,7 +50,7 @@
                 <?php if (array_key_exists('mail', $errors)) : ?>
                     <div class="error"><?= $errors['mail']; ?></div>
                 <?php endif; ?>
-                
+                    
                 <input type="submit" value="Wijzigen" />
                 
             </form>
