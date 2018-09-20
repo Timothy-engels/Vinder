@@ -51,7 +51,7 @@
         <?php foreach($expertises as $expertise) : ?>
             <tr>
                 <td><?= $expertise->getExpertise(); ?></td>
-                <td><?= ($expertise->getActive() === 1 ? "Actief" : "Inactief"); ?></td>
+                <td><?= ($expertise->getActive() === "1" ? "Actief" : "Inactief"); ?></td>
                 <td>
                     <a href='expertiseAdjust.php?eaid=<?= $expertise->getId(); ?>'>Wijzigen</a>
                     <a href='expertiseDelete.php?edid=<?= $expertise->getId(); ?>'>Verwijderen</a>

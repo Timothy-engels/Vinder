@@ -225,17 +225,18 @@ class ValidationService
      * Check if the expertise has an unique name
      * 
      * @param string $expertise
+     * @param int|null $expertiseId
      * 
      * @return string
      */
-    public function checkUniqueExpertise($expertise)
+    public function checkUniqueExpertise($expertise, $expertiseId = null)
     {
         $result = '';
         
-        $expertiseSvc = new ExpertiseService();
-        $expertises   = $expertiseSvc->getExpertisesByName($expertise);
+        $expertiseSvc    = new ExpertiseService();
+        $uniqueExpertise = $expertiseSvc->checkUniqueExpertise($expertise, $expertiseId);
         
-        if (!empty($expertises)) {
+        if ($uniqueExpertise === false) {
             $result = 'Dit veld moet een uniek expertise bevatten.';
         }
         

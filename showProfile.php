@@ -4,10 +4,10 @@ require_once("business/expertiseService.php");
 require_once("business/accountService.php");
 
 $accountSvc = new AccountService();
+
 // Check if user is logged in
 $account    = $accountSvc->getLoggedInUser();
 $info       = $account->getInfo();
-
 
 // Is the user logged in as an admin
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
