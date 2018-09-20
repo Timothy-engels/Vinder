@@ -24,12 +24,12 @@ $currentDate = date("Y-m-d H:i:s");
 $validationSvc = new ValidationService();
 $validation = $validationSvc->registryExpired($registryDate, $currentDate);
 
-// If expired, head back to the logIn page
+// If expired, a message is given, if not, proceding
 if($validation) {
-    header("location: logIn.php");
+    print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet");
 }
 
-print("Registratiedatum: " . $registryDate . "<br> Huidige datum: " . $currentDate);
+else{
 
 // Check if the form is posted
 
@@ -118,7 +118,7 @@ if ($_POST) {
         include("presentation/registerSuccess.php");
         exit();
     }
-   
+}
 }
 
 // Show the view
