@@ -14,13 +14,12 @@
         </script>
     </head>
     <body>
-
+    <form action="editProfile.php" method="post">
         <?php include('menu.php'); ?>
         
         <div class="container" >
             
             <h1> Profiel wijzigen </h1>
-            <input action="aanpassenProfiel.php" method="post" type="hidden">
             <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
             <span class="btn btn-file" > Browse <input type="file"></span>
             <div class="container" >
@@ -48,14 +47,28 @@
                         <div class="custom-control custom-checkbox container">
                             <?php
                             $status = '';
+                            $info = '';
                             foreach($exps as $exp) {
-                                if ($exp===$expertise) $status = "checked";
+                                if ($exp===$expertise) {
+                                    $status = "checked";
+                                    $info = $exp->getInfo();
+                                }
                             };
                             ?>
-                            <input type="checkbox" class="row expertise custom-control-input" id="expertise<?php echo $expertise->getId(); ?>" <?= $status; ?> >
+                            <input type="checkbox" class="row expertise custom-control-input" id="expertise<?php echo $expertise->getId(); ?>" name="expertise<?php echo $expertise->getId(); ?>" <?php echo $status; ?> >
                             <label class="row custom-control-label" for="expertise<?php echo $expertise->getId(); ?>"><?php echo $expertise->getExpertise();?></label>
+                            <?php if ($status === "checked"){?>
+                                <label id="inputlabelexpertise<?php echo $expertise->getId(); ?>" class="row">More info: </label>
+                                <input id="inputexpertise<?php echo $expertise->getId(); ?>" name="inputexpertise<?php echo $expertise->getId(); ?>" type="text" class="row" value = "<?php echo $info; ?>">
+                            <?php } ?>
                         </div>
                     <?php endforeach; ?>
+                    <div class="container">
+                        <label id="extraexpected" class="row">Extra expertise: </label>
+                    <input id="extraexpertise" name="extraexpertise" type="text" class="row" value = "<?php if($extraExp){ echo $extraExp->getExpertise();}?>">
+                    <label id="extraexpertiseinfo" class="row">More info: </label>
+                    <input id="extraexpertiseinfo" name="extraexpertiseinfo" type="text" class="row" value = "<?php if($extraExp){ echo $extraExp->getInfo();}?>">
+                    </div>
                 </div>
 
                 <h3>Waarover wil ik informatie?:</h3>
@@ -64,19 +77,36 @@
                         <div class="custom-control custom-checkbox container">
                             <?php
                             $status = '';
-                            foreach($expExps as $exp) {
-                                if ($exp === $expertise) $status = "checked";
+                            $info = '';
+                            print_r($expExps);
+                            foreach($expExps as $exp2) {
+                                if ($exp2 === $expertise){
+                                    $status2 = "checked";
+                                    $info2 = $exp2->getInfo();
+                                }
                             }
                             ?>
-                            <input type="checkbox" class="row expectedExpertise custom-control-input" id="expected<?php echo $expertise->getId(); ?>" <?= $status; ?>>
+                            <input type="checkbox" class="row expectedExpertise custom-control-input" id="expected<?php echo $expertise->getId(); ?>" name="expected<?php echo $expertise->getId(); ?>" <?= $status2; ?>>
                             <label class="row custom-control-label" for="expected<?= $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
+                            <?php if ($status === "checked"){?>
+                                <label id="inputlabelexpected<?php echo $expertise->getId(); ?>" class="row">More info: </label>
+                                <input id="inputexpected<?php echo $expertise->getId(); ?>" name="inputexpected<?php echo $expertise->getId(); ?>" type="text" class="row" value = "<?php echo $info2; ?>">
+                            <?php } ?>
                         </div>
                     <?php endforeach; ?>
+                    <div class="container">
+
+                        <label id="extraexpected" class="row">Extra expertise: </label>
+                        <input id="extraexpected" name="extraexpected" type="text" class="row" value = "<?php if($extraExpExp){ echo $extraExpExp->getExpertise();}?>">
+                        <label id="extraexpectedinfo" class="row">More info: </label>
+                        <input id="extraexpectedinfo" name="extraexpectedinfo" type="text" class="row" value = "<?php if($extraExpExp){ echo $extraExpExp->getInfo();}?>">
+                    </div>
                 </div>
             </div>
 
             <input type="submit" class="btn" name="submit" value="aanpassen">
         </div>
+    </form>
         <script src="javascript/javascript.js"></script>
     </body>
 </html>

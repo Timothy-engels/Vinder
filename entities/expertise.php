@@ -93,7 +93,8 @@ class Expertise {
     }
 
     /**
-     * Expertise constructor.
+     * Expertise constructor
+     * 
      * @param $id
      * @param $expertise
      * @param $active
@@ -109,7 +110,7 @@ class Expertise {
             self::$idMap[$id] = new Expertise(
                 $id,
                 $expertise,
-                $active = 1,
+                $active,
                 $info
             );
         }
