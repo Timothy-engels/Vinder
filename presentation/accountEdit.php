@@ -6,22 +6,42 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="style/photoupload.css">
         <script>
             var expertises = [];
-            <?php foreach ($allExps as $expertise) : ?>
-                expertises.push("<?php echo $expertise->getId(); ?>");
-            <?php endforeach; ?>
+            <?php
+            foreach ($allExps as $expertise){ ?>
+            expertises.push("<?php echo $expertise->getId(); ?>");
+            <?}?>
         </script>
     </head>
+
     <body>
-    <form action="editProfile.php" method="post">
+
         <?php include('menu.php'); ?>
-        
+        <form action="editProfile.php" method="post" enctype="multipart/form-data">
         <div class="container" >
-            
             <h1> Profiel wijzigen </h1>
+
             <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
-            <span class="btn btn-file" > Browse <input type="file"></span>
+            <div class="container">
+                <div class="row" style="max-height: 160px">
+                    <div class="col-sm-6 offset-sm-3">
+                        <button type="button" class="btn btn-primary btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
+                        <div class="form-group inputDnD">
+                            <label class="sr-only" for="inputFile">File Upload</label>
+                            <input  type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Drag and drop a file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
             <div class="container" >
                 <div class="row">
                     <span class="col-4">naam :</span> 
@@ -49,7 +69,7 @@
                             $status = '';
                             $info = '';
                             foreach($exps as $exp) {
-                                if ($exp===$expertise) {
+                                if ($exp->getId()===$expertise->getId()) {
                                     $status = "checked";
                                     $info = $exp->getInfo();
                                 }
@@ -78,19 +98,18 @@
                             <?php
                             $status = '';
                             $info = '';
-                            print_r($expExps);
                             foreach($expExps as $exp2) {
-                                if ($exp2 === $expertise){
-                                    $status2 = "checked";
-                                    $info2 = $exp2->getInfo();
+                                if ($exp2->getId() === $expertise->getId()){
+                                    $status = "checked";
+                                    $info = $exp2->getInfo();
                                 }
                             }
                             ?>
-                            <input type="checkbox" class="row expectedExpertise custom-control-input" id="expected<?php echo $expertise->getId(); ?>" name="expected<?php echo $expertise->getId(); ?>" <?= $status2; ?>>
+                            <input type="checkbox" class="row expectedExpertise custom-control-input" id="expected<?php echo $expertise->getId(); ?>" name="expected<?php echo $expertise->getId(); ?>" <?= $status; ?>>
                             <label class="row custom-control-label" for="expected<?= $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
-                            <?php if ($status === "checked"){?>
+                            <?php if ($status=== "checked"){?>
                                 <label id="inputlabelexpected<?php echo $expertise->getId(); ?>" class="row">More info: </label>
-                                <input id="inputexpected<?php echo $expertise->getId(); ?>" name="inputexpected<?php echo $expertise->getId(); ?>" type="text" class="row" value = "<?php echo $info2; ?>">
+                                <input id="inputexpected<?php echo $expertise->getId(); ?>" name="inputexpected<?php echo $expertise->getId(); ?>" type="text" class="row" value = "<?php echo $info; ?>">
                             <?php } ?>
                         </div>
                     <?php endforeach; ?>
@@ -104,9 +123,10 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn" name="submit" value="aanpassen">
+            <input type="submit" class="btn" name="submit" value="Save">
         </div>
     </form>
+        <script src="javascript/photoupload.js"></script>
         <script src="javascript/javascript.js"></script>
     </body>
 </html>

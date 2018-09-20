@@ -119,6 +119,30 @@ class Expertise {
     }
 }
 
+class ExpectedExpertise extends Expertise{
+
+    private static $idMapExpected = array();
+
+    public static function create(
+        $id,
+        $expertise,
+        $active = 1,
+        $info = null
+    ) {
+        if (!isset(self::$idMapExpected[$id])) {
+            self::$idMapExpected[$id] = new Expertise(
+                $id,
+                $expertise,
+                $active = 1,
+                $info
+            );
+        }
+
+        return self::$idMapExpected[$id];
+    }
+
+}
+
 class ExtraExpertise extends Expertise{
 
     private static $idMapExtra = array();

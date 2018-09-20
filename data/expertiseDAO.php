@@ -55,6 +55,8 @@ class ExpertiseDAO
         }
         
         // Return the expertise information
+        $dbh = null;
+
         return $expertise;
     }
     
@@ -81,11 +83,10 @@ class ExpertiseDAO
         $resultSet->execute([":id"=>$id]);
         $list = array();
         foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], 1, $row["info"]);
+            $exp = ExpectedExpertise::create($row["id"],$row["expertise"], 1, $row["info"]);
             array_push($list, $exp);
         }
         $dbh = null;
-        print_r($list);
         return $list;
     }
 
@@ -200,7 +201,7 @@ class ExpertiseDAO
         $resultSet->execute([":id"=>$id]);
         $exp = [];
         foreach ($resultSet as $row) {
-            $exp = ExtraExpertise::create($row["id"],$row["expertise"], 1, $row["info"]);
+            $exp = ExtraExpectedExpertise::create($row["id"],$row["expertise"], 1, $row["info"]);
         }
         $dbh = null;
         return $exp;
