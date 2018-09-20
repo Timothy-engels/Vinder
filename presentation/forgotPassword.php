@@ -18,7 +18,7 @@
         <p>Gelieve uw e-mailadres in te geven.<br>We sturen je een e-mail waarmee je je wachtwoord kan resetten.</p>
         <form action="forgotPassword.php" method="POST">
             <label for="mail">E-mail : </label>
-            <input type="text" name="mail">
+            <input type="text" name="mail" autofocus>
             <?php if (array_key_exists('mail', $errors)) : ?>
                 <div class="error"><?= $errors['mail']; ?></div>
             <?php endif; ?>
