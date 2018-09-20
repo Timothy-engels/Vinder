@@ -78,7 +78,12 @@ if ($_POST) {
         $dbRegisterDate = $dateSvc->dateToDbString($registerDate, '-');
         $dbSwipeDate    = $dateSvc->dateToDbString($swipeDate, '-');
         
-        $general = entities\General::create($dbRegisterDate, $dbSwipeDate, '');
+        if ($general === null) {
+            $general = entities\General::create($dbRegisterDate, $dbSwipeDate, '');
+        } else {
+            $general->setRegisterDate($dbRegisterDate);
+            $general->setSwipeDate($dbSwipeDate);
+        }
         
         $generalService = new GeneralService();
         $generalService->updateDates($general);
