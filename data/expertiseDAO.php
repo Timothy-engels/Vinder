@@ -85,7 +85,6 @@ class ExpertiseDAO
             array_push($list, $exp);
         }
         $dbh = null;
-        print_r($list);
         return $list;
     }
 
@@ -265,15 +264,6 @@ class ExpertiseDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $delete = $dbh->prepare($sql);
         $delete->execute([":id"=>$id]);
-        $dbh = null;
-    }
-    
-    public function activator3000($id, $choice)
-    {
-        $sql = "UPDATE expertises SET Actief = :choice WHERE ID = :id";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $adjust = $dbh->prepare($sql);
-        $adjust->execute([':id'=>$id, ":choice"=>$choice]);
         $dbh = null;
     }
     

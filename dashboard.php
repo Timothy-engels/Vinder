@@ -8,7 +8,6 @@ $accountSvc = new AccountService();
 $account    = $accountSvc->getLoggedInUser();
 $info       = $account->getInfo();
 
-
 // Is the user logged in as an admin
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
@@ -25,7 +24,6 @@ $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 
 if ($info === null || $info == "") {
     $allExps     = $expSrv->getExpertises();
-
     include("presentation/accountEdit.php");
 }
 else {
