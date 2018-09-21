@@ -195,4 +195,11 @@ class AccountService
         return $swipingInfo;
     }
     
+    public function getSwipeProfile($id) 
+    {
+        $accountsDAO = new AccountDAO();
+        $list = $accountsDAO->getSwipeProfile($id);
+        return $list;
+    }
+    
 }

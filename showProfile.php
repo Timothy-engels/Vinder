@@ -13,7 +13,16 @@ $info       = $account->getInfo();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Get the ID from the logged in user
-$id = $account->getId();
+if ($loggedInAsAdmin) {
+    if(isset($_GET["userId"])) {
+        $id = $_GET["userId"];
+        $account = $accountSvc->getById($id);
+    }
+}
+else {
+    $id = $account->getId();
+}
+
 
 // Get the necessary info to display the view
 $expSrv      = new ExpertiseService();
