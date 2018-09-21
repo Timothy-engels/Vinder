@@ -16,7 +16,7 @@ $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 if ($loggedInAsAdmin) {
     if(isset($_GET["userId"])) {
         $id = $_GET["userId"];
-        $account    = $accountSvc->getById($id);
+        $account = $accountSvc->getById($id);
     }
 }
 else {
