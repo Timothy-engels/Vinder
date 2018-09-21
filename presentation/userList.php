@@ -17,7 +17,10 @@
         <ul>
             <?php foreach($list as $row) : ?>
                 <li>
-                    <?= $row->getLogo() . $row->getName(); ?>
+                    <?= $row->getName(); ?>
+                    <?php if ($row->getLogo() !== null && $row->getLogo() !== '') : ?>
+                        <img src="images/<?= $row->getLogo(); ?>" style="height: 8rem;"><br/>
+                    <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ul>
