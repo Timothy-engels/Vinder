@@ -3,6 +3,7 @@ require_once("business/validationService.php");
 require_once("business/accountService.php");
 require_once("business/generalService.php");
 require_once("business/validationService.php");
+require_once("business/dateService.php");
 
 
 // Get the posted values
@@ -15,25 +16,28 @@ $repeatPassword = (filter_input(INPUT_POST, 'repeatPassword') !== null ? filter_
 // Getting the end-date of the registration
 $generalSvc = new GeneralService();
 $general = $generalSvc->get();
-$registryDate = $general->getRegisterDate();
+$dateService    = new DateService();
+$registryDate = $dateService->dateDbToString($general->getRegisterDate(), '-');
 
 // Getting the current date
-$currentDate = date("Y-m-d H:i:s");
+$current = date("Y-m-d H:i:s");
+$dateService    = new DateService();
+$currentDate = $dateService->dateDbToString($current, '-');
 
 // Checking if the registration date is expired
 $validationSvc = new ValidationService();
 $validation = $validationSvc->registryExpired($registryDate, $currentDate);
 
+$errors = [];
+
 // If expired, a message is given, if not, proceding
 if($validation) {
-    print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet");
+    print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet. Klik <a href='logIn.php'>hier</a> om terug te keren.");
 }
 
 else{
 
 // Check if the form is posted
-
-$errors = []; 
 
 if ($_POST) {
     
@@ -119,7 +123,6 @@ if ($_POST) {
         exit();
     }
 }
-}
-
 // Show the view
 include("presentation/register.php");
+}

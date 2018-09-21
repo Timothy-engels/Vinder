@@ -255,14 +255,14 @@ class ValidationService
         $format = 'd-m-Y'
     ) {
         // Set the result
-        $result = false;
+        $result = '';
         
         // Format the dates to a date time string
         $rd = DateTime::createFromFormat($format, $registryDate);
         $cd = DateTime::createFromFormat($format, $currentDate);
         
         if ($rd < $cd) {
-            $result = true;
+            $result = TRUE;
         }
         
         return $result;

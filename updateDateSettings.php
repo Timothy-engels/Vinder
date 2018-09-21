@@ -62,7 +62,7 @@ if ($_POST) {
         $swipeDateErrors = $validation->checkDateBiggerThen(
             $registerDate,
             $swipeDate,
-            'Startdatum registratie',
+            'Einddatum registratie',
             'Startdatum swipen'
         );
         
