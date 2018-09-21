@@ -34,9 +34,7 @@ $errors = [];
 if($validation) {
     print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet. Klik <a href='logIn.php'>hier</a> om terug te keren.");
 }
-
-else{
-
+else {
 // Check if the form is posted
 
 if ($_POST) {
