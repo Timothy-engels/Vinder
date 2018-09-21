@@ -180,4 +180,11 @@ class AccountService
         return $account;
     }
     
+    public function getSwipeProfile($id) 
+    {
+        $accountsDAO = new AccountDAO();
+        $list = $accountsDAO->getSwipeProfile($id);
+        return $list;
+    }
+    
 }
