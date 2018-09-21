@@ -14,22 +14,25 @@ $repeatPassword = (filter_input(INPUT_POST, 'repeatPassword') !== null ? filter_
 
 // Getting the end-date of the registration
 $generalSvc = new GeneralService();
-$general = $generalSvc->get();
-$registryDate = $general->getRegisterDate();
+$general    = $generalSvc->get();
 
-// Getting the current date
-$currentDate = date("Y-m-d H:i:s");
+if ($general !== null) {
+    
+    $registryDate = $general->getRegisterDate();
 
-// Checking if the registration date is expired
-$validationSvc = new ValidationService();
-$validation = $validationSvc->registryExpired($registryDate, $currentDate);
+    // Getting the current date
+    $currentDate = date("Y-m-d H:i:s");
+    
+    // Checking if the registration date is expired
+    $validationSvc = new ValidationService();
+    $validation    = $validationSvc->registryExpired($registryDate, $currentDate, "Y-m-d H:i:s");
 
-// If expired, a message is given, if not, proceding
-if($validation) {
-    print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet");
+    // If expired, a message is given, if not, proceding
+    if ($validation) {
+        print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet");
+        die();
+    }
 }
-
-else{
 
 // Check if the form is posted
 
@@ -118,7 +121,6 @@ if ($_POST) {
         include("presentation/registerSuccess.php");
         exit();
     }
-}
 }
 
 // Show the view
