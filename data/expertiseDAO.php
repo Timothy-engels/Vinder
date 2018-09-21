@@ -85,7 +85,6 @@ class ExpertiseDAO
             array_push($list, $exp);
         }
         $dbh = null;
-        print_r($list);
         return $list;
     }
 
