@@ -243,4 +243,68 @@ class AccountDAO
         return $update;
     }
     
+    /**
+     * Get the swiping information for a specified company
+     * 
+     * @param int $companyId
+     * 
+     * @return array
+     */
+    public function getSwipingInfo($companyId)
+    {
+        // Create the sql
+        $sql = "SELECT * 
+                FROM `accounts`
+                WHERE ID <> :companyId
+                  AND Bevestigd = 1
+                  AND Info IS NOT NULL
+                  AND Admin = 0
+                  AND ID NOT IN (
+                    SELECT AccountID2
+                    FROM `matching`
+                    WHERE AccountID1 = :accountId1
+                    AND Status NOT IN (0, 2, -2)
+                  )
+                  AND ID NOT IN (
+                    SELECT AccountID1
+                    FROM `matching`
+                    WHERE AccountID2 = :accountId2
+                    AND Status IN (1, -4, 0)
+                  )
+                  ";
+                  
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ':companyId'  => $companyId,
+            ':accountId1' => $companyId,
+            ':accountId2' => $companyId
+        ]);
+        
+        // Return the results
+        $accounts = [];
+        
+        foreach ($resultSet as $result) {
+            $account = entities\Account::create(
+                $result['ID'],
+                $result['Naam'],
+                $result['Contactpersoon'],
+                $result['Emailadres'],
+                $result['Wachtwoord'],
+                $result['Bevestigd'],
+                $result['Website'],
+                $result['Logo'],
+                $result['Info'],
+                $result['Admin']
+            );
+            
+            $accounts[] = $account;
+        }
+        
+        return $accounts;
+    }
+    
 }
