@@ -179,27 +179,4 @@ class AccountService
         
         return $account;
     }
-    
-    /**
-     * Get the swiping information a specified company
-     * 
-     * @param int $companyId
-     * 
-     * @return array
-     */
-    public function getSwipingInfo($companyId)
-    {
-        $accountDAO  = new AccountDAO();
-        $swipingInfo = $accountDAO->getSwipingInfo($companyId);
-        
-        return $swipingInfo;
-    }
-    
-    public function getSwipeProfile($id) 
-    {
-        $accountsDAO = new AccountDAO();
-        $list = $accountsDAO->getSwipeProfile($id);
-        return $list;
-    }
-    
 }

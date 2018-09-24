@@ -1,5 +1,5 @@
 <?php
-//swipe.php
+/*swipe.php
 
 require_once("business/swipeService.php");
 require_once("business/expertiseService.php");
@@ -21,4 +21,4 @@ for each($candidates as $swipeProfile) {
     push_array($swipes, $swipeProfile);
 }
 
-include("presentation/");
+include("presentation/");*/
