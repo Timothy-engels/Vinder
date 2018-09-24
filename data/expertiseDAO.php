@@ -3,6 +3,8 @@
 
 require_once("DBConfig.php");
 require_once("entities/expertise.php");
+require_once("entities/extraExpertise.php");
+require_once("entities/extraExpectedExpertise.php");
 
 class ExpertiseDAO
 {
