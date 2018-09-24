@@ -24,26 +24,9 @@ class Account
     private $logo;
     private $info;
     private $administrator;
-    private $expertises = array();
     
     private $accountExpertises = [];
     
-    /**
-     * @return array
-     */
-    public function getExpertises()
-    {
-        return $this->expertises;
-    }
-
-    /**
-     * @param array $expertises
-     */
-    public function setExpertises($expertises)
-    {
-        $this->expertises = $expertises;
-    }
-
     /**
      * @param int $id
      * @param string $name
@@ -55,7 +38,6 @@ class Account
      * @param string|null $logo
      * @param string|null $info
      * @param int $administrator
-     * @PARAM array Expertise $expertises;
      */
     public function __construct(
         $id,
@@ -67,9 +49,7 @@ class Account
         $website = null,
         $logo = null,
         $info = null,
-        $administrator = 0,
-        $expertises
-
+        $administrator = 0
     ) {
         $this->id            = $id;
         $this->name          = $name;
@@ -81,7 +61,6 @@ class Account
         $this->logo          = $logo;
         $this->info          = $info;
         $this->administrator = $administrator;
-        $this->expertises = $expertises;
     }
     
     /**
