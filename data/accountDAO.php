@@ -337,4 +337,72 @@ class AccountDAO
         return $swipeProfile;
     }
     
+    /**
+     * Get a list with all companies that are matched (to a specified company)
+     * 
+     * @param int $companyId
+     * 
+     * @return array
+     */
+    public function getMatchedCompanies($companyId = null)
+    {
+        // Create the sql
+        $sql  = "SELECT DISTINCT a.*
+                 FROM accounts a
+                 WHERE ID IN (
+                   SELECT AccountID1 AS AccountID
+                   FROM matching
+                   WHERE Status = 3 ";
+        
+        $params = [];
+        
+        if ($companyId !== null) {
+            $sql                  .= " AND AccountID2 = :companyId1 ";
+            $params[':companyId1'] = $companyId;
+        }
+        
+        $sql .= "UNION
+                   SELECT AccountID2 as AccountID
+                   FROM matching
+                   WHERE Status = 3 ";
+        
+        if ($companyId !== null) {
+            $sql                  .= " AND AccountID1 = :companyId2 ";
+            $params[':companyId2'] = $companyId;
+        }
+        
+        $sql .= ")
+                 ORDER BY a.Naam";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute($params);
+        
+        // Return the results
+        $accounts = [];
+        
+        foreach ($resultSet as $result) {
+            
+            $account = entities\Account::create(
+                $result['ID'],
+                $result['Naam'],
+                $result['Contactpersoon'],
+                $result['Emailadres'],
+                $result['Wachtwoord'],
+                $result['Bevestigd'],
+                $result['Website'],
+                $result['Logo'],
+                $result['Info'],
+                $result['Admin']
+            );
+            
+            $accounts[] = $account;
+        }
+        
+        return $accounts;
+    }
+    
 }

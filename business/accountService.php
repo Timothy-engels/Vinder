@@ -202,4 +202,19 @@ class AccountService
         return $list;
     }
     
+    /**
+     * Get a list with all companies that are matched (to a specified company)
+     * 
+     * @param int|null $companyId
+     * 
+     * @return type
+     */
+    public function getMatchedCompanies($companyId = null)
+    {
+        $accountDAO           = new AccountDAO();
+        $companiesWithMatches = $accountDAO->getMatchedCompanies($companyId);
+        
+        return $companiesWithMatches;
+    }
+    
 }
