@@ -269,7 +269,7 @@ class AccountDAO
                     SELECT AccountID1
                     FROM `matching`
                     WHERE AccountID2 = :accountId2
-                    AND Status IN (1, -4, 0)
+                    AND Status NOT IN (1, -4, 0)
                   )
                   ";
                   
