@@ -374,4 +374,41 @@ class AccountDAO
         
         return $accounts;
     }
+    
+    /**
+     * Get the amount of matches of the matched companies 
+     * 
+     * @return array (companyId => amountMatches)
+     */
+    public function getAmountMatchesByCompany()
+    {
+        // Create the sql
+        $sql = "SELECT AccountID, COUNT(AccountID) AS Amount
+                FROM (
+                  SELECT AccountID1 AS AccountID
+                  FROM matching
+                  WHERE Status = 3
+                  UNION ALL
+                  SELECT AccountID2 AS AccountID
+                  FROM matching
+                  WHERE Status = 3
+                ) AS MC
+                GROUP BY AccountID";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute();
+        
+        // Return the results
+        $amountMatches = [];
+        
+        foreach ($resultSet as $result) {
+            $amountMatches[$result['AccountID']] = $result['Amount'];
+        }
+        
+        return $amountMatches;
+    }
 }

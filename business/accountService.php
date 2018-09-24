@@ -210,4 +210,17 @@ class AccountService
         return $companiesWithMatches;
     }
     
+    /**
+     * Get the amount of matches of the matched companies 
+     * 
+     * @return array (companyId => amountMatches)
+     */
+    public function getAmountMatchesByCompany()
+    {
+        $accountDAO    = new AccountDAO();
+        $amountMatches = $accountDAO->getAmountMatchesByCompany();
+        
+        return $amountMatches;
+    }
+    
 }
