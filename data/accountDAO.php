@@ -306,37 +306,7 @@ class AccountDAO
         
         return $accounts;
     }
-    
-    public function getSwipeProfile($id)
-    {
-     // Find the account by the id
-        $sql = "SELECT Naam, Logo, Info
-                FROM accounts
-                WHERE ID = :id";
 
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute([':id' => $id]);
-
-        // Get the acount information
-        $swipeProfile = null;
-
-        if ($stmt->rowCount() > 0) {
-
-            $rij = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $swipeProfile = entities\Account::create(
-                $rij['Naam'],
-                $rij['Logo'],
-                $rij['Info']
-            );
-        }
-
-        // Return the account information
-        return $swipeProfile;
-    }
-    
     /**
      * Get a list with all companies that are matched (to a specified company)
      * 
@@ -404,5 +374,4 @@ class AccountDAO
         
         return $accounts;
     }
-    
 }
