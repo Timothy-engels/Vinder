@@ -16,111 +16,118 @@ $repeatPassword = (filter_input(INPUT_POST, 'repeatPassword') !== null ? filter_
 // Getting the end-date of the registration
 $generalSvc = new GeneralService();
 $general = $generalSvc->get();
-$dateService    = new DateService();
-$registryDate = $dateService->dateDbToString($general->getRegisterDate(), '-');
 
-// Getting the current date
-$current = date("Y-m-d H:i:s");
-$dateService    = new DateService();
-$currentDate = $dateService->dateDbToString($current, '-');
-
-// Checking if the registration date is expired
-$validationSvc = new ValidationService();
-$validation = $validationSvc->registryExpired($registryDate, $currentDate);
-
-$errors = [];
-
-// If expired, a message is given, if not, proceding
-if($validation) {
-    print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet. Klik <a href='logIn.php'>hier</a> om terug te keren.");
+if($general==NULL){
+    print("Er is geen registratiedatum vastgelegd."); //hier kan nog een pagina voor gemaakt worden
 }
 else {
-// Check if the form is posted
-
-if ($_POST) {
     
-    // Validate the fields
-    $validation = new ValidationService();
+    $dateService    = new DateService();
+    $registryDate = $dateService->dateDbToString($general->getRegisterDate(), '-');
 
-    $nameErrors = $validation->checkRequiredAndMaxLength($name, 255);
+    // Getting the current date
+    $current = date("Y-m-d H:i:s");
+    $dateService    = new DateService();
+    $currentDate = $dateService->dateDbToString($current, '-');
 
-    if ($nameErrors !== '') {
-        $errors['name'] = $nameErrors;
-    } 
+    // Checking if the registration date is expired
+    $validationSvc = new ValidationService();
+    $validation = $validationSvc->registryExpired($registryDate, $currentDate);
 
-    $contactPersonErrors = $validation->checkRequiredAndMaxLength($contactPerson, 255);
+    $errors = [];
 
-    if ($contactPersonErrors !== '') {
-        $errors['contactPerson'] = $contactPersonErrors;
+    // If expired, a message is given, if not, proceding
+    if($validation) {
+        print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet. Klik <a href='logIn.php'>hier</a> om terug te keren.");
     }
-
-    $emailErrors = $validation->checkRequiredAndMaxLength($email, 255); 
-
-    if ($emailErrors === '') {
-        $emailErrors = $validation->checkEmail($email);
-    }
-    
-    if ($emailErrors == '') {
-        $emailErrors = $validation->checkUniqueAccountEmail($email);
-    }
-    
-    if ($emailErrors !== '') {
-        $errors['email'] = $emailErrors;
-    }
-
-    $passwordErrors = $validation->checkRequiredAndMaxLength($password, 50);
-    
-    if ($passwordErrors === '') {
-        $passwordErrors = $validation->checkMinLength($password, 8);
-    }
-    
-    if ($passwordErrors === '') {
-        $passwordErrors = $validation->checkSafePassword($password);
-    }
-
-    if ($passwordErrors !== '') {
-        $errors['password'] = $passwordErrors;
-    }
-
-    $repeatPasswordErrors = $validation->checkRequiredAndMaxLength($repeatPassword, 50);
-
-    if ($repeatPasswordErrors === '') {
-        $repeatPasswordErrors = $validation->checkMinLength($repeatPassword, 8);
-    }
-    
-    if ($repeatPasswordErrors === '') {
-        $repeatPasswordErrors = $validation->checkSafePassword($repeatPassword);
-    }
-    
-    if ($repeatPasswordErrors === '') {
-        $repeatPasswordErrors = $validation->checkRepeatPassword($password, $repeatPassword);
-    }
-    
-    if ($repeatPasswordErrors !== '') {
-        $errors['repeatPassword'] = $repeatPasswordErrors;
-    }
-    
-    if (empty($errors)) {
+    else {
         
-        // Hash the password
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        // Check if the form is posted
+        if ($_POST) {
+    
+        // Validate the fields
+        $validation = new ValidationService();
 
-        // Save the account
-        $accountService = new AccountService();
-        $account        = $accountService->insert(
-            $name,
-            $contactPerson,
-            $email,
-            $passwordHash
-        );
+        $nameErrors = $validation->checkRequiredAndMaxLength($name, 255);
 
-        $accountService->sendConfirmRegistrationMail($account);
+            if ($nameErrors !== '') {
+                $errors['name'] = $nameErrors;
+            } 
+
+            $contactPersonErrors = $validation->checkRequiredAndMaxLength($contactPerson, 255);
+
+        if ($contactPersonErrors !== '') {
+            $errors['contactPerson'] = $contactPersonErrors;
+        }
+
+            $emailErrors = $validation->checkRequiredAndMaxLength($email, 255); 
+
+            if ($emailErrors === '') {
+                $emailErrors = $validation->checkEmail($email);
+            }
+    
+            if ($emailErrors == '') {
+                $emailErrors = $validation->checkUniqueAccountEmail($email);
+            }
+    
+        if ($emailErrors !== '') {
+            $errors['email'] = $emailErrors;
+        }
+
+            $passwordErrors = $validation->checkRequiredAndMaxLength($password, 50);
+     
+            if ($passwordErrors === '') {
+                $passwordErrors = $validation->checkMinLength($password, 8);
+            }
+    
+            if ($passwordErrors === '') {
+                $passwordErrors = $validation->checkSafePassword($password);
+            }
+
+            if ($passwordErrors !== '') {
+                $errors['password'] = $passwordErrors;
+            }
+
+            $repeatPasswordErrors = $validation->checkRequiredAndMaxLength($repeatPassword, 50);
+
+            if ($repeatPasswordErrors === '') {
+                $repeatPasswordErrors = $validation->checkMinLength($repeatPassword, 8);
+            }
+    
+            if ($repeatPasswordErrors === '') {
+                $repeatPasswordErrors = $validation->checkSafePassword($repeatPassword);
+            }
+    
+        if ($repeatPasswordErrors === '') {
+            $repeatPasswordErrors = $validation->checkRepeatPassword($password, $repeatPassword);
+        }
+    
+            if ($repeatPasswordErrors !== '') {
+                $errors['repeatPassword'] = $repeatPasswordErrors;
+            }
+    
+            if (empty($errors)) {
         
-        // Show the confirmation
-        include("presentation/registerSuccess.php");
-        exit();
+                // Hash the password
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+                // Save the account
+                $accountService = new AccountService();
+                $account        = $accountService->insert(
+                $name,
+                $contactPerson,
+                $email,
+                $passwordHash
+            );
+
+            $accountService->sendConfirmRegistrationMail($account);
+        
+                // Show the confirmation
+                include("presentation/registerSuccess.php");
+            exit();
+        }
+        }
+        // Show the view
+        include("presentation/register.php");
     }
-}
-// Show the view
-include("presentation/register.php");
 }
