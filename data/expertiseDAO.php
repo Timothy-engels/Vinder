@@ -8,17 +8,51 @@ require_once("entities/extraExpectedExpertise.php");
 
 class ExpertiseDAO
 {
-    public function getAll()
+    /**
+     * Get a list with expertises
+     * 
+     * @param int $status (0 = inactive, 1 = active)
+     * 
+     * @return array
+     */
+    public function getAll($status = null)
     {
-        $sql = "select id, expertise, actief as active from expertises";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $resultSet = $dbh->query($sql);
-        $list = array();
-        foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"], null);
-            array_push($list, $exp);
+        // Create the sql
+        $sql = "SELECT ID, Expertise, Actief
+                FROM expertises ";
+        
+        $params = [];
+        
+        if ($status !== null) {
+            $sql               .= "WHERE Actief = :status";
+            $params[':status']  = $status;
         }
+                    
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the connection
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute($params);
+        
+        // Return the result
+        $list = array();
+        
+        foreach ($resultSet as $row) {
+            
+            $exp = Expertise::create(
+                $row["ID"],
+                $row["Expertise"],
+                $row["Actief"]
+            );
+            
+            $list[$row['ID']] = $exp;
+        }
+        
+        // Close the connection
         $dbh = null;
+        
+        // Return the results
         return $list;
     }
     

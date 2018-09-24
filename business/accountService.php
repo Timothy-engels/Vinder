@@ -2,6 +2,7 @@
 //business/accountService.php
 
 require_once("data/accountDAO.php");
+require_once("data/expertiseDAO.php");
 require_once("business/mailService.php");
 require_once("business/encryptionService.php");
 
@@ -189,8 +190,13 @@ class AccountService
      */
     public function getSwipingInfo($companyId)
     {
+        // Get the general account information
         $accountDAO  = new AccountDAO();
         $swipingInfo = $accountDAO->getSwipingInfo($companyId);
+                
+        // Get an array with all the active expertises
+        $expertiseDAO = new ExpertiseDAO();
+        $expertises   = $expertiseDAO->getAll(1);
         
         return $swipingInfo;
     }
