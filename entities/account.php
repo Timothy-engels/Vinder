@@ -25,7 +25,9 @@ class Account
     private $info;
     private $administrator;
     private $expertises = array();
-
+    
+    private $accountExpertises = [];
+    
     /**
      * @return array
      */
@@ -298,6 +300,25 @@ class Account
     public function setAdministrator($administrator)
     {
         $this->administrator = $administrator;
+        return $this;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAccountExpertises()
+    {
+        return $this->accountExpertises;
+    }
+    
+    /**
+     * @param object $accountExpertise
+     * 
+     * @return this
+     */
+    public function addAccountExpertise($accountExpertise)
+    {
+        $this->accountExpertises[] = $accountExpertise;
         return $this;
     }
     
