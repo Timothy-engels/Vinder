@@ -42,7 +42,9 @@
                             <img src="images/<?= $company->getLogo(); ?>" class="logoImg"><br/>
                         <?php endif; ?>
                         <?= $company->getName(); ?><br/>
-                        <?= $amountMatches[$company->getID()]; ?> match(es)
+                        <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
+                            <?= $amountMatches[$company->getID()]; ?> match(es)
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>
