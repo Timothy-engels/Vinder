@@ -18,6 +18,9 @@ if ($loggedInAsAdmin) {
         $id = $_GET["userId"];
         $account = $accountSvc->getById($id);
     }
+    else {
+        $id = $account->getId();
+    }
 }
 else {
     $id = $account->getId();
