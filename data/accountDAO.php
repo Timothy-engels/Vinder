@@ -257,7 +257,6 @@ class AccountDAO
                 FROM `accounts`
                 WHERE ID <> :companyId
                   AND Bevestigd = 1
-                  AND Info IS NOT NULL
                   AND Admin = 0
                   AND ID NOT IN (
                     SELECT AccountID2
