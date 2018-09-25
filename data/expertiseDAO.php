@@ -4,6 +4,7 @@
 require_once("DBConfig.php");
 require_once("entities/expertise.php");
 require_once("entities/accountExpertise.php");
+require_once("entities/accountMoreInfo.php");
 require_once("entities/extraExpertise.php");
 require_once("entities/extraExpectedExpertise.php");
 
@@ -368,8 +369,7 @@ class ExpertiseDAO
         $resultSet = $dbh->prepare($query);
         $resultSet->execute(['companyIDs' => $swipingCompanyIDsString]);
 
-        
-        // Return the account expertises        
+        // Add the account expertises        
         foreach ($resultSet as $result) {
             
             $expertise = entities\AccountExpertise::create(
@@ -380,6 +380,47 @@ class ExpertiseDAO
             );
             
             $swipingInfo[$result['AccountID']]->addAccountExpertise($expertise);
+        }
+        
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account more info to the swiping information
+     * 
+     * @param type $swipingInfo
+     * @param type $expertises
+     * 
+     * @return array
+     */
+    public function addAccountMoreInfoToSwipingInfo($swipingInfo, $expertises)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account expertises
+        $query = "SELECT ID, AccountID, ExpertiseID, Info
+                  FROM accountmeerinfo
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute(['companyIDs' => $swipingCompanyIDsString]);
+
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $moreInfo = entities\AccountMoreInfo::create(
+                $result['ID'],
+                null,
+                $expertises[$result['ExpertiseID']],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->addAccountMoreInfo($moreInfo);
         }
         
         return $swipingInfo;

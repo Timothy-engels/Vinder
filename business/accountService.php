@@ -206,6 +206,12 @@ class AccountService
                 $expertises
             );
             
+            // Add the account more info
+            $swipingInfo = $expertiseDAO->addAccountMoreInfoToSwipingInfo(
+                $swipingInfo,
+                $expertises
+            );
+            
         }
         
         return $swipingInfo;
