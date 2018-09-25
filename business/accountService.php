@@ -255,4 +255,18 @@ class AccountService
         return $amountMatches;
     }
     
+    
+    /**
+     * Get a list with all the companies without matches
+     * 
+     * @return array
+     */
+    public function getUnmatchedCompanies()
+    {
+        $accountDAO              = new AccountDAO();
+        $companiesWithoutMatches = $accountDAO->getUnmatchedCompanies();
+        
+        return $companiesWithoutMatches;
+    }
+    
 }

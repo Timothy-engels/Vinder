@@ -411,4 +411,56 @@ class AccountDAO
         
         return $amountMatches;
     }
+    
+    /**
+     * Get a list with all companies that are unmatched
+     * 
+     * @return array
+     */
+    public function getUnmatchedCompanies()
+    {
+        // Create the sql
+        $sql = "SELECT *
+                FROM accounts
+                WHERE Bevestigd = 1
+                  AND Admin = 0
+                  AND ID NOT IN (
+                    SELECT AccountID1 AS AccountID
+                    FROM matching
+                    WHERE Status = 3
+                    UNION
+                    SELECT AccountID2 AS AccountID
+                    FROM matching
+                    WHERE Status = 3
+                )";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute();
+        
+        // Return the results
+        $accounts = [];
+        
+        foreach ($resultSet as $result) {
+            $account = entities\Account::create(
+                $result['ID'],
+                $result['Naam'],
+                $result['Contactpersoon'],
+                $result['Emailadres'],
+                $result['Wachtwoord'],
+                $result['Bevestigd'],
+                $result['Website'],
+                $result['Logo'],
+                $result['Info'],
+                $result['Admin']
+            );
+            
+            $accounts[$result['ID']] = $account;
+        }
+        
+        return $accounts;              
+    }
 }

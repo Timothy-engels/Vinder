@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Vinder | Bedrijven met matches</title>
+        <title>Vinder | Bedrijven zonder matches</title>
         <style>
             #companyInfoFlexBoxContainer {
                 display: flex;
@@ -32,24 +32,25 @@
     <?php include ('menu.php'); ?>
     
     <main>
-        <h1>Bedrijven met matches</h1>
+        <h1>Bedrijven zonder matches</h1>
         
-        <?php if (!empty($matchedCompanies)) : ?>
+        <?php if (!empty($unmatchedCompanies)) : ?>
+        
             <div id="companyInfoFlexBoxContainer">
-                <?php foreach ($matchedCompanies as $company) : ?>
+                <?php foreach ($unmatchedCompanies as $company) : ?>
                     <div class="companyInfoFlexBox">
                         <?php if ($company->getLogo() !== null && $company->getLogo() !== '') : ?>
                             <img src="images/<?= $company->getLogo(); ?>" class="logoImg"><br/>
                         <?php endif; ?>
                         <?= $company->getName(); ?><br/>
-                        <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
-                            <?= $amountMatches[$company->getID()]; ?> match(es)
-                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>
+        
         <?php else: ?>
-            <p>Er zijn nog geen bedrijven gematched.</p>
+        
+            <p>Alle bedrijven zijn gematched.</p>
+            
         <?php endif; ?>
         
     </main>
