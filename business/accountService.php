@@ -198,6 +198,9 @@ class AccountService
         $expertiseDAO = new ExpertiseDAO();
         $expertises   = $expertiseDAO->getAll(1);
         
+        // Get the company ID's from the swiping info
+        $swipingCompanyIDs = array_keys($swipingInfo);
+        
         return $swipingInfo;
     }
     

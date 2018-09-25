@@ -301,7 +301,7 @@ class AccountDAO
                 $result['Admin']
             );
             
-            $accounts[] = $account;
+            $accounts[$result['ID']] = $account;
         }
         
         return $accounts;
