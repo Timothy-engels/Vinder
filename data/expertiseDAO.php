@@ -512,4 +512,52 @@ class ExpertiseDAO
         return $swipingInfo;
         
     }
+    
+    /**
+     * Add the account expertise to an account
+     * 
+     * @param object $account
+     * 
+     * @return object
+     */
+    public function addAccountExpertiseToAccountInfo($account)
+    {
+        // Get the account expertises
+        $query = "SELECT ae.ID, ae.AccountID, ae.ExpertiseID, ae.Info, 
+                    e.Expertise, e.Actief
+                  FROM accountexpertises ae
+                  JOIN expertises e ON ae.ExpertiseID = e.ID
+                  WHERE ae.AccountID = :accountID
+                  ORDER BY e.Expertise";
+                
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute(['accountID' => $account->getID()]);
+        
+        // Add the account expertises
+        foreach ($resultSet as $result) {
+            
+            $expertise = Expertise::create(
+                $result['ExpertiseID'],
+                $result['Expertise'],
+                $result['Actief']
+            );
+            
+            $accountExpertise = entities\AccountExpertise::create(
+                $result['ID'],
+                null,
+                $expertise,
+                $result['Info']
+            );
+            
+            $account->addAccountExpertise($accountExpertise);
+            
+        }
+        
+        // Return the account information
+        return $account;        
+    }
 }

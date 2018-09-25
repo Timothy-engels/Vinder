@@ -49,6 +49,30 @@ class AccountService
     }
     
     /**
+     * Get the complete account info
+     * 
+     * @param int $accountId
+     * 
+     * @return object
+     */
+    public function getCompleteAccountInfo($accountId)
+    {
+        $accountDAO = new AccountDAO();
+        $account    = $accountDAO->getById($accountId);
+        
+        if (!empty($account)) {
+            
+            $expertiseDAO = new ExpertiseDAO();
+            
+            // Add the account expertises
+            $account = $expertiseDAO->addAccountExpertiseToAccountInfo($account);
+            
+        }
+        
+        return $account;
+    }
+    
+    /**
      * Insert a new account
      * 
      * @param string $name
