@@ -3,27 +3,27 @@
 namespace entities;
 
 /**
- * Abstract class for the existing expertises/more info
+ * Abstract class for the extra expertises/more info
  */
-abstract class ExistingExpertise
+abstract class NewExpertise
 {
     protected $id;
     protected $account;
-    protected $expertise;
+    protected $expertiseName;
     protected $info;
     
     /**
      * @param int $id
      * @param object $account
-     * @param object $expertise
+     * @param string $expertiseName
      * @param string $info
      */
-    public function __construct($id, $account, $expertise, $info)
+    public function __construct($id, $account, $expertiseName, $info)
     {
-        $this->id        = $id;
-        $this->account   = $account;
-        $this->expertise = $expertise;
-        $this->info      = $info;
+        $this->id            = $id;
+        $this->account       = $account;
+        $this->expertiseName = $expertiseName;
+        $this->info          = $info;
     }
     
     /**
@@ -54,21 +54,21 @@ abstract class ExistingExpertise
     }
     
     /**
-     * @return object
+     * @return string
      */
-    public function getExpertise()
+    public function getExpertiseName()
     {
-        return $this->expertise;
+        return $this->expertiseName;
     }
     
     /**
-     * @param object $expertise
+     * @param string $expertiseName
      * 
      * @return $this
      */
-    public function setExpertise($expertise)
+    public function setExpertiseName($expertiseName)
     {
-        $this->expertise = $expertise;
+        $this->expertiseName = $expertiseName;
         return $this;
     }
     
