@@ -17,7 +17,7 @@
         <ul>
             <?php foreach($list as $row) : ?>
                 <li>
-                    <a href="showProfile.php?userId=<?php $row->getId(); ?>">
+                    <a href="showProfile.php?userId=<?php print($row->getId()); ?>">
                     <?= $row->getName(); ?>
                     <?php if ($row->getLogo() !== null && $row->getLogo() !== '') : ?>
                         <img src="images/<?= $row->getLogo(); ?>" style="height: 8rem;"><br/>

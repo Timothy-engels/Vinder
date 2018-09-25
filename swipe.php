@@ -1,7 +1,7 @@
 <?php
-/*swipe.php
+//swipe.php
 
-require_once("business/swipeService.php");
+require_once("business/accountService.php");
 require_once("business/expertiseService.php");
 
 // Check if an admin is logged in
@@ -9,16 +9,17 @@ $accountSvc      = new AccountService();
 $account         = $accountSvc->getLoggedInUser(true);
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
-// hierop is het nog even op Cindy wachten
-$candidateSvc = new CandidateService();
-$candidates = $candidateSvc->getAll();
+// hier is Cindy momenteel mee bezig (Het systeem haalt een lijst op van alle bedrijven waarvoor de ingelogde gebruiker nog niet heeft geswiped om zo mogelijke matches te bekomen)
+$candidates = ->();
 
 $swipes = array();
 
 for each($candidates as $swipeProfile) {
     $id = $swipeProfile->getId();
-    $swipeProfile = $accountSvc->getSwipeProfile($id);
-    push_array($swipes, $swipeProfile);
+    $swipeProfile = $accountSvc->getSwipingInfo($id);
+    $swipes[$id][0] = $swipeProfile;
 }
 
-include("presentation/");*/
+// ergens moet ook de expertises opgevraagd worden en bij in de array gezet
+
+include("presentation/swipeCard.php");
