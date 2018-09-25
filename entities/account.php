@@ -28,6 +28,7 @@ class Account
     private $accountExpertises     = [];
     private $accountMoreInfo       = [];
     private $accountExpertiseExtra = null;
+    private $accountMoreInfoExtra  = null;
     
     /**
      * @param int $id
@@ -338,6 +339,25 @@ class Account
     public function setAccountExpertiseExtra($accountExpertiseExtra)
     {
         $this->accountExpertiseExtra = $accountExpertiseExtra;
+        return $this;
+    }
+    
+    /**
+     * @return object
+     */
+    public function getAccountMoreInfoExtra()
+    {
+        return $this->accountMoreInfoExtra;
+    }
+    
+    /**
+     * @param obect $accountExpertiseExtra
+     * 
+     * @return $this
+     */
+    public function setAccountMoreInfoExtra($accountMoreInfoExtra)
+    {
+        $this->accountMoreInfoExtra = $accountMoreInfoExtra;
         return $this;
     }
     

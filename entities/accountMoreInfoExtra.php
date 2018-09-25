@@ -7,7 +7,7 @@ require_once("entities/newExpertise.php");
 /**
  * Hold the information of an account expertise
  */
-class AccountExpertiseExtra extends NewExpertise
+class AccountMoreInfoExtra extends NewExpertise
 {
     private static $idMap = [];
     
@@ -22,7 +22,7 @@ class AccountExpertiseExtra extends NewExpertise
     public static function create($id, $account, $name, $info)
     {
         if (!isset($idMap[$id])) {
-           self::$idMap[$id] = new AccountExpertiseExtra (
+           self::$idMap[$id] = new AccountMoreInfoExtra (
                $id,
                $account,
                $name,

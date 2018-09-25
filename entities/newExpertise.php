@@ -9,21 +9,21 @@ abstract class NewExpertise
 {
     protected $id;
     protected $account;
-    protected $expertiseName;
+    protected $name;
     protected $info;
     
     /**
      * @param int $id
      * @param object $account
-     * @param string $expertiseName
+     * @param string $name
      * @param string $info
      */
-    public function __construct($id, $account, $expertiseName, $info)
+    public function __construct($id, $account, $name, $info)
     {
-        $this->id            = $id;
-        $this->account       = $account;
-        $this->expertiseName = $expertiseName;
-        $this->info          = $info;
+        $this->id      = $id;
+        $this->account = $account;
+        $this->name    = $name;
+        $this->info    = $info;
     }
     
     /**
@@ -56,19 +56,19 @@ abstract class NewExpertise
     /**
      * @return string
      */
-    public function getExpertiseName()
+    public function getName()
     {
-        return $this->expertiseName;
+        return $this->name;
     }
     
     /**
-     * @param string $expertiseName
+     * @param string $name
      * 
      * @return $this
      */
-    public function setExpertiseName($expertiseName)
+    public function setName($name)
     {
-        $this->expertiseName = $expertiseName;
+        $this->name = $name;
         return $this;
     }
     
