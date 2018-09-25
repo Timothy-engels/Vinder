@@ -193,13 +193,20 @@ class AccountService
         // Get the general account information
         $accountDAO  = new AccountDAO();
         $swipingInfo = $accountDAO->getSwipingInfo($companyId);
-                
-        // Get an array with all the active expertises
-        $expertiseDAO = new ExpertiseDAO();
-        $expertises   = $expertiseDAO->getAll(1);
         
-        // Get the company ID's from the swiping info
-        $swipingCompanyIDs = array_keys($swipingInfo);
+        if (!empty($swipingInfo)) {
+                
+            // Get an array with all the active expertises
+            $expertiseDAO = new ExpertiseDAO();
+            $expertises   = $expertiseDAO->getAll(1);
+
+            // Add the account expertises
+            $swipingInfo = $expertiseDAO->addAccountExpertisesToSwipingInfo(
+                $swipingInfo,
+                $expertises
+            );
+            
+        }
         
         return $swipingInfo;
     }
