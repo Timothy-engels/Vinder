@@ -6,6 +6,7 @@ require_once("entities/expertise.php");
 require_once("entities/accountExpertise.php");
 require_once("entities/accountExpertiseExtra.php");
 require_once("entities/accountMoreInfo.php");
+require_once("entities/accountMoreInfoExtra.php");
 require_once("entities/extraExpertise.php");
 require_once("entities/extraExpectedExpertise.php");
 
@@ -368,7 +369,7 @@ class ExpertiseDAO
 
         // Execute the query
         $resultSet = $dbh->prepare($query);
-        $resultSet->execute(['companyIDs' => $swipingCompanyIDsString]);
+        $resultSet->execute();
 
         // Add the account expertises        
         foreach ($resultSet as $result) {
@@ -410,7 +411,7 @@ class ExpertiseDAO
         
         // Execute the query
         $resultSet = $dbh->prepare($query);
-        $resultSet->execute(['companyIDs' => $swipingCompanyIDsString]);
+        $resultSet->execute();
 
         // Add the more info
         foreach ($resultSet as $result) {
@@ -450,7 +451,7 @@ class ExpertiseDAO
         
         // Execute the query
         $resultSet = $dbh->prepare($query);
-        $resultSet->execute(['companyIDs' => $swipingCompanyIDsString]);
+        $resultSet->execute();
         
         // Add the more info
         foreach ($resultSet as $result) {
@@ -467,5 +468,48 @@ class ExpertiseDAO
         }
         
         return $swipingInfo;
+    }
+    
+    /**
+     * Add the account expertise extra to the swiping information
+     * 
+     * @param array $swipingInfo
+     * 
+     * @return array
+     */
+    public function addAccountMoreInfoExtraToSwipingInfo($swipingInfo)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account more info extra
+        $query = "SELECT ID, AccountID, MeerinfoNaam, Info
+                  FROM accountmeerinfoextra
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $accountMoreInfoExtra = entities\AccountMoreInfoExtra::create(
+                $result['ID'],
+                null,
+                $result['MeerinfoNaam'],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->setAccountMoreInfoExtra(
+                $accountMoreInfoExtra
+            );
+        }
+        
+        return $swipingInfo;
+        
     }
 }
