@@ -47,6 +47,20 @@
                     } else echo "Geen info";
                     ?>
                 </div>
+                <?php 
+                    if($loggedInAsAdmin) {
+                        $registered = $account->getConfirmed();
+                        if($registered==1) {
+                            $answer = "Ja";
+                        }
+                        else {
+                            $answer = "Nee";
+                        }
+                        print(
+                            "<div>Geregistreerd: " . $answer . "</div>"
+                        );
+                    }
+                ?>
     </div>
     <h3>Expertises:</h3>
 
