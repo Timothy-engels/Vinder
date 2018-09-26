@@ -19,16 +19,14 @@ class Expertise {
 
     public function __construct($id, $expertise, $active, $info)
     {
-        $this->id = $id;
+        $this->id        = $id;
         $this->expertise = $expertise;
-        $this->active = $active;
-        $this->info = $info;
+        $this->active    = $active;
+        $this->info      = $info;
     }
-
-
     
     /**
-     * @return mixed
+     * @return string
      */
     public function getInfo()
     {
@@ -36,16 +34,15 @@ class Expertise {
     }
 
     /**
-     * @param mixed $info
+     * @param string $info
      */
     public function setInfo($info)
     {
         $this->info = $info;
     }
 
-
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -53,7 +50,7 @@ class Expertise {
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -61,7 +58,7 @@ class Expertise {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getExpertise()
     {
@@ -69,7 +66,7 @@ class Expertise {
     }
 
     /**
-     * @param mixed $expertise
+     * @param string $expertise
      */
     public function setExpertise($expertise)
     {
@@ -77,7 +74,7 @@ class Expertise {
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getActive()
     {
@@ -85,7 +82,7 @@ class Expertise {
     }
 
     /**
-     * @param mixed $active
+     * @param int $active
      */
     public function setActive($active)
     {
@@ -139,54 +136,6 @@ class ExpectedExpertise extends Expertise{
         }
 
         return self::$idMapExpected[$id];
-    }
-
-}
-
-class ExtraExpertise extends Expertise{
-
-    private static $idMapExtra = array();
-
-    public static function create(
-        $id,
-        $expertise,
-        $active = 1,
-        $info = null
-    ) {
-        if (!isset(self::$idMapExtra[$id])) {
-            self::$idMapExtra[$id] = new Expertise(
-                $id,
-                $expertise,
-                $active = 1,
-                $info
-            );
-        }
-
-        return self::$idMapExtra[$id];
-    }
-
-}
-
-class ExtraExpectedExpertise extends Expertise{
-
-    private static $idMapExtraExpected = array();
-
-    public static function create(
-        $id,
-        $expertise,
-        $active = 1,
-        $info = null
-    ) {
-        if (!isset(self::$idMapExtraExpected[$id])) {
-            self::$idMapExtraExpected[$id] = new Expertise(
-                $id,
-                $expertise,
-                $active = 1,
-                $info
-            );
-        }
-
-        return self::$idMapExtraExpected[$id];
     }
 
 }
