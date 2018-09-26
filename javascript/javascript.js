@@ -1,13 +1,14 @@
 window.onload = function () {
-    console.log(expertises);
 
     moreInfo("expertise");
     moreInfo("expectedExpertise");
 
 
+
+
 };
 
-function moreInfo(expertise) {
+function moreInfo(expertise) { //function add or delete input elements
     var exps = document.getElementsByClassName(expertise);
     for (var i = 0; i < exps.length; i++ ){
         exps[i].addEventListener('click',function (e) {

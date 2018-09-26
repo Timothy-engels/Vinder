@@ -57,6 +57,7 @@ class AccountService
      */
     public function getCompleteAccountInfo($accountId)
     {
+        // Get the account info
         $accountDAO = new AccountDAO();
         $account    = $accountDAO->getById($accountId);
         
@@ -67,8 +68,15 @@ class AccountService
             // Add the account expertises
             $account = $expertiseDAO->addAccountExpertiseToAccountInfo($account);
             
+            // Add the account expoertise extra
+            $account = $expertiseDAO->addAccountExpertiseExtraToAccountInfo($account);
+            
+            // Add the account more info
+            $account = $expertiseDAO->addAccountMoreInfoToAccountInfo($account);
+            
         }
         
+        // Return the result
         return $account;
     }
     
@@ -278,8 +286,7 @@ class AccountService
         
         return $amountMatches;
     }
-    
-    
+
     /**
      * Get a list with all the companies without matches
      * 

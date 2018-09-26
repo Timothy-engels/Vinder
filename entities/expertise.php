@@ -1,21 +1,22 @@
 <?php
 //entities/expertises.php
 
-class Expertise
-{
-    private $id;
-    private $expertise;
-    private $active;
-    private $info;
-    
+
+class Expertise {
+
     private static $idMap = array();
 
     /**
      * @param int $id
-     * @param object $expertise
+     * @param string $expertise
      * @param bool $active
      * @param string $info
      */
+    private $id;
+    private $expertise;
+    private $active;
+    private $info;
+
     public function __construct($id, $expertise, $active, $info)
     {
         $this->id        = $id;
@@ -24,6 +25,70 @@ class Expertise
         $this->info      = $info;
     }
     
+    /**
+     * @return string
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param string $info
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpertise()
+    {
+        return $this->expertise;
+    }
+
+    /**
+     * @param string $expertise
+     */
+    public function setExpertise($expertise)
+    {
+        $this->expertise = $expertise;
+    }
+
+    /**
+     * @return int
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param int $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
     /**
      * Expertise constructor
      * 
@@ -49,69 +114,28 @@ class Expertise
 
         return self::$idMap[$id];
     }
-    
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+}
 
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    
-    /**
-     * @return object
-     */
-    public function getExpertise()
-    {
-        return $this->expertise;
-    }
+class ExpectedExpertise extends Expertise{
 
-    /**
-     * @param object $expertise
-     */
-    public function setExpertise($expertise)
-    {
-        $this->expertise = $expertise;
-    }
+    private static $idMapExpected = array();
 
-    /**
-     * @return mixed
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
+    public static function create(
+        $id,
+        $expertise,
+        $active = 1,
+        $info = null
+    ) {
+        if (!isset(self::$idMapExpected[$id])) {
+            self::$idMapExpected[$id] = new Expertise(
+                $id,
+                $expertise,
+                $active = 1,
+                $info
+            );
+        }
 
-    /**
-     * @param mixed $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getInfo()
-    {
-        return $this->info;
-    }
-
-    /**
-     * @param string $info
-     */
-    public function setInfo($info)
-    {
-        $this->info = $info;
+        return self::$idMapExpected[$id];
     }
 
 }
