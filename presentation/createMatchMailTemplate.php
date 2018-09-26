@@ -27,7 +27,7 @@
         <p>Je hebt een match met de volgende firma:</p>
 
         <h2><?php if ($company2->getLogo() !== null && $company2->getLogo() !== '') : ?>
-                <img src="images/<?= $company2->getLogo(); ?>" class="logoImg">
+                <img src="<?= $currentPath; ?>images/<?= $company2->getLogo(); ?>" class="logoImg">
             <?php endif; ?>
             <?= $company2->getName(); ?></h2>
 
@@ -85,6 +85,11 @@
                     </li>                        
                 <?php endif; ?>                                  
             </ul>
+        <?php endif; ?>
+            
+        <?php if ($tips !== NULL && $tips !== '') : ?>
+            <h3>Tips</h3>
+            <?= $tips; ?>
         <?php endif; ?>
         
     </main>

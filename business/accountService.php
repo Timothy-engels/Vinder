@@ -303,4 +303,45 @@ class AccountService
         return $companiesWithoutMatches;
     }
     
+    /**
+     * Send a mail to both companies when a match is found
+     * 
+     * @param int $companyId1
+     * @param int $companyId2
+     * 
+     * @return void
+     */
+    public function sendMatchFoundMails($companyId1, $companyId2)
+    {
+        $this->sendMatchFoundMail($companyId1, $companyId2);
+        $this->sendMatchFoundMail($companyId2, $companyId1);
+    }
+    
+    /**
+     * Send a mail when a match is found to a specified company
+     * 
+     * @param int $companyToID
+     * @param int $companyMatchID
+     * 
+     * @return void
+     */
+    public function sendMatchFoundMail($companyToID, $companyMatchID)
+    {         
+        // Encode the IDs of the companies
+        $encryptionSvc         = new EncryptionService();
+        $companyToIdEncoded    = $encryptionSvc->encryptString($companyToID, $encryptionSvc::MAIL_MATCH_KEY);
+        $companyMatchIdEncoded = $encryptionSvc->encryptString($companyMatchID, $encryptionSvc::MAIL_MATCH_KEY);
+        
+        $link        = $this->getCurrentPath() . 'createMatchMailTemplate.php?companyTo=' . $companyToIdEncoded . '&companyMatch=' . $companyMatchIdEncoded;
+        $mailContent = file_get_contents($link);
+        
+        if ($mailContent !== '') {
+            $company     = $this->getById($companyToID);
+            $companyMail = $company->getEmail();
+            
+            $mailSrv = new MailService();
+            $mailSrv->sendHtmlMail($companyMail, 'Match gevonden op Vinder', $mailContent);
+        } 
+    }        
+    
 }
