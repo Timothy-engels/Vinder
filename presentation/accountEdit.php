@@ -30,7 +30,7 @@
                         <button type="button" class="btn btn-primary btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
                         <div class="form-group inputDnD">
                             <label class="sr-only" for="inputFile">File Upload</label>
-                            <input  type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Drag and drop a file">
+                            <input  type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Drag and drop a file. Max 10MB">
                         </div>
                     </div>
                 </div>
@@ -44,18 +44,13 @@
 
             <div class="container" >
                 <div class="row">
-                    <span class="col-4">naam :</span> 
-                    <input class="col-8" type="text" name="naam" placeholder="" value = "<?php echo $account->getName(); ?>"/>
-                </div>
-
-                <div class="row">
-                    <span class="col-4">meer informatie :</span>
+                    <span class="col-4">Korte omschrijving :</span>
                     <input class="col-8" type="text" name="Info" placeholder="" value = "<?php echo $account->getInfo(); ?>">
                 </div>
 
                 <div class="row">
-                    <span class="col-4">website :</span>
-                    <input class="col-8" type="url" name="website" placeholder="" value = "<?php echo $account->getWebsite(); ?>">
+                    <span class="col-4">Website :</span>
+                    <input class="col-8" type="text" name="website" placeholder="" value = "<?php echo $account->getWebsite(); ?>">
                 </div>
             </div>
 
