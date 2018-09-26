@@ -386,6 +386,11 @@ class ExpertiseDAO
             $swipingInfo[$result['AccountID']]->addAccountExpertise($expertise);
         }
         
+        // Close the connection
+        $dbh = null;
+        
+        
+        // Return the result
         return $swipingInfo;
     }
     
@@ -427,6 +432,10 @@ class ExpertiseDAO
             $swipingInfo[$result['AccountID']]->addAccountMoreInfo($moreInfo);
         }
         
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
         return $swipingInfo;
     }
     
@@ -469,6 +478,10 @@ class ExpertiseDAO
             );
         }
         
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result        
         return $swipingInfo;
     }
     
@@ -511,8 +524,11 @@ class ExpertiseDAO
             );
         }
         
-        return $swipingInfo;
+        // Close the connection
+        $dbh = null;
         
+        // Return the result        
+        return $swipingInfo;
     }
     
     /**
@@ -559,9 +575,53 @@ class ExpertiseDAO
             
         }
         
+        // Close the connection
+        $dbh = null;        
+        
         // Return the account information
         return $account;        
     }
+    
+    
+    /**
+     * Add the account expertise extra to an account
+     * 
+     * @param object $account
+     * 
+     * @return object
+     */    
+    public function addAccountExpertiseExtraToAccountInfo($account)
+    {
+        // Get the account expertise extra
+        $query = "SELECT ID, AccountID, ExpertiseNaam, Info
+                  FROM accountexpertisesextra
+                  WHERE AccountID = :accountID";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute([':accountID' => $account->getID()]);
+        
+        // Add the account expertise extra
+        foreach ($resultSet as $result) {
+            $accountExpertiseExtra = entities\AccountExpertiseExtra::create(
+                $result['ID'],
+                null,
+                $result['ExpertiseNaam'],
+                $result['Info']
+            );
+            
+            $account->setAccountExpertiseExtra($accountExpertiseExtra);
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
+        return $account;
+    }        
     
     /**
      * Add the more info expertises to the account
@@ -606,6 +666,9 @@ class ExpertiseDAO
             $account->addAccountMoreInfo($moreInfo);
             
         }
+        
+        // Close the connection
+        $dbh = null;        
         
         // Return the account information
         return $account;
