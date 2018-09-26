@@ -27,7 +27,24 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
         <script>
-            $( function() { 
+            if (window.XMLHttpRequest) {
+                // code for modern browsers
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for old IE browsers
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("swipeCard").innerHTML =
+                        this.$json;
+                }
+            };
+            xhttp.open("GET", "swipe.php", true);
+            xhttp.send();
+            
+            $(document).ready( function() { 
+                $("#swipeCard").html();
                 $("#swipeCard").draggable();
                 $("#no").droppable( { drop: function( event, ui ) {
                     alert("no");

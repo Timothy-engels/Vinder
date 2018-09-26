@@ -22,4 +22,6 @@ for each($candidates as $swipeProfile) {
 
 // ergens moet ook de expertises opgevraagd worden en bij in de array gezet
 
+$json = serialize($account);
+
 include("presentation/swipeCard.php");
