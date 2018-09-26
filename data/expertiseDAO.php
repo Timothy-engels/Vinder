@@ -637,7 +637,7 @@ class ExpertiseDAO
                     e.Expertise, e.Actief
                   FROM accountmeerinfo mi
                   JOIN expertises e ON mi.ExpertiseID = e.ID
-                  WHERE mi.AccountID = 28
+                  WHERE mi.AccountID = :accountID
                   ORDER BY e.Expertise";
         
         // Open the connection
@@ -645,7 +645,7 @@ class ExpertiseDAO
         
         // Execute the query
         $resultSet = $dbh->prepare($query);
-        $resultSet->execute(['accountID' => $account->getID()]);
+        $resultSet->execute([':accountID' => $account->getID()]);
         
         // Add the more info information
         foreach ($resultSet as $result) {
