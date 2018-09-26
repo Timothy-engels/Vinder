@@ -1,9 +1,9 @@
 <?php
 // matchingController.php
 
-require_once ('business/matchingBusiness.php');
+require_once ('business/matchingService.php');
 
 $mS = new matchingService() ;
 $mO = $mS->getMatchOverzicht();
 
-include ('');
+include ('presentation/matches.php');

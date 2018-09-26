@@ -12,7 +12,7 @@
             <?php
             foreach ($allExps as $expertise){ ?>
             expertises.push("<?php echo $expertise->getId(); ?>");
-            <?}?>
+            <?php}?>
         </script>
     </head>
 

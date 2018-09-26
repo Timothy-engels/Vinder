@@ -22,10 +22,14 @@ if ($loggedInAsAdmin) {
         $id = $account->getId();
     }
 }
+// if showing another profile
+elseif (isset($_GET["id"]) && $_GET["id"]!== NULL){
+    $id = $_GET["id"];
+    $account = $accountSvc -> getById($_GET["id"]);
+}
 else {
     $id = $account->getId();
 }
-
 
 // Get the necessary info to display the view
 $expSrv      = new ExpertiseService();
