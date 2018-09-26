@@ -1,4 +1,4 @@
 *.tmp
 *.temp
-/data/DBConfig.php
+data/DBConfig.php
 /nbproject/private/
