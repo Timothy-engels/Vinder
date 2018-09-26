@@ -30,7 +30,7 @@
     <h1>Expertises</h1>
     <form action="expertiseAdjust.php?eaid=<?=$eaid;?>" method="POST">
         <label for="expertise">Expertise:</label>
-        <input type="text" name="expertise" value="<?= $expertiseName; ?>">
+        <input type="text" name="expertise" value="<?= $expertiseName; ?>" autofocus>
         <?php if ($expertiseNameErrors !== '') : ?>
             <div class="error"><?= $expertiseNameErrors; ?></div>
         <?php endif; ?>

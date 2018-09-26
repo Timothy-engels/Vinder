@@ -34,7 +34,10 @@
                 
                 $("#registerDate").datepicker("setDate", "<?= $registerDate; ?>");
                 $("#swipeDate").datepicker("setDate", "<?= $swipeDate; ?>");
-              
+                
+                $("#registerDate").click(function() {
+                    $("#registerDate").focus();
+                });
             });
         </script>
     </head>
@@ -53,13 +56,13 @@
                     
                     <p><small>Velden met een * zijn verplicht in te vullen</small></p>
                 
-                    <label for="registerDate">Startdatum registratie *</label>
-                    <input type="text" id="registerDate" name="registerDate" maxlength="10" />
+                    <label for="registerDate">Einddatum registratie/ Startdatum swipen *</label>
+                    <input type="text" id="registerDate" name="registerDate" maxlength="10" autofocus/>
                     <?php if (array_key_exists('registerDate', $errors)) : ?>
                         <div class="error"><?= $errors['registerDate']; ?></div>
                     <?php endif; ?>
 
-                    <label for="swipeDate">Startdatum swipen *</label>
+                    <label for="swipeDate">Einddatum swipen *</label>
                     <input type="text" id="swipeDate" name="swipeDate" maxlength="10" />
                     <?php if (array_key_exists('swipeDate', $errors)) : ?>
                         <div class="error"><?= $errors['swipeDate']; ?></div>

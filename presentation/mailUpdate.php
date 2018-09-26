@@ -24,17 +24,10 @@
 
         </style>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
         <script>
-            $(document).ready(function() {
-                ClassicEditor
-                    .create(document.querySelector('#mail'))
-                    .then(editor => {
-                        console.log( editor );
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+            $(document).ready(function() {                
+                CKEDITOR.replace('mail', {startupFocus : true, htmlEncodeOutput:true, entities: true});
             })
         </script>    
     </head>
@@ -57,7 +50,7 @@
                 <?php if (array_key_exists('mail', $errors)) : ?>
                     <div class="error"><?= $errors['mail']; ?></div>
                 <?php endif; ?>
-                
+                    
                 <input type="submit" value="Wijzigen" />
                 
             </form>

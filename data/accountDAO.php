@@ -96,7 +96,7 @@ class AccountDAO
      */
     public function getById($id)
     {
-        // Find the account by the email address
+        // Find the account by the id
         $sql = "SELECT ID, Naam, Contactpersoon, Emailadres, Wachtwoord, Bevestigd, Website, Logo, Info, Admin
                 FROM accounts
                 WHERE ID = :id";
@@ -243,4 +243,223 @@ class AccountDAO
         return $update;
     }
     
+    /**
+     * Get the swiping information for a specified company
+     * 
+     * @param int $companyId
+     * 
+     * @return array
+     */
+    public function getSwipingInfo($companyId)
+    {
+        // Create the sql
+        $sql = "SELECT * 
+                FROM `accounts`
+                WHERE ID <> :companyId
+                  AND Bevestigd = 1
+                  AND Admin = 0
+                  AND ID NOT IN (
+                    SELECT AccountID2
+                    FROM `matching`
+                    WHERE AccountID1 = :accountId1
+                    AND Status NOT IN (0, 2, -2)
+                  )
+                  AND ID NOT IN (
+                    SELECT AccountID1
+                    FROM `matching`
+                    WHERE AccountID2 = :accountId2
+                    AND Status NOT IN (1, -4, 0)
+                  )
+                  ";
+                  
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ':companyId'  => $companyId,
+            ':accountId1' => $companyId,
+            ':accountId2' => $companyId
+        ]);
+        
+        // Return the results
+        $accounts = [];
+        
+        foreach ($resultSet as $result) {
+            $account = entities\Account::create(
+                $result['ID'],
+                $result['Naam'],
+                $result['Contactpersoon'],
+                $result['Emailadres'],
+                $result['Wachtwoord'],
+                $result['Bevestigd'],
+                $result['Website'],
+                $result['Logo'],
+                $result['Info'],
+                $result['Admin']
+            );
+            
+            $accounts[$result['ID']] = $account;
+        }
+        
+        return $accounts;
+    }
+
+    /**
+     * Get a list with all companies that are matched (to a specified company)
+     * 
+     * @param int $companyId
+     * 
+     * @return array
+     */
+    public function getMatchedCompanies($companyId = null)
+    {
+        // Create the sql
+        $sql  = "SELECT DISTINCT a.*
+                 FROM accounts a
+                 WHERE ID IN (
+                   SELECT AccountID1 AS AccountID
+                   FROM matching
+                   WHERE Status = 3 ";
+        
+        $params = [];
+        
+        if ($companyId !== null) {
+            $sql                  .= " AND AccountID2 = :companyId1 ";
+            $params[':companyId1'] = $companyId;
+        }
+        
+        $sql .= "UNION
+                   SELECT AccountID2 as AccountID
+                   FROM matching
+                   WHERE Status = 3 ";
+        
+        if ($companyId !== null) {
+            $sql                  .= " AND AccountID1 = :companyId2 ";
+            $params[':companyId2'] = $companyId;
+        }
+        
+        $sql .= ")
+                 ORDER BY a.Naam";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute($params);
+        
+        // Return the results
+        $accounts = [];
+        
+        foreach ($resultSet as $result) {
+            
+            $account = entities\Account::create(
+                $result['ID'],
+                $result['Naam'],
+                $result['Contactpersoon'],
+                $result['Emailadres'],
+                $result['Wachtwoord'],
+                $result['Bevestigd'],
+                $result['Website'],
+                $result['Logo'],
+                $result['Info'],
+                $result['Admin']
+            );
+            
+            $accounts[] = $account;
+        }
+        
+        return $accounts;
+    }
+    
+    /**
+     * Get the amount of matches of the matched companies 
+     * 
+     * @return array (companyId => amountMatches)
+     */
+    public function getAmountMatchesByCompany()
+    {
+        // Create the sql
+        $sql = "SELECT AccountID, COUNT(AccountID) AS Amount
+                FROM (
+                  SELECT AccountID1 AS AccountID
+                  FROM matching
+                  WHERE Status = 3
+                  UNION ALL
+                  SELECT AccountID2 AS AccountID
+                  FROM matching
+                  WHERE Status = 3
+                ) AS MC
+                GROUP BY AccountID";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute();
+        
+        // Return the results
+        $amountMatches = [];
+        
+        foreach ($resultSet as $result) {
+            $amountMatches[$result['AccountID']] = $result['Amount'];
+        }
+        
+        return $amountMatches;
+    }
+    
+    /**
+     * Get a list with all companies that are unmatched
+     * 
+     * @return array
+     */
+    public function getUnmatchedCompanies()
+    {
+        // Create the sql
+        $sql = "SELECT *
+                FROM accounts
+                WHERE Bevestigd = 1
+                  AND Admin = 0
+                  AND ID NOT IN (
+                    SELECT AccountID1 AS AccountID
+                    FROM matching
+                    WHERE Status = 3
+                    UNION
+                    SELECT AccountID2 AS AccountID
+                    FROM matching
+                    WHERE Status = 3
+                )";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute();
+        
+        // Return the results
+        $accounts = [];
+        
+        foreach ($resultSet as $result) {
+            $account = entities\Account::create(
+                $result['ID'],
+                $result['Naam'],
+                $result['Contactpersoon'],
+                $result['Emailadres'],
+                $result['Wachtwoord'],
+                $result['Bevestigd'],
+                $result['Website'],
+                $result['Logo'],
+                $result['Info'],
+                $result['Admin']
+            );
+            
+            $accounts[$result['ID']] = $account;
+        }
+        
+        return $accounts;              
+    }
 }

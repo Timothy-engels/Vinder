@@ -23,7 +23,7 @@
                     <p><small>Velden met een * zijn verplicht in te vullen</small></p>
 
                     <label for="name">Bedrijfsnaam *</label>
-                    <input type="text" id="name" name="name" maxlength="255" value="<?= $name; ?>"/>
+                    <input type="text" id="name" name="name" maxlength="255" value="<?= $name; ?>" autofocus />
                     <?php if (array_key_exists('name', $errors)) : ?>
                         <div class="error"><?= $errors['name']; ?></div>
                     <?php endif; ?>

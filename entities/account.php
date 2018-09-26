@@ -24,24 +24,12 @@ class Account
     private $logo;
     private $info;
     private $administrator;
-    private $expertises = array();
-
-    /**
-     * @return array
-     */
-    public function getExpertises()
-    {
-        return $this->expertises;
-    }
-
-    /**
-     * @param array $expertises
-     */
-    public function setExpertises($expertises)
-    {
-        $this->expertises = $expertises;
-    }
-
+    
+    private $accountExpertises     = [];
+    private $accountMoreInfo       = [];
+    private $accountExpertiseExtra = null;
+    private $accountMoreInfoExtra  = null;
+    
     /**
      * @param int $id
      * @param string $name
@@ -53,7 +41,6 @@ class Account
      * @param string|null $logo
      * @param string|null $info
      * @param int $administrator
-     * @PARAM array Expertise $expertises;
      */
     public function __construct(
         $id,
@@ -65,9 +52,7 @@ class Account
         $website = null,
         $logo = null,
         $info = null,
-        $administrator = 0,
-        $expertises
-
+        $administrator = 0
     ) {
         $this->id            = $id;
         $this->name          = $name;
@@ -79,7 +64,6 @@ class Account
         $this->logo          = $logo;
         $this->info          = $info;
         $this->administrator = $administrator;
-        $this->expertises = $expertises;
     }
     
     /**
@@ -298,6 +282,82 @@ class Account
     public function setAdministrator($administrator)
     {
         $this->administrator = $administrator;
+        return $this;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAccountExpertises()
+    {
+        return $this->accountExpertises;
+    }
+    
+    /**
+     * @param object $accountExpertise
+     * 
+     * @return this
+     */
+    public function addAccountExpertise($accountExpertise)
+    {
+        $this->accountExpertises[] = $accountExpertise;
+        return $this;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAccountMoreInfo()
+    {
+        return $this->accountMoreInfo;
+    }
+    
+    /**
+     * @param object $accountMoreInfo
+     * 
+     * @return this
+     */
+    public function addAccountMoreInfo($accountMoreInfo)
+    {
+        $this->accountMoreInfo[] = $accountMoreInfo;
+        return $this;
+    }
+    
+    /**
+     * @return object
+     */
+    public function getAccountExpertiseExtra()
+    {
+        return $this->accountExpertiseExtra;
+    }
+    
+    /**
+     * @param obect $accountExpertiseExtra
+     * 
+     * @return $this
+     */
+    public function setAccountExpertiseExtra($accountExpertiseExtra)
+    {
+        $this->accountExpertiseExtra = $accountExpertiseExtra;
+        return $this;
+    }
+    
+    /**
+     * @return object
+     */
+    public function getAccountMoreInfoExtra()
+    {
+        return $this->accountMoreInfoExtra;
+    }
+    
+    /**
+     * @param obect $accountExpertiseExtra
+     * 
+     * @return $this
+     */
+    public function setAccountMoreInfoExtra($accountMoreInfoExtra)
+    {
+        $this->accountMoreInfoExtra = $accountMoreInfoExtra;
         return $this;
     }
     

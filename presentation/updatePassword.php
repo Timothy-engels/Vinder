@@ -38,7 +38,7 @@
                     <p><small>Velden met een * zijn verplicht in te vullen.</small></p>
                     
                     <label for="password">Wachtwoord *</label>
-                    <input type="password" id="password" name="password" maxlength="50" />
+                    <input type="password" id="password" name="password" maxlength="50" autofocus />
                     <?php if (array_key_exists('password', $errors)) : ?>
                         <div class="error"><?= $errors['password']; ?></div>
                     <?php endif; ?>

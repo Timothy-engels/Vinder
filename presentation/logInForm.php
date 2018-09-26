@@ -23,7 +23,7 @@
         if (array_key_exists('general', $errors)) : ?>
             <div class="error"><?= $errors['general']; ?></div>
         <?php endif; ?>
-        <p><label for="mail">E-mail: </label><input type="email" name="mail" id="mail" required value="<?= $mail; ?>"></p>
+        <p><label for="mail">E-mail: </label><input type="email" name="mail" id="mail" required value="<?= $mail; ?>" autofocus></p>
         <?php if (array_key_exists('mail', $errors)) : ?>
             <div class="error"><?= $errors['mail']; ?></div>
         <?php endif; ?>

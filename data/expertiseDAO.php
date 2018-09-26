@@ -3,20 +3,60 @@
 
 require_once("DBConfig.php");
 require_once("entities/expertise.php");
+require_once("entities/accountExpertise.php");
+require_once("entities/accountExpertiseExtra.php");
+require_once("entities/accountMoreInfo.php");
+require_once("entities/accountMoreInfoExtra.php");
+require_once("entities/extraExpertise.php");
+require_once("entities/extraExpectedExpertise.php");
 
 class ExpertiseDAO
 {
-    public function getAll()
+    /**
+     * Get a list with expertises
+     * 
+     * @param int $status (0 = inactive, 1 = active)
+     * 
+     * @return array
+     */
+    public function getAll($status = null)
     {
-        $sql = "select id, expertise, actief as active from expertises";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $resultSet = $dbh->query($sql);
-        $list = array();
-        foreach ($resultSet as $row) {
-            $exp = Expertise::create($row["id"],$row["expertise"], $row["active"], null);
-            array_push($list, $exp);
+        // Create the sql
+        $sql = "SELECT ID, Expertise, Actief
+                FROM expertises ";
+        
+        $params = [];
+        
+        if ($status !== null) {
+            $sql               .= "WHERE Actief = :status";
+            $params[':status']  = $status;
         }
+                    
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the connection
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute($params);
+        
+        // Return the result
+        $list = array();
+        
+        foreach ($resultSet as $row) {
+            
+            $exp = Expertise::create(
+                $row["ID"],
+                $row["Expertise"],
+                $row["Actief"]
+            );
+            
+            $list[$row['ID']] = $exp;
+        }
+        
+        // Close the connection
         $dbh = null;
+        
+        // Return the results
         return $list;
     }
     
@@ -269,15 +309,6 @@ class ExpertiseDAO
         $dbh = null;
     }
     
-    public function activator3000($id, $choice)
-    {
-        $sql = "UPDATE expertises SET Actief = :choice WHERE ID = :id";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $adjust = $dbh->prepare($sql);
-        $adjust->execute([':id'=>$id, ":choice"=>$choice]);
-        $dbh = null;
-    }
-    
     /**
      * Check if the name of the expertises is unique
      * 
@@ -315,4 +346,220 @@ class ExpertiseDAO
         // Return the result
         return $unique;
     } 
+    
+    /**
+     * Add the account expertises to the swiping information
+     * 
+     * @param type $swipingInfo
+     * @param type $expertises
+     * 
+     * @return array
+     */
+    public function addAccountExpertisesToSwipingInfo($swipingInfo, $expertises)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account expertises
+        $query = "SELECT ID, AccountID, ExpertiseID, Info
+                  FROM accountexpertises
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+
+        // Add the account expertises        
+        foreach ($resultSet as $result) {
+            
+            $expertise = entities\AccountExpertise::create(
+                $result['ID'],
+                null,
+                $expertises[$result['ExpertiseID']],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->addAccountExpertise($expertise);
+        }
+        
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account more info to the swiping information
+     * 
+     * @param array $swipingInfo
+     * @param array $expertises
+     * 
+     * @return array
+     */
+    public function addAccountMoreInfoToSwipingInfo($swipingInfo, $expertises)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account more info
+        $query = "SELECT ID, AccountID, ExpertiseID, Info
+                  FROM accountmeerinfo
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $moreInfo = entities\AccountMoreInfo::create(
+                $result['ID'],
+                null,
+                $expertises[$result['ExpertiseID']],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->addAccountMoreInfo($moreInfo);
+        }
+        
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account expertise extra to the swiping information
+     * 
+     * @param array $swipingInfo
+     * 
+     * @return array
+     */
+    public function addAccountExpertiseExtraToSwipingInfo($swipingInfo)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account expertises extra
+        $query = "SELECT ID, AccountID, ExpertiseNaam, Info
+                  FROM accountexpertisesextra
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $accountExtraExpertise = entities\AccountExpertiseExtra::create(
+                $result['ID'],
+                null,
+                $result['ExpertiseNaam'],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->setAccountExpertiseExtra(
+                $accountExtraExpertise
+            );
+        }
+        
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account expertise extra to the swiping information
+     * 
+     * @param array $swipingInfo
+     * 
+     * @return array
+     */
+    public function addAccountMoreInfoExtraToSwipingInfo($swipingInfo)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account more info extra
+        $query = "SELECT ID, AccountID, MeerinfoNaam, Info
+                  FROM accountmeerinfoextra
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $accountMoreInfoExtra = entities\AccountMoreInfoExtra::create(
+                $result['ID'],
+                null,
+                $result['MeerinfoNaam'],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->setAccountMoreInfoExtra(
+                $accountMoreInfoExtra
+            );
+        }
+        
+        return $swipingInfo;
+        
+    }
+    
+    /**
+     * Add the account expertise to an account
+     * 
+     * @param object $account
+     * 
+     * @return object
+     */
+    public function addAccountExpertiseToAccountInfo($account)
+    {
+        // Get the account expertises
+        $query = "SELECT ae.ID, ae.AccountID, ae.ExpertiseID, ae.Info, 
+                    e.Expertise, e.Actief
+                  FROM accountexpertises ae
+                  JOIN expertises e ON ae.ExpertiseID = e.ID
+                  WHERE ae.AccountID = :accountID
+                  ORDER BY e.Expertise";
+                
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute(['accountID' => $account->getID()]);
+        
+        // Add the account expertises
+        foreach ($resultSet as $result) {
+            
+            $expertise = Expertise::create(
+                $result['ExpertiseID'],
+                $result['Expertise'],
+                $result['Actief']
+            );
+            
+            $accountExpertise = entities\AccountExpertise::create(
+                $result['ID'],
+                null,
+                $expertise,
+                $result['Info']
+            );
+            
+            $account->addAccountExpertise($accountExpertise);
+            
+        }
+        
+        // Return the account information
+        return $account;        
+    }
 }

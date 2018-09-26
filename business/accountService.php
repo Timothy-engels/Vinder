@@ -2,6 +2,7 @@
 //business/accountService.php
 
 require_once("data/accountDAO.php");
+require_once("data/expertiseDAO.php");
 require_once("business/mailService.php");
 require_once("business/encryptionService.php");
 
@@ -44,6 +45,30 @@ class AccountService
     {
         $accountDAO = new AccountDAO();
         $account    = $accountDAO->getById($id);
+        return $account;
+    }
+    
+    /**
+     * Get the complete account info
+     * 
+     * @param int $accountId
+     * 
+     * @return object
+     */
+    public function getCompleteAccountInfo($accountId)
+    {
+        $accountDAO = new AccountDAO();
+        $account    = $accountDAO->getById($accountId);
+        
+        if (!empty($account)) {
+            
+            $expertiseDAO = new ExpertiseDAO();
+            
+            // Add the account expertises
+            $account = $expertiseDAO->addAccountExpertiseToAccountInfo($account);
+            
+        }
+        
         return $account;
     }
     
@@ -178,6 +203,94 @@ class AccountService
         }
         
         return $account;
+    }
+    
+    /**
+     * Get the swiping information a specified company
+     * 
+     * @param int $companyId
+     * 
+     * @return array
+     */
+    public function getSwipingInfo($companyId)
+    {
+        // Get the general account information
+        $accountDAO  = new AccountDAO();
+        $swipingInfo = $accountDAO->getSwipingInfo($companyId);
+        
+        if (!empty($swipingInfo)) {
+                
+            // Get an array with all the active expertises
+            $expertiseDAO = new ExpertiseDAO();
+            $expertises   = $expertiseDAO->getAll(1);
+
+            // Add the account expertises
+            $swipingInfo = $expertiseDAO->addAccountExpertisesToSwipingInfo(
+                $swipingInfo,
+                $expertises
+            );
+            
+            // Add the account more info
+            $swipingInfo = $expertiseDAO->addAccountMoreInfoToSwipingInfo(
+                $swipingInfo,
+                $expertises
+            );
+            
+            // Add the extra account expertise
+            $swipingInfo = $expertiseDAO->addAccountExpertiseExtraToSwipingInfo(
+                $swipingInfo
+            );
+            
+            // Add the account more info extra
+            $swipingInfo = $expertiseDAO->addAccountMoreInfoExtraToSwipingInfo(
+                $swipingInfo
+            );
+            
+        }
+        
+        return $swipingInfo;
+    }
+    
+    /**
+     * Get a list with all companies that are matched (to a specified company)
+     * 
+     * @param int|null $companyId
+     * 
+     * @return type
+     */
+    public function getMatchedCompanies($companyId = null)
+    {
+        $accountDAO           = new AccountDAO();
+        $companiesWithMatches = $accountDAO->getMatchedCompanies($companyId);
+        
+        return $companiesWithMatches;
+    }
+    
+    /**
+     * Get the amount of matches of the matched companies 
+     * 
+     * @return array (companyId => amountMatches)
+     */
+    public function getAmountMatchesByCompany()
+    {
+        $accountDAO    = new AccountDAO();
+        $amountMatches = $accountDAO->getAmountMatchesByCompany();
+        
+        return $amountMatches;
+    }
+    
+    
+    /**
+     * Get a list with all the companies without matches
+     * 
+     * @return array
+     */
+    public function getUnmatchedCompanies()
+    {
+        $accountDAO              = new AccountDAO();
+        $companiesWithoutMatches = $accountDAO->getUnmatchedCompanies();
+        
+        return $companiesWithoutMatches;
     }
     
 }
