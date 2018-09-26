@@ -30,6 +30,11 @@
                     <div class="col-sm-6 offset-sm-3">
                         <button type="button" class="btn btn-primary btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
                         <div class="form-group inputDnD">
+                            <span>
+                                <?php if($msg){
+                                    echo $msg;
+                                };?>
+                            </span>
                             <label class="sr-only" for="inputFile">File Upload</label>
                             <input  type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Drag and drop a file. Max 10MB">
                         </div>

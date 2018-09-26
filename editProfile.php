@@ -27,6 +27,7 @@ $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 $allExps     = $expSrv->getExpertises();
 
+$msg = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $info           = (filter_input(INPUT_POST, 'Info') !== null ? filter_input(INPUT_POST, 'Info') : $account->getInfo());
@@ -80,25 +81,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check = @getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 
     if ($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
         // Check if file already exists
         if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
+            $msg = "Sorry, file already exists.";
             $uploadOk = 0;
         }// Check file size
         if ($_FILES["fileToUpload"]["size"] > 10000000) {
-            echo "Sorry, your file is too large.";
+            $msg = "Sorry, your file is too large.";
             $uploadOk = 0;
         }// Allow certain file formats
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif") {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $msg = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         }// Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
+           // $msg = "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
         } else {
             $newfilename = hash('sha256', $account->getEmail() . strval(time())).".".$imageFileType;
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir .$newfilename)) {
@@ -109,9 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $account->setLogo($newfilename);
                 $usersSvc->update($account);
-                echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+                $msg = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
             } else {
-                echo  "Sorry, there was an error uploading your file.";
+                $msg =  "Sorry, there was an error uploading your file.";
             }
         }
     } else {
