@@ -539,7 +539,7 @@ class ExpertiseDAO
         
         // Add the account expertises
         foreach ($resultSet as $result) {
-            
+                        
             $expertise = Expertise::create(
                 $result['ExpertiseID'],
                 $result['Expertise'],
@@ -560,4 +560,53 @@ class ExpertiseDAO
         // Return the account information
         return $account;        
     }
+    
+    /**
+     * Add the more info expertises to the account
+     * 
+     * @param object $account
+     * 
+     * @return object
+     */
+    public function addAccountMoreInfoToAccountInfo($account)
+    {
+        // Get the account more info
+        $query = "SELECT mi.ID, mi.accountID, mi.ExpertiseID, mi.Info,
+                    e.Expertise, e.Actief
+                  FROM accountmeerinfo mi
+                  JOIN expertises e ON mi.ExpertiseID = e.ID
+                  WHERE mi.AccountID = 28
+                  ORDER BY e.Expertise";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);        
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute(['accountID' => $account->getID()]);
+        
+        // Add the more info information
+        foreach ($resultSet as $result) {
+            
+            $expertise = Expertise::create(
+                $result['ExpertiseID'],
+                $result['Expertise'],
+                $result['Actief']
+            );
+            
+            $moreInfo = entities\AccountMoreInfo::create(
+                $result['ID'],
+                null,
+                $expertise,
+                $result['Info']
+            );
+            
+            $account->addAccountMoreInfo($moreInfo);
+            
+        }
+        
+        // Return the account information
+        return $account;
+    }
+          
 }
