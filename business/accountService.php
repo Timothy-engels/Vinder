@@ -74,6 +74,9 @@ class AccountService
             // Add the account more info
             $account = $expertiseDAO->addAccountMoreInfoToAccountInfo($account);
             
+            // Add te account expertise extra
+            $account = $expertiseDAO->addAccountMoreInfoExtraToAccountInfo($account);
+            
         }
         
         // Return the result

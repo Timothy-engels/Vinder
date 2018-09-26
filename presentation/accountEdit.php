@@ -12,7 +12,11 @@
             <?php
             foreach ($allExps as $expertise){ ?>
             expertises.push("<?php echo $expertise->getId(); ?>");
+<<<<<<< HEAD
             <?php}?>
+=======
+            <?php }?>
+>>>>>>> 072aca123b142a52a9cf6e43c0d28c7617ea1066
         </script>
     </head>
 

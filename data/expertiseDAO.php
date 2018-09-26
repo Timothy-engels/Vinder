@@ -637,7 +637,7 @@ class ExpertiseDAO
                     e.Expertise, e.Actief
                   FROM accountmeerinfo mi
                   JOIN expertises e ON mi.ExpertiseID = e.ID
-                  WHERE mi.AccountID = 28
+                  WHERE mi.AccountID = :accountID
                   ORDER BY e.Expertise";
         
         // Open the connection
@@ -645,7 +645,7 @@ class ExpertiseDAO
         
         // Execute the query
         $resultSet = $dbh->prepare($query);
-        $resultSet->execute(['accountID' => $account->getID()]);
+        $resultSet->execute([':accountID' => $account->getID()]);
         
         // Add the more info information
         foreach ($resultSet as $result) {
@@ -673,5 +673,46 @@ class ExpertiseDAO
         // Return the account information
         return $account;
     }
+    
+    /**
+     * Add the account more info extra to an account
+     * 
+     * @param object $account
+     * 
+     * @return object
+     */     
+    public function addAccountMoreInfoExtraToAccountInfo($account)
+    {
+        // Get the account expertise extra
+        $query = "SELECT ID, AccountID, MeerinfoNaam, Info
+                  FROM accountmeerinfoextra
+                  WHERE AccountID = :accountID";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute([':accountID' => $account->getID()]);
+        
+        // Add the account expertise extra
+        foreach ($resultSet as $result) {
+            
+            $accountMoreInfoExtra = entities\AccountMoreInfoExtra::create(
+                $result['ID'],
+                null,
+                $result['MeerinfoNaam'],
+                $result['Info']
+            );
+            
+            $account->setAccountMoreInfoExtra($accountMoreInfoExtra);
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
+        return $account;        
+    }        
           
 }
