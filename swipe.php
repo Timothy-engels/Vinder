@@ -9,7 +9,7 @@ $accountSvc      = new AccountService();
 $account         = $accountSvc->getLoggedInUser(true);
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
-// hier is Cindy momenteel mee bezig (Het systeem haalt een lijst op van alle bedrijven waarvoor de ingelogde gebruiker nog niet heeft geswiped om zo mogelijke matches te bekomen)
+/* hier is Cindy momenteel mee bezig (Het systeem haalt een lijst op van alle bedrijven waarvoor de ingelogde gebruiker nog niet heeft geswiped om zo mogelijke matches te bekomen)
 $candidates = ->();
 
 $swipes = array();
@@ -18,7 +18,7 @@ for each($candidates as $swipeProfile) {
     $id = $swipeProfile->getId();
     $swipeProfile = $accountSvc->getSwipingInfo($id);
     $swipes[$id][0] = $swipeProfile;
-}
+}*/
 
 // ergens moet ook de expertises opgevraagd worden en bij in de array gezet
 
