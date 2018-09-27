@@ -6,7 +6,7 @@ require_once("business/expertiseService.php");
 
 // Check if an admin is logged in
 $accountSvc      = new AccountService();
-$account         = $accountSvc->getLoggedInUser(true);
+$account         = $accountSvc->getLoggedInUser();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 /* hier is Cindy momenteel mee bezig (Het systeem haalt een lijst op van alle bedrijven waarvoor de ingelogde gebruiker nog niet heeft geswiped om zo mogelijke matches te bekomen)
