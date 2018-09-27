@@ -28,6 +28,37 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
         <script>
+            
+            function addMatching(answer) {
+                
+                $.ajax({
+                  url      : "<?= $currentPath; ?>addMatchingResult.php",
+                  data     : {
+                    'answer' : answer
+                  },
+                  dataType : "text"
+                }).done(function(result) {
+                    if (result === 'true') {
+                        displayNewAccount();
+                        $("#swipeCard").html();
+                        $("#swipeCard").draggable();
+                    }
+                });
+                
+            }
+            
+            function displayNewAccount() {
+            
+                $.ajax({
+                  url      : "<?= $currentPath; ?>getSwipeCardHtml.php",
+                  dataType : "html"
+                })
+                .done(function(msg) {
+                    $('#swipeCard').html(msg);
+                });
+                
+            }
+            
             $(document).ready( function() {
                 if (window.XMLHttpRequest) {
                     // code for modern browsers
@@ -36,26 +67,22 @@
                     // code for old IE browsers
                     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
                 }
-                /*       hoofdpijngenerator
-                
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("swipeCard").innerHTML =
-                            this.responseText;
-                    }
-                };
-                xhttp.open("GET", "swipe.php", true);
-                xhttp.send();
-                */
              
                 $("#swipeCard").html();
                 $("#swipeCard").draggable();
-                $("#no").droppable( { drop: function( event, ui ) {
+                
+                $("#no").droppable({drop: function(event, ui) {
                     alert("no");
-                } } );
-                $("#yes").droppable( { drop: function( event, ui ) { 
-                    alert("yes");
-                } } );
+                    addMatching('no'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
+
+                }});
+            
+                $("#yes").droppable({drop: function(event, ui) { 
+                    alert("ja");
+                    addMatching('yes'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
+                }});
+            
+                
             });
         </script>
     </head> 

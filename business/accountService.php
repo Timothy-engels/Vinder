@@ -217,7 +217,7 @@ class AccountService
     }
     
     /**
-     * Get the swiping information a specified company
+     * Get the ID's for the companies to be swiped for a specified company
      * 
      * @param int $companyId
      * 
@@ -228,36 +228,6 @@ class AccountService
         // Get the general account information
         $accountDAO  = new AccountDAO();
         $swipingInfo = $accountDAO->getSwipingInfo($companyId);
-        
-        if (!empty($swipingInfo)) {
-                
-            // Get an array with all the active expertises
-            $expertiseDAO = new ExpertiseDAO();
-            $expertises   = $expertiseDAO->getAll(1);
-
-            // Add the account expertises
-            $swipingInfo = $expertiseDAO->addAccountExpertisesToSwipingInfo(
-                $swipingInfo,
-                $expertises
-            );
-            
-            // Add the account more info
-            $swipingInfo = $expertiseDAO->addAccountMoreInfoToSwipingInfo(
-                $swipingInfo,
-                $expertises
-            );
-            
-            // Add the extra account expertise
-            $swipingInfo = $expertiseDAO->addAccountExpertiseExtraToSwipingInfo(
-                $swipingInfo
-            );
-            
-            // Add the account more info extra
-            $swipingInfo = $expertiseDAO->addAccountMoreInfoExtraToSwipingInfo(
-                $swipingInfo
-            );
-            
-        }
         
         return $swipingInfo;
     }
@@ -352,15 +322,14 @@ class AccountService
     public function getSwipeCardHtml()
     {
         // Get the first company from the swiping information
-        $displayCompany = reset($_SESSION['swipingInfo']); // TODO@VDAB -> CONTROLE INBOUWEN ALS SWIPING INFO LEEG IS
+        $displayCompanyID = $_SESSION['swipingInfo'][0]; // TODO@VDAB -> CONTROLE INBOUWEN ALS SWIPING INFO LEEG IS
        
         // Encode the ID of the company
         $encryptionSvc    = new EncryptionService();
-        $companyIdEncoded = $encryptionSvc->encryptString($displayCompany->getID(), $encryptionSvc::SWIPE_KEY);
+        $companyIdEncoded = $encryptionSvc->encryptString($displayCompanyID, $encryptionSvc::SWIPE_KEY);
         
         // Get the html
         $swipeCardLink = $this->getCurrentPath() . 'createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
-        //$swipeCardLink = 'http://localhost:8888/Vinder/createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
         $swipeCardHtml = file_get_contents($swipeCardLink);
         
         return $swipeCardHtml;    
