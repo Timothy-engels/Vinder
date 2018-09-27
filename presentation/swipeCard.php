@@ -83,13 +83,6 @@
                         // AJAX call
                         $("#swipeCard").html(/*resultaat AJAX call*/);
                         addMatching('no'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
-                    }, 
-                    out: function(event, ui) {
-                        ui.draggable.mouseup(function () {
-                            var top = ui.draggable.data('orgTop');
-                            var left = ui.draggable.data('orgLeft');
-                            ui.position = { top: top, left: left };
-                        } ) ;
                     }
                 } );
                 
@@ -99,13 +92,6 @@
                         // AJAX call
                         $("#swipeCard").html(/*resultaat AJAX call*/);
                         addMatching('yes'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
-                    },
-                    out: function(event, ui) {
-                        ui.draggable.mouseup(function () {
-                            var top = ui.draggable.data('orgTop');
-                            var left = ui.draggable.data('orgLeft');
-                            ui.position = { top: top, left: left };
-                        } );
                     }
                 } );                
             });
