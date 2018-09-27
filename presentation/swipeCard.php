@@ -64,6 +64,7 @@
             <div id="no" style="background-image: url('images/swipe_left.png');">
             </div>
             <div id="swipeCard">
+                <?= $swipeCardHtml; ?>
             </div>
             <div id="yes" style="background-image: url('images/swipe_right.png');">
             </div>

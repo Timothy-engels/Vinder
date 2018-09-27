@@ -1,6 +1,5 @@
 <?php
 //swipe.php
-
 require_once("business/accountService.php");
 require_once("business/expertiseService.php");
 
@@ -9,19 +8,14 @@ $accountSvc      = new AccountService();
 $account         = $accountSvc->getLoggedInUser();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
-/* hier is Cindy momenteel mee bezig (Het systeem haalt een lijst op van alle bedrijven waarvoor de ingelogde gebruiker nog niet heeft geswiped om zo mogelijke matches te bekomen)
-$candidates = ->();
+// Get the swiping information
+$swipingInfo = $accountSvc->getSwipingInfo($account->getId()); // TODO@VDAB -> expertises uit lijst halen, tenzij ze ergens anders gebruikt worden
 
-$swipes = array();
+// Add the swiping information to the session
+$_SESSION["swipingInfo"] = $swipingInfo;
 
-for each($candidates as $swipeProfile) {
-    $id = $swipeProfile->getId();
-    $swipeProfile = $accountSvc->getSwipingInfo($id);
-    $swipes[$id][0] = $swipeProfile;
-}*/
+// Get the swipe card info
+$swipeCardHtml = $accountSvc->getSwipeCardHtml();
 
-// ergens moet ook de expertises opgevraagd worden en bij in de array gezet
-
-$json = serialize($account);
-
+// Show the view
 include("presentation/swipeCard.php");

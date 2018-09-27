@@ -342,6 +342,28 @@ class AccountService
             $mailSrv = new MailService();
             $mailSrv->sendHtmlMail($companyMail, 'Match gevonden op Vinder', $mailContent);
         } 
-    }        
+    }     
+    
+    /**
+     * Get the html to display the swipe card
+     * 
+     * @return string
+     */
+    public function getSwipeCardHtml()
+    {
+        // Get the first company from the swiping information
+        $displayCompany = reset($_SESSION['swipingInfo']); // TODO@VDAB -> CONTROLE INBOUWEN ALS SWIPING INFO LEEG IS
+       
+        // Encode the ID of the company
+        $encryptionSvc    = new EncryptionService();
+        $companyIdEncoded = $encryptionSvc->encryptString($displayCompany->getID(), $encryptionSvc::SWIPE_KEY);
+        
+        // Get the html
+        $swipeCardLink = $this->getCurrentPath() . 'createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
+        $swipeCardLink = 'http://localhost:8888/Vinder/createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
+        $swipeCardHtml = file_get_contents($swipeCardLink);
+        
+        return $swipeCardHtml;    
+    } 
     
 }
