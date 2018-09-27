@@ -25,8 +25,8 @@ if ($companyToString !== null && $companyToString !== '' && $companyMatchString 
         // Get the tips
         $generalSvc = new GeneralService();
         $general    = $generalSvc->get();
-        $tips       = $general->getMail();
-    
+        $tips       = html_entity_decode($general->getMail());
+        
         include("presentation/createMatchMailTemplate.php");
     }
     
