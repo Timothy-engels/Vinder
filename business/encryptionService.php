@@ -9,6 +9,7 @@ class EncryptionService
     const CONFIRM_REGISTRATION_KEY    = 'bdzGYFykq54t2m5j4AuKJhOViW1VmcnS';
     const FORGOTTEN_PASSWORD_KEY      = 'MxSxqv4NKjb4rwjfh7SzrYNV5uGEg45H';
     const MAIL_MATCH_KEY              = 'kNWLohoNWEByXjhks5ih1TxtaTcD3zHW';
+    const SWIPE_KEY                   = 'EMQ4PW3pqpMZ78n8qVzrBBRXgGczFms9';
     const CIPHER                      = 'aes-256-cbc';
     
     /**

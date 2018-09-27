@@ -21,13 +21,43 @@
             #no, #yes {
                 width: 512px;
                 height: 512px;
-                background-color: blue;
                 display: inline-block;
             }
         </style>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
         <script>
+            
+            function addMatching(answer) {
+                
+                $.ajax({
+                  url      : "<?= $currentPath; ?>addMatchingResult.php",
+                  data     : {
+                    'answer' : answer
+                  },
+                  dataType : "text"
+                }).done(function(result) {
+                    if (result === 'true') {
+                        displayNewAccount();
+                        $("#swipeCard").html();
+                        $("#swipeCard").draggable();
+                    }
+                });
+                
+            }
+            
+            function displayNewAccount() {
+            
+                $.ajax({
+                  url      : "<?= $currentPath; ?>getSwipeCardHtml.php",
+                  dataType : "html"
+                })
+                .done(function(msg) {
+                    $('#swipeCard').html(msg);
+                });
+                
+            }
+            
             $(document).ready( function() {
                 if (window.XMLHttpRequest) {
                     // code for modern browsers
@@ -35,21 +65,8 @@
                 } else {
                     // code for old IE browsers
                     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                /*       hoofdpijngenerator
+                }  
                 
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("swipeCard").innerHTML =
-                            this.responseText;
-                    }
-                };
-                xhttp.open("GET", "swipe.php", true);
-                xhttp.send();
-                */
-                
-                
-                //$("#swipeCard").html($row);
                 $("#swipeCard").draggable( {
                     revert : function(event, ui) {
                         $(this).data("draggable").originalPosition = {
@@ -65,6 +82,7 @@
                         alert("no");
                         // AJAX call
                         $("#swipeCard").html(/*resultaat AJAX call*/);
+                        addMatching('no'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
                     }, 
                     out: function(event, ui) {
                         ui.draggable.mouseup(function () {
@@ -80,6 +98,7 @@
                         alert("yes");
                         // AJAX call
                         $("#swipeCard").html(/*resultaat AJAX call*/);
+                        addMatching('yes'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
                     },
                     out: function(event, ui) {
                         ui.draggable.mouseup(function () {
@@ -88,16 +107,19 @@
                             ui.position = { top: top, left: left };
                         } );
                     }
-                } );
-                
+                } );                
             });
         </script>
     </head> 
     <body>
         <div class="swipingArea">
-            <div id="no" style="background-image: url('images/swipe_left.png');"></div>
-            <div id='swipeCard'></div>
-            <div id="yes" style="background-image: url('images/swipe_right.png');"></div>
+            <div id="no" style="background-image: url('images/swipe_left.png');">
+            </div>
+            <div id="swipeCard">
+                <?= $swipeCardHtml; ?>
+            </div>
+            <div id="yes" style="background-image: url('images/swipe_right.png');">
+            </div>
         </div>
     </body>
 </html>
