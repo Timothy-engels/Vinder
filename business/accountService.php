@@ -180,7 +180,8 @@ class AccountService
             $currentUrl = substr($currentUrl, 0, $position + 1);
         }
         
-        return $currentUrl;
+        //return $currentUrl;
+        return 'http://localhost:8888/Vinder/';
     }
     
     /**

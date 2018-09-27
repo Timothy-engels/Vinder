@@ -11,6 +11,7 @@
         <li><a href="updateDateSettings.php">Datums wijzigen (admin)</a></li>
         <li><a href="matchedCompanies.php">Bedrijven met matches</a></li>
         <li><a href="unmatchedCompanies.php">Bedrijven zonder matches</a></li>
+        <li><a href="deleteMatching.php">Matchings verwijderen</a></li>
     <?php endif; ?>
     <li><a href="logOut.php">Uitloggen</a></li>
 </ul>
