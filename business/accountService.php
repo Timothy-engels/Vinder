@@ -360,7 +360,7 @@ class AccountService
         
         // Get the html
         $swipeCardLink = $this->getCurrentPath() . 'createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
-        $swipeCardLink = 'http://localhost:8888/Vinder/createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
+        //$swipeCardLink = 'http://localhost:8888/Vinder/createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
         $swipeCardHtml = file_get_contents($swipeCardLink);
         
         return $swipeCardHtml;    
