@@ -79,19 +79,23 @@
                 
                 $("#no").droppable( { 
                     drop: function(event, ui) {
-                        alert("no");
+                        //alert("no");
                         // AJAX call
                         $("#swipeCard").html(/*resultaat AJAX call*/);
                         addMatching('no'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
+                        $("swipeCard").remove();
+                        $("no").after("<div id='swipeCard'></div>");
                     }
                 } );
                 
                 $("#yes").droppable( { 
                     drop: function(event, ui) { 
-                        alert("yes");
+                        //alert("yes");
                         // AJAX call
                         $("#swipeCard").html(/*resultaat AJAX call*/);
                         addMatching('yes'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
+                        $("swipeCard").remove();
+                        $("no").after("<div id='swipeCard'></div>");
                     }
                 } );                
             });
