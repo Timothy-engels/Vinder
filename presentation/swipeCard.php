@@ -47,26 +47,57 @@
                 xhttp.open("GET", "swipe.php", true);
                 xhttp.send();
                 */
-             
-                $("#swipeCard").html();
-                $("#swipeCard").draggable();
-                $("#no").droppable( { drop: function( event, ui ) {
-                    alert("no");
-                } } );
-                $("#yes").droppable( { drop: function( event, ui ) { 
-                    alert("yes");
-                } } );
+                
+                
+                //$("#swipeCard").html($row);
+                $("#swipeCard").draggable( {
+                    revert : function(event, ui) {
+                        $(this).data("draggable").originalPosition = {
+                            top : 0,
+                            left : 0
+                        };
+                        return !event;
+                    }
+                } );
+                
+                $("#no").droppable( { 
+                    drop: function(event, ui) {
+                        alert("no");
+                        // AJAX call
+                        $("#swipeCard").html(/*resultaat AJAX call*/);
+                    }, 
+                    out: function(event, ui) {
+                        ui.draggable.mouseup(function () {
+                            var top = ui.draggable.data('orgTop');
+                            var left = ui.draggable.data('orgLeft');
+                            ui.position = { top: top, left: left };
+                        } ) ;
+                    }
+                } );
+                
+                $("#yes").droppable( { 
+                    drop: function(event, ui) { 
+                        alert("yes");
+                        // AJAX call
+                        $("#swipeCard").html(/*resultaat AJAX call*/);
+                    },
+                    out: function(event, ui) {
+                        ui.draggable.mouseup(function () {
+                            var top = ui.draggable.data('orgTop');
+                            var left = ui.draggable.data('orgLeft');
+                            ui.position = { top: top, left: left };
+                        } );
+                    }
+                } );
+                
             });
         </script>
     </head> 
     <body>
         <div class="swipingArea">
-            <div id="no" style="background-image: url('images/swipe_left.png');">
-            </div>
-            <div id="swipeCard">
-            </div>
-            <div id="yes" style="background-image: url('images/swipe_right.png');">
-            </div>
+            <div id="no" style="background-image: url('images/swipe_left.png');"></div>
+            <div id='swipeCard'></div>
+            <div id="yes" style="background-image: url('images/swipe_right.png');"></div>
         </div>
     </body>
 </html>
