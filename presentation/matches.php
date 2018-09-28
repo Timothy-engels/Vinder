@@ -14,12 +14,16 @@
                         foreach ($mO as $match){
                     ?>
                         <li>
+                            <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
                             <?php
-                                print('<img src='.$match->getLogo().' />');
                                 print($match->getName());
                                 print($match->getContactPerson());
+                                print($match->getId());
                             ?>
-                            <a href="showProfile.php?id=<?= $match->getId(); ?>"><button>profiel</button></a>
+                            <form action="showProfile.php" method="post">
+                                <input type="hidden" name="id" value="<?php print($match->getId()); ?>" />
+                                <input type="submit" value="bekijk profiel" />
+                            </form>
                         </li>
                     <?php    
                         }
