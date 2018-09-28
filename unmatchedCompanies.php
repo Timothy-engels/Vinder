@@ -15,7 +15,7 @@ $unmatchedCompanies = $accountSvc->getUnmatchedCompanies();
 // match with admin/VDAB
 $matchSvc = new matchingService();
 
-if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "hallo"){
+if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "match met VDAB"){
 
     $idAdmin = $account->getId();
     $status = 3;

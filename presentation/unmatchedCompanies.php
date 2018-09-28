@@ -46,8 +46,8 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-        <form action="unmatchedCompanies.php" method="post" name="matchMet">
-            <input type="submit" value="hallo" name="VDAB"/>
+        <form action="unmatchedCompanies.php" method="post" >
+            <input type="submit" value="match met VDAB" name="VDAB"/>
         </form>
         <?php else: ?>
         
