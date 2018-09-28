@@ -15,4 +15,15 @@ class matchingService {
         $match = $matchDAO -> Insert($id1, $id2, $status);
     }
     
+    /**
+     * Delete all the matchings from the database
+     * 
+     * @return void
+     */
+    public function deleteAll()
+    {
+        $matchDAO = new matchings();
+        $matchDAO->deleteAll();
+    }
+    
 }

@@ -4,7 +4,6 @@
 require_once("DBConfig.php");
 require_once("entities/account.php");
 
-
 class matchings {
     
     public function Insert(
@@ -33,5 +32,26 @@ class matchings {
         // Close the db connection
         $dbh = null;
 
+    }
+    
+    /**
+     * Delete all matches
+     * 
+     * @return void
+     */
+    public function deleteAll()
+    {
+        // Create the sql
+        $query = "DELETE FROM `matching`";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+        // Close the connection
+        $dbh = null;
     }
 }
