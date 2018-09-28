@@ -15,6 +15,9 @@ if ($companyIDEncoded !== null && $companyIDEncoded !== '') {
     
     // Get the company information
     $company = $accountSvc->getCompleteAccountInfo($companyID);
+    
+    // Get the current path
+    $currentPath = $accountSvc->getCurrentPath();
 
     include("presentation/swipeCardHtml.php");
 }
