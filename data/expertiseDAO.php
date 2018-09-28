@@ -182,6 +182,30 @@ class ExpertiseDAO
         return $resultSet;
     }
 
+    public function deleteExtraByUserId($id)
+    {
+        $sql = "DELETE FROM `accountexpertisesextra` WHERE `accountexpertisesextra`.`AccountID` = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
+
+    public function deleteExtraExpectedByUserId($id)
+    {
+        $sql = "DELETE FROM `accountmeerinfoextra` WHERE `accountmeerinfoextra`.`AccountID` = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
+
 
 
     public function getExtraExpertise($id)
