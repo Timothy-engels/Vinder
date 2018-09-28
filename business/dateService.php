@@ -31,4 +31,30 @@ class dateService
         
         return $dateArray[2] . '-' . $dateArray[1] . '-' . $dateArray[0];
     }
+    
+    /**
+     * Check if the first date is bigger than the last date
+     * 
+     * @param string $firstDate
+     * @param string $lastDate
+     * @param string $format
+     * 
+     * @return boolean
+     */
+    public function isBiggerThen($firstDate, $lastDate, $format)
+    {
+        $result = false;
+        
+        // Format the dates to a date time string
+        $fd = DateTime::createFromFormat($format, $firstDate);
+        $ld = DateTime::createFromFormat($format, $lastDate);
+        
+        // Compare the dates
+        if ($fd > $ld) {
+            $result = true;
+        }
+        
+        // Return the result
+        return $result;
+    }
 }
