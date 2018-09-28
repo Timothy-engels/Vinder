@@ -46,7 +46,9 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-        
+        <form action="unmatchedCompanies.php" method="post" name="matchMet">
+            <input type="submit" value="hallo" name="VDAB"/>
+        </form>
         <?php else: ?>
         
             <p>Alle bedrijven zijn gematched.</p>
