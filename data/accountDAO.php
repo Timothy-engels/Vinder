@@ -253,7 +253,7 @@ class AccountDAO
     public function getSwipingInfo($companyId)
     {
         // Create the sql
-        $sql = "SELECT * 
+        $sql = "SELECT ID
                 FROM `accounts`
                 WHERE ID <> :companyId
                   AND Bevestigd = 1
@@ -286,21 +286,8 @@ class AccountDAO
         // Return the results
         $accounts = [];
         
-        foreach ($resultSet as $result) {
-            $account = entities\Account::create(
-                $result['ID'],
-                $result['Naam'],
-                $result['Contactpersoon'],
-                $result['Emailadres'],
-                $result['Wachtwoord'],
-                $result['Bevestigd'],
-                $result['Website'],
-                $result['Logo'],
-                $result['Info'],
-                $result['Admin']
-            );
-            
-            $accounts[$result['ID']] = $account;
+        foreach ($resultSet as $result) {            
+            $accounts[] = $result['ID'];
         }
         
         return $accounts;

@@ -7,7 +7,7 @@ $accountSvc    = new AccountService();
 $validationSvc = new ValidationService();
 
 // Check if the user is logged in
-$account         = $accountSvc->getLoggedInUser(true);
+$account         = $accountSvc->getLoggedInUser();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Set the variables

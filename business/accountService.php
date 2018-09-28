@@ -217,7 +217,7 @@ class AccountService
     }
     
     /**
-     * Get the swiping information a specified company
+     * Get the ID's for the companies to be swiped for a specified company
      * 
      * @param int $companyId
      * 
@@ -228,36 +228,6 @@ class AccountService
         // Get the general account information
         $accountDAO  = new AccountDAO();
         $swipingInfo = $accountDAO->getSwipingInfo($companyId);
-        
-        if (!empty($swipingInfo)) {
-                
-            // Get an array with all the active expertises
-            $expertiseDAO = new ExpertiseDAO();
-            $expertises   = $expertiseDAO->getAll(1);
-
-            // Add the account expertises
-            $swipingInfo = $expertiseDAO->addAccountExpertisesToSwipingInfo(
-                $swipingInfo,
-                $expertises
-            );
-            
-            // Add the account more info
-            $swipingInfo = $expertiseDAO->addAccountMoreInfoToSwipingInfo(
-                $swipingInfo,
-                $expertises
-            );
-            
-            // Add the extra account expertise
-            $swipingInfo = $expertiseDAO->addAccountExpertiseExtraToSwipingInfo(
-                $swipingInfo
-            );
-            
-            // Add the account more info extra
-            $swipingInfo = $expertiseDAO->addAccountMoreInfoExtraToSwipingInfo(
-                $swipingInfo
-            );
-            
-        }
         
         return $swipingInfo;
     }
@@ -302,5 +272,67 @@ class AccountService
         
         return $companiesWithoutMatches;
     }
+    
+    /**
+     * Send a mail to both companies when a match is found
+     * 
+     * @param int $companyId1
+     * @param int $companyId2
+     * 
+     * @return void
+     */
+    public function sendMatchFoundMails($companyId1, $companyId2)
+    {
+        $this->sendMatchFoundMail($companyId1, $companyId2);
+        $this->sendMatchFoundMail($companyId2, $companyId1);
+    }
+    
+    /**
+     * Send a mail when a match is found to a specified company
+     * 
+     * @param int $companyToID
+     * @param int $companyMatchID
+     * 
+     * @return void
+     */
+    public function sendMatchFoundMail($companyToID, $companyMatchID)
+    {         
+        // Encode the IDs of the companies
+        $encryptionSvc         = new EncryptionService();
+        $companyToIdEncoded    = $encryptionSvc->encryptString($companyToID, $encryptionSvc::MAIL_MATCH_KEY);
+        $companyMatchIdEncoded = $encryptionSvc->encryptString($companyMatchID, $encryptionSvc::MAIL_MATCH_KEY);
+        
+        $link        = $this->getCurrentPath() . 'createMatchMailTemplate.php?companyTo=' . $companyToIdEncoded . '&companyMatch=' . $companyMatchIdEncoded;
+        $mailContent = file_get_contents($link);
+        
+        if ($mailContent !== '') {
+            $company     = $this->getById($companyToID);
+            $companyMail = $company->getEmail();
+            
+            $mailSrv = new MailService();
+            $mailSrv->sendHtmlMail($companyMail, 'Match gevonden op Vinder', $mailContent);
+        } 
+    }     
+    
+    /**
+     * Get the html to display the swipe card
+     * 
+     * @return string
+     */
+    public function getSwipeCardHtml()
+    {
+        // Get the first company from the swiping information
+        $displayCompanyID = $_SESSION['swipingInfo'][0]; // TODO@VDAB -> CONTROLE INBOUWEN ALS SWIPING INFO LEEG IS
+       
+        // Encode the ID of the company
+        $encryptionSvc    = new EncryptionService();
+        $companyIdEncoded = $encryptionSvc->encryptString($displayCompanyID, $encryptionSvc::SWIPE_KEY);
+        
+        // Get the html
+        $swipeCardLink = $this->getCurrentPath() . 'createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
+        $swipeCardHtml = file_get_contents($swipeCardLink);
+        
+        return $swipeCardHtml;    
+    } 
     
 }

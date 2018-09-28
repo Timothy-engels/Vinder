@@ -16,17 +16,25 @@ class MailService
      * 
      * @return void
      */
-    public function sendHtmlMail($email, $title, $msg)
+    public function sendHtmlMail($email, $title, $msg, $addHtmlTags = true)
     {
-        // Generate the message
-        $htmlMsg = "
-        <html>
-        <head>
-            <title>" . $title . "</title>
-        </head>
-        <body>" . $msg . "</body>
-        </html>
-        ";
+        if ($addHtmlTags) {
+            
+            // Generate the message
+            $htmlMsg = "
+                <html>
+                <head>
+                    <title>" . $title . "</title>
+                </head>
+                <body>" . $msg . "</body>
+                </html>
+                ";
+
+        } else {
+            
+            $htmlMsg = $msg;
+            
+        }
         
         // Set headers to send HTML mail
         $headers[] = 'MIME-Version: 1.0';

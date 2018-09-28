@@ -6,7 +6,7 @@ require_once ("business/validationService.php");
 $usersSvc = new AccountService();
 
 // Check if user is logged in
-$account = $usersSvc->getLoggedInUser(true);
+$account = $usersSvc->getLoggedInUser();
 
 // Is the user logged in as an admin
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
