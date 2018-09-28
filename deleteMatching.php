@@ -7,13 +7,17 @@ require_once("business/encryptionService.php");
 $accountSvc      = new AccountService();
 $account         = $accountSvc->getLoggedInUser(true);
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
-
+   
 if ($_POST) {
 
+    // Add the account ID & the current date the the confirmation string
+    $now                = new DateTime();
+    $confirmationString = $account->getID() . '|' . $now->format("Y-m-d H:i:s");
+    
     // Send confirmation mail to administrator
     $encryptionSvc    = new EncryptionService();
     $confirmationCode = $encryptionSvc->encryptString(
-        $account->getEmail(),
+        $confirmationString,
         $encryptionSvc::DELETE_MATCHING_STRING
     );
     
@@ -32,6 +36,7 @@ if ($_POST) {
     $mailSvc->sendHtmlMail($mail, "Vinder | Verwijder matchings", $msg);
     
     include("presentation/deleteMatchingSuccess.php");
+    die();
     
 }
 
