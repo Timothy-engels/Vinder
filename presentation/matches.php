@@ -12,18 +12,21 @@
                 <ul>
                     <?php
                         foreach ($mO as $match){
+                            var_dump($match->getLogo());
                     ?>
                         <li>
-                            <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
+                            <?php 
+                                if (($match->getLogo() !== NULL) && ($match->getLogo() !== "")){
+                            ?>   
+                            <img src="images/<?php echo $match->getLogo(); ?>" alt="Logo" style="max-width: 150px">
+                            <?php
+                                    }
+                            ?>
                             <?php
                                 print($match->getName());
                                 print($match->getContactPerson());
-                                print($match->getId());
                             ?>
-                            <form action="showProfile.php" method="post">
-                                <input type="hidden" name="id" value="<?php print($match->getId()); ?>" />
-                                <input type="submit" value="bekijk profiel" />
-                            </form>
+                            <a href="?id=<?= $match->getId(); ?>"><button>profiel</button></a>
                         </li>
                     <?php    
                         }
