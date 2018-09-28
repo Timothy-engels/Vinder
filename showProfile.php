@@ -23,9 +23,9 @@ if ($loggedInAsAdmin) {
     }
 }
 // if showing another profile
-elseif (isset($_GET["id"]) && $_GET["id"]!== NULL){
-    $id = $_GET["id"];
-    $account = $accountSvc -> getById($_GET["id"]);
+elseif (isset($_POST["id"]) && $_POST["id"]!== NULL){
+    $id = $_POST["id"];
+    $account = $accountSvc -> getById($id);
 }
 else {
     $id = $account->getId();

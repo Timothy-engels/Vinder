@@ -5,36 +5,30 @@
     </head>
     <body>
         <header>
-            <?php include('presentation/menu.php') ?>
+            <?php include('menu.php') ?>
         </header>
         <article>
             <h2>lijst van matches</h2>
-                <?php
-                    foreach ($mO as $match){
-                ?>
                 <ul>
-                    <li>
-                        <?php
-                            print('<img src='.$match->getLogo().' />');
-                        ?>
-                    </li>
-                    <li>
-                        <?php
-                            print($match->getName());
-                        ?>
-                    </li>
-                    <li>
-                        <?php
-                            print($match->getContactPerson());
-                        ?>
-                    </li>
-                    <li>
-                        <a href="showProfile.php?id=<?= $match->getId(); ?>"><button>profiel</button></a>
-                    </li>
+                    <?php
+                        foreach ($mO as $match){
+                    ?>
+                        <li>
+                            <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
+                            <?php
+                                print($match->getName());
+                                print($match->getContactPerson());
+                                print($match->getId());
+                            ?>
+                            <form action="showProfile.php" method="post">
+                                <input type="hidden" name="id" value="<?php print($match->getId()); ?>" />
+                                <input type="submit" value="bekijk profiel" />
+                            </form>
+                        </li>
+                    <?php    
+                        }
+                    ?>
                 </ul>
-                <?php    
-                    }
-                ?>
         </article>
     </body>
 </html>
