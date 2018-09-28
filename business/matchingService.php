@@ -53,4 +53,63 @@ class matchingService {
         return $match;
     }
     
+    /**
+     * Get the swipe result from both companies according to the status
+     * 
+     * @param int $status
+     * 
+     * @return array
+     */
+    public function getSwipeResultsFromStatus($status)
+    {
+        // Get the swipe results according to the status
+        switch ($status) {
+            case -5:
+                $result1 = "no";
+                $result2 = "no";
+                break;
+            case -4:
+                $result1 = "no";
+                $result2 = null;
+                break;                
+            case -3:
+                $result1 = "no";
+                $result2 = "yes";
+                break;                
+            case -2:
+                $result1 = null;
+                $result2 = "no";
+                break;                
+            case -1:
+                $result1 = "yes";
+                $result2 = "no";
+                break;                
+            case 0:
+                $result1 = null;
+                $result2 = null;
+                break;                
+            case 1:
+                $result1 = "yes";
+                $result2 = null;
+                break;                
+            case 2:
+                $result1 = null;
+                $result2 = "yes";
+                break;                
+            case 3:
+                $result1 = "yes";
+                $result2 = "yes";
+                break;                
+            default:
+                $result1 = null;
+                $result2 = null;              
+        }
+        
+        // Return the swipe resuls
+        return [
+            'swipeAccount1' => $result1,
+            'swipeAccount2' => $result2
+        ];  
+    }
+    
 }

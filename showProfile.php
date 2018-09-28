@@ -2,6 +2,7 @@
 
 require_once("business/expertiseService.php");
 require_once("business/accountService.php");
+require_once("business/matchingService.php");
 
 $accountSvc = new AccountService();
 
@@ -23,9 +24,25 @@ if ($loggedInAsAdmin) {
     }
 }
 // if showing another profile
-elseif (isset($_POST["id"]) && $_POST["id"]!== NULL){
-    $id = $_POST["id"];
-    $account = $accountSvc -> getById($id);
+elseif (isset($_GET["id"]) && $_GET["id"]!== NULL){
+    $id = $_GET["id"];
+    
+    $loginAccount = $account;
+    $account      = $accountSvc->getById($id);
+    
+    if ($account !== null) {
+        $matchingSvc = new matchingService();
+        $match       = $matchingSvc->getMatch($loginAccount, $account);
+
+        if ($match === null OR $match->getStatus() !== "3") {
+            echo "U heeft geen rechten om deze pagina te bekijken.";
+            die();
+        }
+    } else {
+        echo "Er is een onbekende fout opgetreden.";
+        die();
+    }
+    
 }
 else {
     $id = $account->getId();
