@@ -23,7 +23,7 @@ if ($_POST) {
     
     // Generate the message
     $currentPath = $accountSvc->getCurrentPath();
-    $link        = $currentPath . "deleteMatchingConfirmation.php?code" . $confirmationCode;
+    $link        = $currentPath . "deleteMatchingConfirmation.php?code=" . $confirmationCode;
     
     $msg = "<p>Beste, <br><br>
             Klik op de onderstaande link om de matchings te verwijderen:<br>
@@ -33,7 +33,7 @@ if ($_POST) {
     
     // Send the mail
     $mailSvc = new MailService();
-    $mailSvc->sendHtmlMail($mail, "Vinder | Verwijder matchings", $msg);
+    $mailSvc->sendHtmlMail($account->getEmail(), "Vinder | Verwijder matchings", $msg);
     
     include("presentation/deleteMatchingSuccess.php");
     die();
