@@ -3,7 +3,6 @@ require_once("business/expertiseService.php");
 require_once("business/accountService.php");
 require_once ("business/validationService.php");
 
-
 $usersSvc = new AccountService();
 
 // Check if user is logged in
@@ -57,22 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
 
-    $expSrv->deleteExpertisesByUserId($id);
-    $expSrv->deleteExpectedByUserId($id);
-    foreach ($allExps as $e) {
-        if ($_POST['expertise' . $e->getId()]) { //check if checkbox is checked
-            $expSrv->addExpertisesById($id, $e->getId(), $_POST['inputexpertise' . $e->getId()]);
-        };
-    }
-    foreach ($allExps as $e) {
-        if ($_POST['expected' . $e->getId()]) { //check if checkbox is checked
-            $expSrv->addExpectedExpertisesById($id, $e->getId(), $_POST['inputexpected' . $e->getId()]);
-        };
-    }
 
-
-    $expSrv->addExtraExpertiseByUserId($id, $_POST['extraexpertise'], $_POST['extraexpertiseinfo']);
-    $expSrv->addExtraExpectedExpertiseByUserId($id, $_POST['extraexpected'], $_POST['extraexpectedinfo']);
 
     $target_dir = "images/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -117,14 +101,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $uploadOk = 0;
     }
+
     header("Location: editProfile.php");
-    include("presentation/accountEdit.php");
+
+    $expSrv->deleteExpertisesByUserId($id);
+    $expSrv->deleteExpectedByUserId($id);
+    foreach ($allExps as $e) {
+        if ($_POST['expertise' . $e->getId()]) { //check if checkbox is checked
+            $expSrv->addExpertisesById($id, $e->getId(), $_POST['inputexpertise' . $e->getId()]);
+        };
+    }
+    foreach ($allExps as $e) {
+        if ($_POST['expected' . $e->getId()]) { //check if checkbox is checked
+            $expSrv->addExpectedExpertisesById($id, $e->getId(), $_POST['inputexpected' . $e->getId()]);
+        };
+    }
 
 
+    $expSrv->addExtraExpertiseByUserId($id, $_POST['extraexpertise'], $_POST['extraexpertiseinfo']);
+    $expSrv->addExtraExpectedExpertiseByUserId($id, $_POST['extraexpected'], $_POST['extraexpectedinfo']);
 
-} else{
-    include("presentation/accountEdit.php");
-};
+
+}
+
+
+include("presentation/accountEdit.php");
 
 
 
