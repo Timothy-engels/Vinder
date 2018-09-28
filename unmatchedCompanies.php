@@ -26,6 +26,9 @@ if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "hallo"){
         
         // insert into DB
         $MatchWithAdmin = $matchSvc -> matchMetVdab($idAdmin, $idUnmatchedCompany, $status);
+        
+        // sent matching mail
+        $mailTo = $accountSvc->sendMatchFoundMails($idAdmin, $idUnmatchedCompany);
             
     }   
     // Get al ist with the unmachted companies
