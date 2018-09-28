@@ -55,6 +55,20 @@ class ExpertiseService
         return $list;
     }
 
+    public function deleteExtraExpertiseByUserId($id)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->deleteExtraByUserId($id);
+        return $list;
+    }
+
+    public function deleteExtraExpectedByUserId($id)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->deleteExtraExpectedByUserId($id);
+        return $list;
+    }
+
     public function addExtraExpertiseByUserId($id,$name,$text)
     {
         $expertiseDAO = new ExpertiseDAO();

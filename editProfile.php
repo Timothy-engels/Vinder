@@ -117,7 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         };
     }
 
-
+    $expSrv->deleteExtraExpertiseByUserId($id);
+    $expSrv->deleteExtraExpectedByUserId($id);
     $expSrv->addExtraExpertiseByUserId($id, $_POST['extraexpertise'], $_POST['extraexpertiseinfo']);
     $expSrv->addExtraExpectedExpertiseByUserId($id, $_POST['extraexpected'], $_POST['extraexpectedinfo']);
 

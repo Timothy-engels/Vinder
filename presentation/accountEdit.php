@@ -103,6 +103,7 @@
                                 if ($exp2->getId() === $expertise->getId()){
                                     $status = "checked";
                                     $info = $exp2->getInfo();
+
                                 }
                             }
                             ?>
