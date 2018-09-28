@@ -1,8 +1,20 @@
-<?php
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vinder | Matchings verwijderen?</title>
+    </head>
+    <body>
+        <?php include('menu.php'); ?>
+        
+        <main>
+                
+            <h1>Matchings verwijderen?</h1>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+            <p>Er is een bevestigingsmail verstuurd naar je e-mail adres.</p>
 
+            <p>Let op: de link in deze mail is slechts één uur geldig!</p>
+
+        </main>
+    </body>
+</html>
