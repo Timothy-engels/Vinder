@@ -24,8 +24,8 @@ if ($loggedInAsAdmin) {
     }
 }
 // if showing another profile
-elseif (isset($_POST["id"]) && $_POST["id"]!== NULL){
-    $id = $_POST["id"];
+elseif (isset($_GET["id"]) && $_GET["id"]!== NULL){
+    $id = $_GET["id"];
     
     $loginAccount = $account;
     $account      = $accountSvc->getById($id);

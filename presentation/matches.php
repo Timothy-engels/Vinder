@@ -26,7 +26,7 @@
                                 print($match->getName());
                                 print($match->getContactPerson());
                             ?>
-                            <a href="?id=<?= $match->getId(); ?>"><button>profiel</button></a>
+                            <a href="showProfile.php?id=<?= $match->getId(); ?>"><button>profiel</button></a>
                         </li>
                     <?php    
                         }
