@@ -14,7 +14,6 @@
             }
             #swipeCard { 
                 width: 350px;
-                height: 512px; 
                 background-color: white;
                 display: inline-block;
             }
@@ -74,7 +73,6 @@
                     drop: function(event, ui) {
                         alert("no");
                         // AJAX call
-                        $("#swipeCard").html(/*resultaat AJAX call*/);
                         addMatching('no'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
                     }
                 } );
@@ -83,7 +81,6 @@
                     drop: function(event, ui) { 
                         alert("yes");
                         // AJAX call
-                        $("#swipeCard").html(/*resultaat AJAX call*/);
                         addMatching('yes'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
                     }
                 } );                
