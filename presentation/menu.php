@@ -4,6 +4,7 @@
     <li><a href="contactUpdate.php">Contactinfo wijzigen</a></li>
     <li><a href="updatePassword.php">Wachtwoord wijzigen</a></li>
     <li><a href="matchingController.php">matches</a></li>
+    <li><a href="deleteAccount.php">Account verwijderen</a></li>
     <?php if (isset($loggedInAsAdmin) && $loggedInAsAdmin === true) : ?>
         <li><a href="userList.php">Gebruikers bekijken (admin)</a></li>
         <li><a href="expertises.php">Expertises (admin)</a></li>

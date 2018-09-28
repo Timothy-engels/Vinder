@@ -1,9 +1,11 @@
 <?php
 require_once("business/expertiseService.php");
 require_once("business/accountService.php");
+require_once('business/matchingService.php');
 
 $usersSvc = new AccountService();
 $expSrv      = new ExpertiseService();
+$matchSrv      = new MatchingService();
 
 // Check if user is logged in
 $account = $usersSvc->getLoggedInUser();
@@ -16,10 +18,33 @@ $id = $account->getId();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $expSrv->deleteExpertisesByUserId($id);
-    $expSrv->deleteExpectedByUserId($id);
-    $expSrv->deleteExtraExpertiseByUserId($id);
-    $expSrv->deleteExtraExpectedByUserId($id);
+    if (password_verify($_POST['pass'],$account->getPassword())) {
+
+        //remove matches
+        $matchSrv->deleteByUserId($id);
+
+        //remove expertises
+        $expSrv->deleteExpertisesByUserId($id);
+        $expSrv->deleteExpectedByUserId($id);
+        $expSrv->deleteExtraExpertiseByUserId($id);
+        $expSrv->deleteExtraExpectedByUserId($id);
+
+
+        @$oldlogo = $account->getLogo($newfilename);
+        unlink('images/' . $oldlogo);//logo from server remove
+
+        $usersSvc->deleteById($id);//remove account
+
+        echo "Account deleted"; //log out
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        session_destroy();
+    }else{
+        $message = "Wrong password";
+        include("presentation/accountDelete.php");
+    }
 }else{
     include("presentation/accountDelete.php");
 }

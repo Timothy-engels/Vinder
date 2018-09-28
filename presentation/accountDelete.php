@@ -25,13 +25,13 @@
 <form action="deleteAccount.php" method="post" enctype="multipart/form-data">
     <div class="container" >
         <h1> Profiel verwijderen  </h1>
-
+        <h3 style="color: red"><?php if($message)echo $message?></h3>
         <h2>Ben je zeker om account <?php echo $account->getEmail(); ?> te verwijderen?</h2>
         <button id="button" type="button" class="btn btn-dark">Ja</button>
         <div id="pass" class="container" style="display: none" >
             <div class="row">
                 <span >Password :</span>
-                <input  type="password" name="Info" placeholder="" value = "">
+                <input  type="password" name="pass" placeholder="" value = "">
             </div>
             <input type="submit" class="btn" name="submit" value="Verwijder account">
         </div>

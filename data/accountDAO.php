@@ -449,5 +449,18 @@ class AccountDAO
         
         return $accounts;              
     }
+
+    //remove account
+    public function deleteById($id)
+    {
+        $sql = "DELETE FROM `accounts` WHERE `accounts`.`ID` = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
     
 }

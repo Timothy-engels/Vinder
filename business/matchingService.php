@@ -25,6 +25,17 @@ class matchingService {
         $matchDAO = new matchings();
         $matchDAO->deleteAll();
     }
+
+    /**
+     * Delete all the matchings of specific user
+     *
+     * @return void
+     */
+    public function deleteByUserId($id)
+    {
+        $matchDAO = new matchings();
+        $matchDAO->deleteByUserId($id);
+    }
     
     /**
      * Get the match defined by 2 companies

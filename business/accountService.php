@@ -333,6 +333,15 @@ class AccountService
         $swipeCardHtml = file_get_contents($swipeCardLink);
         
         return $swipeCardHtml;    
-    } 
+    }
+// Delete account by ID
+    public function deleteById($id)
+    {
+        // delete by account id
+        $accountDAO  = new AccountDAO();
+        $swipingInfo = $accountDAO->deleteById($id);
+
+        return $swipingInfo;
+    }
     
 }

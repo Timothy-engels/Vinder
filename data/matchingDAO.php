@@ -113,4 +113,22 @@ class matchings {
         // Return the result
         return $match;
     }
+
+    /**
+     * Delete all matches by user id
+     *
+     * @return void
+     */
+    public function deleteByUserId($id)
+    {
+
+        $sql = "DELETE FROM `matching` WHERE `matching`.`AccountID1` = :id OR `matching`.`AccountID2` = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute([
+            ":id"=>$id
+        ]);
+        $dbh = null;
+        return $resultSet;
+    }
 }
