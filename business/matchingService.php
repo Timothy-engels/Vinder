@@ -26,4 +26,20 @@ class matchingService {
         $matchDAO->deleteAll();
     }
     
+    /**
+     * Get the match defined by 2 companies
+     * 
+     * @param object $account1
+     * @param object $account2
+     * 
+     * @return object|null
+     */    
+    public function getMatch($account1, $account2)
+    {
+        $matchingDAO = new matchings();
+        $match       = $matchingDAO->getMatch($account1, $account2);
+        
+        return $match;
+    }
+    
 }
