@@ -137,7 +137,9 @@
 
             <div class="profile__card" id="<?php echo $row->getId();?>">
                 <div class="profile__card__top brown">
-                    <div class="profile__card__img"></div>
+                        <div class="profile__card__img" <?php if ($row->getLogo()){
+                            echo "style='background: url(images/".$row->getLogo().")'";
+                        } ?>></div>
                     <p class="profile__card__name"><?php echo $row->getName();?></p>
                 </div>
                 <div class="profile__card__btm">
