@@ -30,7 +30,7 @@ class AccountDAO
                 $row["Contactpersoon"],
                 $row["Emailadres"],
                 $row["Wachtwoord"],
-                $row["Bevestigd"],$row["Website"], $row["Logo"],  $row["Logo"], $row["Admin"]
+                $row["Bevestigd"],$row["Website"], $row["Logo"],  $row["Info"], $row["Admin"]
             );
             array_push($list, $account);
         }
