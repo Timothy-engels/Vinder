@@ -7,15 +7,20 @@ $accountSvc      = new AccountService();
 $account         = $accountSvc->getLoggedInUser();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
-// Get the swiping information
-$swipingInfo = $accountSvc->getSwipingInfo($account->getId()); // TODO@VDAB -> expertises uit lijst halen, tenzij ze ergens anders gebruikt worden
+if($loggedInAsAdmin) {
+    header("location: dashboard.php");
+}
+else {
+    // Get the swiping information
+    $swipingInfo = $accountSvc->getSwipingInfo($account->getId()); // TODO@VDAB -> expertises uit lijst halen, tenzij ze ergens anders gebruikt worden
 
-// Add the swiping information to the session
-$_SESSION["swipingInfo"] = $swipingInfo;
+    // Add the swiping information to the session
+    $_SESSION["swipingInfo"] = $swipingInfo;
 
-// Get the swipe card info
-$currentPath   = $accountSvc->getCurrentPath();
-$swipeCardHtml = $accountSvc->getSwipeCardHtml();
+    // Get the swipe card info
+    $currentPath   = $accountSvc->getCurrentPath();
+    $swipeCardHtml = $accountSvc->getSwipeCardHtml();
 
-// Show the view
-include("presentation/swipeCard.php");
+    // Show the view
+    include("presentation/swipeCard.php");
+}

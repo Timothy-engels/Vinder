@@ -5,14 +5,32 @@ require_once ('data/matchingDAO.php');
 
 class matchingService {
     
-    public function matchMetVdab (
-        $id1,
-        $id2,
-        $status
-    )
+    /**
+     * Insert a new match
+     * 
+     * @param int $accountID1
+     * @param int $accountID2
+     * @param int $status
+     * 
+     * @return void
+     */
+    public function insert($accountID1, $accountID2, $status)
     {
         $matchDAO = new matchings();
-        $match = $matchDAO -> Insert($id1, $id2, $status);
+        $matchDAO->Insert($accountID1, $accountID2, $status);
+    }
+    
+    /**
+     * Update an existing match
+     * 
+     * @param object $match
+     * 
+     * @return void
+     */
+    public function update($match)
+    {
+        $matchDAO = new matchings();
+        $matchDAO->update($match);
     }
     
     /**
