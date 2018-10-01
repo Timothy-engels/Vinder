@@ -36,6 +36,39 @@ class matchings {
     }
     
     /**
+     * Update an existing match
+     * 
+     * @param object $match
+     * 
+     * @return void
+     */
+    public function update($match)
+    {
+        // Create the sql
+        $query = "UPDATE `matching`
+                  SET
+                    AccountID1 = :accountID1,
+                    AccountID2 = :accountID2,
+                    Status = :status
+                  WHERE ID = :matchID";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Prepare & execute the query
+        $stmt = $dbh->prepare($query);
+        $stmt->execute([
+            ':accountID1' => $match->getAccount1()->getID(),
+            ':accountID2' => $match->getAccount2()->getID(),
+            ':status'     => $match->getStatus(),
+            ':matchID'    => $match->getID()
+        ]);
+                  
+        // Close the db connection
+        $dbh = null;
+    }
+    
+    /**
      * Delete all matches
      * 
      * @return void

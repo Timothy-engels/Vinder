@@ -21,6 +21,19 @@ class matchingService {
     }
     
     /**
+     * Update an existing match
+     * 
+     * @param object $match
+     * 
+     * @return void
+     */
+    public function update($match)
+    {
+        $matchDAO = new matchings();
+        $matchDAO->update($match);
+    }
+    
+    /**
      * Delete all the matchings from the database
      * 
      * @return void
