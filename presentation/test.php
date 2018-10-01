@@ -33,24 +33,43 @@
             function release() {
 
                 if (pullDeltaX >= decisionVal) {
-                    $card.addClass("to-right");              
-                    alert("yes");
-                    // change status in database
-                   $card.remove();
+                    $card.addClass("to-right");   
 
+                    // Change status in database
+                    vId     = $card.attr('id');
+                    vResult = "yes";
+                    
+                    $.ajax({
+                      url      : "<?= $currentPath; ?>addMatchingResultTest.php",
+                      data     : {
+                        'swipingCompanyId' : vId,
+                        'answer'           : vResult
+                      },
+                    });
+                    
+                    // Remove the current card
+                    $card.remove();
 
                    //if list_of_profiles < 10 {add new profile to the (jquery)
 
-
-                   // $id = $card.attr('id');
                 } else if (pullDeltaX <= -decisionVal) {
                     $card.addClass("to-left");
 
-                    alert("no");
+                    // Change status in database
+                    vId     = $card.attr('id');
+                    vResult = "no";
                     
-                    // change status in database
+                    $.ajax({
+                      url      : "<?= $currentPath; ?>addMatchingResultTest.php",
+                      data     : {
+                        'swipingCompanyId' : vId,
+                        'answer'           : vResult
+                      },
+                    });
+                    
+                    // Remove the current card
                     $card.remove();
-                   // $id = $card.attr('id');
+
                     //if list_of_profiles < 10 {add new profile to the list (jquery)
                 }
 
@@ -115,8 +134,6 @@
         <div class="profile__card-cont">
 
         <?php foreach($swipingInfo as $row) : ?>
-
-
 
             <div class="profile__card" id="<?php echo $row->getId();?>">
                 <div class="profile__card__top brown">
