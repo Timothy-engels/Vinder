@@ -25,7 +25,7 @@ if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "match met VDAB"){
         $idUnmatchedCompany = $uC->getId();
         
         // insert into DB
-        $MatchWithAdmin = $matchSvc -> matchMetVdab($idAdmin, $idUnmatchedCompany, $status);
+        $MatchWithAdmin = $matchSvc->insert($idAdmin, $idUnmatchedCompany, $status);
         
         // sent matching mail
         $mailTo = $accountSvc->sendMatchFoundMails($idAdmin, $idUnmatchedCompany);
