@@ -12,7 +12,6 @@ $swipingInfo = $accountSvc->getCompleteSwipingInfo($account->getId());
 
 // Get the swipe card info
 $currentPath   = $accountSvc->getCurrentPath();
-//$swipeCardHtml = $accountSvc->getSwipeCardHtml();
 
 // Show the view
 include("presentation/test.php");
