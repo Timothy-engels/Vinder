@@ -14,38 +14,38 @@ $info       = $account->getInfo();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Get the ID from the logged in user
-if ($loggedInAsAdmin) {
-    if(isset($_GET["userId"])) {
-        $id = $_GET["userId"];
-        $account = $accountSvc->getById($id);
-    }
-    else {
-        $id = $account->getId();
-    }
-}
-// if showing another profile
-elseif (isset($_GET["id"]) && $_GET["id"]!== NULL){
-    $id = $_GET["id"];
+$id = filter_input(INPUT_GET, 'id');
+
+if ($id !== null) {
     
     $loginAccount = $account;
     $account      = $accountSvc->getById($id);
     
     if ($account !== null) {
-        $matchingSvc = new matchingService();
-        $match       = $matchingSvc->getMatch($loginAccount, $account);
+        
+        if ($loggedInAsAdmin === false) {
+            
+            $matchingSvc = new matchingService();
+            $match       = $matchingSvc->getMatch($loginAccount, $account);
 
-        if ($match === null OR $match->getStatus() !== "3") {
-            echo "U heeft geen rechten om deze pagina te bekijken.";
-            die();
+            if ($match === null OR $match->getStatus() !== "3") {
+                echo "U heeft geen rechten om deze pagina te bekijken.";
+                die();
+            }
+            
         }
+        
     } else {
+        
         echo "Er is een onbekende fout opgetreden.";
         die();
+        
     }
     
-}
-else {
+} else {
+    
     $id = $account->getId();
+    
 }
 
 // Get the necessary info to display the view

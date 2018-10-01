@@ -38,10 +38,12 @@
             <div id="companyInfoFlexBoxContainer">
                 <?php foreach ($matchedCompanies as $company) : ?>
                     <div class="companyInfoFlexBox">
+                        <a href="showProfile.php?userId=<?php print( $company->getId() ); ?>">
                         <?php if ($company->getLogo() !== null && $company->getLogo() !== '') : ?>
                             <img src="images/<?= $company->getLogo(); ?>" class="logoImg"><br/>
                         <?php endif; ?>
                         <?= $company->getName(); ?><br/>
+                        </a>
                         <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
                             <?= $amountMatches[$company->getID()]; ?> match(es)
                         </a>

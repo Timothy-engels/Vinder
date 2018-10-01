@@ -22,6 +22,9 @@
                 height: 512px;
                 display: inline-block;
             }
+            a {
+                color: white;
+            }
         </style>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
@@ -97,6 +100,7 @@
             <div id="yes" style="background-image: url('images/swipe_right.png');">
             </div>
         </div>
+        <div><p><a href="showProfile.php">Profiel</a></p></div>
     </body>
 </html>
     
