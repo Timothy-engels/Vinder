@@ -1,0 +1,15 @@
+<?php
+require_once("business/accountService.php");
+
+// Check if a user is logged in
+$accountSvc = new AccountService();
+$account    = $accountSvc->getLoggedInUser();
+
+// Get the swiping information
+$swipingInfo = $accountSvc->getCompleteSwipingInfo($account->getId());
+
+// Get the swipe card info
+$currentPath = $accountSvc->getCurrentPath();
+
+// Show the view
+include("presentation/addMatchingSwipeCards.php");
