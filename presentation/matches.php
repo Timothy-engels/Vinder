@@ -2,6 +2,28 @@
 <html>
     <head>
         <title> matches </title>
+        <style>
+            #companyInfoFlexBoxContainer {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: row;
+                justify-content: flex-start; 
+            }
+            
+            .companyInfoFlexBox {
+                width: 14rem;
+                height: 12rem;
+                text-align: center;
+                border: 1px solid lightgray;
+                padding: 1rem;
+                margin: 1rem;
+            }
+            
+            .logoImg {
+                max-height: 9rem;
+                max-width: 9rem;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -9,29 +31,28 @@
         </header>
         <article>
             <h2>lijst van matches</h2>
-                <ul>
-                    <?php
-                        foreach ($mO as $match){
-                            var_dump($match->getLogo());
-                    ?>
-                        <li>
+            <div id="companyInfoFlexBoxContainer">
+                <?php
+                    foreach ($mO as $match){ ?>
+                        <div class="companyInfoFlexBox">
+                            <a href="showProfile.php?id=<?= $match->getId(); ?>">
                             <?php 
                                 if (($match->getLogo() !== NULL) && ($match->getLogo() !== "")){
                             ?>   
-                            <img src="images/<?php echo $match->getLogo(); ?>" alt="Logo" style="max-width: 150px">
+                            <img src="images/<?php echo $match->getLogo(); ?>" alt="Logo" class="logoImg">
                             <?php
                                     }
                             ?>
                             <?php
-                                print($match->getName());
-                                print($match->getContactPerson());
+                                print("<p>" . $match->getName() . "</p>");
+                                print("<p>" . $match->getContactPerson() . "</p>");
                             ?>
-                            <a href="showProfile.php?id=<?= $match->getId(); ?>"><button>profiel</button></a>
-                        </li>
+                            </a>
+                        </div>                        
                     <?php    
                         }
-                    ?>
-                </ul>
+                ?>
+            </div>
         </article>
     </body>
 </html>
