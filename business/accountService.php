@@ -334,7 +334,8 @@ class AccountService
         
         return $swipeCardHtml;    
     }
-// Delete account by ID
+    
+    // Delete account by ID
     public function deleteById($id)
     {
         // delete by account id

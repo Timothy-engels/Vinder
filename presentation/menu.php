@@ -1,4 +1,5 @@
 <ul>
+    <li><a href="swipe.php">Swipen</a></li>
     <li><a href="showProfile.php">Profiel bekijken</a></li>
     <li><a href="editProfile.php">Profiel wijzigen</a></li>
     <li><a href="contactUpdate.php">Contactinfo wijzigen</a></li>
