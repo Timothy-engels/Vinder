@@ -23,6 +23,9 @@
                         <img src="images/<?= $row->getLogo(); ?>" style="height: 8rem;"><br/>
                     <?php endif; ?>
                     </a>
+                    <a href="deleteAccount.php?id=<?php print($row->getId()); ?>">
+                        (Delete)
+                    </a>
                 </li>
             <?php endforeach; ?>
         </ul>
