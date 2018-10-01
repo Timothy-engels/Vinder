@@ -39,10 +39,12 @@
             <div id="companyInfoFlexBoxContainer">
                 <?php foreach ($unmatchedCompanies as $company) : ?>
                     <div class="companyInfoFlexBox">
+                        <a href="showProfile.php?userId=<?php print( $company->getId() ); ?>">
                         <?php if ($company->getLogo() !== null && $company->getLogo() !== '') : ?>
                             <img src="images/<?= $company->getLogo(); ?>" class="logoImg"><br/>
                         <?php endif; ?>
                         <?= $company->getName(); ?><br/>
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>
