@@ -97,12 +97,26 @@
                     pullDeltaX = 0;
                     animating = false;
                 }, 300);
+
             };
 
+
+            $("#profile__skip").click(function (e) {
+                $( ".profile__card").last().remove();
+            });
+
             $(document).on("mousedown touchstart", ".profile__card:not(.inactive)", function(e) {
+
+
+
+
                 if (animating) return;
 
+
+
                 $card = $(this);
+
+
                 $cardReject = $(".profile__card__choice.m--reject", $card);
                 $cardLike = $(".profile__card__choice.m--like", $card);
                 var startX =  e.pageX || e.originalEvent.touches[0].pageX;
@@ -154,7 +168,9 @@
 
 
         </div>
-        <p class="profile__tip">Swipe left or right</p>
+        <p class="profile__tip">Swipe left or right or<br>
+        <span id="profile__skip">>>(Skip)<<</span></p>
+
     </div>
 </div>
 </body>
