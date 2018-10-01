@@ -554,5 +554,188 @@ class ExpertiseDAO
         // Return the result
         return $account;        
     }        
+    
+    /**
+     * Add the account expertises to the swiping information
+     * 
+     * @param type $swipingInfo
+     * @param type $expertises
+     * 
+     * @return array
+     */
+    public function addAccountExpertisesToSwipingInfo($swipingInfo, $expertises)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account expertises
+        $query = "SELECT ID, AccountID, ExpertiseID, Info
+                  FROM accountexpertises
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+         // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+         // Add the account expertises        
+        foreach ($resultSet as $result) {
+            
+            $expertise = entities\AccountExpertise::create(
+                $result['ID'],
+                null,
+                $expertises[$result['ExpertiseID']],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->addAccountExpertise($expertise);
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account more info to the swiping information
+     * 
+     * @param array $swipingInfo
+     * @param array $expertises
+     * 
+     * @return array
+     */
+    public function addAccountMoreInfoToSwipingInfo($swipingInfo, $expertises)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account more info
+        $query = "SELECT ID, AccountID, ExpertiseID, Info
+                  FROM accountmeerinfo
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+         // Add the more info
+        foreach ($resultSet as $result) {
+            $moreInfo = entities\AccountMoreInfo::create(
+                $result['ID'],
+                null,
+                $expertises[$result['ExpertiseID']],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->addAccountMoreInfo($moreInfo);
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account expertise extra to the swiping information
+     * 
+     * @param array $swipingInfo
+     * 
+     * @return array
+     */
+    public function addAccountExpertiseExtraToSwipingInfo($swipingInfo)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account expertises extra
+        $query = "SELECT ID, AccountID, ExpertiseNaam, Info
+                  FROM accountexpertisesextra
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $accountExtraExpertise = entities\AccountExpertiseExtra::create(
+                $result['ID'],
+                null,
+                $result['ExpertiseNaam'],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->setAccountExpertiseExtra(
+                $accountExtraExpertise
+            );
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result        
+        return $swipingInfo;
+    }
+    
+    /**
+     * Add the account expertise extra to the swiping information
+     * 
+     * @param array $swipingInfo
+     * 
+     * @return array
+     */
+    public function addAccountMoreInfoExtraToSwipingInfo($swipingInfo)
+    {
+        // Get the ID for the companies
+        $swipingCompanyIDs       = array_keys($swipingInfo);
+        $swipingCompanyIDsString = implode(', ', $swipingCompanyIDs);
+        
+        // Get the account more info extra
+        $query = "SELECT ID, AccountID, MeerinfoNaam, Info
+                  FROM accountmeerinfoextra
+                  WHERE AccountID IN (" . $swipingCompanyIDsString . ")";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute();
+        
+        // Add the more info
+        foreach ($resultSet as $result) {
+            $accountMoreInfoExtra = entities\AccountMoreInfoExtra::create(
+                $result['ID'],
+                null,
+                $result['MeerinfoNaam'],
+                $result['Info']
+            );
+            
+            $swipingInfo[$result['AccountID']]->setAccountMoreInfoExtra(
+                $accountMoreInfoExtra
+            );
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result        
+        return $swipingInfo;
+    }
           
 }

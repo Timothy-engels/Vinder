@@ -33,7 +33,8 @@
             function release() {
 
                 if (pullDeltaX >= decisionVal) {
-                    $card.addClass("to-right");
+                    $card.addClass("to-right");              
+                    alert("yes");
                     // change status in database
                    $card.remove();
 
@@ -45,6 +46,8 @@
                 } else if (pullDeltaX <= -decisionVal) {
                     $card.addClass("to-left");
 
+                    alert("no");
+                    
                     // change status in database
                     $card.remove();
                    // $id = $card.attr('id');
@@ -111,7 +114,7 @@
     <div class="profile__content">
         <div class="profile__card-cont">
 
-        <?php foreach($list as $row) : ?>
+        <?php foreach($swipingInfo as $row) : ?>
 
 
 
@@ -128,7 +131,7 @@
                 <div class="profile__card__drag"></div>
             </div>
 
-            <?php endforeach; ?>
+        <?php endforeach; ?>
 
 
         </div>

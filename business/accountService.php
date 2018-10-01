@@ -233,6 +233,51 @@ class AccountService
     }
     
     /**
+     * Get the complete swiping info
+     * 
+     * @param int $accountId
+     * 
+     * @return array
+     */
+    public function getCompleteSwipingInfo($accountId)
+    {
+        $accountDAO  = new AccountDAO();
+        $swipingInfo = $accountDAO->getCompleteSwipingInfo($accountId);
+        
+        if (!empty($swipingInfo)) {
+                
+            // Get an array with all the active expertises
+            $expertiseDAO = new ExpertiseDAO();
+            $expertises   = $expertiseDAO->getAll(1);
+            
+             // Add the account expertises
+            $swipingInfo = $expertiseDAO->addAccountExpertisesToSwipingInfo(
+                $swipingInfo,
+                $expertises
+            );
+            
+            // Add the account more info
+            $swipingInfo = $expertiseDAO->addAccountMoreInfoToSwipingInfo(
+                $swipingInfo,
+                $expertises
+            );
+            
+            // Add the extra account expertise
+            $swipingInfo = $expertiseDAO->addAccountExpertiseExtraToSwipingInfo(
+                $swipingInfo
+            );
+            
+            // Add the account more info extra
+            $swipingInfo = $expertiseDAO->addAccountMoreInfoExtraToSwipingInfo(
+                $swipingInfo
+            );
+            
+        }        
+        
+        return $swipingInfo;
+    }
+    
+    /**
      * Get a list with all companies that are matched (to a specified company)
      * 
      * @param int|null $companyId

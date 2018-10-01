@@ -8,16 +8,11 @@ $account         = $accountSvc->getLoggedInUser();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Get the swiping information
-$swipingInfo = $accountSvc->getSwipingInfo($account->getId()); // TODO@VDAB -> expertises uit lijst halen, tenzij ze ergens anders gebruikt worden
-
-// Add the swiping information to the session
-$_SESSION["swipingInfo"] = $swipingInfo;
+$swipingInfo = $accountSvc->getCompleteSwipingInfo($account->getId()); 
 
 // Get the swipe card info
 $currentPath   = $accountSvc->getCurrentPath();
 $swipeCardHtml = $accountSvc->getSwipeCardHtml();
 
-
-$list = $accountSvc->getAccounts();
 // Show the view
 include("presentation/test.php");
