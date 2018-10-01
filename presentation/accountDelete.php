@@ -35,7 +35,7 @@
             </div>
             <input type="submit" class="btn" name="submit" value="Verwijder account">
         </div>
-
+    </div>
 </form>
 </body>
 </html>

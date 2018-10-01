@@ -41,8 +41,6 @@
                 }).done(function(result) {
                     if (result === 'true') {
                         displayNewAccount();
-                        $("#swipeCard").html();
-                        $("#swipeCard").draggable();
                     }
                 });
                 
@@ -60,21 +58,13 @@
                 
             }
             
-            $(document).ready( function() {
-                if (window.XMLHttpRequest) {
-                    // code for modern browsers
-                    xmlhttp = new XMLHttpRequest();
-                } else {
-                    // code for old IE browsers
-                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }  
+            $(document).ready( function() {  
                 
-                $("#swipeCard").draggable({revert: true});
-                $( "#swipeCard" ).draggable( "option", "revert", true );
+                $("#swipeCard").draggable({revert: true, revertDuration: 300});
                 
                 $("#no").droppable( { 
                     drop: function(event, ui) {
-                        alert("no");
+                        //alert("no");
                         // AJAX call
                         addMatching('no'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
                     }
@@ -82,11 +72,11 @@
                 
                 $("#yes").droppable( { 
                     drop: function(event, ui) { 
-                        alert("yes");
+                        //alert("yes");
                         // AJAX call
                         addMatching('yes'); // TODO@VDAB -> functie voor record toe te voegen aan matching db en verwijder record uit de session
                     }
-                } );                
+                } );
             });
         </script>
     </head> 
@@ -100,7 +90,13 @@
             <div id="yes" style="background-image: url('images/swipe_right.png');">
             </div>
         </div>
-        <div><p><a href="showProfile.php">Profiel</a></p></div>
+        <div>
+            <p><a href="showProfile.php">Profiel</a></p>
+            <p><button id="skip">Overslaan</button></p>
+        </div>
+    <script>
+        $("#skip").click( function() {addMatching(0)});
+    </script>
     </body>
 </html>
     
