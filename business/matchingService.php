@@ -112,4 +112,63 @@ class matchingService {
         ];  
     }
     
+    /**
+     * Get the status from the match according to the swipe results
+     * 
+     * @param string|null $result1
+     * @param string|null $result2
+     * 
+     * @return int
+     */
+    public function getStatusFromSwipingResults($result1, $result2)
+    {
+        $status = null;
+        
+        switch ($result1) {
+            case "yes":
+                switch($result2) {
+                    case "yes":
+                        $status = 3;
+                        break;
+                    case "no":
+                        $status = -1;
+                        break;
+                    default:
+                        $status = 1;
+                        break;
+                }
+                break;
+            
+            case "no":
+                switch($result2) {
+                    case "yes":
+                        $status = -3;
+                        break;
+                    case "no":
+                        $status = -5;
+                        break;
+                    default:
+                        $status = -4;
+                        break;
+                }                
+                break;
+            
+            default:
+                switch($result2) {
+                    case "yes":
+                        $status = 2;
+                        break;
+                    case "no":
+                        $status = -2;
+                        break;
+                    default:
+                        $status = 0;
+                        break;
+                }                
+                break;   
+        }
+        
+        return $status;
+    }
+    
 }
