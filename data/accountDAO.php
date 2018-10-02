@@ -320,7 +320,7 @@ class AccountDAO
                     WHERE AccountID2 = :accountId2
                     AND Status NOT IN (1, -4, 0)
                   )
-                  LIMIT 10";
+                  LIMIT 5";
                   
         // Open the connection
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);

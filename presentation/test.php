@@ -12,7 +12,7 @@
 
             var animating = false;
             var cardsCounter = 0;
-            var numOfCards = 6;
+            var numOfCards = 5;
             var decisionVal = 80;
             var pullDeltaX = 0;
             var deg = 0;
@@ -80,6 +80,18 @@
                         $card.addClass("below").removeClass("inactive to-left to-right");
                         cardsCounter++;
                         if (cardsCounter === numOfCards) {
+                            
+                            $.ajax({
+                                url      : "<?= $currentPath; ?>addMatchingSwipeCards.php",
+                                dataType : 'html'
+                            }).done(function(msg) {
+                                if (msg != '') {
+                                    $('#swipe-card-container').html(msg);
+                                } else {
+                                    $('#swipe-card-container').html('TODO melding gedaan swipen');
+                                }
+                            });
+            
                             cardsCounter = 0;
                             $(".profile__card").removeClass("below");
                         }
@@ -145,28 +157,28 @@
 <div class="profile">
     <header class="profile__header"></header>
     <div class="profile__content">
-        <div class="profile__card-cont">
+        <div id="swipe-card-container" class="profile__card-cont">
+            
+            <?php foreach($swipingInfo as $row) : ?>
 
-        <?php foreach($swipingInfo as $row) : ?>
-
-            <div class="profile__card" id="<?php echo $row->getId();?>">
-                <div class="profile__card__top brown">
-                        <div class="profile__card__img" <?php if ($row->getLogo()){
-                            echo "style='background: url(images/".$row->getLogo().")'";
-                        } ?>></div>
-                    <p class="profile__card__name"><?php echo $row->getName();?></p>
+                <div class="profile__card" id="<?php echo $row->getId();?>">
+                    <div class="profile__card__top brown">
+                            <div class="profile__card__img" <?php if ($row->getLogo()){
+                                echo "style='background: url(images/".$row->getLogo().")'";
+                            } ?>></div>
+                        <p class="profile__card__name"><?php echo $row->getName();?></p>
+                    </div>
+                    <div class="profile__card__btm">
+                        <p class="profile__card__we"><?php echo $row->getInfo();?></p>
+                    </div>
+                    <div class="profile__card__choice m--reject"></div>
+                    <div class="profile__card__choice m--like"></div>
+                    <div class="profile__card__drag"></div>
                 </div>
-                <div class="profile__card__btm">
-                    <p class="profile__card__we"><?php echo $row->getInfo();?></p>
-                </div>
-                <div class="profile__card__choice m--reject"></div>
-                <div class="profile__card__choice m--like"></div>
-                <div class="profile__card__drag"></div>
-            </div>
 
-        <?php endforeach; ?>
-
-
+            <?php endforeach; ?>
+            
+            
         </div>
         <p class="profile__tip">Swipe left or right or<br>
         <span id="profile__skip">>>(Skip)<<</span></p>
