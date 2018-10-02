@@ -297,18 +297,24 @@ class AccountDAO
      * Get the swiping information for a specified company
      * 
      * @param int $companyId
+     * @param string|null $excludeAccountIds    (string with id's to exclude - format: 8,9,10)
      * 
      * @return array
      */
-    public function getCompleteSwipingInfo($companyId)
+    public function getCompleteSwipingInfo($companyId, $excludeAccountIds)
     {
         // Create the sql
         $sql = "SELECT *
                 FROM `accounts`
                 WHERE ID <> :companyId
                   AND Bevestigd = 1
-                  AND Admin = 0
-                  AND ID NOT IN (
+                  AND Admin = 0";
+        
+        if ($excludeAccountIds !== null) {
+            $sql .= " AND ID NOT IN (" . $excludeAccountIds . ")";
+        }
+        
+        $sql .= " AND ID NOT IN (
                     SELECT AccountID2
                     FROM `matching`
                     WHERE AccountID1 = :accountId1
@@ -320,7 +326,7 @@ class AccountDAO
                     WHERE AccountID2 = :accountId2
                     AND Status NOT IN (1, -4, 0)
                   )
-                  LIMIT 5";
+                  LIMIT 10";
                   
         // Open the connection
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Profiel Pagina</title>
+    <title>Swipe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -12,11 +12,39 @@
 
             var animating = false;
             var cardsCounter = 0;
-            var numOfCards = 5;
+            var numOfCards = <?= count($swipingInfo); ?>;
+            var amountAddSwipeCards = 4;
             var decisionVal = 80;
             var pullDeltaX = 0;
             var deg = 0;
             var $card, $cardReject, $cardLike;
+            
+            function addSwipeCards() {
+                
+                // Get the ID's of the current swipecards
+                vCurrentSwipeCardIds = '';
+                $('.profile__card').each(function() {
+                     vCurrentSwipeCardIds += $(this).attr("id") + ',';
+                });
+
+                vCurrentSwipeCardIds = vCurrentSwipeCardIds.slice(0, -1);
+
+                // Generate the swipecards & set them in the container
+                $.ajax({
+                    url      : "<?= $currentPath; ?>addMatchingSwipeCards.php",
+                    data     : {
+                        'currentSwipeCardIds' : vCurrentSwipeCardIds
+                    },
+                    dataType : 'html'
+                }).done(function(msg) {
+                    if (msg != '') {
+                        $('#swipe-card-container').prepend(msg);
+                        numOfCards   = $(".profile__card").length;
+                        cardsCounter = 0;
+                    }
+                });
+                
+            }
 
             function pullChange() {
                 animating = true;
@@ -49,9 +77,7 @@
                     
                     // Remove the current card
                     $card.remove();
-
-                   //if list_of_profiles < 10 {add new profile to the (jquery)
-
+                    
                 } else if (pullDeltaX <= -decisionVal) {
                     $card.addClass("to-left");
 
@@ -70,31 +96,25 @@
                     // Remove the current card
                     $card.remove();
 
-                    //if list_of_profiles < 10 {add new profile to the list (jquery)
                 }
-
+                       
                 if (Math.abs(pullDeltaX) >= decisionVal) {
                     $card.addClass("inactive");
 
                     setTimeout(function() {
                         $card.addClass("below").removeClass("inactive to-left to-right");
                         cardsCounter++;
+                        
+                        if ((numOfCards - cardsCounter) === amountAddSwipeCards) {
+                            addSwipeCards();
+                        }
+                    
                         if (cardsCounter === numOfCards) {
-                            
-                            $.ajax({
-                                url      : "<?= $currentPath; ?>addMatchingSwipeCards.php",
-                                dataType : 'html'
-                            }).done(function(msg) {
-                                if (msg != '') {
-                                    $('#swipe-card-container').html(msg);
-                                } else {
-                                    $('#swipe-card-container').html('TODO melding gedaan swipen');
-                                }
-                            });
-            
+                            addSwipeCards();
                             cardsCounter = 0;
                             $(".profile__card").removeClass("below");
                         }
+                        
                     }, 300);
                 }
 
@@ -119,15 +139,9 @@
 
             $(document).on("mousedown touchstart", ".profile__card:not(.inactive)", function(e) {
 
-
-
-
                 if (animating) return;
 
-
-
                 $card = $(this);
-
 
                 $cardReject = $(".profile__card__choice.m--reject", $card);
                 $cardLike = $(".profile__card__choice.m--like", $card);
@@ -152,37 +166,35 @@
 </head>
 <body>
 
+    <div class="profile">
+        <header class="profile__header"></header>
+        <div class="profile__content">
+            <div id="swipe-card-container" class="profile__card-cont">
 
+                <?php foreach($swipingInfo as $row) : ?>
 
-<div class="profile">
-    <header class="profile__header"></header>
-    <div class="profile__content">
-        <div id="swipe-card-container" class="profile__card-cont">
-            
-            <?php foreach($swipingInfo as $row) : ?>
-
-                <div class="profile__card" id="<?php echo $row->getId();?>">
-                    <div class="profile__card__top brown">
-                            <div class="profile__card__img" <?php if ($row->getLogo()){
-                                echo "style='background: url(images/".$row->getLogo().")'";
-                            } ?>></div>
-                        <p class="profile__card__name"><?php echo $row->getName();?></p>
+                    <div class="profile__card" id="<?php echo $row->getId();?>">
+                        <div class="profile__card__top brown">
+                                <div class="profile__card__img" <?php if ($row->getLogo()){
+                                    echo "style='background: url(images/".$row->getLogo().")'";
+                                } ?>></div>
+                            <p class="profile__card__name"><?php echo $row->getName();?></p>
+                        </div>
+                        <div class="profile__card__btm">
+                            <p class="profile__card__we"><?php echo $row->getInfo();?></p>
+                        </div>
+                        <div class="profile__card__choice m--reject"></div>
+                        <div class="profile__card__choice m--like"></div>
+                        <div class="profile__card__drag"></div>
                     </div>
-                    <div class="profile__card__btm">
-                        <p class="profile__card__we"><?php echo $row->getInfo();?></p>
-                    </div>
-                    <div class="profile__card__choice m--reject"></div>
-                    <div class="profile__card__choice m--like"></div>
-                    <div class="profile__card__drag"></div>
-                </div>
 
-            <?php endforeach; ?>
-            
-            
+                <?php endforeach; ?>
+                
+            </div>
+            <p class="profile__tip">Swipe left or right or<br>
+            <span id="profile__skip">>>(Skip)<<</span></p>
+
         </div>
-        <p class="profile__tip">Swipe left or right or<br>
-        <span id="profile__skip">>>(Skip)<<</span></p>
-
     </div>
-</div>
+    
 </body>

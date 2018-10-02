@@ -236,13 +236,14 @@ class AccountService
      * Get the complete swiping info
      * 
      * @param int $accountId
+     * @param string|null $excludeAccountIds    (string with id's to exclude - format: 8,9,10)
      * 
      * @return array
      */
-    public function getCompleteSwipingInfo($accountId)
+    public function getCompleteSwipingInfo($accountId, $excludeAccountIds = null)
     {
         $accountDAO  = new AccountDAO();
-        $swipingInfo = $accountDAO->getCompleteSwipingInfo($accountId);
+        $swipingInfo = $accountDAO->getCompleteSwipingInfo($accountId, $excludeAccountIds);
         
         if (!empty($swipingInfo)) {
                 
