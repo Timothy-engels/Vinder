@@ -86,17 +86,15 @@ class AccountService
     /**
      * Insert a new account
      * 
-     * @param string $name
-     * @param string $contactPerson
-     * @param string $email
-     * @param string $password
+     * @param object $account
      * 
-     * @return Account
-     */
-    public function insert($name, $contactPerson, $email, $password)
-    {        
+     * @return object
+     */    
+    public function insert($account) 
+    {
         $accountDAO = new AccountDAO();
-        $account    = $accountDAO->insert($name, $contactPerson, $email, $password);
+        $account    = $accountDAO->insert($account);
+        
         return $account;
     }
     

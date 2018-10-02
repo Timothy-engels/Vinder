@@ -134,23 +134,12 @@ class AccountDAO
     /**
      * Add a new account
      * 
-     * @param string $name
-     * @param string $contactPerson
-     * @param string $email
-     * @param string $password
-     * @param int $confirmed
-     * @param int $administrator
+     * @param object $account
      * 
-     * @return void
+     * @return object
      */
-    public function insert(
-        $name,
-        $contactPerson,
-        $email,
-        $password,
-        $confirmed = 0,
-        $administrator = 0
-    ) {        
+    public function insert($account)
+    {        
         // Insert the account
         $sql = "INSERT INTO accounts (Naam, Contactpersoon, Emailadres, Wachtwoord, Bevestigd, Admin)
                 VALUES (:name, :contactPerson, :email, :password, :confirmed, :admin)";
@@ -159,36 +148,24 @@ class AccountDAO
         
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
-            ':name'          => $name,
-            ':contactPerson' => $contactPerson,
-            ':email'         => $email,
-            ':password'      => $password,
-            ':confirmed'     => $confirmed,
-            ':admin'         => $administrator
+            ':name'          => $account->getName(),
+            ':contactPerson' => $account->getContactPerson(),
+            ':email'         => $account->getEmail(),
+            ':password'      => $account->getPassword(),
+            ':confirmed'     => $account->getConfirmed(),
+            ':admin'         => $account->getAdministrator()
         ]);
         
-        // Get the account ID
+        // Set the account ID
         $accountId = $dbh->lastInsertId();
+        $account->setId($accountId);
         
         // Close the db connection
         $dbh = null;
         
-        // Return the account                        
-        $account = entities\Account::create(
-            $accountId,
-            $name,
-            $contactPerson,
-            $email,
-            $password,
-            $confirmed,
-            null,
-            null,
-            null,
-            $administrator
-        );
-        
+        // Return the account
         return $account;
-    }
+    }    
     
     /**
      * Update the account information

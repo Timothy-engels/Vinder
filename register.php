@@ -13,42 +13,46 @@ $email          = (filter_input(INPUT_POST, 'email') !== null ? filter_input(INP
 $password       = (filter_input(INPUT_POST, 'password') !== null ? filter_input(INPUT_POST, 'password') : '');
 $repeatPassword = (filter_input(INPUT_POST, 'repeatPassword') !== null ? filter_input(INPUT_POST, 'repeatPassword') : '');
 
-// Getting the end-date of the registration
-$generalSvc = new GeneralService();
-$general = $generalSvc->get();
+// Get the end-date of the registration
 
-if($general==NULL){
-    print("Er is geen registratiedatum vastgelegd."); //hier kan nog een pagina voor gemaakt worden
-}
-else {
+$generalSvc = new GeneralService();
+$general    = $generalSvc->get();
+
+if ($general == null) {
     
-    $dateService    = new DateService();
-    $registryDate = $dateService->dateDbToString($general->getRegisterDate(), '-');
+    $registerMsg  = "<p>Het is momenteel niet mogelijk om je te registeren.  Probeer het later opnieuw.</p>";
+    $registerMsg .= "<a href=\"logIn.php\">Naar de login-pagina</a>";
+    
+} else {
+    
+    // Get the register date
+    $registryDate = $general->getRegisterDate();
 
     // Getting the current date
-    $current = date("Y-m-d H:i:s");
-    $dateService    = new DateService();
-    $currentDate = $dateService->dateDbToString($current, '-');
+    $currentDate = new DateTime();
+    $currentDate = $currentDate->format('Y-m-d H:i:s');
 
     // Checking if the registration date is expired
-    $validationSvc = new ValidationService();
-    $validation = $validationSvc->registryExpired($registryDate, $currentDate);
-
-    $errors = [];
+    $dateSvc         = new DateService();
+    $registryExpired = $dateSvc->isBiggerThen($currentDate, $registryDate, 'Y-m-d H:i:s');
 
     // If expired, a message is given, if not, proceding
-    if($validation) {
-        print("Het is te laat om u nog te registreren, ge had beter uwe wekker wa vroeger gezet. Klik <a href='logIn.php'>hier</a> om terug te keren.");
-    }
-    else {
+    if ($registryExpired) {
+        
+        $registerMsg  = "<p>Het is niet meer mogelijk om je te registreren.<br>De einddatum voor registratie is verlopen.</p>";
+        $registerMsg .= "<a href=\"logIn.php\">Naar de login-pagina</a>";
+        
+    } else {
         
         // Check if the form is posted
+        $errors = [];
+            
         if ($_POST) {
     
-        // Validate the fields
-        $validation = new ValidationService();
+            // Validate the fields
+            $validation = new ValidationService();
 
-        $nameErrors = $validation->checkRequiredAndMaxLength($name, 255);
+            $nameErrors = $validation->checkRequiredAndMaxLength($name, 255);
 
             if ($nameErrors !== '') {
                 $errors['name'] = $nameErrors;
@@ -56,23 +60,23 @@ else {
 
             $contactPersonErrors = $validation->checkRequiredAndMaxLength($contactPerson, 255);
 
-        if ($contactPersonErrors !== '') {
-            $errors['contactPerson'] = $contactPersonErrors;
-        }
+            if ($contactPersonErrors !== '') {
+                $errors['contactPerson'] = $contactPersonErrors;
+            }
 
             $emailErrors = $validation->checkRequiredAndMaxLength($email, 255); 
 
             if ($emailErrors === '') {
                 $emailErrors = $validation->checkEmail($email);
             }
-    
+
             if ($emailErrors == '') {
                 $emailErrors = $validation->checkUniqueAccountEmail($email);
             }
-    
-        if ($emailErrors !== '') {
-            $errors['email'] = $emailErrors;
-        }
+
+            if ($emailErrors !== '') {
+                $errors['email'] = $emailErrors;
+            }
 
             $passwordErrors = $validation->checkRequiredAndMaxLength($password, 50);
      
@@ -98,9 +102,9 @@ else {
                 $repeatPasswordErrors = $validation->checkSafePassword($repeatPassword);
             }
     
-        if ($repeatPasswordErrors === '') {
-            $repeatPasswordErrors = $validation->checkRepeatPassword($password, $repeatPassword);
-        }
+            if ($repeatPasswordErrors === '') {
+                $repeatPasswordErrors = $validation->checkRepeatPassword($password, $repeatPassword);
+            }
     
             if ($repeatPasswordErrors !== '') {
                 $errors['repeatPassword'] = $repeatPasswordErrors;
@@ -112,22 +116,28 @@ else {
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
                 // Save the account
-                $accountService = new AccountService();
-                $account        = $accountService->insert(
-                $name,
-                $contactPerson,
-                $email,
-                $passwordHash
-            );
+                $newAccount = entities\Account::create(
+                    null,
+                    $name,
+                    $contactPerson,
+                    $email,
+                    $password
+                );
+                        
+                $accountSvc = new AccountService();
+                $account    = $accountSvc->insert($newAccount);
 
-            $accountService->sendConfirmRegistrationMail($account);
+                // Sent a confirmation mail
+                $accountSvc->sendConfirmRegistrationMail($account);
         
-                // Show the confirmation
-                include("presentation/registerSuccess.php");
-            exit();
-        }
-        }
-        // Show the view
-        include("presentation/register.php");
+                // Set a success message
+                $registerMsg  = "<p>We hebben je registratie goed ontvangen.<br>We hebben je een mail gestuurd met een link om je account te activeren.</p>";
+                $registerMsg .= "<a href=\"logIn.php\">Naar de login-pagina</a>";
+                
+            }
+        }    
     }
 }
+
+// Show the view
+include("presentation/register.php");

@@ -242,30 +242,5 @@ class ValidationService
         
         return $result;
     }
-    
-    /**
-     * 
-     * @param string $registryDate (date time notation)
-     * @param string $currentDate (date time notation)
-     * @param string $format
-     */
-    public function registryExpired(
-        $registryDate,
-        $currentDate,
-        $format = 'd-m-Y'
-    ) {
-        // Set the result
-        $result = '';
-        
-        // Format the dates to a date time string
-        $rd = DateTime::createFromFormat($format, $registryDate);
-        $cd = DateTime::createFromFormat($format, $currentDate);
-        
-        if ($rd < $cd) {
-            $result = TRUE;
-        }
-        
-        return $result;
-    }
- 
+     
 }
