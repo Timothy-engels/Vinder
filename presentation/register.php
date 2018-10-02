@@ -2,61 +2,94 @@
 <html lang="nl">
     <head>
         <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
         <title>Vinder | Registreer</title>
-        <style>
-            label, input, .error {
-                display: block;
-            }
-            
-            .error {
-                color: red;
-            }
-        </style>
+        <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/demo.css">
+        <link rel="stylesheet" href="css/style.css">    
+        <link rel="stylesheet" href="css/skins/vinder.css"> 
     </head>
     <body>
-        <main>
-            <section id="register">
-                <h1>Registreer</h1>
-                           
-                <form name="frmRegister" method="POST" action="register.php">
+        <div id="app">
+            <section class="section">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                            <div class="login-brand"><a href="logIn.php"><img src="images/logo.png" alt="Vinder" style="width: 15rem;"></a></div>
 
-                    <p><small>Velden met een * zijn verplicht in te vullen</small></p>
+                            <div class="card card-primary">
+                                <div class="card-header"><h4>Registeer</h4></div>
 
-                    <label for="name">Bedrijfsnaam *</label>
-                    <input type="text" id="name" name="name" maxlength="255" value="<?= $name; ?>" autofocus />
-                    <?php if (array_key_exists('name', $errors)) : ?>
-                        <div class="error"><?= $errors['name']; ?></div>
-                    <?php endif; ?>
+                                <div class="card-body">
+                                    <form name="frmRegister" method="POST" action="register.php">
+                                        <div class="form-group">
+                                            <label for="name">Bedrijfsnaam *</label>
+                                            <input type="text" id="name" name="name" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $name; ?>" autofocus />
+                                            <?php if (array_key_exists('name', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['name']; ?></div>
+                                            <?php endif; ?>
+                                        </div>
 
-                    <label for="contactPerson">Contactpersoon *</label>
-                    <input type="text" id="contactPerson" name="contactPerson" maxlength="255" value="<?= $contactPerson; ?>" />
-                    <?php if (array_key_exists('contactPerson', $errors)) : ?>
-                        <div class="error"><?= $errors['contactPerson']; ?></div>
-                    <?php endif; ?>
+                                        <div class="form-group">  
+                                            <label for="contactPerson">Contactpersoon *</label>
+                                            <input type="text" id="contactPerson" name="contactPerson" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $contactPerson; ?>" />
+                                            <?php if (array_key_exists('contactPerson', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['contactPerson']; ?></div>
+                                            <?php endif; ?>
+                                        </div>
 
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" maxlength="255" value="<?= $email; ?>" />
-                    <?php if (array_key_exists('email', $errors)) : ?>
-                        <div class="error"><?= $errors['email']; ?></div>
-                    <?php endif; ?>
+                                        <div class="form-group">
+                                            <label for="email">Email *</label>
+                                            <input type="email" id="email" name="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $email; ?>" />
+                                            <?php if (array_key_exists('email', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['email']; ?></div>
+                                            <?php endif; ?>
+                                        </div>
 
-                    <label for="password">Wachtwoord *</label>
-                    <input type="password" id="password" name="password" maxlength="50" />
-                    <?php if (array_key_exists('password', $errors)) : ?>
-                        <div class="error"><?= $errors['password']; ?></div>
-                    <?php endif; ?>
-                        
-                    <label for="repeatPassword">Herhaal wachtwoord *</label>
-                    <input type="password" id="repeatPassword" name="repeatPassword" maxlength="50" />
-                    <?php if (array_key_exists('repeatPassword', $errors)) : ?>
-                        <div class="error"><?= $errors['repeatPassword']; ?></div>
-                    <?php endif; ?>
-                        
-                    <input type="submit" value="Registreer" />
-                                 
-                </form>
-                
+                                        <div class="form-group">
+                                            <label for="password">Wachtwoord *</label>
+                                            <input type="password" id="password" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
+                                            <?php if (array_key_exists('password', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['password']; ?></div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="repeatPassword">Herhaal wachtwoord *</label>
+                                            <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" name="repeatPassword" maxlength="50" />
+                                            <?php if (array_key_exists('repeatPassword', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Registeer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="simple-footer">
+                                Copyright &copy; Stisla 2018
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-        </main>
+        </div>
+
+        <script src="../dist/modules/jquery.min.js"></script>
+        <script src="../dist/modules/popper.js"></script>
+        <script src="../dist/modules/tooltip.js"></script>
+        <script src="../dist/modules/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../dist/modules/nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="../dist/modules/moment.min.js"></script>
+        <script src="../dist/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+        <script src="../dist/js/sa-functions.js"></script>
+
+        <script src="../dist/js/scripts.js"></script>
+        <script src="../dist/js/custom.js"></script>
+        <script src="../dist/js/demo.js"></script>
     </body>
 </html>
