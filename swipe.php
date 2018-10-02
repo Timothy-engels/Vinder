@@ -55,4 +55,4 @@ if (!isset($errorMsg) && !isset($warningMsg)) {
 }
 
 // Show the view
-include("presentation/test.php");
+include("presentation/swipe.php");
