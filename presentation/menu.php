@@ -1,7 +1,7 @@
 <ul>
     <?php
         if(!$loggedInAsAdmin) {
-            print("<li><a href='swipeTest.php'>Swipen</a></li>");
+            print("<li><a href='swipe.php'>Swipen</a></li>");
         }
     ?>
     <li><a href="showProfile.php">Profiel bekijken</a></li>

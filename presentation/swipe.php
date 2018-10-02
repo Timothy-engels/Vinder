@@ -68,7 +68,7 @@
                     vResult = "yes";
                     
                     $.ajax({
-                      url      : "<?= $currentPath; ?>addMatchingResultTest.php",
+                      url      : "<?= $currentPath; ?>addMatchingResult.php",
                       data     : {
                         'swipingCompanyId' : vId,
                         'answer'           : vResult
@@ -86,7 +86,7 @@
                     vResult = "no";
                     
                     $.ajax({
-                      url      : "<?= $currentPath; ?>addMatchingResultTest.php",
+                      url      : "<?= $currentPath; ?>addMatchingResult.php",
                       data     : {
                         'swipingCompanyId' : vId,
                         'answer'           : vResult
