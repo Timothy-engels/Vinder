@@ -217,22 +217,6 @@ class AccountService
     }
     
     /**
-     * Get the ID's for the companies to be swiped for a specified company
-     * 
-     * @param int $companyId
-     * 
-     * @return array
-     */
-    public function getSwipingInfo($companyId)
-    {
-        // Get the general account information
-        $accountDAO  = new AccountDAO();
-        $swipingInfo = $accountDAO->getSwipingInfo($companyId);
-        
-        return $swipingInfo;
-    }
-    
-    /**
      * Get the complete swiping info
      * 
      * @param int $accountId
@@ -359,27 +343,6 @@ class AccountService
             $mailSrv->sendHtmlMail($companyMail, 'Match gevonden op Vinder', $mailContent);
         } 
     }     
-    
-    /**
-     * Get the html to display the swipe card
-     * 
-     * @return string
-     */
-    public function getSwipeCardHtml()
-    {
-        // Get the first company from the swiping information
-        $displayCompanyID = $_SESSION['swipingInfo'][0]; // TODO@VDAB -> CONTROLE INBOUWEN ALS SWIPING INFO LEEG IS
-       
-        // Encode the ID of the company
-        $encryptionSvc    = new EncryptionService();
-        $companyIdEncoded = $encryptionSvc->encryptString($displayCompanyID, $encryptionSvc::SWIPE_KEY);
-        
-        // Get the html
-        $swipeCardLink = $this->getCurrentPath() . 'createSwipeCardHtml.php?companyID=' . $companyIdEncoded;
-        $swipeCardHtml = file_get_contents($swipeCardLink);
-        
-        return $swipeCardHtml;    
-    }
     
     // Delete account by ID
     public function deleteById($id)

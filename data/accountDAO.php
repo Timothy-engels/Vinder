@@ -247,56 +247,6 @@ class AccountDAO
      * Get the swiping information for a specified company
      * 
      * @param int $companyId
-     * 
-     * @return array
-     */
-    public function getSwipingInfo($companyId)
-    {
-        // Create the sql
-        $sql = "SELECT ID
-                FROM `accounts`
-                WHERE ID <> :companyId
-                  AND Bevestigd = 1
-                  AND Admin = 0
-                  AND ID NOT IN (
-                    SELECT AccountID2
-                    FROM `matching`
-                    WHERE AccountID1 = :accountId1
-                    AND Status NOT IN (0, 2, -2)
-                  )
-                  AND ID NOT IN (
-                    SELECT AccountID1
-                    FROM `matching`
-                    WHERE AccountID2 = :accountId2
-                    AND Status NOT IN (1, -4, 0)
-                  )
-                  ";
-                  
-        // Open the connection
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-
-        // Execute the query
-        $resultSet = $dbh->prepare($sql);
-        $resultSet->execute([
-            ':companyId'  => $companyId,
-            ':accountId1' => $companyId,
-            ':accountId2' => $companyId
-        ]);
-        
-        // Return the results
-        $accounts = [];
-        
-        foreach ($resultSet as $result) {            
-            $accounts[] = $result['ID'];
-        }
-        
-        return $accounts;
-    }
-    
-    /**
-     * Get the swiping information for a specified company
-     * 
-     * @param int $companyId
      * @param string|null $excludeAccountIds    (string with id's to exclude - format: 8,9,10)
      * 
      * @return array
