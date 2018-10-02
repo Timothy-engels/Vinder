@@ -7,11 +7,16 @@ $accountSvc      = new AccountService();
 $account         = $accountSvc->getLoggedInUser();
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
+// Admins can't swipe
+if ($loggedInAsAdmin) {
+    header("location: dashboard.php");
+}
+
 // Get the swiping information
 $swipingInfo = $accountSvc->getCompleteSwipingInfo($account->getId()); 
 
-// Get the swipe card info
-$currentPath   = $accountSvc->getCurrentPath();
+// Get the current path
+$currentPath = $accountSvc->getCurrentPath();
 
 // Show the view
 include("presentation/test.php");
