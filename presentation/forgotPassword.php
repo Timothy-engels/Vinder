@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="css/style.css">    
-    <link rel="stylesheet" href="css/skins/vinder.css"> 
+    <link rel="stylesheet" href="css/skins/vinder.css">
 </head>
 
 <body>
@@ -29,20 +29,22 @@
                     We sturen u een link via mail om uw wachtwoord te resetten. 
                 </p>
                 <form method="POST" action="forgotPassword.php">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="mail" type="email" class="form-control" name="mail" tabindex="1" required autofocus>
-                  </div>
-                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="mail" name="mail" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" />
+                        <?php if (array_key_exists('mail', $errors)) : ?>
+                            <div class="invalid-feedback"><?= $errors['mail']; ?></div>
+                        <?php endif; ?>
+                    </div>
                     <?php if (array_key_exists('mail', $errors)) : ?>
-                        <div class="error"><?= $errors['mail']; ?></div>
+                        <div class="invalid-feedback"><p><?= $errors['mail']; ?></p></div>
                     <?php endif; ?>
 
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block" tabindex="4">
-                      Verzend
-                    </button>
-                  </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" tabindex="4">
+                        Verzend
+                        </button>
+                    </div>
                 </form>
               </div>
             </div>
@@ -54,18 +56,5 @@
       </div>
     </section>
   </div>
-
-  <script src="../dist/modules/jquery.min.js"></script>
-  <script src="../dist/modules/popper.js"></script>
-  <script src="../dist/modules/tooltip.js"></script>
-  <script src="../dist/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../dist/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="../dist/modules/moment.min.js"></script>
-  <script src="../dist/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-  <script src="../dist/js/sa-functions.js"></script>
-  
-  <script src="../dist/js/scripts.js"></script>
-  <script src="../dist/js/custom.js"></script>
-  <script src="../dist/js/demo.js"></script>
 </body>
 </html>

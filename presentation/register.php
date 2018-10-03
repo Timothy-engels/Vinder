@@ -48,7 +48,7 @@
 
                                             <div class="form-group">
                                                 <label for="email">Email *</label>
-                                                <input type="email" id="email" name="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $email; ?>" />
+                                                <input type="email" id="mail" name="mail" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $email; ?>" />
                                                 <?php if (array_key_exists('email', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['email']; ?></div>
                                                 <?php endif; ?>

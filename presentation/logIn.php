@@ -25,24 +25,17 @@
               <div class="card-header"><h4>Login</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="logIn.php" method="POST" class="needs-validation" novalidate="">
+                <form method="POST" action="logIn.php" class="needs-validation" novalidate="">
                     
                     <?php
                     if (array_key_exists('general', $errors)) : ?>
-                    <div class="error"><?= $errors['general']; ?></div>
+                        <div class="is-invalid"><?= $errors['general']; ?></div>
                     <?php endif; ?>
                     
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="mail" type="email" class="form-control" name="mail" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                      Gelieve uw e-mailadres in te geven
-                    </div>
+                    <input id="mail" type="email" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid <?php endif; ?>" name="mail" tabindex="1" required autofocus >
                   </div>
-                    
-                    <?php if (array_key_exists('mail', $errors)) : ?>
-                    <div class="error"><?= $errors['mail']; ?></div>
-                    <?php endif; ?>
 
                   <div class="form-group">
                     <label for="password" class="d-block">Wachtwoord
@@ -52,20 +45,16 @@
                         </a>
                       </div>
                     </label>
-                    <input id="pass" type="password" class="form-control" name="pass" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      Gelieve uw wachtwoord in te geven
-                    </div>
-                  </div>
-                    
+                    <input id="pass" type="password" class="form-control <?php if (array_key_exists('pass', $errors)) : ?>is-invalid <?php endif; ?>" name="pass" tabindex="2" required>
+                      
                     <?php if (array_key_exists('pass', $errors)) : ?>
-                    <div class="error"><?= $errors['pass']; ?></div>
+                        <div class="invalid-feedback"><?= $errors['pass']; ?></div>
                     <?php endif; ?>
+                      
+                    </div>
 
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block" tabindex="4">
-                      Login
-                    </button>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-block" tabindex="4" value="Login">
                   </div>
                 </form>
               </div>
@@ -81,18 +70,5 @@
       </div>
     </section>
   </div>
-
-  <script src="../dist/modules/jquery.min.js"></script>
-  <script src="../dist/modules/popper.js"></script>
-  <script src="../dist/modules/tooltip.js"></script>
-  <script src="../dist/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../dist/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="../dist/modules/moment.min.js"></script>
-  <script src="../dist/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-  <script src="../dist/js/sa-functions.js"></script>
-  
-  <script src="../dist/js/scripts.js"></script>
-  <script src="../dist/js/custom.js"></script>
-  <script src="../dist/js/demo.js"></script>
 </body>
 </html>
