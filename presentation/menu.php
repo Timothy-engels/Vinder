@@ -1,24 +1,63 @@
-<ul>
-    <?php
-        if(!$loggedInAsAdmin) {
-            print("<li><a href='swipe.php'>Swipen</a></li>");
-        }
-    ?>
-    <li><a href="showProfile.php">Profiel bekijken</a></li>
-    <li><a href="editProfile.php">Profiel wijzigen</a></li>
-    <li><a href="contactUpdate.php">Contactinfo wijzigen</a></li>
-    <li><a href="updatePassword.php">Wachtwoord wijzigen</a></li>
-    <li><a href="matchingController.php">matches</a></li>
-    <li><a href="deleteAccount.php">Account verwijderen</a></li>
-    <?php if (isset($loggedInAsAdmin) && $loggedInAsAdmin === true) : ?>
-        <li><a href="userList.php">Gebruikers bekijken (admin)</a></li>
-        <li><a href="expertises.php">Expertises (admin)</a></li>
-        <li><a href="mailUpdate.php">Tekst voor mail wijzigen (admin)</a></li>
-        <li><a href="updateDateSettings.php">Datums wijzigen (admin)</a></li>
-        <li><a href="matchedCompanies.php">Bedrijven met matches</a></li>
-        <li><a href="unmatchedCompanies.php">Bedrijven zonder matches</a></li>
-        <li><a href="deleteMatching.php">Matchings verwijderen</a></li>
-    <?php endif; ?>
-    <li><a href="logOut.php">Uitloggen</a></li>
-</ul>
+<a href="showProfile.php" class="dropdown-item has-icon">
+    <i class="ion ion-android-person"></i> Profiel bekijken
+</a>
 
+<a href="editProfile.php" class="dropdown-item has-icon">
+    <i class="ion ion-android-create"></i> Profiel wijzigen
+</a>
+
+<a href="contactUpdate.php" class="dropdown-item has-icon">
+    <i class="ion ion-android-mail"></i> Contactinfo wijzigen
+</a>
+
+<a href="updatePassword.php" class="dropdown-item has-icon">
+    <i class="ion ion-android-lock"></i> Wachtwoord wijzigen
+</a>
+
+ <?php if (isset($loggedInAsAdmin) && !$loggedInAsAdmin) : ?>
+            
+    <a href="swipe.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-share-alt"></i> Swipen
+    </a>
+
+    <a href="deleteAccount.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-delete"></i> Mijn account verwijderen
+    </a>
+
+<?php endif; ?>
+
+ <?php if (isset($loggedInAsAdmin) && $loggedInAsAdmin) : ?>
+            
+    <a href="userList.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-menu"></i> Overzicht accounts
+    </a>
+
+    <a href="matchedCompanies.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-happy"></i> Accounts met matches
+    </a>
+
+    <a href="unmatchedCompanies.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-happy"></i> Accounts zonder matches
+    </a>
+
+    <a href="deleteMatching.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-delete"></i> Matchings verwijderen
+    </a>
+
+    <a href="expertises.php" class="dropdown-item has-icon">
+        <i class="ion ion-ribbon-b"></i> Expertises beheren
+    </a>
+
+    <a href="mailUpdate.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-bulb"></i> Tips beheren
+    </a>
+
+    <a href="updateDateSettings.php" class="dropdown-item has-icon">
+        <i class="ion ion-android-calendar"></i> Datums wijzigen
+    </a>
+
+<?php endif; ?>
+
+<a href="logOut.php" class="dropdown-item has-icon">
+    <i class="ion ion-android-exit"></i> Uitloggen
+</a>

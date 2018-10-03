@@ -53,7 +53,7 @@ if ($_POST) {
         
         // Send the mail
         $mailSvc = new MailService();
-        $mailSvc->sendHtmlMail($mail, "Vinder | Wachwoord vergeten", $msg);
+        $mailSvc->sendHtmlMail($mail, "Vinder | Wachtwoord vergeten", $msg);
         
         include("presentation/forgotPasswordSuccess.php");
         die();
