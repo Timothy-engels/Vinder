@@ -39,6 +39,10 @@ if ($match !== null) {
     $match->setStatus($status);
     $matchingSvc->update($match);
     
+    if ($status === 3) {
+        $accountSvc->sendMatchFoundMails($currentAccountId, $swipedAccountId);
+    }
+    
 } else {
     
     $status = $matchingSvc->getStatusFromSwipingResults($answer, null);
