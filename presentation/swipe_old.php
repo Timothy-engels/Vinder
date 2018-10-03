@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-    <title>Vinder | Swipe</title>
+    <meta charset="utf-8" />
+    <title>Swipe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="dist/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style/swipe.css">
-    <link rel="stylesheet" href="css/style.css">    
-    <link rel="stylesheet" href="css/skins/vinder.css"> 
-    <link rel="stylesheet" href="css/custom.css">
-
     <script>
         $(document).ready(function() {
 
@@ -173,114 +164,49 @@
         });
     </script>
 </head>
+<body>
 
-<body class="sidebar-gone">
+    <?php if (isset($errorMsg)) : ?>
+    
+        <p class="profile__error"><?= $errorMsg; ?></p>
+    
+    <?php elseif (isset($warningMsg)) : ?>
+    
+        <p class="profile__warning"><?= $warningMsg; ?></p>
+    
+    <?php else : ?>
+    
+        <div class="profile">
+            <header class="profile__header"></header>
+            <div class="profile__content">
+                <div id="profile__card__container" class="profile__card-cont">
 
-    <div id="app">
-        <div class="main-wrapper">
-            <div class="navbar-bg"></div>
-            <nav class="navbar navbar-expand-lg main-navbar">
-                <form class="form-inline mr-auto">
-                </form>
-                <ul class="navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
-                        <i class="ion ion-android-person d-lg-none"></i>
-                        <div class="d-sm-none d-lg-inline-block">Hoi, <?= $account->getContactPerson(); ?></div></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <?php include('menu.php'); ?>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
+                    <?php foreach($swipingInfo as $row) : ?>
 
-            <div class="main-content">
-                <section class="section">
-                    <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Swipe</div>
-                    </h1>
-
-                    <div class="section-body">
-                                                
-                        <div class="row">
-                            <div class="col-12 col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="float-right">
-                                            <div class="btn-group">
-                                                <a href="#default" data-tab="alerts" class="btn active"><i class="ion ion-heart"></i></a>
-                                                <a href="#default" data-tab="alerts" class="btn active"><i class="ion ion-close"></i></a>
-                                                <a href="#default" data-tab="alerts" class="btn active">Volgende <i class="ion ion-arrow-right-c"></i></a>
-                                                
-                                            </div>
-                                        </div>
-                                        <h4>Swipe naar links of naar rechts</h4>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <?php if (isset($errorMsg)) : ?>
-
-                                            <p class="profile__error"><?= $errorMsg; ?></p>
-
-                                        <?php elseif (isset($warningMsg)) : ?>
-
-                                            <p class="profile__warning"><?= $warningMsg; ?></p>
-
-                                        <?php else : ?>
-
-                                                <div class="profile__content">
-                                                    <div id="profile__card__container" class="profile__card-cont">
-
-                                                        <?php foreach($swipingInfo as $row) : ?>
-
-                                                        <div class="profile__card" id="<?php echo $row->getId();?>">
-                                                            
-
-                                                            
-                                                            <div class="card card-primary">
-                                                                <div class="card-header">
-                                                                    <h1>Card Title</h1>
-                                                                </div>
-
-                                                                <?php echo $row->getLogo(); ?>
-                                                                <?php echo $row->getName();?>
-                                                                <?php echo $row->getInfo();?>
-
-                                                            </div>
-                                                              
-
-                                                     
-                                                            <div class="profile__card__choice m--reject"></div>
-                                                            <div class="profile__card__choice m--like"></div>
-                                                            <div class="profile__card__drag"></div>
-                                                        </div>
-
-                                                        <?php endforeach; ?>
-
-                                                    </div>
-
-                                                </div>
-                                        <?php endif; ?>                                        
-                                        
-                                    </div>
-                                </div>
+                        <div class="profile__card" id="<?php echo $row->getId();?>">
+                            <div class="profile__card__top brown">
+                                    <div class="profile__card__img" <?php if ($row->getLogo()){
+                                        echo "style='background: url(images/".$row->getLogo().")'";
+                                    } ?>></div>
+                                <p class="profile__card__name"><?php echo $row->getName();?></p>
                             </div>
+                            <div class="profile__card__btm">
+                                <p class="profile__card__we"><?php echo $row->getInfo();?></p>
+                            </div>
+                            <div class="profile__card__choice m--reject"></div>
+                            <div class="profile__card__choice m--like"></div>
+                            <div class="profile__card__drag"></div>
                         </div>
 
-                    </div>
-                </section>
+                    <?php endforeach; ?>
+
+                </div>
+                <p class="profile__tip">Swipe left or right or<br>
+                <span id="profile__skip">>>(Skip)<<</span></p>
 
             </div>
-            <footer class="main-footer">
-                <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://multinity.com/">Multinity</a>
-                </div>
-                <div class="footer-right"></div>
-            </footer>
         </div>
-    </div>
-   
     
-    <script src="modules/jquery.min.js"></script>
-    <script src="modules/bootstrap/js/bootstrap.min.js"></script>
-
+    <?php endif; ?>
+    
 </body>

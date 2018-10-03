@@ -2,3 +2,13 @@
     width: 25rem;
 }
 
+/* Custom css for swipe css */
+
+.profile__content{
+    height: auto;
+}
+
+.profile__card-cont {
+    width: 90%;
+    height: 80rem;
+}

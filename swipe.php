@@ -9,7 +9,7 @@ $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 
 // Admins can't swipe
 if ($loggedInAsAdmin) {
-    
+ 
     $errorMsg = "Je bent momenteel ingelogd als een administrator.<br>Het is niet mogelijk om te swipen.";
     
 }
