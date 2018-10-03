@@ -32,7 +32,7 @@
                                         <form name="frmRegister" method="POST" action="register.php">
                                             <div class="form-group">
                                                 <label for="name">Bedrijfsnaam *</label>
-                                                <input type="text" id="name" name="name" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $name; ?>" autofocus />
+                                                <input type="text" id="name" name="name" class="form-control <?php if (array_key_exists('name', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $name; ?>" autofocus />
                                                 <?php if (array_key_exists('name', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['name']; ?></div>
                                                 <?php endif; ?>
@@ -40,7 +40,7 @@
 
                                             <div class="form-group">  
                                                 <label for="contactPerson">Contactpersoon *</label>
-                                                <input type="text" id="contactPerson" name="contactPerson" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $contactPerson; ?>" />
+                                                <input type="text" id="contactPerson" name="contactPerson" class="form-control <?php if (array_key_exists('contactPerson', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $contactPerson; ?>" />
                                                 <?php if (array_key_exists('contactPerson', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['contactPerson']; ?></div>
                                                 <?php endif; ?>
@@ -48,7 +48,7 @@
 
                                             <div class="form-group">
                                                 <label for="email">Email *</label>
-                                                <input type="email" id="mail" name="mail" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $email; ?>" />
+                                                <input type="email" id="email" name="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $email; ?>" />
                                                 <?php if (array_key_exists('email', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['email']; ?></div>
                                                 <?php endif; ?>
@@ -56,7 +56,7 @@
 
                                             <div class="form-group">
                                                 <label for="password">Wachtwoord *</label>
-                                                <input type="password" id="password" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
+                                                <input type="password" id="password" class="form-control <?php if (array_key_exists('password', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
                                                 <?php if (array_key_exists('password', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['password']; ?></div>
                                                 <?php endif; ?>
@@ -64,7 +64,7 @@
                                             
                                             <div class="form-group">
                                                 <label for="repeatPassword">Herhaal wachtwoord *</label>
-                                                <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" name="repeatPassword" maxlength="50" />
+                                                <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid <?php endif; ?>" name="repeatPassword" maxlength="50" />
                                                 <?php if (array_key_exists('repeatPassword', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
                                                 <?php endif; ?>
