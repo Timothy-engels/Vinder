@@ -20,10 +20,13 @@ function moreInfo(expertise) { //function add or delete input elements
                 inputExtra.setAttribute("id","input"+id);
                 inputExtra.setAttribute("name","input"+id);
                 inputExtra.setAttribute("type","text");
-                inputExtra.setAttribute("class","row");
+                inputExtra.setAttribute("class","form-control");
+
+                inputExtra.style.marginLeft= '12px';
+                inputLabel.style.marginLeft = '12px';
 
                 inputLabel.setAttribute("id","inputlabel"+id);
-                inputLabel.innerHTML = "More info: ";
+                inputLabel.innerHTML = "Meer info: ";
                 inputLabel.setAttribute("class","row");
 
 
@@ -35,5 +38,37 @@ function moreInfo(expertise) { //function add or delete input elements
             }
 
         })
+    }
+}
+
+function check_url() {
+    //Get input value
+    var elem = document.getElementById("url_input");
+    var input_value = elem.value;
+    //Set input value to lower case so HTTP or HtTp become http
+    input_value = input_value.toLowerCase();
+
+    //Check if string starts with http:// or https://
+    var regExr = /^(http:|https:)\/\/.*$/m;
+
+    //Test expression
+    var result = regExr.test(input_value);
+
+    //If http:// or https:// is not present add http:// before user input
+    if (!result) {
+        var new_value = "http://" + input_value;
+        elem.value = new_value;
+    }
+}
+
+function remove_logo() {
+    var logo = document.getElementById("logo");
+    var removelogo = document.getElementById("removelogo");
+    if (removelogo.innerText !== "Terug") {
+        logo.style.opacity = 0.2;
+        removelogo.innerText = "Terug";
+    } else {
+        logo.style.opacity = 1;
+        removelogo.innerText = "Verwidert logo";
     }
 }

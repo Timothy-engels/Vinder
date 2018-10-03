@@ -26,7 +26,7 @@ $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 $allExps     = $expSrv->getExpertises();
 
-$msg = '';
+$msg2='';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $info           = (filter_input(INPUT_POST, 'Info') !== null ? filter_input(INPUT_POST, 'Info') : $account->getInfo());
@@ -52,57 +52,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $account->setWebsite($website);
         $usersSvc->update($account);
 
-        $msg = "Uw gegevens zijn met success aangepast.";
+        //$msg = "Uw gegevens zijn met success aangepast.";
 
     }
 
-
-
-    $target_dir = "images/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));// Check if image file is a actual image or fake image
-    $check = @getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-
-    if ($check !== false) {
+    echo $_FILES['fileToUpload']['size'];
+    if ($_FILES['fileToUpload']['size']!==0 and !empty($_FILES['fileToUpload'])) {
+        $target_dir = "images/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            $msg = "Sorry, file already exists.";
-            $uploadOk = 0;
-        }// Check file size
-        if ($_FILES["fileToUpload"]["size"] > 10000000) {
-            $msg = "Sorry, your file is too large.";
-            $uploadOk = 0;
-        }// Allow certain file formats
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));// Check if image file is a actual image or fake image
+        $check = @getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        $uploadOk = 1;
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif") {
-            $msg = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $msg2 = "Only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
-        }// Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-           // $msg = "Sorry, your file was not uploaded.";
-            // if everything is ok, try to upload file
-        } else {
-            $newfilename = hash('sha256', $account->getEmail() . strval(time())).".".$imageFileType;
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir .$newfilename)) {
-                $oldlogo = $account->getLogo($newfilename); // delete old logo!!!
-                if (is_file($target_dir.$oldlogo))
-                {
-                    unlink($target_dir.$oldlogo);
-                }
-                $account->setLogo($newfilename);
-                $usersSvc->update($account);
-                $msg = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
-            } else {
-                $msg =  "Sorry, there was an error uploading your file.";
-            }
         }
-    } else {
-        $uploadOk = 0;
+        if ($check !== false) {
+            if ($_FILES["fileToUpload"]["size"] > 10000000) {
+                $msg2 = "Sorry, your file is too large. Max 10MB";
+                $uploadOk = 0;
+            }// Allow certain file formats
+            if ($uploadOk !== 0) {
+                $newfilename = hash('sha256', $account->getEmail() . strval(time())) . "." . $imageFileType;
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . $newfilename)) {
+                    $oldlogo = $account->getLogo($newfilename); // delete old logo!!!
+                    if (is_file($target_dir . $oldlogo)) {
+                        unlink($target_dir . $oldlogo);
+                    }
+                    $account->setLogo($newfilename);
+                    $usersSvc->update($account);
+                    $msg = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+                    $msg2 = '';
+                }
+            }
+        } else {
+
+            $uploadOk = 0;
+        }
     }
 
-    header("Location: editProfile.php");
 
     $expSrv->deleteExpertisesByUserId($id);
     $expSrv->deleteExpectedByUserId($id);
