@@ -4,12 +4,11 @@ require_once("business/generalService.php");
 
 // Check if an admin is logged in
 $accountSvc      = new AccountService();
-$account         = $accountSvc->getLoggedInUser();
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+$loggedInAccount = $accountSvc->getLoggedInUser();
 
 // Admins can't swipe
-if ($loggedInAsAdmin) {
- 
+if ($loggedInAccount->getAdministrator() === "1") {
+    
     $errorMsg = "Je bent momenteel ingelogd als een administrator.<br>Het is niet mogelijk om te swipen.";
     
 }
@@ -44,7 +43,7 @@ if (!isset($errorMsg)) {
 // Get the information for swiping
 if (!isset($errorMsg) && !isset($warningMsg)) {
     
-    $swipingInfo = $accountSvc->getCompleteSwipingInfo($account->getId()); 
+    $swipingInfo = $accountSvc->getCompleteSwipingInfo($loggedInAccount->getId()); 
     $currentPath = $accountSvc->getCurrentPath();
     $numOfCards  = count($swipingInfo);
     
