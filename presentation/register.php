@@ -80,7 +80,7 @@
                             </div>
 
                             <div class="simple-footer">
-                                Copyright &copy; Stisla 2018
+                                Copyright &copy; VDAB 2018
                             </div>
                         </div>
                     </div>
