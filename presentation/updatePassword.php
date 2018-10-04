@@ -48,7 +48,7 @@
                             
                                 <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
                                 
-                                    <form name="frmRegister" method="POST" action="register.php">
+                                    <form name="frmRegister" method="POST" action="updatePassword.php">
                                         <div class="form-group">
                                             <label for="password">Wachtwoord *</label>
                                             <input type="password" id="password" class="form-control <?php if (array_key_exists('password', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
