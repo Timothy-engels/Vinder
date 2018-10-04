@@ -1,3 +1,10 @@
+
+/* Size for logo */
+
+.logo-middle {
+    max-width: 15rem;
+}
+
 /* Custom css for swipe css */
 
 .profile__content{
@@ -18,7 +25,6 @@
 .profile__card > .card > .card-body {
     overflow: auto;
 } 
-
 
 #profile__card__container > :first-child > :first-child {
     -webkit-box-shadow: 0 0 40px rgba(0,0,0,.05);
