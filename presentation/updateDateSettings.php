@@ -2,16 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Vinder | Wijzig de datum instellingen</title>
-    
-    <!-- 
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    -->
-    
+    <title>Vinder | Wijzig de datum instellingen</title>    
     <style>
         label, input, .error {
             display: block;
@@ -27,27 +18,6 @@
             font-weight: bold;
         }
     </style>
-    <script>
-        
-        // werkt niet wegens eerdere comment
-        $(document).ready(function() {
-            $("#registerDate").datepicker({
-                dateFormat: "dd-mm-yy"
-            });
-            
-            $("#swipeDate").datepicker({
-                dateFormat: "dd-mm-yy"
-            });
-         
-            $("#registerDate").datepicker("setDate", "<?= $registerDate; ?>");
-            $("#swipeDate").datepicker("setDate", "<?= $swipeDate; ?>");
-         
-            $("#registerDate").click(function() {
-                $("#registerDate").focus();
-            });
-            
-         });
-    </script>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
