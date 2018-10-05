@@ -27,6 +27,7 @@
 
                             <div class="card-body">
                                 <form method="POST" action="logIn.php" class="needs-validation" novalidate="">
+                                    
                                     <?php
                                     if (array_key_exists('general', $errors)) : ?>
                                         <div class="alert alert-danger"><i class="ion ion-android-alert"></i> <?= $errors['general']; ?></div>
@@ -34,7 +35,7 @@
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="mail" type="email" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid <?php endif; ?>" name="mail" tabindex="1" value="<?= $mail; ?>" required autofocus >
+                                        <input id="mail" type="email" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid<?php endif; ?>" name="mail" tabindex="1" value="<?= $mail; ?>" required autofocus >
                                         <?php if (array_key_exists('mail', $errors)) : ?>
                                             <div class="invalid-feedback"><?= $errors['mail']; ?></div>
                                         <?php endif; ?>
@@ -46,7 +47,7 @@
                                                 <a href="forgotPassword.php">Wachtwoord vergeten?</a>
                                             </div>
                                         </label>
-                                        <input id="pass" type="password" class="form-control <?php if (array_key_exists('pass', $errors)) : ?>is-invalid <?php endif; ?>" name="pass" tabindex="2" required>
+                                        <input id="pass" type="password" class="form-control <?php if (array_key_exists('pass', $errors)) : ?>is-invalid<?php endif; ?>" name="pass" tabindex="2" required>
 
                                         <?php if (array_key_exists('pass', $errors)) : ?>
                                             <div class="invalid-feedback"><?= $errors['pass']; ?></div>

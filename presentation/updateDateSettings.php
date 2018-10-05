@@ -2,12 +2,14 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
     <title>Vinder | Wijzig de datum instellingen</title>    
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="css/style.css">    
     <link rel="stylesheet" href="css/skins/vinder.css">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
     
@@ -42,18 +44,22 @@
                                                 <?php endif; ?>
                                         
                                                 <div class="form-group">
-                                                    <label for="registerDate">Einddatum registratie/ Startdatum swipen *</label>
-                                                    <input type="text" id="registerDate" name="registerDate" maxlength="10" autofocus/>
+                                                    <label for="registerDate" class="d-block">Einddatum registratie/ Startdatum swipen *</label>
+                                                    <input type="text" id="registerDate" class="<?php if (array_key_exists('registerDate', $errors)) : ?>is-invalid<?php endif; ?>" name="registerDate" maxlength="10" autofocus/>
+                                                    
                                                     <?php if (array_key_exists('registerDate', $errors)) : ?>
-                                                        <div class="error"><?= $errors['registerDate']; ?></div>
+                                                        <div class="invalid-feedback"><?= $errors['registerDate']; ?></div>
                                                     <?php endif; ?>
+                                                    
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="swipeDate">Einddatum swipen *</label>
-                                                    <input type="text" id="swipeDate" name="swipeDate" maxlength="10" />
+                                                    <label for="swipeDate" class="d-block">Einddatum swipen *</label>
+                                                    <input type="text" id="swipeDate" class="<?php if (array_key_exists('swipeDate', $errors)) : ?>is-invalid<?php endif; ?>" name="swipeDate" maxlength="10" />
+                                                    
                                                     <?php if (array_key_exists('swipeDate', $errors)) : ?>
-                                                        <div class="error"><?= $errors['swipeDate']; ?></div>
+                                                        <div class="invalid-feedback"><?= $errors['swipeDate']; ?></div>
                                                     <?php endif; ?>
+                                                    
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-lg btn-info">Wijzig</button>
