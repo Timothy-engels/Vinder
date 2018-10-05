@@ -1,6 +1,4 @@
 <?php
-// business/matchingService.php
-
 require_once ('data/matchingDAO.php');
 
 class matchingService {
@@ -16,8 +14,8 @@ class matchingService {
      */
     public function insert($accountID1, $accountID2, $status)
     {
-        $matchDAO = new matchings();
-        $matchDAO->Insert($accountID1, $accountID2, $status);
+        $matchingDAO = new MatchingDAO();
+        $matchingDAO->Insert($accountID1, $accountID2, $status);
     }
     
     /**
@@ -29,8 +27,8 @@ class matchingService {
      */
     public function update($match)
     {
-        $matchDAO = new matchings();
-        $matchDAO->update($match);
+        $matchingDAO = new MatchingDAO();
+        $matchingDAO->update($match);
     }
     
     /**
@@ -40,8 +38,8 @@ class matchingService {
      */
     public function deleteAll()
     {
-        $matchDAO = new matchings();
-        $matchDAO->deleteAll();
+        $matchingDAO = new MatchingDAO();
+        $matchingDAO->deleteAll();
     }
 
     /**
@@ -51,8 +49,8 @@ class matchingService {
      */
     public function deleteByUserId($id)
     {
-        $matchDAO = new matchings();
-        $matchDAO->deleteByUserId($id);
+        $matchingDAO = new MatchingDAO();
+        $matchingDAO->deleteByUserId($id);
     }
     
     /**
@@ -65,7 +63,7 @@ class matchingService {
      */    
     public function getMatch($account1, $account2)
     {
-        $matchingDAO = new matchings();
+        $matchingDAO = new MatchingDAO();
         $match       = $matchingDAO->getMatch($account1, $account2);
         
         return $match;

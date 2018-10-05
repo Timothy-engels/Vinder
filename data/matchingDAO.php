@@ -1,11 +1,10 @@
 <?php
-// data/matchingDAO.php
-
 require_once("DBConfig.php");
 require_once("entities/account.php");
 require_once("entities/match.php");
 
-class matchings {
+class MatchingDAO
+{
     
     public function Insert(
         $AccountID1,

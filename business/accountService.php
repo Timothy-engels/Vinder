@@ -216,7 +216,7 @@ class AccountService
         }
         
         // Add the amount of matches
-        $matchingDAO     = new matchings();
+        $matchingDAO     = new MatchingDAO();
         $amountMyMatches = $matchingDAO->getMyMatchesAmount($account);
         
         $account->setAmountMyMatches($amountMyMatches);
