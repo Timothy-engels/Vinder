@@ -26,63 +26,69 @@
 </head>
 <body>
     
-    <?php include('menu.php'); ?>
-    
     <div id="app">
-        <section class="section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                        <div class="login-brand">
-                            <a href="logIn.php"><img src="images/logo.png" alt="Vinder" style="width: 15rem;"></a>
-                        </div>
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Datums instellen</h4>
-                            </div>
-                            <div class="card-body">
+        <div class="main-wrapper">
+            <?php //include('includes/mainHeader.php'); ?>
+            <div class="main-sidebar">
+                <?php //include('includes/mainSideBar.php'); ?>
+            </div>
+            <div class="main-content">
+                <section class="section">
+                    <h1 class="section-header">
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Swipe</div>
+                    </h1>
+
+                    <div class="section-body">
+
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Datums aanpassen</h4>
+                                    </div>
+                                    <div class="card-body">
                             
-                                <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
+                                        <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
                                 
-                                    <form name="frmRegisterDate" method="POST" action="updateDateSettings.php">
+                                            <form name="frmRegisterDate" method="POST" action="updateDateSettings.php">
                                         
-                                        <?php if ($message !== '') : ?>
-                                            <div class="message"><?= $message; ?></div>
+                                                <?php if ($message !== '') : ?>
+                                                    <div class="message"><?= $message; ?></div>
+                                                <?php endif; ?>
+                                        
+                                                <div class="form-group">
+                                                    <label for="registerDate">Einddatum registratie/ Startdatum swipen *</label>
+                                                    <input type="text" id="registerDate" name="registerDate" maxlength="10" autofocus/>
+                                                    <?php if (array_key_exists('registerDate', $errors)) : ?>
+                                                        <div class="error"><?= $errors['registerDate']; ?></div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="swipeDate">Einddatum swipen *</label>
+                                                    <input type="text" id="swipeDate" name="swipeDate" maxlength="10" />
+                                                    <?php if (array_key_exists('swipeDate', $errors)) : ?>
+                                                        <div class="error"><?= $errors['swipeDate']; ?></div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-lg btn-info">Wijzig</button>
+                                                </div>
+                                            </form>
+                                            <p>
+                                                <small>Velden met een * zijn verplicht in te vullen.</small>
+                                            </p>
+                                
                                         <?php endif; ?>
-                                        
-                                        <div class="form-group">
-                                            <label for="registerDate">Einddatum registratie/ Startdatum swipen *</label>
-                                            <input type="text" id="registerDate" name="registerDate" maxlength="10" autofocus/>
-                                            <?php if (array_key_exists('registerDate', $errors)) : ?>
-                                            <div class="error"><?= $errors['registerDate']; ?></div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="swipeDate">Einddatum swipen *</label>
-                                            <input type="text" id="swipeDate" name="swipeDate" maxlength="10" />
-                                            <?php if (array_key_exists('swipeDate', $errors)) : ?>
-                                                <div class="error"><?= $errors['swipeDate']; ?></div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Wijzig</button>
-                                        </div>
-                                    </form>
-                                    <p>
-                                        <small>Velden met een * zijn verplicht in te vullen.</small>
-                                    </p>
                                 
-                                <?php endif; ?>
-                                
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="simple-footer">
-                            Copyright &copy; VDAB 2018
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-        </section>
+            <?php include('includes/mainFooter.php'); ?>
+        </div>
     </div>
 </body>
 </html>
