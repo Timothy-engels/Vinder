@@ -17,95 +17,9 @@
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <div class="navbar-bg"></div>
-            <nav class="navbar navbar-expand-lg main-navbar">
-                <form class="form-inline mr-auto">
-                    <ul class="navbar-nav mr-3">
-                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
-                    </ul>
-                </form>
-                <ul class="navbar-nav navbar-right">
-                    <li>
-                        <a href="#" class="nav-link nav-link-lg">
-                            <div class="d-sm-none d-lg-inline-block">Welkom, <?= $loggedInAccount->getContactPerson(); ?></div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <?php include('includes/mainHeader.php'); ?>
             <div class="main-sidebar">
-                <aside id="sidebar-wrapper">
-                    <div class="sidebar-brand">
-                        <a href="dashboard.php"><img src="images/logo.png" alt="Vinder" style="width: 8rem;"></a>
-                    </div> 
-                    <div class="sidebar-user">
-                        <div class="sidebar-user-details" style="padding-left: 7px;">
-                            <div class="user-name"><?= $loggedInAccount->getContactPerson(); ?></div>
-                            <div class="user-role"><?= $loggedInAccount->getName(); ?></div>
-                        </div>
-                    </div>
-                    <ul class="sidebar-menu">
-                        <li class="menu-header">Algemeen</li>
-                        <li>
-                            <a href="showProfile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
-                        </li>
-                        <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
-                            <li class="active">
-                                <a href="swipe.php"><i class="ion ion-android-share-alt"></i> Swipen</a>
-                            </li> 
-                        <?php endif; ?>
-                        <li>
-                            <a href="matchingController.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary"><?= $loggedInAccount->getAmountMyMatches(); ?></div></a>
-                        </li>
-                        
-                        <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
-                            <li class="menu-header">Accounts</li>
-                            <li>
-                                <a href="userList.php"><i class="ion ion-android-people"></i> Alle accounts</a>
-                            </li>
-                            <li>
-                                <a href="matchedCompanies.php"><i class="ion ion-android-happy"></i>  Met matches <div class="badge badge-primary">???</div></a>
-                            </li>
-                            <li>
-                                <a href="unmatchedCompanies.php"><i class="ion ion-android-sad"></i> Zonder matches <div class="badge badge-primary">???</div></a>
-                            </li>      
-                        <?php endif; ?>
-                        
-                        <li class="menu-header">Beheer</li>
-                        <li>
-                            <a href="editProfile.php"><i class="ion-android-create"></i><span>Profiel</span></a>
-                        </li>
-                        <li>
-                            <a href="contactUpdate.php"><i class="ion-android-mail"></i><span>Contactinfo</span></a>
-                        </li>
-                        <li>
-                            <a href="updatePassword.php"><i class="ion ion-android-lock"></i><span>Wachtwoord</span></a>
-                        </li>
-                        <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
-                            <li>
-                                <a href="deleteAccount.php"><i class="ion ion-android-delete"></i><span>Account verwijderen</span></a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
-                            <li>
-                                <a href="expertises.php"><i class="ion ion-ribbon-b"></i><span>Expertises</span></a>
-                            </li>
-                            <li>
-                                <a href="mailUpdate.php"><i class="ion ion-android-bulb"></i><span>Tips</span></a>
-                            </li>
-                            <li>
-                                <a href="updateDateSettings.php"><i class="ion ion-android-calendar"></i><span>Datums</span></a>
-                            </li>       
-                            <li>
-                                <a href="deleteMatching.php"><i class="ion ion-android-delete"></i> Matchings verwijderen</a>
-                            </li>                             
-                        <?php endif; ?>
-                    </ul>
-                    <div class="p-3 mt-4 mb-4">
-                        <a href="logOut.php" class="btn btn-danger btn-shadow btn-round has-icon has-icon-nofloat btn-block">
-                            <i class="ion ion-android-exit"></i> <div>Uitloggen</div>
-                        </a>
-                    </div>
-                </aside>
+                <?php include('includes/mainSideBar.php'); ?>
             </div>
             <div class="main-content">
                 <section class="section">
@@ -229,182 +143,177 @@
                     </div>
                 </section>
             </div>
-                <footer class="main-footer">
-                    <div class="footer-left">
-                        Copyright &copy; <a href="http://www.vdab.be">VDAB</a> 2018
-                    </div>
-                    <div class="footer-right"></div>
-                </footer>
-            </div>
+            <?php include('includes/mainFooter.php'); ?>
         </div>
+    </div>
 
-        <script src="modules/jquery.min.js"></script>
-        <script src="modules/popper.js"></script>
-        <script src="modules/tooltip.js"></script>
-        <script src="modules/bootstrap/js/bootstrap.min.js"></script>
-        <script src="modules/nicescroll/jquery.nicescroll.min.js"></script>
-        <script src="modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-        <script src="js/sa-functions.js"></script>
+    <script src="modules/jquery.min.js"></script>
+    <script src="modules/popper.js"></script>
+    <script src="modules/tooltip.js"></script>
+    <script src="modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+    <script src="js/sa-functions.js"></script>
 
-        <script src="js/scripts.js"></script>
-        <script src="js/custom.js"></script>
-  
-        <script>
-        $(document).ready(function() {
+    <script src="js/scripts.js"></script>
+    <script src="js/custom.js"></script>
 
-              var animating = false;
-              var cardsCounter = 0;
-              var numOfCards = <?= $numOfCards; ?>;
-              var amountAddSwipeCards = 4;
-              var decisionVal = 80;
-              var pullDeltaX = 0;
-              var deg = 0;
-              var $card, $cardReject, $cardLike;
+    <script>
+    $(document).ready(function() {
 
-              function addSwipeCards() {
+        var animating = false;
+        var cardsCounter = 0;
+        var numOfCards = <?= $numOfCards; ?>;
+        var amountAddSwipeCards = 4;
+        var decisionVal = 80;
+        var pullDeltaX = 0;
+        var deg = 0;
+        var $card, $cardReject, $cardLike;
 
-                  // Get the ID's of the current swipecards
-                  vCurrentSwipeCardIds = '';
-                  $('.profile__card').each(function() {
-                       vCurrentSwipeCardIds += $(this).attr("id") + ',';
-                  });
+        function addSwipeCards() {
 
-                  vCurrentSwipeCardIds = vCurrentSwipeCardIds.slice(0, -1);
+            // Get the ID's of the current swipecards
+            vCurrentSwipeCardIds = '';
+            $('.profile__card').each(function() {
+                 vCurrentSwipeCardIds += $(this).attr("id") + ',';
+            });
 
-                  // Generate the swipecards & set them in the container
-                  $.ajax({
-                      url      : "<?= $currentPath; ?>addMatchingSwipeCards.php",
-                      data     : {
-                          'currentSwipeCardIds' : vCurrentSwipeCardIds
-                      },
-                      dataType : 'html'
-                  }).done(function(msg) {
-                      if (msg != '') {
-                          $('#profile__card__container').prepend(msg);
-                          numOfCards   = $(".profile__card").length;
-                          cardsCounter = 0;
-                      }
-                  });
+            vCurrentSwipeCardIds = vCurrentSwipeCardIds.slice(0, -1);
 
-              }
+            // Generate the swipecards & set them in the container
+            $.ajax({
+                url      : "<?= $currentPath; ?>addMatchingSwipeCards.php",
+                data     : {
+                    'currentSwipeCardIds' : vCurrentSwipeCardIds
+                },
+                dataType : 'html'
+            }).done(function(msg) {
+                if (msg != '') {
+                    $('#profile__card__container').prepend(msg);
+                    numOfCards   = $(".profile__card").length;
+                    cardsCounter = 0;
+                }
+            });
 
-              function pullChange() {
-                  animating = true;
-                  deg = pullDeltaX / 10;
-                  $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
+        }
 
-                  var opacity = pullDeltaX / 100;
-                  var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
-                  var likeOpacity = (opacity <= 0) ? 0 : opacity;
-                  $cardReject.css("opacity", rejectOpacity);
-                  $cardLike.css("opacity", likeOpacity);
-              };
+        function pullChange() {
+            animating = true;
+            deg = pullDeltaX / 10;
+            $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
 
-              function release() {
+            var opacity = pullDeltaX / 100;
+            var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
+            var likeOpacity = (opacity <= 0) ? 0 : opacity;
+            $cardReject.css("opacity", rejectOpacity);
+            $cardLike.css("opacity", likeOpacity);
+        };
 
-                  if (pullDeltaX >= decisionVal) {
-                      $card.addClass("to-right");   
+        function release() {
 
-                      // Change status in database
-                      vId     = $card.attr('id');
-                      vResult = "yes";
+            if (pullDeltaX >= decisionVal) {
+                $card.addClass("to-right");   
 
-                      $.ajax({
-                        url      : "<?= $currentPath; ?>addMatchingResult.php",
-                        data     : {
-                          'swipingCompanyId' : vId,
-                          'answer'           : vResult
-                        },
-                      });
+                // Change status in database
+                vId     = $card.attr('id');
+                vResult = "yes";
 
-                      // Remove the current card
-                      $card.remove();
+                $.ajax({
+                  url      : "<?= $currentPath; ?>addMatchingResult.php",
+                  data     : {
+                    'swipingCompanyId' : vId,
+                    'answer'           : vResult
+                  },
+                });
 
-                  } else if (pullDeltaX <= -decisionVal) {
-                      $card.addClass("to-left");
+                // Remove the current card
+                $card.remove();
 
-                      // Change status in database
-                      vId     = $card.attr('id');
-                      vResult = "no";
+            } else if (pullDeltaX <= -decisionVal) {
+                $card.addClass("to-left");
 
-                      $.ajax({
-                        url      : "<?= $currentPath; ?>addMatchingResult.php",
-                        data     : {
-                          'swipingCompanyId' : vId,
-                          'answer'           : vResult
-                        },
-                      });
+                // Change status in database
+                vId     = $card.attr('id');
+                vResult = "no";
 
-                      // Remove the current card
-                      $card.remove();
+                $.ajax({
+                  url      : "<?= $currentPath; ?>addMatchingResult.php",
+                  data     : {
+                    'swipingCompanyId' : vId,
+                    'answer'           : vResult
+                  },
+                });
 
-                  }
+                // Remove the current card
+                $card.remove();
 
-                  if (Math.abs(pullDeltaX) >= decisionVal) {
-                      $card.addClass("inactive");
+            }
 
-                      setTimeout(function() {
-                          $card.addClass("below").removeClass("inactive to-left to-right");
-                          cardsCounter++;
+            if (Math.abs(pullDeltaX) >= decisionVal) {
+                $card.addClass("inactive");
 
-                          if ((numOfCards - cardsCounter) === amountAddSwipeCards) {
-                              addSwipeCards();
-                          }
+                setTimeout(function() {
+                    $card.addClass("below").removeClass("inactive to-left to-right");
+                    cardsCounter++;
 
-                          if (cardsCounter === numOfCards) {
-                              addSwipeCards();
-                              cardsCounter = 0;
-                              $(".profile__card").removeClass("below");
-                          }
+                    if ((numOfCards - cardsCounter) === amountAddSwipeCards) {
+                        addSwipeCards();
+                    }
 
-                      }, 300);
-                  }
+                    if (cardsCounter === numOfCards) {
+                        addSwipeCards();
+                        cardsCounter = 0;
+                        $(".profile__card").removeClass("below");
+                    }
 
-                  if (Math.abs(pullDeltaX) < decisionVal) {
-                      $card.addClass("reset");
-                  }
+                }, 300);
+            }
 
-                  setTimeout(function() {
-                      $card.attr("style", "").removeClass("reset")
-                          .find(".profile__card__choice").attr("style", "");
+            if (Math.abs(pullDeltaX) < decisionVal) {
+                $card.addClass("reset");
+            }
 
-                      pullDeltaX = 0;
-                      animating = false;
-                  }, 300);
+            setTimeout(function() {
+                $card.attr("style", "").removeClass("reset")
+                    .find(".profile__card__choice").attr("style", "");
 
-              };
+                pullDeltaX = 0;
+                animating = false;
+            }, 300);
+
+        };
 
 
-              $("#profile__skip").click(function (e) {
-                  $( ".profile__card").last().remove();
-              });
+        $("#profile__skip").click(function (e) {
+            $( ".profile__card").last().remove();
+        });
 
-              $(document).on("mousedown touchstart", ".profile__card:not(.inactive)", function(e) {
+        $(document).on("mousedown touchstart", ".profile__card:not(.inactive)", function(e) {
 
-                  if (animating) return;
+            if (animating) return;
 
-                  $card = $(this);
+            $card = $(this);
 
-                  $cardReject = $(".profile__card__choice.m--reject", $card);
-                  $cardLike = $(".profile__card__choice.m--like", $card);
-                  var startX =  e.pageX || e.originalEvent.touches[0].pageX;
+            $cardReject = $(".profile__card__choice.m--reject", $card);
+            $cardLike = $(".profile__card__choice.m--like", $card);
+            var startX =  e.pageX || e.originalEvent.touches[0].pageX;
 
-                  $(document).on("mousemove touchmove", function(e) {
-                      var x = e.pageX || e.originalEvent.touches[0].pageX;
-                      pullDeltaX = (x - startX);
-                      if (!pullDeltaX) return;
-                      pullChange();
-                  });
+            $(document).on("mousemove touchmove", function(e) {
+                var x = e.pageX || e.originalEvent.touches[0].pageX;
+                pullDeltaX = (x - startX);
+                if (!pullDeltaX) return;
+                pullChange();
+            });
 
-                  $(document).on("mouseup touchend", function() {
-                      $(document).off("mousemove touchmove mouseup touchend");
-                      if (!pullDeltaX) return; // prevents from rapid click events
-                      release();
-                  });
-              });
+            $(document).on("mouseup touchend", function() {
+                $(document).off("mousemove touchmove mouseup touchend");
+                if (!pullDeltaX) return; // prevents from rapid click events
+                release();
+            });
+        });
 
-          });
-        </script>
+    });
+    </script>
   
 </body>
 </html>
