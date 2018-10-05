@@ -447,6 +447,46 @@ class AccountDAO
         
         return $accounts;              
     }
+    
+    /**
+     * Get the amount of all companies that are unmatched
+     * 
+     * @return array
+     */
+    public function getAmountUnmatchedCompanies()
+    {
+        // Create the sql
+        $sql = "SELECT COUNT(ID) AS Amount
+                FROM accounts
+                WHERE Bevestigd = 1
+                  AND Admin = 0
+                  AND ID NOT IN (
+                    SELECT AccountID1 AS AccountID
+                    FROM matching
+                    WHERE Status = 3
+                    UNION
+                    SELECT AccountID2 AS AccountID
+                    FROM matching
+                    WHERE Status = 3
+                )";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute();
+        
+        // Return the results
+        $amount = 0;
+        
+        if ($resultSet->rowCount() > 0) {
+            $row    = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $amount = $row['Amount'];
+        }
+        
+        return $amount;               
+    }
 
     //remove account
     public function deleteById($id)

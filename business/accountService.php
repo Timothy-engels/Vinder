@@ -363,4 +363,17 @@ class AccountService
         return $swipingInfo;
     }
     
+    /**
+     * Get the amount of unmatched companies
+     * 
+     * @return int
+     */
+    public function getAmountUnmatchedCompanies()
+    {
+        $accountDAO               = new AccountDAO();
+        $amountUnmatchedCompanies = $accountDAO->getAmountUnmatchedCompanies();
+        
+        return $amountUnmatchedCompanies;
+    }
+    
 }
