@@ -5,6 +5,12 @@
     max-width: 15rem;
 }
 
+/* Left Menu */
+
+.main-sidebar .sidebar-menu li a i {
+    margin-right: 15px;
+}
+
 /* Custom css for swipe css */
 
 .profile__content{
