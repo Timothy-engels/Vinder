@@ -364,6 +364,19 @@ class AccountService
     }
     
     /**
+     * Get the amount of matched companies
+     * 
+     * @return int
+     */
+    public function getAmountMatchedCompanies()
+    {
+        $accountDAO             = new AccountDAO();
+        $amountMatchedCompanies = $accountDAO->getAmountMatchedCompanies();
+        
+        return $amountMatchedCompanies;
+    }
+    
+    /**
      * Get the amount of unmatched companies
      * 
      * @return int

@@ -360,6 +360,45 @@ class AccountDAO
     }
     
     /**
+     * Get the amount of all companies that are matched
+     * 
+     * @return int
+     */
+    public function getAmountMatchedCompanies()
+    {
+        // Create the sql
+        $sql  = "SELECT COUNT(DISTINCT a.ID) AS Amount
+                 FROM accounts a
+                 WHERE ID IN (
+                   SELECT AccountID1 AS AccountID
+                   FROM matching
+                   WHERE Status = 3
+                   UNION
+                   SELECT AccountID2 as AccountID
+                   FROM matching
+                   WHERE Status = 3
+                )";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($sql);
+        $resultSet->execute();
+        
+        // Return the results
+        $amount = 0;
+        
+        if ($resultSet->rowCount() > 0) {
+            $row    = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $amount = $row['Amount'];
+        }
+        
+        return $amount;
+    }
+    
+    
+    /**
      * Get the amount of matches of the matched companies 
      * 
      * @return array (companyId => amountMatches)

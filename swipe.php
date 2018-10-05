@@ -10,6 +10,7 @@ $loggedInAccount = $accountSvc->getLoggedInUser();
 if ($loggedInAccount->getAdministrator() === "1") {
     
     $errorMsg                 = "Je bent momenteel ingelogd als een administrator.<br>Het is niet mogelijk om te swipen.";
+    $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
     $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
     
 }
