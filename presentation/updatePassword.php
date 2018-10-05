@@ -3,21 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Vinder | Wijzig wachtwoord</title>
-    <style>
-        label, input, .error {
-            display: block;
-        }
-        
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-        
-        .message {
-            color: green;
-            font-weight: bold;
-        }
-    </style>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -27,9 +12,9 @@
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <?php //include('includes/mainHeader.php'); ?>
+            <?php include('includes/mainHeader.php'); ?>
             <div class="main-sidebar">
-                <?php //include('includes/mainSideBar.php'); ?>
+                <?php include('includes/mainSideBar.php'); ?>
             </div>
             <div class="main-content">
                 <section class="section">
@@ -94,4 +79,16 @@
         </div>
     </div>
 </body>    
+
+<script src="modules/jquery.min.js"></script>
+<script src="modules/popper.js"></script>
+<script src="modules/tooltip.js"></script>
+<script src="modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="js/sa-functions.js"></script>
+
+<script src="js/scripts.js"></script>
+<script src="js/custom.js"></script>
+    
 </html>

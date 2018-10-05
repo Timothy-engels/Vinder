@@ -16,28 +16,29 @@ if (filter_input(INPUT_GET, 'code') !== null) {
         $encryptionSvc::FORGOTTEN_PASSWORD_KEY
     );
     
-    $account = $accountSvc->getByEmail($decryptedCode);
+    $loggedInAccount = $accountSvc->getByEmail($decryptedCode);
     
     if ($account !== null) {
-        $accountId = $account->getId();
+        $accountId = $loggedInAccount->getId();
     } else {
         header("location: logIn.php");
     }
     
     $urlExtension    = "?code=" . $code;
-    $showMenu        = false;
-    $loggedInAsAdmin = false;
     
 } else {
     
     $accountSvc      = new AccountService();
-    $account         = $accountSvc->getLoggedInUser();
+    $loggedInAccount = $accountSvc->getLoggedInUser();
     
     $code            = '';
-    $accountId       = $account->getId();
+    $accountId       = $loggedInAccount->getId();
     $urlExtension    = "";
-    $showMenu        = true;
-    $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);    
+    
+    if ($loggedInAccount->getAdministrator() === "1") {
+        $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+        $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+    }
     
 }
     
