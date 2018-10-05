@@ -52,7 +52,7 @@
                             <a href="swipe.php"><i class="ion ion-android-share-alt"></i> Swipen</a>
                         </li>                     
                         <li>
-                            <a href="matchingController.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary">10</div></a>
+                            <a href="matchingController.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary"><?= $loggedInAccount->getAmountMyMatches(); ?></div></a>
                         </li>
                         <li class="menu-header" style="padding-top: 15px;">Mijn gegevens wijzigen</li>
                         <li>

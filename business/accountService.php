@@ -1,8 +1,7 @@
 <?php
-//business/accountService.php
-
 require_once("data/accountDAO.php");
 require_once("data/expertiseDAO.php");
+require_once("data/matchingDAO.php");
 require_once("business/mailService.php");
 require_once("business/encryptionService.php");
 
@@ -191,26 +190,38 @@ class AccountService
      */
     public function getLoggedInUser($checkedInAsAdmin = false)
     {
+        // Check if a session is already started
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         
+        // Redirect to login page when no session is found
         if (!array_key_exists('ID', $_SESSION)) {
             header("location: logIn.php");
         }
         
+        // Get the account information
         $account = $this->getById($_SESSION['ID']);
         
+        // Redirect to login page when account doesn't exists
         if ($account === null) {
             header("location: logIn.php");
         }
         
+        // Check if you must be logged in as an admin
         if ($checkedInAsAdmin === true) {
             if ($account->getAdministrator() === "0") {
                 header("location: logIn.php");
             }
         }
         
+        // Add the amount of matches
+        $matchingDAO     = new matchings();
+        $amountMyMatches = $matchingDAO->getMyMatchesAmount($account);
+        
+        $account->setAmountMyMatches($amountMyMatches);
+        
+        // Return the account information
         return $account;
     }
     

@@ -30,6 +30,8 @@ class Account
     private $accountExpertiseExtra = null;
     private $accountMoreInfoExtra  = null;
     
+    private $amountMyMatches;
+    
     /**
      * @param int $id
      * @param string $name
@@ -362,13 +364,32 @@ class Account
     }
     
     /**
-     * @param obect $accountExpertiseExtra
+     * @param obect $accountMoreInfoExtra
      * 
      * @return $this
      */
     public function setAccountMoreInfoExtra($accountMoreInfoExtra)
     {
         $this->accountMoreInfoExtra = $accountMoreInfoExtra;
+        return $this;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getAmountMyMatches()
+    {
+        return $this->amountMyMatches;
+    }
+    
+    /**
+     * @param int $amountMyMatches
+     * 
+     * @return $this;
+     */
+    public function setAmountMyMatches($amountMyMatches)
+    {
+        $this->amountMyMatches = $amountMyMatches;
         return $this;
     }
     

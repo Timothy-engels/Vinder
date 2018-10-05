@@ -164,4 +164,40 @@ class matchings {
         $dbh = null;
         return $resultSet;
     }
+    
+    /**
+     * Get the amount of matches for a specified account
+     * 
+     * @param object $account
+     * 
+     * @return int
+     */
+    public function getMyMatchesAmount($account)
+    {
+        // Create the sql
+        $query = "SELECT COUNT(ID) AS Amount
+                  FROM matching
+                  WHERE (`AccountID1` = :accountID1 OR `AccountID2` = :accountID2)
+                    AND `Status` = 3";
+        
+        // Open the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $resultSet = $dbh->prepare($query);
+        $resultSet->execute([
+            ':accountID1' => $account->getId(),
+            ':accountID2' => $account->getId()
+        ]);
+        
+        // Return the result
+        $amount = 0;
+        
+        if ($resultSet->rowCount() > 0) {
+            $row    = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $amount = $row['Amount'];
+        }
+        
+        return $amount;     
+    }
 }
