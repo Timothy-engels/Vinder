@@ -5,28 +5,30 @@ require_once("entities/match.php");
 
 class MatchingDAO
 {
-    
-    public function Insert(
-        $AccountID1,
-        $AccountID2,
-        $status
-        ) 
+    /**
+     * Insert a new match
+     * 
+     * @param int $accountID1
+     * @param int $accountID2
+     * @param int $status
+     * 
+     * @return void
+     */
+    public function insert($accountID1, $accountID2, $status) 
     {
-        $sql = "INSERT INTO matching
-                (AccountID1, AccountID2, status)
-                VALUES
-                (:AccountID1, :AccountID2, :status)
-                ";
+        // Create the query
+        $sql = "INSERT INTO matching (AccountID1, AccountID2, Status)
+                VALUES (:accountID1, :accountID2, :status)";
         
         // Open the connection
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         
-        // prepare and execute
+        // Prepare and execute
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
-            ':AccountID1'       => $AccountID1,
-            ':AccountID2'       => $AccountID2,
-            ':status'           => $status
+            ':accountID1' => $accountID1,
+            ':accountID2' => $accountID2,
+            ':status'     => $status
         ]);
         
         // Close the db connection

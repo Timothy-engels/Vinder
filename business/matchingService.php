@@ -15,7 +15,7 @@ class matchingService {
     public function insert($accountID1, $accountID2, $status)
     {
         $matchingDAO = new MatchingDAO();
-        $matchingDAO->Insert($accountID1, $accountID2, $status);
+        $matchingDAO->insert($accountID1, $accountID2, $status);
     }
     
     /**
