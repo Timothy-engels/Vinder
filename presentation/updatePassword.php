@@ -25,67 +25,73 @@
     <link rel="stylesheet" href="css/skins/vinder.css">
 </head>
 <body>
-    
-    <?php
-    if ($showMenu) {
-        include('menu.php');
-    }
-    ?>
-    
     <div id="app">
-        <section class="section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                        <div class="login-brand">
-                            <a href="logIn.php"><img src="images/logo.png" alt="Vinder" style="width: 15rem;"></a>
-                        </div>
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Wachtwoord wijzigen</h4>
-                            </div>
-                            <div class="card-body">
+        <div class="main-wrapper">
+            <?php //include('includes/mainHeader.php'); ?>
+            <div class="main-sidebar">
+                <?php //include('includes/mainSideBar.php'); ?>
+            </div>
+            <div class="main-content">
+                <section class="section">
+                    <h1 class="section-header">
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Vinder</div>
+                    </h1>
+
+                    <div class="section-body">
+
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Wachtwoord wijzigen</h4>
+                                    </div>
+                                    <div class="card-body">
                             
-                                <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
+                                        <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
                                 
-                                    <form name="frmRegister" method="POST" action="updatePassword.php">
-                                        <div class="form-group">
-                                            <label for="password">Wachtwoord *</label>
-                                            <input type="password" id="password" class="form-control <?php if (array_key_exists('password', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
+                                            <form name="frmUpdatePassword" method="POST" action="updatePassword.php">
                                         
-                                            <?php if (array_key_exists('password', $errors)) : ?>
-                                                <div class="invalid-feedback"><?= $errors['password']; ?></div>
-                                            <?php endif; ?>
+                                                <?php if ($message !== '') : ?>
+                                                    <div class="message"><?= $message; ?></div>
+                                                <?php endif; ?>
                                         
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="repeatPassword">Herhaal wachtwoord *</label>
-                                            <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid <?php endif; ?>" name="repeatPassword" maxlength="50" />
-                                        
-                                            <?php if (array_key_exists('repeatPassword', $errors)) : ?>
-                                                <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
-                                            <?php endif; ?>
-                                        
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Wijzig</button>
-                                        </div>
-                                    </form>
-                                    <p>
-                                        <small>Velden met een * zijn verplicht in te vullen.</small>
-                                    </p>
+                                                <div class="form-group">
+                                                    <label for="password">Wachtwoord *</label>
+                                                    <input type="password" id="password" name="password" maxlength="10" autofocus/>
+                                                    
+                                                    <?php if (array_key_exists('password', $errors)) : ?>
+                                                        <div class="error"><?= $errors['password']; ?></div>
+                                                    <?php endif; ?>
+                                                    
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="repeatPassword">Herhaal wachtwoord *</label>
+                                                    <input type="password" id="repeatPassword" name="repeatPassword" maxlength="10" />
+                                                    
+                                                    <?php if (array_key_exists('repeatPassword', $errors)) : ?>
+                                                        <div class="error"><?= $errors['repeatPassword']; ?></div>
+                                                    <?php endif; ?>
+                                                    
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-lg btn-info">Wijzig</button>
+                                                </div>
+                                            </form>
+                                            <p>
+                                                <small>Velden met een * zijn verplicht in te vullen.</small>
+                                            </p>
                                 
-                                <?php endif; ?>
+                                        <?php endif; ?>
                                 
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="simple-footer">
-                            Copyright &copy; VDAB 2018
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-        </section>
+            <?php include('includes/mainFooter.php'); ?>
+        </div>
     </div>
 </body>    
 </html>
