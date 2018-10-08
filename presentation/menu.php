@@ -32,7 +32,7 @@
         <i class="ion ion-android-menu"></i> Overzicht accounts
     </a>
 
-    <a href="matchedCompanies.php" class="dropdown-item has-icon">
+    <a href="accounts-met-matches.php" class="dropdown-item has-icon">
         <i class="ion ion-android-happy"></i> Accounts met matches
     </a>
 

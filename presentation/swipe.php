@@ -31,16 +31,19 @@
 
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <div class="card">
+                                <div class="card">`
                                     <div class="card-header">
+                                        <div class="float-left">
+                                            <h4>Swipe naar links of naar rechts</h4>
+                                        </div>
                                         <div class="float-right">
                                             <div class="btn-group">
-                                                <a href="#default" data-tab="alerts" class="btn active"><i class="ion ion-heart"></i></a>
-                                                <a href="#default" data-tab="alerts" class="btn active"><i class="ion ion-close"></i></a>
-                                                <a href="#default" data-tab="alerts" class="btn active">Volgende <i class="ion ion-arrow-right-c"></i></a>
+                                                <button type="button" id="like" class="btn btn-success mr-1"><i class="ion ion-heart"></i></button>
+                                                <button type="button" id="dislike" class="btn btn-danger mr-1"><i class="ion ion-close"></i></button>
+                                                <button type="button" id="skip" class="btn btn-primary">Volgende <i class="ion ion-arrow-right-c"></i></button>
                                             </div>
                                         </div>
-                                        <h4>Swipe naar links of naar rechts</h4>
+
                                     </div>
                                     <div class="card-body">
 
@@ -196,7 +199,35 @@
             });
 
         }
+        
+        function updateDbStatus(vCard, vResult) {
+        
+            vId = vCard.attr('id');
 
+            $.ajax({
+              url      : "<?= $currentPath; ?>addMatchingResult.php",
+              data     : {
+                'swipingCompanyId' : vId,
+                'answer'           : vResult
+              },
+            });
+        }
+        
+        function cardAmountCheck() {
+        
+            cardsCounter++;
+
+            if ((numOfCards - cardsCounter) === amountAddSwipeCards) {
+                addSwipeCards();
+            }
+
+            if (cardsCounter === numOfCards) {
+                addSwipeCards();
+                cardsCounter = 0;
+                $(".profile__card").removeClass("below");
+            } 
+        }
+        
         function pullChange() {
             animating = true;
             deg = pullDeltaX / 10;
@@ -215,16 +246,7 @@
                 $card.addClass("to-right");   
 
                 // Change status in database
-                vId     = $card.attr('id');
-                vResult = "yes";
-
-                $.ajax({
-                  url      : "<?= $currentPath; ?>addMatchingResult.php",
-                  data     : {
-                    'swipingCompanyId' : vId,
-                    'answer'           : vResult
-                  },
-                });
+                updateDbStatus($card, "yes");
 
                 // Remove the current card
                 $card.remove();
@@ -233,16 +255,7 @@
                 $card.addClass("to-left");
 
                 // Change status in database
-                vId     = $card.attr('id');
-                vResult = "no";
-
-                $.ajax({
-                  url      : "<?= $currentPath; ?>addMatchingResult.php",
-                  data     : {
-                    'swipingCompanyId' : vId,
-                    'answer'           : vResult
-                  },
-                });
+                updateDbStatus($card, "no");
 
                 // Remove the current card
                 $card.remove();
@@ -254,17 +267,8 @@
 
                 setTimeout(function() {
                     $card.addClass("below").removeClass("inactive to-left to-right");
-                    cardsCounter++;
-
-                    if ((numOfCards - cardsCounter) === amountAddSwipeCards) {
-                        addSwipeCards();
-                    }
-
-                    if (cardsCounter === numOfCards) {
-                        addSwipeCards();
-                        cardsCounter = 0;
-                        $(".profile__card").removeClass("below");
-                    }
+                    
+                    cardAmountCheck();
 
                 }, 300);
             }
@@ -282,7 +286,6 @@
             }, 300);
 
         };
-
 
         $("#profile__skip").click(function (e) {
             $( ".profile__card").last().remove();
@@ -311,6 +314,54 @@
                 release();
             });
         });
+        
+        $("#like").on("click", function(e) {
+            if ($(".profile__card:last").length > 0) {
+                
+                vCard = $(".profile__card:last");
+                
+                // Change status in database
+                updateDbStatus(vCard, "yes")
+
+                // Remove the current card
+                vCard.remove();
+
+                // Card amount check
+                cardAmountCheck();                
+            } 
+        });
+        
+        $("#dislike").on("click", function(e) {
+            if ($(".profile__card:last").length > 0) {
+                
+                vCard = $(".profile__card:last");
+                
+                // Change status in database
+                updateDbStatus(vCard, "no")
+
+                // Remove the current card
+                vCard.remove();
+
+                // Card amount check
+                cardAmountCheck();                
+            } 
+        });
+        
+        $("#skip").on("click", function(e) {
+            if ($(".profile__card:last").length > 0) {
+                
+                vCard = $(".profile__card:last");
+                
+                // Change status in database
+                updateDbStatus(vCard, "skip")
+
+                // Remove the current card
+                vCard.remove();
+
+                // Card amount check
+                cardAmountCheck();                
+            } 
+        })
 
     });
     </script>

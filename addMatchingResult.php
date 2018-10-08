@@ -19,6 +19,10 @@ $match       = $matchingSvc->getMatch($account, $swipedAccount);
 // Get the data for the ajax request
 $answer = filter_input(INPUT_GET, 'answer');
 
+if ($answer === "skip") {
+    $answer = null;
+}
+
 if ($match !== null) {
     
     $tmpSwipedResult = $matchingSvc->getSwipeResultsFromStatus($match->getStatus());
