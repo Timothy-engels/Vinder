@@ -31,10 +31,7 @@
 
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Accounts met matches</h4>
-                                    </div>                    
+                                <div class="card">                
                                     <div class="card-body">                    
                                       
                                         <?php if (!empty($matchedCompanies)) : ?>
