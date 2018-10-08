@@ -31,8 +31,11 @@
 
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <div class="card">
+                                <div class="card">`
                                     <div class="card-header">
+                                        <div class="float-left">
+                                            <h4>Swipe naar links of naar rechts</h4>
+                                        </div>
                                         <div class="float-right">
                                             <div class="btn-group">
                                                 <button type="button" id="like" class="btn btn-success mr-1"><i class="ion ion-heart"></i></button>
@@ -40,7 +43,7 @@
                                                 <button type="button" id="skip" class="btn btn-primary">Volgende <i class="ion ion-arrow-right-c"></i></button>
                                             </div>
                                         </div>
-                                        <h4>Swipe naar links of naar rechts</h4>
+
                                     </div>
                                     <div class="card-body">
 
