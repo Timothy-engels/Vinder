@@ -9,6 +9,7 @@ $loggedInAccount = $accountSvc->getLoggedInUser(true);
 // Get the amount of matched and unmatched companies
 $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
 $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+$menuItem                 = "accounts-met-matches";
     
 // Get a list with the matched companies
 $matchedCompanies = $accountSvc->getMatchedCompanies();
@@ -17,4 +18,4 @@ $matchedCompanies = $accountSvc->getMatchedCompanies();
 $amountMatches = $accountSvc->getAmountMatchesByCompany();
 
 // Show the view
-include 'presentation/matchedCompanies.php';
+include 'presentation/accounts-met-matches.php';

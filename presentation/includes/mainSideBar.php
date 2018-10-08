@@ -27,8 +27,8 @@
             <li>
                 <a href="userList.php"><i class="ion ion-android-people"></i> Alle accounts</a>
             </li>
-            <li>
-                <a href="matchedCompanies.php"><i class="ion ion-android-happy"></i>  Met matches <div class="badge badge-primary"><?= $amountMatchedCompanies; ?></div></a>
+            <li <?php if (isset($menuItem) && $menuItem === "accounts-met-matches") echo 'class="active"'; ?>>
+                <a href="accounts-met-matches.php"><i class="ion ion-android-happy"></i>  Met matches <div class="badge badge-primary"><?= $amountMatchedCompanies; ?></div></a>
             </li>
             <li>
                 <a href="unmatchedCompanies.php"><i class="ion ion-android-sad"></i> Zonder matches <div class="badge badge-primary"><?= $amountUnmatchedCompanies; ?></div></a>
