@@ -41,7 +41,7 @@
                     <?php endif; ?>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block" tabindex="4">
+                        <button type="submit" class="btn btn-lg btn-info" tabindex="4">
                         Verzend
                         </button>
                     </div>
