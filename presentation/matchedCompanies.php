@@ -1,58 +1,104 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Vinder | Bedrijven met matches</title>
-        <style>
-            #companyInfoFlexBoxContainer {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: row;
-                justify-content: flex-start; 
-            }
-            
-            .companyInfoFlexBox {
-                width: 14rem;
-                height: 12rem;
-                text-align: center;
-                border: 1px solid lightgray;
-                padding: 1rem;
-                margin: 1rem;
-            }
-            
-            .logoImg {
-                max-height: 9rem;
-                max-width: 9rem;
-            }
-        </style>
-    </head>
-</html>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <title>Vinder | Accounts met matches</title>
+    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="style/swipe.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/skins/vinder.css">
+    <link rel="stylesheet" href="style/swipe.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
 
 <body>
-    <?php include ('menu.php'); ?>
-    
-    <main>
-        <h1>Bedrijven met matches</h1>
-        
-        <?php if (!empty($matchedCompanies)) : ?>
-            <div id="companyInfoFlexBoxContainer">
-                <?php foreach ($matchedCompanies as $company) : ?>
-                    <div class="companyInfoFlexBox">
-                        <a href="showProfile.php?userId=<?php print( $company->getId() ); ?>">
-                        <?php if ($company->getLogo() !== null && $company->getLogo() !== '') : ?>
-                            <img src="images/<?= $company->getLogo(); ?>" class="logoImg"><br/>
-                        <?php endif; ?>
-                        <?= $company->getName(); ?><br/>
-                        </a>
-                        <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
-                            <?= $amountMatches[$company->getID()]; ?> match(es)
-                        </a>
-                    </div>
-                <?php endforeach; ?>
+    <div id="app">
+        <div class="main-wrapper">
+            <?php include('includes/mainHeader.php'); ?>
+            <div class="main-sidebar">
+                <?php include('includes/mainSideBar.php'); ?>
             </div>
-        <?php else: ?>
-            <p>Er zijn nog geen bedrijven gematched.</p>
-        <?php endif; ?>
-        
-    </main>
+            <div class="main-content">
+                <section class="section">
+                    <h1 class="section-header">
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Accounts met matches</div>
+                    </h1>
+  
+                    <div class="section-body">
+
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Accounts met matches</h4>
+                                    </div>                    
+                                    <div class="card-body">                    
+                                      
+                                        <?php if (!empty($matchedCompanies)) : ?>
+                                        
+                                            <div class="row">
+                                                <?php foreach ($matchedCompanies as $company) : ?>
+                                                    <div class="col-12 col-sm-6 col-lg-3">
+                                                        <div class="card card-primary">
+                                                            <div class="card-header">
+                                                                <h4><?= $company->getName(); ?></h4>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <?php
+                                                                $logo = "no-image.png";
+                                                                if ($company->getLogo() !== null && $company->getLogo() !== '') :
+                                                                    $logo = $company->getLogo();
+                                                                endif;
+                                                                ?>
+                                                                <div class="logo-wrapper">
+                                                                    <img src="images/<?= $logo; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer">
+
+                                                                <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
+                                                                    <div class="badge badge-primary mb-2 width-100-perc"><?= $amountMatches[$company->getID()]; ?> match(es)</div> 
+                                                                </a><br/>
+                                                                <a href="showProfile.php?userId=<?= $company->getID(); ?>">
+                                                                    Profiel bekijken
+                                                                </a><br>
+                                                                <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
+                                                                    Match(es) bekijken
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+
+                                        <?php else: ?>
+                                        
+                                            <p>Er zijn geen accounts gematched.</p>
+                                            
+                                        <?php endif; ?>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <?php include('includes/mainFooter.php'); ?>
+        </div>
+    </div>
+
+    <script src="modules/jquery.min.js"></script>
+    <script src="modules/popper.js"></script>
+    <script src="modules/tooltip.js"></script>
+    <script src="modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+    <script src="js/sa-functions.js"></script>
+
+    <script src="js/scripts.js"></script>
+    <script src="js/custom.js"></script>        
 </body>

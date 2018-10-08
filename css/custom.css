@@ -1,8 +1,25 @@
+/* General styles */
 
-/* Size for logo */
+.width-100-perc {
+    width: 100%;
+}
+
+/* Styles for logo's */
 
 .logo-middle {
     max-width: 15rem;
+}
+
+.logo-wrapper {
+    height: 8rem;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle
+}
+
+.logo-wrapper img {
+    max-height: 8rem;
+    max-width: 8rem;
 }
 
 /* Left Menu */

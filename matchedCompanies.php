@@ -3,11 +3,13 @@
 require_once 'business/accountService.php';
 
 // Check if an admin is logged in
-$accountSvc = new AccountService();
-$account    = $accountSvc->getLoggedInUser(true);
+$accountSvc      = new AccountService();
+$loggedInAccount = $accountSvc->getLoggedInUser(true);
 
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
-
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+    
 // Get a list with the matched companies
 $matchedCompanies = $accountSvc->getMatchedCompanies();
 
