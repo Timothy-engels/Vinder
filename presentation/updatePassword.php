@@ -45,7 +45,7 @@
                                                     <input type="password" id="password" name="password" maxlength="10" autofocus/>
                                                     
                                                     <?php if (array_key_exists('password', $errors)) : ?>
-                                                        <div class="error"><?= $errors['password']; ?></div>
+                                                        <div class="invalid-feedback"><?= $errors['password']; ?></div>
                                                     <?php endif; ?>
                                                     
                                                 </div>
@@ -54,7 +54,7 @@
                                                     <input type="password" id="repeatPassword" name="repeatPassword" maxlength="10" />
                                                     
                                                     <?php if (array_key_exists('repeatPassword', $errors)) : ?>
-                                                        <div class="error"><?= $errors['repeatPassword']; ?></div>
+                                                        <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
                                                     <?php endif; ?>
                                                     
                                                 </div>

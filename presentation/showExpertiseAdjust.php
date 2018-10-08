@@ -31,16 +31,20 @@
     <form action="expertiseAdjust.php?eaid=<?=$eaid;?>" method="POST">
         <label for="expertise">Expertise:</label>
         <input type="text" name="expertise" value="<?= $expertiseName; ?>" autofocus>
+        
         <?php if ($expertiseNameErrors !== '') : ?>
             <div class="error"><?= $expertiseNameErrors; ?></div>
         <?php endif; ?>
-        <label for="active">Actief:<label>
+        
+        <label for="active">Actief:</label>
+            
         <?php
         $checked = '';
         if ($expertiseActive === "1") {
             $checked = "checked";
         }
         ?>
+            
         <input type="checkbox" name="active" value="1" <?= $checked; ?> />
         <input type="submit" value="Wijzigen">
     </form>
