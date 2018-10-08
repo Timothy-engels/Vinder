@@ -59,7 +59,7 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-lg btn-info">Wijzig</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary">Wijzig</button>
                                                 </div>
                                             </form>
                                             <p>

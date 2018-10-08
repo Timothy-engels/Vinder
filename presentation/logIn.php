@@ -55,7 +55,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-lg btn-info" tabindex="4" value="Login">
+                                        <input type="submit" class="btn btn-sm btn-primary" tabindex="4" value="Login">
                                     </div>
                                 </form>
                             </div>
