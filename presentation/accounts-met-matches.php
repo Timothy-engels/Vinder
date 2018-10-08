@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-    <title>Vinder | Accounts met matches</title>
+    <title>Vinder | <?= $title; ?></title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -24,7 +24,7 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Accounts met matches</div>
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;<?= $title; ?></div>
                     </h1>
   
                     <div class="section-body">
@@ -55,16 +55,20 @@
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
-
-                                                                <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
-                                                                    <div class="badge badge-primary mb-2 width-100-perc"><?= $amountMatches[$company->getID()]; ?> match(es)</div> 
-                                                                </a><br/>
-                                                                <a href="showProfile.php?userId=<?= $company->getID(); ?>">
+                                                                <?php if ($accountInfo === null) : ?>
+                                                                    <a href="accounts-met-matches.php?id=<?= $company->getID(); ?>">
+                                                                        <div class="badge badge-primary mb-2 width-100-perc"><?= $amountMatches[$company->getID()]; ?> match(es)</div> 
+                                                                    </a><br/>
+                                                                <?php endif; ?>
+                                                                <a href="showProfile.php?id=<?= $company->getID(); ?>">
                                                                     Profiel bekijken
-                                                                </a><br>
-                                                                <a href="matchedCompaniesTo.php?companyId=<?= $company->getID(); ?>">
-                                                                    Match(es) bekijken
                                                                 </a>
+                                                                <?php if ($accountInfo === null) : ?>
+                                                                    <br>
+                                                                    <a href="accounts-met-matches.php?id=<?= $company->getID(); ?>">
+                                                                        Match(es) bekijken
+                                                                    </a>
+                                                                <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     </div>
