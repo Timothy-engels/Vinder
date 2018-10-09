@@ -14,12 +14,12 @@
             <a href="showProfile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
-            <li class="active">
+            <li <?php if (isset($menuItem) && $menuItem === "swipe") echo 'class="active"'; ?>>
                 <a href="swipe.php"><i class="ion ion-android-share-alt"></i> Swipen</a>
             </li> 
         <?php endif; ?>
-        <li>
-            <a href="matchingController.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary"><?= $loggedInAccount->getAmountMyMatches(); ?></div></a>
+        <li <?php if (isset($menuItem) && $menuItem === "mijn-matches") echo 'class="active"'; ?>>
+            <a href="mijn-matches.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary"><?= $loggedInAccount->getAmountMyMatches(); ?></div></a>
         </li>
 
         <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
