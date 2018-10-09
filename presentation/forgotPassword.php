@@ -32,10 +32,13 @@
                     <div class="form-group">
                         <label for="email">Email *</label>
                         <input type="email" id="mail" name="mail" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" />
+                        
                         <?php if (array_key_exists('mail', $errors)) : ?>
                             <div class="invalid-feedback"><?= $errors['mail']; ?></div>
                         <?php endif; ?>
+                        
                     </div>
+                    
                     <?php if (array_key_exists('mail', $errors)) : ?>
                         <div class="invalid-feedback"><p><?= $errors['mail']; ?></p></div>
                     <?php endif; ?>

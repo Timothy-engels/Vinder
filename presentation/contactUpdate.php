@@ -8,21 +8,6 @@
         <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/style.css">    
         <link rel="stylesheet" href="css/skins/vinder.css">
-        <style>
-            label, input, .error {
-                display: block;
-            }
-            
-            .error {
-                color: red;
-                font-weight: bold;
-            }
-            
-            .message {
-                color: green;
-                font-weight: bold;
-            }
-        </style>
     </head>
     <body>
         
@@ -72,7 +57,7 @@
                                                     <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid<?php endif; ?>" name="repeatPassword" maxlength="10" />
                                                     
                                                     <?php if (array_key_exists('repeatPassword', $errors)) : ?>
-                                                        <div class="error"><?= $errors['repeatPassword']; ?></div>
+                                                        <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
                                                     <?php endif; ?>
                                                     
                                                 </div>
@@ -81,7 +66,7 @@
                                                     <input type="email" id="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid<?php endif; ?>" name="email" maxlength="255" value="<?= $email; ?>" />
                                                     
                                                     <?php if (array_key_exists('email', $errors)) : ?>
-                                                        <div class="error"><?= $errors['email']; ?>
+                                                        <div class="invalid-feedback"><?= $errors['email']; ?>
                                                     </div>
                                                     <?php endif; ?>
                                                     
