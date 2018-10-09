@@ -46,11 +46,6 @@ class MailService
                             font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
                         }
 
-                        .section {
-                            position: relative;
-                            z-index: 1;
-                        }
-
                         .container {
                             width: 90%;
                             padding-right: 15px;
@@ -64,19 +59,11 @@ class MailService
                         }
 
                         .row {
-                            display: -webkit-box;
-                            display: -ms-flexbox;
-                            display: flex;
-                            -ms-flex-wrap: wrap;
-                            flex-wrap: wrap;
                             margin-right: -15px;
                             margin-left: -15px;
                         }
 
                         .col-12 {
-                            -webkit-box-flex: 0;
-                            -ms-flex: 0 0 100%;
-                            flex: 0 0 100%;
                             max-width: 100%;
                         }
 
@@ -91,21 +78,13 @@ class MailService
                         }
 
                         .card {
-                            display: -webkit-box;
-                            display: -ms-flexbox;
-                            display: flex;
-                            -webkit-box-orient: vertical;
-                            -webkit-box-direction: normal;
-                            -ms-flex-direction: column;
-                            flex-direction: column;
                             min-width: 0;
                             word-wrap: break-word;
                             background-clip: border-box;
-                            -webkit-box-shadow: 0 0 40px rgba(0,0,0,.05);
                             box-shadow: 0 0 40px rgba(0,0,0,.05);
                             background-color: #fff;
                             border-radius: 3px;
-                            border: none;
+                            border: 1px solid #ededed;
                             position: relative;
                             margin-bottom: 30px;
                         }
@@ -113,40 +92,23 @@ class MailService
                         .card.card-primary {
                             border-top: 2px solid #0466A3;
                         }
-
+                        
+                        .card .card-header, .card .card-footer, .card .card-body {
+                            background-color: #fff;;
+                        }
+                        
                         .card-header {
                             padding: .75rem 1.25rem;
                             margin-bottom: 0;
-                            background-color: rgba(0,0,0,.03);
-                            border-bottom: 1px solid rgba(0,0,0,.125);
-                        }
-
-                        .card-header:first-child {
-                            border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
-                        }
-
-                        .card .card-header, .card .card-footer, .card .card-body {
-                            background-color: transparent;
-                        }
-
-                        .card .card-header {
-                            border-bottom-color: #f9f9f9;
+                            background-color: #fff;
+                            border-radius: 3px 3px 0 0;
+                            border-bottom: 1px solid #f9f9f9;
                             line-height: 30px;
-                            -ms-flex-item-align: center;
-                            -ms-grid-row-align: center;
-                            align-self: center;
                             width: 100%;
                         }
 
                         .card-body {
-                            -webkit-box-flex: 1;
-                            -ms-flex: 1 1 auto;
-                            flex: 1 1 auto;
                             padding: 1.25rem;
-                        }
-
-                        .card .card-header, .card .card-footer, .card .card-body {
-                            background-color: transparent;
                         }
 
                         .card .card-body {
@@ -159,14 +121,9 @@ class MailService
                             margin-bottom: 1rem;
                         }
 
-                        a:-webkit-any-link {
-                            cursor: pointer;
-                        }
-
                         a {
                             text-decoration: none;
-                            background-color: transparent;
-                            font-weight: 500;
+                            font-weight: bold;
                             color: #0466A3;
                         }
 
@@ -179,13 +136,6 @@ class MailService
 
                         h4 {
                             display: block;
-                            margin-block-start: 1.33em;
-                            margin-block-end: 1.33em;
-                            margin-inline-start: 0px;
-                            margin-inline-end: 0px;
-                        }
-
-                        .card .card-header h4 {
                             font-size: 10px;
                             font-weight: 700;
                             letter-spacing: 1px;
@@ -223,9 +173,6 @@ class MailService
             $htmlMsg = $msg;
             
         }
-        
-        var_dump($htmlMsg);
-        die();
         
         // Set headers to send HTML mail
         $headers[] = 'MIME-Version: 1.0';
