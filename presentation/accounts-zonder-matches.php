@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-    <title>Vinder | <?= $title; ?></title>
+    <title>Vinder | Accounts zonder matches</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -22,20 +22,21 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;<?= $title; ?></div>
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Accounts zonder matches</div>
                     </h1>
   
                     <div class="section-body">
-
+                        
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="card">                
-                                    <div class="card-body">                    
-                                      
-                                        <?php if (!empty($matchedCompanies)) : ?>
+                                    <div class="card-body">    
+        
+                                        <?php if (!empty($unmatchedCompanies)) : ?>
                                         
                                             <div class="row">
-                                                <?php foreach ($matchedCompanies as $company) : ?>
+        
+                                                <?php foreach ($unmatchedCompanies as $company) : ?>
                                                     <div class="col-12 col-sm-6 col-lg-3">
                                                         <div class="card card-primary">
                                                             <div class="card-header">
@@ -53,29 +54,22 @@
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <?php if ($accountInfo === null) : ?>
-                                                                    <a href="accounts-met-matches.php?id=<?= $company->getID(); ?>">
-                                                                        <div class="badge badge-primary mb-2 width-100-perc"><?= $amountMatches[$company->getID()]; ?> match(es)</div> 
-                                                                    </a><br/>
-                                                                <?php endif; ?>
                                                                 <a href="showProfile.php?id=<?= $company->getID(); ?>">
                                                                     Profiel bekijken
                                                                 </a>
-                                                                <?php if ($accountInfo === null) : ?>
-                                                                    <br>
-                                                                    <a href="accounts-met-matches.php?id=<?= $company->getID(); ?>">
-                                                                        Match(es) bekijken
-                                                                    </a>
-                                                                <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 <?php endforeach; ?>
                                             </div>
-
+                                        
+                                                <form action="unmatchedCompanies.php" method="post" >
+                                                    <input type="submit" class="btn btn-sm btn-primary" value="Match met VDAB" name="VDAB"/>
+                                                </form>
+                                        
                                         <?php else: ?>
                                         
-                                            <p>Er zijn geen accounts gematched.</p>
+                                            <p>Alle accounts zijn gematched!</p>
                                             
                                         <?php endif; ?>
                                             

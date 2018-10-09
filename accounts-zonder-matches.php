@@ -1,18 +1,20 @@
 <?php
-
 require_once 'business/accountService.php';
 require_once ('business/matchingService.php');
 
 // Check if an admin is logged in
-$accountSvc = new AccountService();
-$account    = $accountSvc->getLoggedInUser(true);
+$accountSvc      = new AccountService();
+$loggedInAccount = $accountSvc->getLoggedInUser(true);
+$menuItem        = "accounts-zonder-matches";
 
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
 
 // Get al ist with the unmachted companies
 $unmatchedCompanies = $accountSvc->getUnmatchedCompanies();
 
-if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "match met VDAB") {
+if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "Match met VDAB") {
 
     // Get ID from admin company
     $idAdmin = $account->getId();
@@ -41,4 +43,4 @@ if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "match met VDAB") {
 }
 
 // Show the view
-include 'presentation/unmatchedCompanies.php';
+include 'presentation/accounts-zonder-matches.php';

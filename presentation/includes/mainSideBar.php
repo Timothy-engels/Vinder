@@ -30,8 +30,8 @@
             <li <?php if (isset($menuItem) && $menuItem === "accounts-met-matches") echo 'class="active"'; ?>>
                 <a href="accounts-met-matches.php"><i class="ion ion-android-happy"></i>  Met matches <div class="badge badge-primary"><?= $amountMatchedCompanies; ?></div></a>
             </li>
-            <li>
-                <a href="unmatchedCompanies.php"><i class="ion ion-android-sad"></i> Zonder matches <div class="badge badge-primary"><?= $amountUnmatchedCompanies; ?></div></a>
+            <li <?php if (isset($menuItem) && $menuItem === "accounts-zonder-matches") echo 'class="active"'; ?>>
+                <a href="accounts-zonder-matches.php"><i class="ion ion-android-sad"></i> Zonder matches <div class="badge badge-primary"><?= $amountUnmatchedCompanies; ?></div></a>
             </li>      
         <?php endif; ?>
         <li class="menu-header">Beheer</li>
