@@ -14,12 +14,12 @@
             <a href="showProfile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
-            <li class="active">
+            <li <?php if (isset($menuItem) && $menuItem === "swipe") echo 'class="active"'; ?>>
                 <a href="swipe.php"><i class="ion ion-android-share-alt"></i> Swipen</a>
             </li> 
         <?php endif; ?>
-        <li>
-            <a href="matchingController.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary"><?= $loggedInAccount->getAmountMyMatches(); ?></div></a>
+        <li <?php if (isset($menuItem) && $menuItem === "mijn-matches") echo 'class="active"'; ?>>
+            <a href="mijn-matches.php"><i class="ion ion-heart"></i> Mijn matches <div class="badge badge-primary"><?= $loggedInAccount->getAmountMyMatches(); ?></div></a>
         </li>
 
         <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
@@ -30,8 +30,8 @@
             <li <?php if (isset($menuItem) && $menuItem === "accounts-met-matches") echo 'class="active"'; ?>>
                 <a href="accounts-met-matches.php"><i class="ion ion-android-happy"></i>  Met matches <div class="badge badge-primary"><?= $amountMatchedCompanies; ?></div></a>
             </li>
-            <li>
-                <a href="unmatchedCompanies.php"><i class="ion ion-android-sad"></i> Zonder matches <div class="badge badge-primary"><?= $amountUnmatchedCompanies; ?></div></a>
+            <li <?php if (isset($menuItem) && $menuItem === "accounts-zonder-matches") echo 'class="active"'; ?>>
+                <a href="accounts-zonder-matches.php"><i class="ion ion-android-sad"></i> Zonder matches <div class="badge badge-primary"><?= $amountUnmatchedCompanies; ?></div></a>
             </li>      
         <?php endif; ?>
         <li class="menu-header">Beheer</li>

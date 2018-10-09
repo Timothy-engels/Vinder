@@ -54,4 +54,4 @@ if ($decryptedCode !== '') {
 
 }
 
-include("presentation/confirmRegistration.php");
+include("presentation/registratie-bevestigen.php");

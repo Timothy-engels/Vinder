@@ -36,7 +36,7 @@
         <i class="ion ion-android-happy"></i> Accounts met matches
     </a>
 
-    <a href="unmatchedCompanies.php" class="dropdown-item has-icon">
+    <a href="accounts-zonder-matches.php" class="dropdown-item has-icon">
         <i class="ion ion-android-happy"></i> Accounts zonder matches
     </a>
 
