@@ -136,7 +136,7 @@ class AccountService
 
         // Generate the message
         $currentPath = $this->getCurrentPath();
-        $link        = $currentPath . "confirmRegistration.php?code=" . $code;
+        $link        = $currentPath . "registratie-bevestigen.php?code=" . $code;
         
         $msg = "
             <p>Beste,<br/><br/>
@@ -148,7 +148,7 @@ class AccountService
         
         // Send html email        
         $mailSvc = new MailService();
-        $mailSvc->sendHtmlMail($email, "Vinder | Registratie bevestigen", $msg);
+        $mailSvc->sendHtmlMail($email, "Registratie bevestigen", $msg);
     }
     
     /**

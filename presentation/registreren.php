@@ -19,7 +19,7 @@
                             <div class="login-brand"><a href="logIn.php"><img src="images/logo.png" alt="Vinder" style="width: 15rem;"></a></div>
 
                             <div class="card card-primary">
-                                <div class="card-header"><h4>Registeer</h4></div>
+                                <div class="card-header"><h4>Registreren</h4></div>
 
                                 <div class="card-body">
                                     
@@ -29,7 +29,7 @@
                                     
                                     <?php else : ?>
                                     
-                                        <form name="frmRegister" method="POST" action="register.php">
+                                        <form name="frmRegister" method="POST" action="registreren.php">
                                             <div class="form-group">
                                                 <label for="name">Bedrijfsnaam *</label>
                                                 <input type="text" id="name" name="name" class="form-control <?php if (array_key_exists('name', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $name; ?>" autofocus />

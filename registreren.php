@@ -140,4 +140,4 @@ if ($general == null) {
 }
 
 // Show the view
-include("presentation/register.php");
+include("presentation/registreren.php");

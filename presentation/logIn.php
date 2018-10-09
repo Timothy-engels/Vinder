@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="mt-5 text-muted text-center">
-                            Nog geen account? <a href="register.php">Registreer nu!</a>
+                            Nog geen account? <a href="registreren.php">Registreer nu!</a>
                         </div>
                         <div class="simple-footer">
                             Copyright &copy; VDAB 2018
