@@ -36,9 +36,11 @@
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input id="mail" type="email" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid<?php endif; ?>" name="mail" tabindex="1" value="<?= $mail; ?>" required autofocus >
+                                        
                                         <?php if (array_key_exists('mail', $errors)) : ?>
                                             <div class="invalid-feedback"><?= $errors['mail']; ?></div>
                                         <?php endif; ?>
+                                        
                                     </div>
 
                                     <div class="form-group">
@@ -52,6 +54,7 @@
                                         <?php if (array_key_exists('pass', $errors)) : ?>
                                             <div class="invalid-feedback"><?= $errors['pass']; ?></div>
                                         <?php endif; ?>
+                                        
                                     </div>
 
                                     <div class="form-group">

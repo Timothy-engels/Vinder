@@ -42,7 +42,7 @@
                                         
                                                 <div class="form-group">
                                                     <label for="password">Wachtwoord *</label>
-                                                    <input type="password" id="password" name="password" maxlength="10" autofocus/>
+                                                    <input type="password" id="password" name="password" class="form-control <?php if (array_key_exists('password', $errors)) : ?>is-invalid<?php endif; ?>" maxlength="10" autofocus/>
                                                     
                                                     <?php if (array_key_exists('password', $errors)) : ?>
                                                         <div class="invalid-feedback"><?= $errors['password']; ?></div>
@@ -51,7 +51,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="repeatPassword">Herhaal wachtwoord *</label>
-                                                    <input type="password" id="repeatPassword" name="repeatPassword" maxlength="10" />
+                                                    <input type="password" id="repeatPassword" name="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid<?php endif; ?>" maxlength="10" />
                                                     
                                                     <?php if (array_key_exists('repeatPassword', $errors)) : ?>
                                                         <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
