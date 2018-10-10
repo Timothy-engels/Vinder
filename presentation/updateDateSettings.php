@@ -28,7 +28,7 @@
                     <div class="section-body">
 
                         <div class="row">
-                            <div class="col-12 col-md-12">
+                            <div class="col-12 col-md-6 col-lg-6">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4>Datums aanpassen</h4>
@@ -62,7 +62,7 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-lg btn-info">Wijzig</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary">Wijzig</button>
                                                 </div>
                                             </form>
                                             <p>

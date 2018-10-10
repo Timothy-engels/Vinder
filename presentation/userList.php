@@ -58,24 +58,5 @@
             <?php include('includes/mainFooter.php'); ?>
         </div>
     </div>
-    <!-- 
-    <main>
-        <ul>
-            <?php foreach($list as $row) : ?>
-                <li>
-                    <a href="showProfile.php?id=<?=$row->getId(); ?>">
-                    <?= $row->getName(); ?>
-                    <?php if ($row->getLogo() !== null && $row->getLogo() !== '') : ?>
-                        <img src="images/<?= $row->getLogo(); ?>" style="height: 8rem;"><br/>
-                    <?php endif; ?>
-                    </a>
-                    <a href="deleteAccount.php?id=<?php print($row->getId()); ?>">
-                        (Delete)
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </main> 
-    -->
 </body>
 </html>
