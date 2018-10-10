@@ -29,7 +29,7 @@
                             <div class="col-12 col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Matchings verwijderen?</h4>
+                                        <h4>Matchings verwijderen</h4>
                                     </div>
                                     <div class="card-body">
                                         <?php if ($successMsg !== '') : ?>
