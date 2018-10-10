@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
-
 <body>
     <div id="app">
         <section class="section">

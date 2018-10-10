@@ -49,8 +49,7 @@
                                                                 $logo = "no-image.png";
                                                                 if ($account->getLogo() !== null && $account->getLogo() !== '') :
                                                                     $logo = $account->getLogo();
-                                                                endif;
-                                                                ?>
+                                                                endif; ?>
                                                                 <div class="logo-wrapper">
                                                                     <img src="images/<?= $logo; ?>">
                                                                 </div>
@@ -68,9 +67,7 @@
                                             </div>
                                                                                         
                                         <?php else: ?>
-                                        
                                             <p>Er zijn nog geen accounts gemachted aan je profiel.</p>
-                                            
                                         <?php endif; ?>
                                             
                                     </div>
