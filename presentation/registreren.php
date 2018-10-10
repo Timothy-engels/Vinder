@@ -88,10 +88,7 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-
-                            <div class="simple-footer">
-                                Copyright &copy; VDAB 2018
-                            </div>
+                            <?php include('includes/mainFooter.php'); ?>
                         </div>
                     </div>
                 </div>
