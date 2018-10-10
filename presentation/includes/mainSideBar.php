@@ -59,8 +59,8 @@
             <li>
                 <a href="updateDateSettings.php"><i class="ion ion-android-calendar"></i><span>Datums</span></a>
             </li>       
-            <li>
-                <a href="deleteMatching.php"><i class="ion ion-android-delete"></i> Matchings verwijderen</a>
+            <li <?php if (isset($menuItem) && $menuItem === "matchings-verwijderen") echo 'class="active"'; ?>>
+                <a href="matchings-verwijderen.php"><i class="ion ion-android-delete"></i> Matchings verwijderen</a>
             </li>                             
         <?php endif; ?>
     </ul>

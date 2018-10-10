@@ -40,7 +40,7 @@
         <i class="ion ion-android-happy"></i> Accounts zonder matches
     </a>
 
-    <a href="deleteMatching.php" class="dropdown-item has-icon">
+    <a href="matchings-verwijderen.php" class="dropdown-item has-icon">
         <i class="ion ion-android-delete"></i> Matchings verwijderen
     </a>
 

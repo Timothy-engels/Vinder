@@ -5,14 +5,21 @@ require_once("business/encryptionService.php");
 
 // Check if an admin is logged in
 $accountSvc      = new AccountService();
-$account         = $accountSvc->getLoggedInUser(true);
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+$loggedInAccount = $accountSvc->getLoggedInUser(true);
+$menuItem        = "matchings-verwijderen";
+
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+
+// Set success msg
+$successMsg = "";
    
 if ($_POST) {
 
     // Add the account ID & the current date the the confirmation string
     $now                = new DateTime();
-    $confirmationString = $account->getID() . '|' . $now->format("Y-m-d H:i:s");
+    $confirmationString = $loggedInAccount->getID() . '|' . $now->format("Y-m-d H:i:s");
     
     // Send confirmation mail to administrator
     $encryptionSvc    = new EncryptionService();
@@ -27,18 +34,17 @@ if ($_POST) {
     
     $msg = "<p>Beste, <br><br>
             Klik op de onderstaande link om de matchings te verwijderen:<br>
-            <a href=\"" . $link . "\">Verwijder de matchings</a><br><br>
+            <a href=\"" . $link . "\">Matchings verwijderen</a><br><br>
             Met vriendelijke groeten, <br>
             VDAB</p>";
     
     // Send the mail
     $mailSvc = new MailService();
-    $mailSvc->sendHtmlMail($account->getEmail(), "Vinder | Verwijder matchings", $msg);
+    $mailSvc->sendHtmlMail($loggedInAccount->getEmail(), "Matchings verwijderen", $msg);
     
-    include("presentation/deleteMatchingSuccess.php");
-    die();
+    $successMsg = "We hebben je een mail gestuurd met een link om de matchings te verwijderen.<br>Let op: de link in deze mail is <strong>slechts één uur geldig</strong>!";
     
 }
 
 // Show the view
-include("presentation/deleteMatching.php");
+include("presentation/matchings-verwijderen.php");
