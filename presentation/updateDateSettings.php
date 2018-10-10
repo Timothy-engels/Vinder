@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
-    
     <div id="app">
         <div class="main-wrapper">
             <?php include('includes/mainHeader.php'); ?>
