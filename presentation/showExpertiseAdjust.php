@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-    
     <div id="app">
         <div class="main-wrapper">
             <?php //include('includes/mainHeader.php'); ?>
