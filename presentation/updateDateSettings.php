@@ -45,7 +45,7 @@
                                         
                                                 <div class="form-group">
                                                     <label for="registerDate" class="d-block">Einddatum registratie/ Startdatum swipen *</label>
-                                                    <input type="text" id="registerDate" class="<?php if (array_key_exists('registerDate', $errors)) : ?>is-invalid<?php endif; ?>" name="registerDate" maxlength="10" autofocus/>
+                                                    <input type="text" id="registerDate" class="form-control <?php if (array_key_exists('registerDate', $errors)) : ?>is-invalid<?php endif; ?>" name="registerDate" maxlength="10" autofocus/>
                                                     
                                                     <?php if (array_key_exists('registerDate', $errors)) : ?>
                                                         <div class="invalid-feedback"><?= $errors['registerDate']; ?></div>
@@ -54,7 +54,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="swipeDate" class="d-block">Einddatum swipen *</label>
-                                                    <input type="text" id="swipeDate" class="<?php if (array_key_exists('swipeDate', $errors)) : ?>is-invalid<?php endif; ?>" name="swipeDate" maxlength="10" />
+                                                    <input type="text" id="swipeDate" class="form-control <?php if (array_key_exists('swipeDate', $errors)) : ?>is-invalid<?php endif; ?>" name="swipeDate" maxlength="10" />
                                                     
                                                     <?php if (array_key_exists('swipeDate', $errors)) : ?>
                                                         <div class="invalid-feedback"><?= $errors['swipeDate']; ?></div>
