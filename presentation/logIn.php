@@ -44,7 +44,7 @@
                                     <div class="form-group">
                                         <label for="password" class="d-block">Wachtwoord
                                             <div class="float-right">
-                                                <a href="forgotPassword.php">Wachtwoord vergeten?</a>
+                                                <a href="wachtwoord-vergeten.php">Wachtwoord vergeten?</a>
                                             </div>
                                         </label>
                                         <input id="pass" type="password" class="form-control <?php if (array_key_exists('pass', $errors)) : ?>is-invalid<?php endif; ?>" name="pass" tabindex="2" required>

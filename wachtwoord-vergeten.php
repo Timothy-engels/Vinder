@@ -6,7 +6,8 @@ require_once("business/mailService.php");
 
 $mail = (filter_input(INPUT_POST, 'mail') !== null ? filter_input(INPUT_POST, 'mail') : '');
 
-$errors = [];
+$errors     = [];
+$successMsg = '';
 
 if ($_POST) {
     
@@ -53,11 +54,11 @@ if ($_POST) {
         
         // Send the mail
         $mailSvc = new MailService();
-        $mailSvc->sendHtmlMail($mail, "Vinder | Wachtwoord vergeten", $msg);
+        $mailSvc->sendHtmlMail($mail, "Wachtwoord vergeten", $msg);
         
-        include("presentation/forgotPasswordSuccess.php");
-        die();
+        $successMsg = "We hebben je een mail gestuurd met een link om je wachtwoord te wijzigen.";
+        
     }
 }
 
-include("presentation/forgotPassword.php");
+include("presentation/wachtwoord-vergeten.php");
