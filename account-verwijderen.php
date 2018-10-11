@@ -11,8 +11,11 @@ $matchSrv   = new MatchingService();
 // Check if user is logged in
 $loggedInAccount = $accountSvc->getLoggedInUser();
 
-// Is the user logged in as an admin
-$loggedInAsAdmin = ($loggedInAccount->getAdministrator() === "1" ? true : false);
+// Get the amount of matched and unmatched companies
+if ($loggedInAccount->getAdministrator() === "1") {
+    $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+    $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+}
 
 // Set the general message
 $message      = "";
@@ -55,7 +58,7 @@ if ($_POST) {
         $errors['pass'] = $passwordErrors;
     }
     
-    if (!password_verify($password, $loggedInAccount->getPassword())) {
+    if ($passwordErrors === '' && !password_verify($password, $loggedInAccount->getPassword())) {
         $errors['pass'] = 'Foutief wachtwoord';
     }
     

@@ -26,10 +26,10 @@
                                     <p>Je account is met succes verwijderd.</p>
                                 </div>
                             </div>
-                            <?php include('includes/mainFooter.php'); ?>
+                            <?php include('includes/simpleFooter.php'); ?>
+                            </div>
                         </div>
                     </div>
-                </div>
             </section>
         </div>
     </body>
