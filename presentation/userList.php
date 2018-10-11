@@ -35,7 +35,7 @@
                                                     <img class="mr-3 rounded-circle" width="50" src="images/<?= $row->getLogo(); ?>" alt="logo">
                                                     <div class="media-body">
                                                         <div class="float-right">
-                                                            <a href="deleteAccount.php?id=<?php print($row->getId()); ?>">
+                                                            <a href="account-verwijderen.php?id=<?php print($row->getId()); ?>">
                                                                 (Delete)
                                                             </a>
                                                         </div>

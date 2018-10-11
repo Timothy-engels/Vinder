@@ -9,17 +9,40 @@ $expSrv     = new ExpertiseService();
 $matchSrv   = new MatchingService();
 
 // Check if user is logged in
-$account = $accountSvc->getLoggedInUser();
+$loggedInAccount = $accountSvc->getLoggedInUser();
 
 // Is the user logged in as an admin
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
-
-// Get the ID from the logged in user
-$id = $account->getId();
+$loggedInAsAdmin = ($loggedInAccount->getAdministrator() === "1" ? true : false);
 
 // Set the general message
-$message = "";
-$errors  = [];
+$message      = "";
+$errors       = [];
+$urlExtension = '';
+
+$deleteAccountId = filter_input(INPUT_GET, 'id');
+
+if ($deleteAccountId !== null) {
+    
+    if ($loggedInAccount->getAdministrator() === "1" ) {
+        $deleteAccount = $accountSvc->getById($deleteAccountId);
+        if ($deleteAccount === null) {
+             $message = "Er is een onbekende fout opgetreden!";
+        } else {
+            $urlExtension = '?id=' . $deleteAccountId;
+        }
+    } else {
+        $message = "U heeft geen rechten om deze pagina te bekijken!";
+    }
+    
+} else { 
+    $deleteAccount   = $loggedInAccount;
+    $deleteAccountId = $loggedInAccount->getId();   
+}
+
+if ($message === '' && $deleteAccount->getAdministrator() === "1") {
+    // Admin account can't be deleted
+    $message = "Deze account is de administrator account.<br>Je mag deze account niet verwijderen!";
+}
 
 if ($_POST) {
     
@@ -32,36 +55,44 @@ if ($_POST) {
         $errors['pass'] = $passwordErrors;
     }
     
-    if (!password_verify($password, $account->getPassword())) {
+    if (!password_verify($password, $loggedInAccount->getPassword())) {
         $errors['pass'] = 'Foutief wachtwoord';
     }
     
     if (empty($errors)) {
     
         //remove matches
-        $matchSrv->deleteByUserId($id);
+        $matchSrv->deleteByUserId($deleteAccountId);
 
         //remove expertises
-        $expSrv->deleteExpertisesByUserId($id);
-        $expSrv->deleteExpectedByUserId($id);
-        $expSrv->deleteExtraExpertiseByUserId($id);
-        $expSrv->deleteExtraExpectedByUserId($id);
+        $expSrv->deleteExpertisesByUserId($deleteAccountId);
+        $expSrv->deleteExpectedByUserId($deleteAccountId);
+        $expSrv->deleteExtraExpertiseByUserId($deleteAccountId);
+        $expSrv->deleteExtraExpectedByUserId($deleteAccountId);
 
-        $oldlogo = $account->getLogo();
-        if (file_exists('images/' . $oldlogo)) {
-            unlink('images/' . $oldlogo);//logo from server remove
+        // Remove the logo
+        $logo = $deleteAccount->getLogo();
+        if ($logo !== '' && $logo !== null && file_exists('images/' . $logo)) {
+            unlink('images/' . $logo);//logo from server remove
         }
+        // Delete the account
+        $accountSvc->deleteById($deleteAccountId);//remove account
 
-        $accountSvc->deleteById($id);//remove account
+        if ($loggedInAccount->getAdministrator() === "1") {
+            
+            header("location: userList.php");
+            
+        } else { 
+            // Log out
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
 
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+            session_destroy();
+
+            include("presentation/account-verwijderd.php");
+            die();
         }
-
-        session_destroy();
-        
-        include("presentation/account-verwijderd.php");
-        die();
     }
         
 }
