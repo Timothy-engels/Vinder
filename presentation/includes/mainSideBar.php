@@ -45,8 +45,8 @@
             <a href="updatePassword.php"><i class="ion ion-android-lock"></i><span>Wachtwoord</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
-            <li>
-                <a href="deleteAccount.php"><i class="ion ion-android-delete"></i><span>Account verwijderen</span></a>
+            <li <?php if (isset($menuItem) && $menuItem === "account-verwijderen") echo 'class="active"'; ?>>
+                <a href="account-verwijderen.php"><i class="ion ion-android-delete"></i><span>Account verwijderen</span></a>
             </li>
         <?php endif; ?>
         <?php if ($loggedInAccount->getAdministrator() === "1") : ?>

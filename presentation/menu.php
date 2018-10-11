@@ -20,7 +20,7 @@
         <i class="ion ion-android-share-alt"></i> Swipen
     </a>
 
-    <a href="deleteAccount.php" class="dropdown-item has-icon">
+    <a href="account-verwijderen.php" class="dropdown-item has-icon">
         <i class="ion ion-android-delete"></i> Mijn account verwijderen
     </a>
 
