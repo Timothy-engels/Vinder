@@ -6,7 +6,7 @@
     <i class="ion ion-android-create"></i> Profiel wijzigen
 </a>
 
-<a href="contactUpdate.php" class="dropdown-item has-icon">
+<a href="contactgegevens-wijzigen.php" class="dropdown-item has-icon">
     <i class="ion ion-android-mail"></i> Contactinfo wijzigen
 </a>
 
