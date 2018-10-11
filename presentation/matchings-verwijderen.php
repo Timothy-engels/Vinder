@@ -13,6 +13,10 @@
 <body>
     <div id="app">
         <div class="main-wrapper">
+            <?php include('includes/mainHeader.php'); ?>
+            <div class="main-sidebar">
+                <?php include('includes/mainSideBar.php'); ?>
+            </div>
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
