@@ -18,7 +18,7 @@ if (filter_input(INPUT_GET, 'code') !== null) {
     
     $loggedInAccount = $accountSvc->getByEmail($decryptedCode);
     
-    if ($account !== null) {
+    if ($loggedInAccount !== null) {
         $accountId = $loggedInAccount->getId();
     } else {
         header("location: logIn.php");
@@ -93,8 +93,8 @@ if ($_POST) {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         
         // Update the password
-        $account->setPassword($passwordHash);
-        $accountSvc->update($account);
+        $loggedInAccount->setPassword($passwordHash);
+        $accountSvc->update($loggedInAccount);
         
         // Show the confirmation
         include("presentation/updatePasswordSuccess.php");

@@ -3,6 +3,12 @@
 <head>
     <meta charset=utf-8>
     <title>Vinder | Matchings verwijderen</title>
+    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="css/skins/vinder.css">
+    <link rel="stylesheet" href="css/custom.css"> 
 </head>
 <body>
     <div id="app">
