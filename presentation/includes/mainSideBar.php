@@ -38,8 +38,8 @@
         <li>
             <a href="editProfile.php"><i class="ion-android-create"></i><span>Profiel</span></a>
         </li>
-        <li>
-            <a href="contactUpdate.php"><i class="ion-android-mail"></i><span>Contactinfo</span></a>
+        <li <?php if (isset($menuItem) && $menuItem === "contactgegevens-wijzigen") echo 'class="active"'; ?>>
+            <a href="contactgegevens-wijzigen.php"><i class="ion-android-mail"></i><span>Contactgegevens</span></a>
         </li>
         <li>
             <a href="updatePassword.php"><i class="ion ion-android-lock"></i><span>Wachtwoord</span></a>

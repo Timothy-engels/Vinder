@@ -2,24 +2,26 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
     <title>Vinder | Contactpersoon wijzigen</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="css/style.css">    
     <link rel="stylesheet" href="css/skins/vinder.css">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <?php //include('includes/mainHeader.php'); ?>
+            <?php include('includes/mainHeader.php'); ?>
             <div class="main-sidebar">
-                <?php //include('includes/mainSideBar.php'); ?>
+                <?php include('includes/mainSideBar.php'); ?>
             </div>
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Vinder</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
 
                     <div class="section-body">
@@ -28,19 +30,17 @@
                             <div class="col-12 col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Wijzig uw contactgegevens</h4>
+                                        <h4>Contactgegevens wijzigen</h4>
                                     </div>
                                     <div class="card-body">
                             
                                         <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
                                 
-                                            <form name="frmContactUpdate" method="POST" action="contactUpdate.php">
+                                            <form name="frmContactUpdate" method="POST" action="contactgegevens-wijzigen.php">
                                         
-                                                <!-- dit stuk geeft problemen, wie heeft dit geschreven?
-                                                <?php if ($message !== '') : ?>
-                                                    <div class="message"><?= $message; ?></div>
+                                                <?php if ($msg !== '') : ?>
+                                                    <div class="alert alert-success"><?= $msg; ?></div>
                                                 <?php endif; ?>
-                                                -->
                                         
                                                 <div class="form-group">
                                                     <label for="name">Bedrijfsnaam * </label>
@@ -52,11 +52,11 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="repeatPassword">Herhaal wachtwoord *</label>
-                                                    <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid<?php endif; ?>" name="repeatPassword" maxlength="10" />
+                                                    <label for="contactPerson">Contactpersoon *</label>
+                                                    <input type="text" id="contactPerson" class="form-control <?php if (array_key_exists('contactPerson', $errors)) : ?>is-invalid<?php endif; ?>" name="contactPerson" value="<?= $contactPerson; ?>" maxlength="255" />
                                                     
-                                                    <?php if (array_key_exists('repeatPassword', $errors)) : ?>
-                                                        <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
+                                                    <?php if (array_key_exists('contactPerson', $errors)) : ?>
+                                                        <div class="invalid-feedback"><?= $errors['contactPerson']; ?></div>
                                                     <?php endif; ?>
                                                     
                                                 </div>
@@ -65,8 +65,7 @@
                                                     <input type="email" id="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid<?php endif; ?>" name="email" maxlength="255" value="<?= $email; ?>" />
                                                     
                                                     <?php if (array_key_exists('email', $errors)) : ?>
-                                                        <div class="invalid-feedback"><?= $errors['email']; ?>
-                                                    </div>
+                                                        <div class="invalid-feedback"><?= $errors['email']; ?></div>
                                                     <?php endif; ?>
                                                     
                                                 </div>
@@ -91,4 +90,16 @@
         </div>
     </div>
 </body>
+
+<script src="modules/jquery.min.js"></script>
+<script src="modules/popper.js"></script>
+<script src="modules/tooltip.js"></script>
+<script src="modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="js/sa-functions.js"></script>
+
+<script src="js/scripts.js"></script>
+<script src="js/custom.js"></script> 
+
 </html>
