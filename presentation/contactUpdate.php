@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="nl">
-    <head>
-        <meta charset="UTF-8">
-        <title>Vinder | Contactpersoon wijzigen</title>
-        <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/style.css">    
-        <link rel="stylesheet" href="css/skins/vinder.css">
-    </head>
-    <body>
-        
-        <div id="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Vinder | Contactpersoon wijzigen</title>
+    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="css/skins/vinder.css">
+</head>
+<body>
+    <div id="app">
         <div class="main-wrapper">
             <?php //include('includes/mainHeader.php'); ?>
             <div class="main-sidebar">
@@ -91,47 +90,5 @@
             <?php include('includes/mainFooter.php'); ?>
         </div>
     </div>
-        
-        <?php include('menu.php'); ?>
-        
-        <main>
-            <section id="contactUpdate">
-                <h1>Wijzig uw contactgegevens</h1>
-                
-                <?php if ($msg !== '') : ?>
-                    <div class="message"><?= $msg; ?></div>
-                <?php endif; ?>
-                
-                <form name="frmContactUpdate" method="POST" action="contactUpdate.php">
-                    
-                    <p><small>Velden met een * zijn verplicht in te vullen</small></p>
-                    
-                    <label for="name">Bedrijfsnaam * </label>
-                    <input type="text"
-                           class="form-control <?php if (array_key_exists('name', $errors)) : ?>is-invalid<?php endif; ?>" id="name" name="name" maxlength="255" value="<?= $name; ?>" autofocus />
-                    
-                    <?php if (array_key_exists('name', $errors)) : ?>
-                        <div class="invalid-feedback"><?= $errors['name']; ?></div>
-                    <?php endif; ?>
-                    
-                    
-                    <label for="contactPerson">Contactpersoon *</label>
-                    <input type="text" id="contactPerson" class="form-control <?php if (array_key_exists('contactPerson', $errors)) : ?>is-invalid<?php endif; ?>" name="contactPerson" maxlength="255" value="<?= $contactPerson; ?>" />
-                    
-                    <?php if (array_key_exists('contactPerson', $errors)) : ?>
-                        <div class="error"><?= $errors['contactPerson']; ?></div>
-                    <?php endif; ?>
-                        
-                    <label for="email">E-mail * </label>
-                    <input type="email" id="email" name="email" maxlength="255" value="<?= $email; ?>" />
-                    <?php if (array_key_exists('email', $errors)) : ?>
-                    <div class="error"><?= $errors['email']; ?></div>
-                    <?php endif; ?>
-                            
-                    <input type="submit" value="Wijzigen" />
-                        
-                </form>
-            </section>
-        </main>
-    </body>
+</body>
 </html>

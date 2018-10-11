@@ -40,7 +40,7 @@
            E-mail: <a href="mailto::<?= $company2->getEmail(); ?>"><?= $company2->getEmail(); ?></a>
            <?php if ($company2->getWebsite() !== null && $company2->getWebsite() !== '') : ?>
                <br>Website: <a href="<?= $company2->getWebsite(); ?>" target="_blank"><?= $company2->getWebsite(); ?></a>
-           <?php endif; ?></p>
+           <?php endif; ?>
         </p>
         
         <?php if (!empty($company2->getAccountExpertises()) OR $company2->getAccountExpertiseExtra() !== null) : ?>

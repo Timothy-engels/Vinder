@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
-
 <body>
     <div id="app">
         <section class="section">
@@ -66,9 +65,7 @@
                         <div class="mt-5 text-muted text-center">
                             Nog geen account? <a href="registreren.php">Registreer nu!</a>
                         </div>
-                        <div class="simple-footer">
-                            Copyright &copy; VDAB 2018
-                        </div>
+                        <?php include('includes/mainFooter.php'); ?>
                     </div>
                 </div>
             </div>
