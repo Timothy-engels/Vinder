@@ -28,9 +28,11 @@ class ExpertiseDAO
         $params = [];
         
         if ($status !== null) {
-            $sql               .= "WHERE Actief = :status";
+            $sql               .= "WHERE Actief = :status ";
             $params[':status']  = $status;
         }
+        
+        $sql .= "ORDER BY Expertise";
                     
         // Open the connection
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);

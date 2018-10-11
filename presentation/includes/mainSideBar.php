@@ -50,7 +50,7 @@
             </li>
         <?php endif; ?>
         <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
-            <li>
+            <li <?php if (isset($menuItem) && $menuItem === "expertises") echo 'class="active"'; ?>>
                 <a href="expertises.php"><i class="ion ion-ribbon-b"></i><span>Expertises</span></a>
             </li>
             <li>
