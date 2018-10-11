@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/style.css">    
         <link rel="stylesheet" href="css/skins/vinder.css"> 
+        <link rel="stylesheet" href="css/custom.css"> 
     </head>
     <body>
         <div id="app">
