@@ -36,7 +36,7 @@
         <?php endif; ?>
         <li class="menu-header">Beheer</li>
         <li>
-            <a href="editProfile.php"><i class="ion-android-create"></i><span>Profiel</span></a>
+            <a href="editProfile.php"><i class="ion-android-create"></i><span>Profiel wijzigen</span></a>
         </li>
         <li <?php if (isset($menuItem) && $menuItem === "contactgegevens-wijzigen") echo 'class="active"'; ?>>
             <a href="contactgegevens-wijzigen.php"><i class="ion-android-mail"></i><span>Contactgegevens</span></a>

@@ -88,7 +88,7 @@
 
                                         <div>
                                             <div>
-                                                Bedrijf name: <?php echo $account->getName(); ?>
+                                                Naam van de bedrijf: <?php echo $account->getName(); ?>
                                             </div>
                                             <div>
                                                 Contactpersoon: <?php echo $account->getContactPerson(); ?>
@@ -134,14 +134,13 @@
                                         <div>
                                             <?php if($exps) {
                                                 foreach ($exps as $expertise) { ?>
-                                                    <div style="font-weight: bold">
+                                                    <div>
                                                         <?php echo $expertise->getExpertise(); ?>
                                                     </div>
-                                                    <div style="margin: 8px;">
-                                                        Meer info: <?php if ($expertise->getInfo()) {
-                                                            echo $expertise->getInfo();
+                                                    <div style="margin-left: 4px; margin-bottom: 10px">
+                                                        <?php if ($expertise->getInfo()) {
+                                                            echo "<i class=\"fa fa-info-circle\"></i> ".$expertise->getInfo();
                                                         }
-                                                        else echo "Geen info";
                                                         ?>
                                                     </div>
                                                     <?php
@@ -151,11 +150,16 @@
                                             ?>
                                         </div>
                                         <?php if($extraExp!=null){ ?>
-                                            <div style="font-weight: bold">Extra expertise: <?php echo $extraExp->getExpertise();?></div>
+                                            <?php if ($extraExp->getExpertise()!==''){ ?>
+                                                <div>Extra
+                                                    expertise: <?php echo $extraExp->getExpertise(); ?></div>
 
-                                            <div style="margin: 8px;">Meer info: <?php if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
+                                                <div style="margin-left: 4px; margin-bottom: 10px"><?php if ($extraExp->getInfo()) {
+                                                        echo "<i class=\"fa fa-info-circle\"></i> ".$extraExp->getInfo();
+                                                    }?></div>
+                                            <?php } else echo "Geen extra expertsise" ?>
                                         <?php }
-                                        else echo "Geen extra expertsisen"
+                                        else echo "Geen extra expertsise"
                                         ?>
 
                                     </div>
@@ -173,11 +177,11 @@
                                             <?php
                                             if($expExps) {
                                                 foreach ($expExps as $expertise) { ?>
-                                                    <div style="font-weight: bold">
+                                                    <div>
                                                         <?php echo $expertise->getExpertise(); ?>
                                                     </div>
-                                                    <div style="margin: 8px;">
-                                                        Meer info: <?php echo $expertise->getInfo(); ?>
+                                                    <div style="margin-left: 4px; margin-bottom: 10px">
+                                                        <?php echo "<i class=\"fa fa-info-circle\"></i> ".$expertise->getInfo(); ?>
                                                     </div>
                                                     <?php
                                                 }
@@ -187,12 +191,15 @@
                                             ?>
                                         </div>
                                         <?php if($extraExpExp!=null){ ?>
-
-                                            <div style="font-weight: bold">Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
-
-                                            <div style="margin: 8px;">Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
+                                            <?php if ($extraExp->getExpertise()!==''){ ?>
+                                                <div>Extra
+                                                    expertise: <?php echo $extraExpExp->getExpertise(); ?></div>
+                                                <div style="margin-left: 4px; margin-bottom: 10px"><?php if ($extraExpExp->getInfo()) {
+                                                        echo "<i class=\"fa fa-info-circle\"></i> ".$extraExpExp->getInfo();
+                                                    } ?></div>
+                                            <?php } else echo "Geen extra expertsise"?>
                                         <?php }
-                                        else echo "Geen extra expertsisen"?>
+                                        else echo "Geen extra expertsise"?>
 
                                     </div>
                                 </div>
