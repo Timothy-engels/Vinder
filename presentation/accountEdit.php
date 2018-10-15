@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
           name="viewport">
-<<<<<<< HEAD
     <title>Vinder | Account aanpassen</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-=======
-    <title>Vinder | Profiel wijzigen</title>
->>>>>>> 85fe669116aa01484873bfe5ab07577780589af7
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
