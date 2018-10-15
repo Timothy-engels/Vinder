@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header"><h4>Expertisen:</h4></div>
+                                    <div class="card-header"><h4>Expertisen</h4></div>
 
                                     <div class="card-body">
 
@@ -147,14 +147,16 @@
                                                     <?php
                                                 }
                                             }
-                                            else echo "Geen expertises";
+                                            else echo "Geen expertisen";
                                             ?>
                                         </div>
-                                        <?php if($extraExp){ ?>
+                                        <?php if($extraExp->getExpertise()){ ?>
                                             <div style="font-weight: bold">Extra expertise: <?php echo $extraExp->getExpertise();?></div>
 
                                             <div style="margin: 8px;">Meer info: <?php if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
-                                        <?php }?>
+                                        <?php }
+                                        else echo "Geen extra expertsisen"
+                                        ?>
 
                                     </div>
                                 </div>
@@ -181,15 +183,16 @@
                                                 }
                                             }
 
-                                            else { echo "Geen expertises"; }
+                                            else { echo "Geen expertisen"; }
                                             ?>
                                         </div>
-                                        <?php if($extraExpExp){ ?>
+                                        <?php if($extraExpExp->getExpertise()){ ?>
 
                                             <div style="font-weight: bold">Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
 
                                             <div style="margin: 8px;">Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
-                                        <?php }?>
+                                        <?php }
+                                        else echo "Geen extra expertsisen"?>
 
                                     </div>
                                 </div>
