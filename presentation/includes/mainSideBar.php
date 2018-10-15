@@ -36,21 +36,21 @@
         <?php endif; ?>
         <li class="menu-header">Beheer</li>
         <li>
-            <a href="editProfile.php"><i class="ion-android-create"></i><span>Profiel</span></a>
+            <a href="editProfile.php"><i class="ion-android-create"></i><span>Profiel wijzigen</span></a>
         </li>
-        <li>
-            <a href="contactUpdate.php"><i class="ion-android-mail"></i><span>Contactinfo</span></a>
+        <li <?php if (isset($menuItem) && $menuItem === "contactgegevens-wijzigen") echo 'class="active"'; ?>>
+            <a href="contactgegevens-wijzigen.php"><i class="ion-android-mail"></i><span>Contactgegevens</span></a>
         </li>
         <li>
             <a href="updatePassword.php"><i class="ion ion-android-lock"></i><span>Wachtwoord</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
-            <li>
-                <a href="deleteAccount.php"><i class="ion ion-android-delete"></i><span>Account verwijderen</span></a>
+            <li <?php if (isset($menuItem) && $menuItem === "account-verwijderen") echo 'class="active"'; ?>>
+                <a href="account-verwijderen.php"><i class="ion ion-android-delete"></i><span>Account verwijderen</span></a>
             </li>
         <?php endif; ?>
         <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
-            <li>
+            <li <?php if (isset($menuItem) && $menuItem === "expertises") echo 'class="active"'; ?>>
                 <a href="expertises.php"><i class="ion ion-ribbon-b"></i><span>Expertises</span></a>
             </li>
             <li>

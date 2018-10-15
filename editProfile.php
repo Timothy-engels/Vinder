@@ -3,13 +3,18 @@ require_once("business/expertiseService.php");
 require_once("business/accountService.php");
 require_once ("business/validationService.php");
 
-$usersSvc = new AccountService();
+$accountSvc = new AccountService();
 
 // Check if user is logged in
-$account = $usersSvc->getLoggedInUser();
+$account = $loggedInAccount = $accountSvc->getLoggedInUser();
+$menuItem        = "profile-wijzigen";
 
 // Is the user logged in as an admin
 $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
 
 // Get the ID from the logged in user
 $id = $account->getId();
@@ -24,10 +29,12 @@ $exps        = $expSrv->getExpertisesById($id);
 $expExps     = $expSrv->getExpectedExpertisesById($id);
 $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
-$allExps     = $expSrv->getExpertises();
+$allExps     = $expSrv->getActiveExpertises();
 
-$msg2='';
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 
     $info           = (filter_input(INPUT_POST, 'Info') !== null ? filter_input(INPUT_POST, 'Info') : $account->getInfo());
     $website          = (filter_input(INPUT_POST, 'website') !== null ? filter_input(INPUT_POST, 'website') : $account->getWebsite());
@@ -50,13 +57,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $account->setInfo($info);
         $account->setWebsite($website);
-        $usersSvc->update($account);
+        $accountSvc->update($account);
 
         //$msg = "Uw gegevens zijn met success aangepast.";
 
     }
 
-    echo $_FILES['fileToUpload']['size'];
+    if(isset($_POST['del'])){
+        $oldlogo = $account->getLogo($newfilename); // delete logo!!!
+        if (is_file($target_dir . $oldlogo)) {
+            unlink($target_dir . $oldlogo);
+        }
+        $account->setLogo("");
+        $accountSvc->update($account);
+    };
+
     if ($_FILES['fileToUpload']['size']!==0 and !empty($_FILES['fileToUpload'])) {
         $target_dir = "images/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -66,12 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadOk = 1;
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif") {
-            $msg2 = "Only JPG, JPEG, PNG & GIF files are allowed.";
+            $_SESSION['msg2'] = "Only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         }
         if ($check !== false) {
             if ($_FILES["fileToUpload"]["size"] > 10000000) {
-                $msg2 = "Sorry, your file is too large. Max 10MB";
+                $_SESSION['msg2'] = "Sorry, your file is too large. Max 10MB";
                 $uploadOk = 0;
             }// Allow certain file formats
             if ($uploadOk !== 0) {
@@ -82,9 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         unlink($target_dir . $oldlogo);
                     }
                     $account->setLogo($newfilename);
-                    $usersSvc->update($account);
-                    $msg = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
-                    $msg2 = '';
+                    $accountSvc->update($account);
+                    $_SESSION['msg'] = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
                 }
             }
         } else {
@@ -112,6 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $expSrv->addExtraExpertiseByUserId($id, $_POST['extraexpertise'], $_POST['extraexpertiseinfo']);
     $expSrv->addExtraExpectedExpertiseByUserId($id, $_POST['extraexpected'], $_POST['extraexpectedinfo']);
 
+    header("Location: editProfile.php");
+    exit(0);
 
 }
 

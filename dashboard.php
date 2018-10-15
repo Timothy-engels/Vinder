@@ -5,7 +5,7 @@ require_once("business/accountService.php");
 
 $accountSvc = new AccountService();
 // Check if user is logged in
-$account    = $accountSvc->getLoggedInUser();
+$account = $loggedInAccount = $accountSvc->getLoggedInUser();
 $info       = $account->getInfo();
 
 // Is the user logged in as an admin

@@ -7,17 +7,21 @@ $accountSvc    = new AccountService();
 $validationSvc = new ValidationService();
 
 // Check if the user is logged in
-$account         = $accountSvc->getLoggedInUser();
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+$loggedInAccount = $accountSvc->getLoggedInUser();
+$menuItem        = "contactgegevens-wijzigen";
+
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
 
 // Set the variables
 $errors = [];
 $msg    = '';
 
 // Get the posted values
-$name           = (filter_input(INPUT_POST, 'name') !== null ? filter_input(INPUT_POST, 'name') : $account->getName());
-$contactPerson  = (filter_input(INPUT_POST, 'contactPerson') !== null ? filter_input(INPUT_POST, 'contactPerson') : $account->getContactPerson());
-$email          = (filter_input(INPUT_POST, 'email') !== null ? filter_input(INPUT_POST, 'email') : $account->getEmail());
+$name           = (filter_input(INPUT_POST, 'name') !== null ? filter_input(INPUT_POST, 'name') : $loggedInAccount->getName());
+$contactPerson  = (filter_input(INPUT_POST, 'contactPerson') !== null ? filter_input(INPUT_POST, 'contactPerson') : $loggedInAccount->getContactPerson());
+$email          = (filter_input(INPUT_POST, 'email') !== null ? filter_input(INPUT_POST, 'email') : $loggedInAccount->getEmail());
 
 
 if ($_POST) {
@@ -41,7 +45,7 @@ if ($_POST) {
     }
     
     if ($emailErrors == '') {
-        $emailErrors = $validationSvc->checkUniqueAccountEmail($email, $account->getId());
+        $emailErrors = $validationSvc->checkUniqueAccountEmail($email, $loggedInAccount->getId());
     }
     
     if ($emailErrors !== '') {
@@ -51,16 +55,16 @@ if ($_POST) {
     if (empty($errors)) {
         
         // Update the contactinfo
-        $account->setName($name);
-        $account->setContactPerson($contactPerson);
-        $account->setEmail($email);
+        $loggedInAccount->setName($name);
+        $loggedInAccount->setContactPerson($contactPerson);
+        $loggedInAccount->setEmail($email);
         
-        $accountSvc->update($account);
+        $accountSvc->update($loggedInAccount);
         
         $msg = "Uw gegevens zijn met success aangepast.";
         
     }
 }
 // Show the view
-include("presentation/contactUpdate.php");
+include("presentation/contactgegevens-wijzigen.php");
 

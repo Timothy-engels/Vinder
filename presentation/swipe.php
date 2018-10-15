@@ -12,9 +12,30 @@
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="style/swipe.css">
     <link rel="stylesheet" href="css/custom.css">
+    <?php include('includes/nativeAppMeta.php'); ?>
 </head>
 
 <body>
+<!-- Modal -->
+<div class="modal fade" id="match" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">You have a match</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="$('#match').modal('toggle');" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="notification" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#match').modal('toggle');">Verder swipen</button>
+                <a id='profillink' href=""><button type="button" class="btn btn-primary">Profiel bekijken</button></a>
+            </div>
+        </div>
+    </div>
+</div>
     <div id="app">
         <div class="main-wrapper">
             <?php include('includes/mainHeader.php'); ?>
@@ -212,6 +233,28 @@
               },
             });
         }
+
+        function getNotification(vCard) {
+
+            vId = vCard.attr('id');
+
+            $.ajax({
+                url      : "<?= $currentPath; ?>getNotification.php",
+                data     : {
+                    'swipingCompanyId' : vId,
+                },
+                dataType : 'html'
+            }).done(function(msg) {
+                if (msg != '') {
+                    $('#match').modal('toggle');
+                    var notification = document.getElementById("notification");
+                    var profillink = document.getElementById("profillink");
+                    profillink.setAttribute("href","showProfile.php?id="+msg);
+                    notification.innerText = msg;
+                }
+            });
+        }
+
         
         function cardAmountCheck() {
         
@@ -248,6 +291,7 @@
                 // Change status in database
                 updateDbStatus($card, "yes");
 
+                getNotification($card);
                 // Remove the current card
                 $card.remove();
 

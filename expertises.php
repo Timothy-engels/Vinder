@@ -3,15 +3,20 @@ require_once("business/accountService.php");
 require_once("business/expertiseService.php");
 require_once("business/validationService.php");
     
+// Check if an admin is logged in
 $accService      = new accountService();
-$account         = $accService->getLoggedInUser(true);
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+$loggedInAccount = $accService->getLoggedInUser(true);
+$menuItem        = 'expertises';
+
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accService->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accService->getAmountUnmatchedCompanies();
 
 $validation    = '';
 $message       = '';
 $newExpertise  = '';
 
-if (isset($_POST["newExpertise"])) {
+if ($_POST) {
     
     $newExpertise  = $_POST["newExpertise"];
     $validationSvc = new ValidationService();
@@ -36,6 +41,6 @@ if (isset($_POST["newExpertise"])) {
 $expertSvc  = new ExpertiseService();
 $expertises = $expertSvc->getExpertises();
 
-include("presentation/expertisesList.php");
+include("presentation/expertises.php");
 
     
