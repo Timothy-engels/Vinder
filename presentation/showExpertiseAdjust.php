@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <?php include('includes/nativeAppMeta.php'); ?>
 </head>
 <body>
     <div id="app">

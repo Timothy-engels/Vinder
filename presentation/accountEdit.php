@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="style/photoupload.css">
+    <?php include('includes/nativeAppMeta.php'); ?>
     <script>
         var expertises = [];
         <?php

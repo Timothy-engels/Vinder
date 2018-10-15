@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/style.css">    
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="css/custom.css">
+    <?php include('includes/nativeAppMeta.php'); ?>
 </head>
 <body>
     <div id="app">
