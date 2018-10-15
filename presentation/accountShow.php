@@ -151,7 +151,7 @@
                                             else echo "Geen expertisen";
                                             ?>
                                         </div>
-                                        <?php if($extraExp->getExpertise()){ ?>
+                                        <?php if($extraExp!=null){ ?>
                                             <div style="font-weight: bold">Extra expertise: <?php echo $extraExp->getExpertise();?></div>
 
                                             <div style="margin: 8px;">Meer info: <?php if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
@@ -187,7 +187,7 @@
                                             else { echo "Geen expertisen"; }
                                             ?>
                                         </div>
-                                        <?php if($extraExpExp->getExpertise()){ ?>
+                                        <?php if($extraExpExp!=null){ ?>
 
                                             <div style="font-weight: bold">Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
 
