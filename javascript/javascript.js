@@ -22,6 +22,7 @@ function moreInfo(expertise) { //function add or delete input elements
                 inputExtra.setAttribute("type","text");
                 inputExtra.setAttribute("class","form-control");
 
+                inputExtra.style.marginBottom = '12px';
                 inputExtra.style.marginLeft= '12px';
                 inputLabel.style.marginLeft = '12px';
 
@@ -64,11 +65,18 @@ function check_url() {
 function remove_logo() {
     var logo = document.getElementById("logo");
     var removelogo = document.getElementById("removelogo");
+    var company_logo = document.getElementById("company_logo");
     if (removelogo.innerText !== "Terug") {
         logo.style.opacity = 0.2;
         removelogo.innerText = "Terug";
+        var hidden = document.createElement("input");
+        hidden.setAttribute('id','deletelogo');
+        hidden.setAttribute('name','del');
+        hidden.style.display = 'none';
+        company_logo.appendChild(hidden);
     } else {
         logo.style.opacity = 1;
         removelogo.innerText = "Verwidert logo";
+        $('#deletelogo').remove();
     }
 }
