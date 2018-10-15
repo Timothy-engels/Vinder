@@ -168,7 +168,7 @@
                                                    value="<?php if (isset($_POST['extraexpertise'])) echo $_POST['extraexpertise']; elseif ($extraExp) {
                                                        echo $extraExp->getExpertise();
                                                    } ?>">
-                                            <label id="extraexpertiseinfo" style="margin-top: 12px">Meer info: </label>
+                                            <label id="extraexpertiseinfo" style="margin-top: 12px">Meer info over extra expertise: </label>
                                             <input id="extraexpertiseinfo" class="form-control"
                                                    name="extraexpertiseinfo" type="text" class="row"
                                                    value="<?php if (isset($_POST['extraexpertiseinfo'])) echo $_POST['extraexpertiseinfo']; elseif ($extraExp) {
@@ -232,7 +232,7 @@
                                                    value="<?php if (isset($_POST['extraexpected'])) echo $_POST['extraexpected']; elseif ($extraExpExp) {
                                                        echo $extraExpExp->getExpertise();
                                                    } ?>">
-                                            <label id="extraexpectedinfo" style="margin-top: 12px">Meer info: </label>
+                                            <label id="extraexpectedinfo" style="margin-top: 12px">Meer info over extra expertise: </label>
                                             <input class="form-control" id="extraexpectedinfo" name="extraexpectedinfo"
                                                    type="text" class="row"
                                                    value="<?php if (isset($_POST['extraexpectedinfo'])) echo $_POST['extraexpectedinfo']; elseif ($extraExpExp) {
