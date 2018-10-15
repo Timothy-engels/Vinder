@@ -2,16 +2,186 @@
 <html>
 <head>
     <meta charset=utf-8>
-    <title><?php echo $account->getName(); ?> Profile</title>
-    <style>
-        body{
-            font-family: 'Lato', sans-serif;
-            font-size: 21px;
-        }
-    </style>
+    <title>Vinder | Profiel</title>
+    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="css/skins/vinder.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
+    <div id="app">
+        <div class="main-wrapper">
+            <?php //include('includes/mainHeader.php'); ?>
+            <div class="main-sidebar">
+                <?php //include('includes/mainSideBar.php'); ?>
+            </div>
+            <div class="main-content">
+                <section class="section">
+                    <h1 class="section-header">
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Vinder</div>
+                    </h1>
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Profiel</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled list-unstyled-border">
+                                            <li class="media">
+                                                <img class="mr-3 rounded-circle" width="50" src="images/<?= $account->getLogo(); ?>" alt="logo">
+                                            </li>
+                                            <li class="media">
+                                                Id: <?php echo $account->getId(); ?>
+                                            </li>
+                                            <li class="media">
+                                                Bedrijf: <?php echo $account->getName(); ?>
+                                            </li>
+                                            <li class="media">
+                                                Contactpersoon: <?php echo $account->getContactPerson(); ?>
+                                            </li>
+                                            <li class="media">
+                                                E-mail: <?php echo $account->getEmail(); ?>
+                                            </li>
+                                            <li class="media">
+                                                Website: 
+                                                
+                                                <?php if ($account->getWebsite()) : ?>
+                                                
+                                                    <a href="<?= $account->getWebsite(); ?>" target="_blank">
+                                                        <?= $account->getWebsite(); ?>
+                                                    </a>
+                                                
+                                                <?php else: ?>
+                                    
+                                                    Geen website.
+                   
+                                                <?php endif; ?>
+                                                
+                                            </li><li class="media">
+                                                Info: 
+                                            
+                                                <?php if ($account->getInfo()) { echo $account->getInfo(); } else echo "Geen info"; ?>
+                                            
+                                            </li>
+                                            <li class="media">
+                                               <?php 
+                                                    if($loggedInAsAdmin) {
+                                                        $registered = $account->getConfirmed();
+                                                        if($registered==1) {
+                                                            $answer = "Ja";
+                                                        }
+                                                        else {
+                                                            $answer = "Nee";
+                                                        }
+                                                        print("<div>Geregistreerd: " . $answer . "</div>");
+                                                    }
+                                                ?> 
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <?php if($exps) { ?>
+                                    
+                                        <div class="card-header">
+                                            <h4>Expertises</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled list-unstyled-border">
+                                                
+                                                <?php foreach ($exps as $expertise) { ?>
+                                                    <li class="media">
+                                                        <?php echo $expertise->getExpertise(); ?>
+                                                    </li>
+                                                    <li class="media">
+                                                        Meer info: 
+                                                        <?php if ($expertise->getInfo()) {
+                                                            echo $expertise->getInfo();
+                                                        }
+                                                        else echo "Geen info";
+                                                        ?>
+                                                    </li>
+                                                <?php 
+                                                }
+                                            ?>
+                                            </ul>
+                                        </div>
+                                    
+                                    <?php } else echo"<div class='card-header'><h4>Geen expertises</h4></div>";
+                                    if($extraExp) { ?>
+                                    
+                                        <div class="card-header">
+                                            <h4>Extra info</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled list-unstyled-border">
+                                                <li class="media">
+                                                    Extra info: <?php echo $extraExpExp->getExpertise();?>
+                                                </li>
+                                                <li class="media">
+                                                    Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    
+                                    <?php } 
+                                    if($expExps) { ?>
+                                    
+                                        <div class="card-header">
+                                            <h4>Meer info willen hebben</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled list-unstyled-border">
+                                                <?php if($expExps) {
+                                                    foreach ($expExps as $expertise) { ?>
+                                                        <li class="media">
+                                                            Expertise: <?php echo $expertise->getExpertise(); ?>
+                                                        </li>
+                                                        <li class="media">
+                                                            Meer info: <?php echo $expertise->getInfo(); ?>
+                                                        </li>
+                                                    <?php } 
+                                                } ?>
+                                            </ul>
+                                        </div>
+                                    
+                                    <?php } else { echo "<div class='card-header'><h4>Geen extra info nodig</h4></div>"; } 
+                                    if($extraExpExp){ ?>
+                                        
+                                        <div class="card-header">
+                                            <h4>Extra Expertise</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled list-unstyled-border">
+                                                <li class="media">
+                                                    Extra expertise: <?php echo $extraExpExp->getExpertise();?>
+                                                </li>
+                                                <li class="media">
+                                                    Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    
+                                    <?php } else { echo "<div class='card-header'><h4>Geen extra expertise</h4></div>"; } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+                                    
+<!--                                            
+    
 
 <?php include('menu.php'); ?>
 
@@ -83,11 +253,13 @@
         else echo "Geen expertises";
         ?>
     </div>
+    
 <?php if($extraExp){ ?>
 <div>Extra expertise: <?php echo $extraExp->getExpertise();?></div>
 
 <div>Meer info: <?php if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
 <?php }?>
+    
 <h3>Meer info willen hebben:</h3>
 <div>
     <?php
@@ -106,11 +278,12 @@
     else { echo "Geen expertises"; }
     ?>
 </div>
+    
 <?php if($extraExpExp){ ?>
 
 <div>Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
 
 <div>Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
-<?php }?>
+<?php }?> -->
 </body>
 </html>
