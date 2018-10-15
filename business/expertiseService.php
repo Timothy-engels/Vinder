@@ -11,6 +11,13 @@ class ExpertiseService
         $list = $expertiseDAO->getAll();
         return $list;
     }
+
+    public function getActiveExpertises()
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $list = $expertiseDAO->getAll(1);
+        return $list;
+    }
     
     public function getExpertisesById($id)
     {

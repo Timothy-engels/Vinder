@@ -29,7 +29,7 @@ $exps        = $expSrv->getExpertisesById($id);
 $expExps     = $expSrv->getExpectedExpertisesById($id);
 $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
-$allExps     = $expSrv->getExpertises();
+$allExps     = $expSrv->getActiveExpertises();
 
 
 
