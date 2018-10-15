@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
           name="viewport">
-    <title>Vinder | Account wijzigen</title>
+    <title>Vinder | Profiel wijzigen</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -33,8 +33,7 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a>
-                        </div>
+                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Profiel wijzigen</div>
                     </h1>
 
                     <div class="section-body">
