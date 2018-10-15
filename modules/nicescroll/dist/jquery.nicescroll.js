@@ -74,10 +74,10 @@
   var _globaloptions = {
     zindex: "auto",
     cursoropacitymin: 0,
-    cursoropacitymax: 1,
+    cursoropacitymax: 0.1,
     cursorcolor: "#424242",
-    cursorwidth: "6px",
-    cursorborder: "1px solid #fff",
+    cursorwidth: "2px",
+    cursorborder: "1px solid #000",
     cursorborderradius: "5px",
     scrollspeed: 40,
     mousescrollstep: 9 * 3,
