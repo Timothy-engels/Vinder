@@ -21,13 +21,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">You have a match</h5>
-                <button type="button" class="close" data-dismiss="modal" onclick="$('#match').modal('toggle');" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="notification" class="modal-body">
+                <h5 class="modal-title" id="exampleModalLongTitle">Gematcht!!!</h5>
 
+            </div>
+            <div id="notification" class="modal-body" style="display: flex;justify-content: center;align-items: center;">
+                <img id="comLog" style="display: block;margin-left: auto;margin-right: auto" src="">
+                <div id="comNam" style="display: inline-block;margin-left: auto;margin-right: auto"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#match').modal('toggle');">Verder swipen</button>
@@ -234,28 +233,48 @@
             });
         }
 
+        //get notification if matched
         function getNotification(vCard) {
 
             vId = vCard.attr('id');
 
             $.ajax({
-                url      : "<?= $currentPath; ?>getNotification.php",
-                data     : {
-                    'swipingCompanyId' : vId,
+                url: "<?= $currentPath; ?>getNotification.php",
+                data: {
+                    'swipingCompanyId': vId,
                 },
-                dataType : 'html'
-            }).done(function(msg) {
-                if (msg != '') {
-                    $('#match').modal('toggle');
-                    var notification = document.getElementById("notification");
-                    var profillink = document.getElementById("profillink");
-                    profillink.setAttribute("href","showProfile.php?id="+msg);
-                    notification.innerText = msg;
-                }
-            });
-        }
+                dataType: 'JSON'
+            }).done(function (response) {
+                    var len = response.length;
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i].id;
+                        var name = response[i].name;
+                        var logo = response[i].logo;
+                        $('#match').modal('toggle');
 
-        
+                        var notification = document.getElementById("notification");
+                        var profillink = document.getElementById("profillink");
+                        profillink.setAttribute("href", "showProfile.php?id=" + id);
+
+
+                        var img = document.getElementById("comLog");
+                        var eName = document.getElementById("comNam");
+
+                        if(logo){
+                            img.setAttribute("src","images/"+logo);
+                        }else {
+                            img.setAttribute("src","images/no-image.png");
+                        }
+                        img.style.maxHeight = "150px";
+                        img.style.maxWidth = "150px";
+                        eName.innerText = name;
+                    }
+
+                }
+                )
+            }
+
+
         function cardAmountCheck() {
         
             cardsCounter++;
@@ -291,7 +310,9 @@
                 // Change status in database
                 updateDbStatus($card, "yes");
 
+                //get notification if matched
                 getNotification($card);
+
                 // Remove the current card
                 $card.remove();
 
@@ -371,7 +392,10 @@
                 vCard.remove();
 
                 // Card amount check
-                cardAmountCheck();                
+                cardAmountCheck();
+
+                //get notification if matched
+                getNotification(vCard);
             } 
         });
         

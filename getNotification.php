@@ -18,9 +18,10 @@ $match       = $matchingSvc->getMatch($account, $swipedAccount);
 
 
 
-
+$return_arr = array();
 if ($match !== null) {
     if ($match->getStatus() == 3) {
-        echo $swipedAccountId;
+        $return_arr[] = array("id"=>$swipedAccountId,"name"=>$swipedAccount->getName(),"logo"=>$swipedAccount->getLogo());
+        echo json_encode($return_arr);
     }
 }
