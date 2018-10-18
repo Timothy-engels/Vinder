@@ -66,7 +66,7 @@
                         <div class="mt-5 text-muted text-center">
                             Nog geen account? <a href="registreren.php">Registreer nu!</a>
                         </div>
-                        <?php include('includes/mainFooter.php'); ?>
+                        <?php include('includes/simpleFooter.php'); ?>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,15 @@
     width: 100%;
 }
 
+.simple-footer {
+    font-family: 'Montserrat';
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+}
+
 /* Styles for logo's */
 
 .logo-middle {
