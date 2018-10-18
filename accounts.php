@@ -12,4 +12,4 @@ $loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
 $list = $accountSvc->getAccounts();
 
 // Show the view
-include 'presentation/userList.php';
+include 'presentation/accounts.php';

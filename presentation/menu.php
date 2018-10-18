@@ -28,7 +28,7 @@
 
  <?php if (isset($loggedInAsAdmin) && $loggedInAsAdmin) : ?>
             
-    <a href="userList.php" class="dropdown-item has-icon">
+    <a href="accounts.php" class="dropdown-item has-icon">
         <i class="ion ion-android-menu"></i> Overzicht accounts
     </a>
 

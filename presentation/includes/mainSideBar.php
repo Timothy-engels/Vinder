@@ -24,8 +24,8 @@
 
         <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
             <li class="menu-header">Accounts</li>
-            <li>
-                <a href="userList.php"><i class="ion ion-android-people"></i> Alle accounts</a>
+            <li <?php if (isset($menuItem) && $menuItem === "accounts") echo 'class="active"'; ?>>
+                <a href="accounts.php"><i class="ion ion-android-people"></i> Alle accounts</a>
             </li>
             <li <?php if (isset($menuItem) && $menuItem === "accounts-met-matches") echo 'class="active"'; ?>>
                 <a href="accounts-met-matches.php"><i class="ion ion-android-happy"></i>  Met matches <div class="badge badge-primary"><?= $amountMatchedCompanies; ?></div></a>
