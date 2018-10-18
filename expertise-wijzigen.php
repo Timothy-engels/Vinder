@@ -6,6 +6,7 @@ require_once("business/validationService.php");
 // Check if user is logged in
 $accService      = new accountService();
 $loggedInAccount = $accService->getLoggedInUser(true);
+$menuItem        = 'expertises';
 
 // Get the amount of matched and unmatched companies
 $amountMatchedCompanies   = $accService->getAmountMatchedCompanies();
