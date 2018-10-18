@@ -460,7 +460,8 @@ class AccountDAO
                     SELECT AccountID2 AS AccountID
                     FROM matching
                     WHERE Status = 3
-                )";
+                )
+                ORDER BY Naam";
         
         // Open the connection
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
