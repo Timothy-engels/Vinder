@@ -12,14 +12,14 @@ $amountMatchedCompanies   = $accService->getAmountMatchedCompanies();
 $amountUnmatchedCompanies = $accService->getAmountUnmatchedCompanies();
 
 // Get the current expertise
-$eaid = $_GET["eaid"];
+$expertiseId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-if ($eaid === null || $eaid === '') {
+if ($expertiseId === null || $expertiseId === '') {
     header("location: expertises.php");
 }
 
 $expertiseSvc = new ExpertiseService();
-$expertise    = $expertiseSvc->getById($eaid);
+$expertise    = $expertiseSvc->getById($expertiseId);
 
 if ($expertise === null) {
     header("location: expertises.php");
@@ -51,4 +51,4 @@ if ($_POST) {
     }
 }
 
-include("presentation/showExpertiseAdjust.php");
+include("presentation/expertise-wijzigen.php");

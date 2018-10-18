@@ -51,7 +51,7 @@
                                                                 <?= ($expertise->getActive() === "1" ? "<div class='badge badge-success'>Actief</div>" : "<div class='badge badge-danger'>Inactief</div>"); ?>
                                                             </td>
                                                             <td>
-                                                                <a href='expertiseAdjust.php?eaid=<?= $expertise->getId(); ?>'>Wijzigen</a>
+                                                                <a href='expertise-wijzigen.php?id=<?= $expertise->getId(); ?>'>Wijzigen</a>
                                                                 | 
                                                                 <a href='expertiseDelete.php?edid=<?= $expertise->getId(); ?>'>Verwijderen</a>
                                                             </td>

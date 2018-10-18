@@ -37,7 +37,7 @@
                             
                                         <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
                                 
-                                            <form name="frmExpAdjust" method="POST" action="expertiseAdjust.php?eaid=<?=$eaid;?>">
+                                            <form name="frmExpAdjust" method="POST" action="expertise-wijzigen.php?id=<?= $expertiseId; ?>">
                                         
                                                 <div class="form-group">
                                                     <label for="expertise">Expertise *</label>
