@@ -63,10 +63,8 @@
                                                     </div>
                                                 <?php endforeach; ?>
                                             </div>
-                                        
-                                                <form action="unmatchedCompanies.php" method="post" >
-                                                    <input type="submit" class="btn btn-sm btn-primary" value="Match met VDAB" name="VDAB"/>
-                                                </form>
+
+                                            <a href="match-met-vdab.php" class="btn btn-sm btn-primary">Match met VDAB</a>
                                         
                                         <?php else: ?>
                                         
