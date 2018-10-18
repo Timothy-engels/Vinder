@@ -16,6 +16,7 @@ class AccountService
     {
         $accountsDAO = new AccountDAO();
         $list        = $accountsDAO->getAll();
+        
         return $list;
     }
     

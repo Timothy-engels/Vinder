@@ -15,7 +15,8 @@ class AccountDAO
     {
         $sql = "SELECT ID, Naam, Contactpersoon, Emailadres, Wachtwoord, 
                   Bevestigd, Website, Logo, Info, Admin
-                FROM `accounts`";
+                FROM `accounts`
+                ORDER BY Naam";
         
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         
@@ -30,7 +31,11 @@ class AccountDAO
                 $row["Contactpersoon"],
                 $row["Emailadres"],
                 $row["Wachtwoord"],
-                $row["Bevestigd"],$row["Website"], $row["Logo"],  $row["Info"], $row["Admin"]
+                $row["Bevestigd"],
+                $row["Website"],
+                $row["Logo"],
+                $row["Info"],
+                $row["Admin"]
             );
             array_push($list, $account);
         }
