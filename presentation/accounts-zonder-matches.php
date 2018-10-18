@@ -30,7 +30,7 @@
                         
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <div class="card">                
+                                <div class="card">  
                                     <div class="card-body">    
         
                                         <?php if (!empty($unmatchedCompanies)) : ?>
@@ -64,7 +64,11 @@
                                                 <?php endforeach; ?>
                                             </div>
 
-                                            <a href="match-met-vdab.php" class="btn btn-sm btn-primary">Match met VDAB</a>
+                                            <?php if ($matchWithVdab) : ?>
+                                                <a href="match-met-vdab.php" class="btn btn-sm btn-primary">Match met VDAB</a>
+                                            <?php else: ?>
+                                                <p class="text-muted italic"><small>Het is momenteel niet mogelijk om te matchen met de VDAB.<br>Probeer later opnieuw.</small></p>
+                                            <?php endif; ?>
                                         
                                         <?php else: ?>
                                         

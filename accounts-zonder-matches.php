@@ -1,6 +1,7 @@
 <?php
-require_once 'business/accountService.php';
-require_once ('business/matchingService.php');
+require_once('business/accountService.php');
+require_once('business/generalService.php');
+require_once('business/matchingService.php');
 
 // Check if an admin is logged in
 $accountSvc      = new AccountService();
@@ -11,35 +12,28 @@ $menuItem        = "accounts-zonder-matches";
 $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
 $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
 
-// Get al ist with the unmachted companies
+// Get al list with the unmachted companies
 $unmatchedCompanies = $accountSvc->getUnmatchedCompanies();
 
-if (isset ($_POST["VDAB"]) && $_POST["VDAB"] == "Match met VDAB") {
+// Check is the matching with VDAB is available
+$matchWithVdab = false;
 
-    // Get ID from admin company
-    $idAdmin = $account->getId();
-    
-    // Set the status
-    $status  = 3;
-    
-    // Match with admin
-    $matchSvc = new matchingService();
+$generalSvc = new GeneralService();
+$general    = $generalSvc->get();
 
-    foreach ($unmatchedCompanies as $uC) {
-        
-        // Get ID from second company company
-        $idUnmatchedCompany = $uC->getId();
-        
-        // Insert into DB
-        $MatchWithAdmin = $matchSvc->insert($idAdmin, $idUnmatchedCompany, $status);
-        
-        // Sent matching mail
-        $accountSvc->sendMatchFoundMails($idAdmin, $idUnmatchedCompany);
-            
-    }   
+if ($general !== null) {
     
-    // Get a list with the unmatched companies
-    $unmatchedCompanies = $accountSvc->getUnmatchedCompanies();
+    // Get the start date for matching
+    $endSwipeDate      = DateTime::createFromFormat("Y-m-d H:i:s", $general->getSwipeDate());
+    $startMatchingDate = $endSwipeDate->add(new DateInterval("P1D"));
+    
+    // Get the current date
+    $currentDate = new DateTime();
+    
+    if ($currentDate > $startMatchingDate) {
+        $matchWithVdab = true;
+    }
+    
 }
 
 // Show the view

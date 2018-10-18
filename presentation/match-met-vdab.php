@@ -34,7 +34,9 @@
                                         <div class="card-body">
                                             
                                             <?php if ($message !== '') : ?>
+                                            
                                                 <p><?= $message?></p>
+                                                
                                             <?php else : ?>
             
                                                 <form action="match-met-vdab.php" method="post">
