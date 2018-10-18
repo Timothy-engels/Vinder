@@ -13,6 +13,10 @@
     color: #999;
 }
 
+.italic {
+    font-style: italic;
+}
+
 /* Styles for logo's */
 
 .logo-middle {

@@ -40,7 +40,7 @@
                                             <form name="frmExpAdjust" method="POST" action="expertise-wijzigen.php?id=<?= $expertiseId; ?>">
                                         
                                                 <div class="form-group">
-                                                    <label for="expertise">Expertise *</label>
+                                                    <label for="expertise">Expertise <i class="ion ion-android-star"></i></label>
                                                     <input type="text" id="expertise" name="expertise" class="form-control <?php if ($expertiseNameErrors !== '') : ?>is-invalid<?php endif; ?>" value="<?= $expertiseName; ?>" autofocus/>
                                                     <?php if ($expertiseNameErrors !== '') : ?>
                                                         <div class="invalid-feedback"><?= $expertiseNameErrors; ?></div>
@@ -55,12 +55,13 @@
                                                 </div>
                                                 
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-sm btn-primary">Wijzigen</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary mt-2 mb-3">Wijzigen</button>
+                                                    <a href="expertises.php" class="btn btn-outline-primary btn-sm mt-2 mb-3">Annuleren</a>
                                                 </div>
                                                 
                                             </form>
                                         
-                                            <p><small>Velden met een * zijn verplicht in te vullen.</small></p>
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
                                 
                                         <?php endif; ?>
                                 
