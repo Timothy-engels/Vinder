@@ -5,8 +5,11 @@ require_once("business/validationService.php");
 
 // Check if user is logged in
 $accService      = new accountService();
-$account         = $accService->getLoggedInUser(true);
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+$loggedInAccount = $accService->getLoggedInUser(true);
+
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accService->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accService->getAmountUnmatchedCompanies();
 
 // Get the current expertise
 $eaid = $_GET["eaid"];
