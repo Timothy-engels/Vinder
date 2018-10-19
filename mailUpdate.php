@@ -5,8 +5,12 @@ require_once("business/validationService.php");
 
 // Check if an admin is logged in
 $accountSvc      = new AccountService();
-$account = $loggedInAccount = $accountSvc->getLoggedInUser(true);
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+$loggedInAccount = $accountSvc->getLoggedInUser(true);
+$menuItem        = "tips-wijzigen";
+
+// Get the amount of matched and unmatched companies
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
 
 // Set the default values
 $errors  = [];

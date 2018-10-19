@@ -3,7 +3,7 @@
 <head>
     <meta charset=utf-8>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-    <title>Vinder | Profiel wijzigen</title>
+    <title>Vinder | Expertise wijzigen</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -55,8 +55,8 @@
                                                 </div>
                                                 
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-sm btn-primary mt-2 mb-3">Wijzigen</button>
-                                                    <a href="expertises.php" class="btn btn-outline-primary btn-sm mt-2 mb-3">Annuleren</a>
+                                                    <button type="submit" class="btn btn-sm btn-primary mt-2 mb-3">Wijzig</button>
+                                                    <a href="expertises.php" class="btn btn-outline-primary btn-sm mt-2 mb-3">Annuleer</a>
                                                 </div>
                                                 
                                             </form>

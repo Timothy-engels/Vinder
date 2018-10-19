@@ -163,6 +163,14 @@
             margin-top: 2rem!important;
         }
 
+        .text-primary {
+            color: #0466A3 !important;
+        }
+        
+        .text-muted {
+            color: #868e96 !important;
+        }
+
     </style> 
 </head>
 <body>

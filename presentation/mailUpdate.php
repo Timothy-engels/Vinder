@@ -1,31 +1,9 @@
-
-
 <!DOCTYPE HTML>
 <html lang="nl">
 <head>
     <meta charset=utf-8>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-    <title>Vinder | Wijzig de mail instellingen</title>
-    <style>
-        label, input, .error, .message {
-            display: block;
-        }
-
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-
-        .message {
-            color: green;
-            font-weight: bold;
-        }
-
-        .ck-editor__editable {
-            height: 400px;
-        }
-
-    </style>
+    <title>Vinder | Tips wijzigen</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -36,7 +14,27 @@
     <script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
-            CKEDITOR.replace('mail', {startupFocus : true, htmlEncodeOutput:true, entities: true});
+            
+            CKEDITOR.stylesSet.add('my_styles', [
+                // Inline styles
+                { name: 'Blauwe tekst', element: 'span', attributes: { 'class': 'text-primary' } },
+                { name: 'Grijze tekst', element: 'span', attributes: { 'class': 'text-muted' } }
+            ] );
+
+            
+            CKEDITOR.replace(
+                'mail',
+                {
+                    startupFocus : true,
+                    htmlEncodeOutput:true,
+                    entities: true,
+                    contentsCss: [ 'modules/bootstrap/css/bootstrap.min.css', 'css/style.css', "css/skins/vinder.css", "css/custom.css"],
+                    format_tags: 'p;h6;address;div',
+                    format_h6: { element: 'h6' },
+                    stylesSet: 'my_styles'
+                });
+            
+
         })
     </script>
     <?php include('includes/nativeAppMeta.php'); ?>
@@ -51,32 +49,36 @@
         <div class="main-content">
             <section class="section">
                 <h1 class="section-header">
-                    <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Wijzig de mail instellingen</div>
+                    <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                 </h1>
                 <div class="section-body">
                     <div class="row">
                         <div class="col-12 col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Wijzig de mail instellingen</h4>
+                                    <h4>Tips wijzigen</h4>
                                 </div>
                                 <div class="card-body">
                                     <section id="updateMail">
                                         <form name="frmUpdateMail" method="POST" action="mailUpdate.php">
 
                                             <?php if ($message !== '') : ?>
-                                                <div class="message"><?= $message; ?></div>
+                                                <div class="alert alert-success"><?= $message; ?></div>
                                             <?php endif; ?>
+                                                
+                                            <div class="form-group">
+                                                <label for="mail">Mail <i class="ion ion-android-star"></i></label>
+                                                <textarea id="mail" name="mail" style="height:200px;"><?= $mail; ?></textarea>
+                                                <?php if (array_key_exists('mail', $errors)) : ?>
+                                                    <div class="error"><?= $errors['mail']; ?></div>
+                                                <?php endif; ?>
+                                            </div>
 
-                                            <p><small>Velden met een * zijn verplicht in te vullen.</small></p>
-
-                                            <label for="mail">Mail *</label>
-                                            <textarea id="mail" name="mail" style="height:200px;"><?= $mail; ?></textarea>
-                                            <?php if (array_key_exists('mail', $errors)) : ?>
-                                                <div class="error"><?= $errors['mail']; ?></div>
-                                            <?php endif; ?>
-
-                                            <input class="btn btn-sm btn-primary" style="margin-top: 15px" type="submit" value="Wijzigen" />
+                                            <div class="form-group">
+                                                <input class="btn btn-sm btn-primary mt-2 mb-3" type="submit" value="Wijzig" />
+                                            </div>
+                                                
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
 
                                         </form>
                                     </section>
