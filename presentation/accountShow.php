@@ -1,7 +1,8 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="nl">
 <head>
-    <meta charset=utf-8>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
     <title>Vinder | Profiel bekijken</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
@@ -20,152 +21,165 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Vinder</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Profiel</h4>
+                                        <h4>Profiel bekijken</h4>
                                     </div>
                                     <div class="card-body">
-                                        <ul class="list-unstyled list-unstyled-border">
-                                            <li class="media">
-                                                <img class="mr-3 rounded-circle" width="50" src="images/<?= $account->getLogo(); ?>" alt="logo">
-                                            </li>
-                                            <li class="media">
-                                                Id: <?php echo $account->getId(); ?>
-                                            </li>
-                                            <li class="media">
-                                                Bedrijf: <?php echo $account->getName(); ?>
-                                            </li>
-                                            <li class="media">
-                                                Contactpersoon: <?php echo $account->getContactPerson(); ?>
-                                            </li>
-                                            <li class="media">
-                                                E-mail: <?php echo $account->getEmail(); ?>
-                                            </li>
-                                            <li class="media">
-                                                Website: 
-                                                
+                                        
+                                        <div class="row">
+                                            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
+                                                <?php
+                                                $logo = 'no-image.png';
+                                                if ($account->getLogo() !== null && $account->getLogo() !== '') {
+                                                    $logo = $account->getLogo();
+                                                }
+                                                ?>
+                                                <img style="vertical-align:middle; max-height: 3rem; max-width: 3rem;" src="images/<?= $logo; ?>">
+                                                <span class="h6"><?= $account->getName(); ?></span>
+                                            </div>
+                                            <?php if ($loggedInAccount->getAdministrator() === "1") : ?>
+                                                <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
+                                                    <?php if ($account->getConfirmed() === "1") : ?>
+                                                        <div class='badge badge-success'>Bevestigd</div>
+                                                    <?php else : ?>
+                                                        <div class='badge badge-danger'>Niet bevestigd</div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <?php if ($account->getInfo() !== null && $account->getInfo() !== '') : ?>
+                                            <p class="mt-3"><?= $account->getInfo(); ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                            
+                                    <div class="card-header">
+                                        <h4>Contactgegevens</h4>
+                                    </div>
+                                       
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
+                                                Contactpersoon
+                                            </div>
+                                            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
+                                                <?= $account->getContactPerson(); ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
+                                                E-mail
+                                            </div>
+                                            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
+                                                <?= $account->getEmail(); ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
+                                                Website
+                                            </div>
+                                            <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
                                                 <?php if ($account->getWebsite()) : ?>
-                                                
                                                     <a href="<?= $account->getWebsite(); ?>" target="_blank">
                                                         <?= $account->getWebsite(); ?>
                                                     </a>
-                                                
-                                                <?php else: ?>
-                                    
-                                                    Geen website.
-                   
                                                 <?php endif; ?>
-                                                
-                                            </li><li class="media">
-                                                Info: 
-                                            
-                                                <?php if ($account->getInfo()) { echo $account->getInfo(); } else echo "Geen info"; ?>
-                                            
-                                            </li>
-                                            <li class="media">
-                                               <?php 
-                                                    if($loggedInAsAdmin) {
-                                                        $registered = $account->getConfirmed();
-                                                        if($registered==1) {
-                                                            $answer = "Ja";
-                                                        }
-                                                        else {
-                                                            $answer = "Nee";
-                                                        }
-                                                        print("<div>Geregistreerd: " . $answer . "</div>");
-                                                    }
-                                                ?> 
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </div>   
                                     </div>
                                     
-                                    <?php if($exps) { ?>
+                                    <div class="card-header">
+                                        <h4>Expertises</h4>
+                                    </div>
                                     
-                                        <div class="card-header">
-                                            <h4>Expertises</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <ul class="list-unstyled list-unstyled-border">
-                                                
-                                                <?php foreach ($exps as $expertise) { ?>
-                                                    <li class="media">
-                                                        <?php echo $expertise->getExpertise(); ?>
-                                                    </li>
-                                                    <li class="media">
-                                                        Meer info: 
-                                                        <?php if ($expertise->getInfo()) {
-                                                            echo $expertise->getInfo();
+                                    <div class="card-body">
+                                        
+                                        <?php if ($exps || $extraExp) : ?>
+                                        
+                                            <ul>
+
+                                                <?php foreach ($exps as $expertise) : ?>
+                                                    <li>
+                                                        <strong><?= $expertise->getExpertise(); ?></strong>
+                                                        <?php
+                                                        if ($expertise->getInfo()) {
+                                                            echo '<br>' . $expertise->getInfo();
                                                         }
-                                                        else echo "Geen info";
                                                         ?>
                                                     </li>
-                                                <?php 
-                                                }
-                                            ?>
+                                                <?php endforeach; ?>
+                                                    
+                                                <?php if ($extraExp) :?>
+                                                    <li>
+                                                        <strong><?= $extraExp->getExpertise(); ?></strong>
+                                                        <?php
+                                                        if ($extraExp->getInfo()) {
+                                                            echo '<br>' . $extraExp->getInfo();
+                                                        }
+                                                        ?>
+                                                    </li>
+                                                <?php endif; ?>
+
                                             </ul>
-                                        </div>
-                                    
-                                    <?php } else echo"<div class='card-header'><h4>Geen expertises</h4></div>";
-                                    if($extraExp) { ?>
-                                    
-                                        <div class="card-header">
-                                            <h4>Extra info</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <ul class="list-unstyled list-unstyled-border">
-                                                <li class="media">
-                                                    Extra info: <?php echo $extraExpExp->getExpertise();?>
-                                                </li>
-                                                <li class="media">
-                                                    Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    
-                                    <?php } 
-                                    if($expExps) { ?>
-                                    
-                                        <div class="card-header">
-                                            <h4>Meer info willen hebben</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <ul class="list-unstyled list-unstyled-border">
-                                                <?php if($expExps) {
-                                                    foreach ($expExps as $expertise) { ?>
-                                                        <li class="media">
-                                                            Expertise: <?php echo $expertise->getExpertise(); ?>
-                                                        </li>
-                                                        <li class="media">
-                                                            Meer info: <?php echo $expertise->getInfo(); ?>
-                                                        </li>
-                                                    <?php } 
-                                                } ?>
-                                            </ul>
-                                        </div>
-                                    
-                                    <?php } else { echo "<div class='card-header'><h4>Geen extra info nodig</h4></div>"; } 
-                                    if($extraExpExp){ ?>
                                         
-                                        <div class="card-header">
-                                            <h4>Extra Expertise</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <ul class="list-unstyled list-unstyled-border">
-                                                <li class="media">
-                                                    Extra expertise: <?php echo $extraExpExp->getExpertise();?>
-                                                </li>
-                                                <li class="media">
-                                                    Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <?php else: ?>
+                                        
+                                            <p>Geen expertises gevonden!</p>
+                                            
+                                        <?php endif; ?>
+                                            
+                                    </div>
                                     
-                                    <?php } else { echo "<div class='card-header'><h4>Geen extra expertise</h4></div>"; } ?>
+                                    
+                                    <div class="card-header">
+                                        <h4>Gewenste expertises</h4>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        
+                                        <?php if ($expExps || $extraExpExp) : ?>
+                                        
+                                            <ul>
+
+                                                <?php foreach ($expExps as $expertise) : ?>
+                                                    <li>
+                                                        <strong><?= $expertise->getExpertise(); ?></strong>
+                                                        <?php
+                                                        if ($expertise->getInfo()) {
+                                                            echo '<br>' . $expertise->getInfo();
+                                                        }
+                                                        ?>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                                    
+                                                <?php if ($extraExpExp) :?>
+                                                    <li>
+                                                        <strong><?= $extraExpExp->getExpertise(); ?></strong>
+                                                        <?php
+                                                        if ($extraExpExp->getInfo()) {
+                                                            echo '<br>' . $extraExpExp->getInfo();
+                                                        }
+                                                        ?>
+                                                    </li>
+                                                <?php endif; ?>
+
+                                            </ul>
+                                        
+                                        <?php else: ?>
+                                        
+                                            <p>Geen expertises gevonden!</p>
+                                            
+                                        <?php endif; ?>
+                                            
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -174,113 +188,17 @@
             </div>
         </div>
     </div>
-
-
-                                    
-<!--                                            
-    
-
-<?php include('menu.php'); ?>
-
-<h1><?php echo $account->getName(); ?> profiel pagina</h1>
-
-
-    <div>
-        <img src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px">
-                <div>
-                    Id: <?php echo $account->getId(); ?>
-                </div>
-                <div>
-                    Bedrijf: <?php echo $account->getName(); ?>
-                </div>
-                <div>
-                    Contactpersoon: <?php echo $account->getContactPerson(); ?>
-                </div>
-                <div>
-                    E-mail: <?php echo $account->getEmail(); ?>
-                </div>
-
-                <div>
-                    Website: 
-                    <?php if ($account->getWebsite()) : ?>
-                        <a href="<?= $account->getWebsite(); ?>" target="_blank"><?= $account->getWebsite(); ?></a>
-                    <?php else: ?>
-                        Geen website
-                    <?php endif; ?>
-                </div>
-                <div>
-                    Info: <?php if ($account->getInfo()) {
-                        echo $account->getInfo();
-                    } else echo "Geen info";
-                    ?>
-                </div>
-                <?php 
-                    if($loggedInAsAdmin) {
-                        $registered = $account->getConfirmed();
-                        if($registered==1) {
-                            $answer = "Ja";
-                        }
-                        else {
-                            $answer = "Nee";
-                        }
-                        print(
-                            "<div>Geregistreerd: " . $answer . "</div>"
-                        );
-                    }
-                ?>
-    </div>
-    <h3>Expertises:</h3>
-
-    <div>
-        <?php if($exps) {
-            foreach ($exps as $expertise) { ?>
-                <div>
-                    <?php echo $expertise->getExpertise(); ?>
-                </div>
-                <div>
-                    Meer info: <?php if ($expertise->getInfo()) {
-                        echo $expertise->getInfo();
-                    }
-                    else echo "Geen info";
-                    ?>
-                </div>
-            <?php
-            }
-        }
-        else echo "Geen expertises";
-        ?>
-    </div>
-    
-<?php if($extraExp){ ?>
-<div>Extra expertise: <?php echo $extraExp->getExpertise();?></div>
-
-<div>Meer info: <?php if($extraExp->getInfo()) { echo $extraExp->getInfo();} else echo "Geen info" ?></div>
-<?php }?>
-    
-<h3>Meer info willen hebben:</h3>
-<div>
-    <?php
-    if($expExps) {
-        foreach ($expExps as $expertise) { ?>
-            <div>
-                Expertise: <?php echo $expertise->getExpertise(); ?>
-            </div>
-            <div>
-                Meer info: <?php echo $expertise->getInfo(); ?>
-            </div>
-        <?php
-        }
-    }
-
-    else { echo "Geen expertises"; }
-    ?>
-</div>
-    
-<?php if($extraExpExp){ ?>
-
-<div>Extra expertise: <?php echo $extraExpExp->getExpertise();?></div>
-
-<div>Meer info: <?php if($extraExpExp->getInfo()) { echo $extraExpExp->getInfo();} else echo "Geen info" ?></div>
-<?php }?> -->
 </body>
+
+<script src="modules/jquery.min.js"></script>
+<script src="modules/popper.js"></script>
+<script src="modules/tooltip.js"></script>
+<script src="modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="js/sa-functions.js"></script>
+
+<script src="js/scripts.js"></script>
+<script src="js/custom.js"></script> 
+    
 </html>
