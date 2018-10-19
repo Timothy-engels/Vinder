@@ -54,4 +54,4 @@ if ($_POST) {
 }
 
 // Show the view
-include("presentation/mailUpdate.php");
+include("presentation/tips-wijzigen.php");

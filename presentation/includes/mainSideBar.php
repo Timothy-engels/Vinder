@@ -53,8 +53,8 @@
             <li <?php if (isset($menuItem) && $menuItem === "expertises") echo 'class="active"'; ?>>
                 <a href="expertises.php"><i class="ion ion-ribbon-b"></i><span>Expertises</span></a>
             </li>
-            <li>
-                <a href="mailUpdate.php"><i class="ion ion-android-bulb"></i><span>Tips</span></a>
+            <li <?php if (isset($menuItem) && $menuItem === "tips-wijzigen") echo 'class="active"'; ?>>
+                <a href="tips-wijzigen.php"><i class="ion ion-android-bulb"></i><span>Tips</span></a>
             </li>
             <li>
                 <a href="updateDateSettings.php"><i class="ion ion-android-calendar"></i><span>Datums</span></a>

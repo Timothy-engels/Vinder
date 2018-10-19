@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="card-body">
                                     <section id="updateMail">
-                                        <form name="frmUpdateMail" method="POST" action="mailUpdate.php">
+                                        <form name="frmUpdateMail" method="POST" action="tips-wijzigen.php">
 
                                             <?php if ($message !== '') : ?>
                                                 <div class="alert alert-success"><?= $message; ?></div>
