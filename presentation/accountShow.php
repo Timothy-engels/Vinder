@@ -1,24 +1,21 @@
-<!DOCTYPE HTML> <!-- presentation/commentlist.php -->
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset=utf-8>
-    <title>Vinder | Profiel</title>
+    <title>Vinder | Profiel bekijken</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="css/style.css">    
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="css/custom.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <?php //include('includes/mainHeader.php'); ?>
+            <?php include('includes/mainHeader.php'); ?>
             <div class="main-sidebar">
-                <?php //include('includes/mainSideBar.php'); ?>
+                <?php include('includes/mainSideBar.php'); ?>
             </div>
             <div class="main-content">
                 <section class="section">

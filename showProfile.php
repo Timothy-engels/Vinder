@@ -7,26 +7,27 @@ require_once("business/matchingService.php");
 $accountSvc = new AccountService();
 
 // Check if user is logged in
-$account = $loggedInAccount = $accountSvc->getLoggedInUser();
-$info       = $account->getInfo();
+$loggedInAccount = $accountSvc->getLoggedInUser();
 
-// Is the user logged in as an admin
-$loggedInAsAdmin = ($account->getAdministrator() === "1" ? true : false);
+// Get the amount of matched and unmatched companies
+if ($loggedInAccount->getAdministrator() === "1") {
+    $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+    $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+}
 
 // Get the ID from the logged in user
-$id = filter_input(INPUT_GET, 'id');
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if ($id !== null) {
     
-    $loginAccount = $account;
-    $account      = $accountSvc->getById($id);
+    $account = $accountSvc->getById($id);
     
     if ($account !== null) {
         
-        if ($loggedInAsAdmin === false) {
+        if ($loggedInAccount->getAdministrator() !== "1") {
             
             $matchingSvc = new matchingService();
-            $match       = $matchingSvc->getMatch($loginAccount, $account);
+            $match       = $matchingSvc->getMatch($loggedInAccount, $account);
 
             if ($match === null OR $match->getStatus() !== "3") {
                 echo "U heeft geen rechten om deze pagina te bekijken.";
@@ -44,7 +45,8 @@ if ($id !== null) {
     
 } else {
     
-    $id = $account->getId();
+    $account = $loggedInAccount;
+    $id      = $account->getId();
     
 }
 
