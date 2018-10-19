@@ -67,6 +67,11 @@
     height: 400px;
 }     
 
+.cke_editable {
+    background-color: white;
+    padding: 10px;
+}
+
 /* Custom css for swipe css */
 
 .profile__content{

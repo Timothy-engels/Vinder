@@ -68,7 +68,7 @@
                                                 
                                             <div class="form-group">
                                                 <label for="mail">Mail <i class="ion ion-android-star"></i></label>
-                                                <textarea id="mail" name="mail" style="height:200px;"><?= $mail; ?></textarea>
+                                                <textarea id="mail" name="mail"><?= $mail; ?></textarea>
                                                 <?php if (array_key_exists('mail', $errors)) : ?>
                                                     <div class="error"><?= $errors['mail']; ?></div>
                                                 <?php endif; ?>
