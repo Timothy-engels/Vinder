@@ -8,6 +8,7 @@ $accountSvc = new AccountService();
 
 // Check if user is logged in
 $loggedInAccount = $accountSvc->getLoggedInUser();
+$menuItem        = "profiel-bekijken";
 
 // Get the amount of matched and unmatched companies
 if ($loggedInAccount->getAdministrator() === "1") {

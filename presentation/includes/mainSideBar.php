@@ -10,7 +10,7 @@
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Algemeen</li>
-        <li>
+        <li <?php if (isset($menuItem) && $menuItem === "profiel-bekijken") echo 'class="active"'; ?>>
             <a href="profiel-bekijken.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
