@@ -22,7 +22,7 @@
     </script>
 </head>
 <body>
-<form action="editProfile.php" method="post" enctype="multipart/form-data">
+<form action="profiel-wijzigen.php" method="post" enctype="multipart/form-data">
     <div id="app">
         <div class="main-wrapper">
             <?php include('includes/mainHeader.php'); ?>
@@ -53,7 +53,7 @@
                                             <?php
                                             $logo = 'no-image.png';
                                             if ($loggedInAccount->getLogo() !== null && $loggedInAccount->getLogo() !== '') {
-                                                $logo = $account->getLogo();
+                                                $logo = $loggedInAccount->getLogo();
                                             }
                                             ?>
                                             

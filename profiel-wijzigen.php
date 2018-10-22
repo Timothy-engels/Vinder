@@ -7,7 +7,7 @@ $accountSvc = new AccountService();
 
 // Check if user is logged in
 $loggedInAccount = $accountSvc->getLoggedInUser();
-$menuItem        = "profile-wijzigen";
+$menuItem        = "profiel-wijzigen";
 
 // Get the amount of matched and unmatched companies
 if ($loggedInAccount->getAdministrator() === "1") {
@@ -173,7 +173,7 @@ if ($_POST) {
     }
 }
 
-include("presentation/accountEdit.php");
+include("presentation/profiel-wijzigen.php");
 
 
 
