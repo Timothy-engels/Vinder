@@ -39,13 +39,13 @@ if ($decryptedCode !== '') {
                 $confirmation = $accountSvc->update($account);
 
                 if ($confirmation) {
-                    $result = "<p>Uw registratie is bevestigd!<br /><br />";
+                    $result = "<p>Uw registratie is bevestigd!<br />";
                     $result .= "<a href=\"" . $loginUrl . "\">Klik hier om in te loggen</a>.</p>";
                 } 
                 
             } else {
                 
-                $result = "<p>Uw registratie was reeds bevestigd!<br /><br />";
+                $result = "<p>Uw registratie was reeds bevestigd!<br />";
                 $result .= "<a href=\"" . $loginUrl . "\">Klik hier om in te loggen</a>.</p>";
                 
             }

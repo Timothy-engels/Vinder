@@ -91,7 +91,7 @@ if ($general == null) {
                     $name,
                     $contactPerson,
                     $email,
-                    $password
+                    $passwordHash
                 );
                         
                 $accountSvc = new AccountService();

@@ -27,7 +27,7 @@
                                     <?= $result; ?>
                                 </div>
                             </div>
-                            <?php include('includes/mainFooter.php'); ?>
+                            <?php include('includes/simpleFooter.php'); ?>
                         </div>
                     </div>
                 </div>

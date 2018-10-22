@@ -34,7 +34,7 @@
                                         <form name="frmWachtwoordResetten" method="POST" action="wachtwoord-resetten.php?code=<?= $code; ?>">
 
                                             <div class="form-group">
-                                                <label for="password">Wachtwoord *</label>
+                                                <label for="password">Wachtwoord <i class="ion ion-android-star"></i></label>
                                                 <input type="password" id="password" class="form-control <?php if (array_key_exists('password', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
                                                 <?php if (array_key_exists('password', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['password']; ?></div>
@@ -42,7 +42,7 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="repeatPassword">Herhaal wachtwoord *</label>
+                                                <label for="repeatPassword">Herhaal wachtwoord <i class="ion ion-android-star"></i></label>
                                                 <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid <?php endif; ?>" name="repeatPassword" maxlength="50" />
                                                 <?php if (array_key_exists('repeatPassword', $errors)) : ?>
                                                     <div class="invalid-feedback"><?= $errors['repeatPassword']; ?></div>
@@ -52,12 +52,15 @@
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-sm btn-primary">Reset</button>
                                             </div>
+                                            
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
+
                                         </form>
                                     
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            <?php include('includes/mainFooter.php'); ?>
+                            <?php include('includes/simpleFooter.php'); ?>
                         </div>
                     </div>
                 </div>

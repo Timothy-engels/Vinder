@@ -39,7 +39,7 @@
                                     </p>
                                     <form method="POST" action="wachtwoord-vergeten.php">
                                         <div class="form-group">
-                                            <label for="email">Email *</label>
+                                            <label for="email">Email <i class="ion ion-android-star"></i></label>
                                             <input type="email" id="mail" name="mail" class="form-control <?php if (array_key_exists('mail', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" />
                                             <?php if (array_key_exists('mail', $errors)) : ?>
                                                 <div class="invalid-feedback"><?= $errors['mail']; ?></div>
@@ -50,16 +50,17 @@
                                         <?php endif; ?>
 
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-sm btn-primary" tabindex="4">
-                                            Verzend
-                                            </button>
+                                            <button type="submit" class="btn btn-sm btn-primary" tabindex="4">Verzend</button>
                                         </div>
+                                            
+                                        <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
+
                                     </form>
 
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <?php include('includes/mainFooter.php'); ?>
+                        <?php include('includes/simpleFooter.php'); ?>
                     </div>
                 </div>
             </div>

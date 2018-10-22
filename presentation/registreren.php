@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-        <title>Vinder | Registreer</title>
+        <title>Vinder | Registreren</title>
         <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
         <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -33,7 +33,7 @@
                                     
                                         <form name="frmRegister" method="POST" action="registreren.php">
                                             <div class="form-group">
-                                                <label for="name">Bedrijfsnaam *</label>
+                                                <label for="name">Bedrijfsnaam <i class="ion ion-android-star"></i></label>
                                                 <input type="text" id="name" name="name" class="form-control <?php if (array_key_exists('name', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $name; ?>" autofocus />
                                                 
                                                 <?php if (array_key_exists('name', $errors)) : ?>
@@ -43,7 +43,7 @@
                                             </div>
 
                                             <div class="form-group">  
-                                                <label for="contactPerson">Contactpersoon *</label>
+                                                <label for="contactPerson">Contactpersoon <i class="ion ion-android-star"></i></label>
                                                 <input type="text" id="contactPerson" name="contactPerson" class="form-control <?php if (array_key_exists('contactPerson', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $contactPerson; ?>" />
                                                 
                                                 <?php if (array_key_exists('contactPerson', $errors)) : ?>
@@ -53,7 +53,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="email">Email *</label>
+                                                <label for="email">Email <i class="ion ion-android-star"></i></label>
                                                 <input type="email" id="email" name="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid <?php endif; ?>" maxlength="255" value="<?= $email; ?>" />
                                                 
                                                 <?php if (array_key_exists('email', $errors)) : ?>
@@ -63,7 +63,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="password">Wachtwoord *</label>
+                                                <label for="password">Wachtwoord <i class="ion ion-android-star"></i></label>
                                                 <input type="password" id="password" class="form-control <?php if (array_key_exists('password', $errors)) : ?>is-invalid <?php endif; ?>" name="password" maxlength="50" />
                                                 
                                                 <?php if (array_key_exists('password', $errors)) : ?>
@@ -73,7 +73,7 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="repeatPassword">Herhaal wachtwoord *</label>
+                                                <label for="repeatPassword">Herhaal wachtwoord <i class="ion ion-android-star"></i></label>
                                                 <input type="password" id="repeatPassword" class="form-control <?php if (array_key_exists('repeatPassword', $errors)) : ?>is-invalid <?php endif; ?>" name="repeatPassword" maxlength="50" />
                                                 
                                                 <?php if (array_key_exists('repeatPassword', $errors)) : ?>
@@ -82,15 +82,17 @@
                                                 
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group mt-2 mb-3">
                                                 <button type="submit" class="btn btn-sm btn-primary">Registeer</button>
                                             </div>
+                                            
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
                                         </form>
                                     
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            <?php include('includes/mainFooter.php'); ?>
+                            <?php include('includes/simpleFooter.php'); ?>
                         </div>
                     </div>
                 </div>
