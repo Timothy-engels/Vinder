@@ -1,11 +1,6 @@
 window.onload = function () {
-
     moreInfo("expertise");
     moreInfo("expectedExpertise");
-
-
-
-
 };
 
 function moreInfo(expertise) { //function add or delete input elements
@@ -68,7 +63,7 @@ function remove_logo() {
     var company_logo = document.getElementById("company_logo");
     if (removelogo.innerText !== "Terug") {
         logo.style.opacity = 0.2;
-        removelogo.innerText = "Terug";
+        removelogo.innerText = "Herstel logo";
         var hidden = document.createElement("input");
         hidden.setAttribute('id','deletelogo');
         hidden.setAttribute('name','del');
@@ -76,7 +71,7 @@ function remove_logo() {
         company_logo.appendChild(hidden);
     } else {
         logo.style.opacity = 1;
-        removelogo.innerText = "Verwidert logo";
+        removelogo.innerText = "Verwijdert logo";
         $('#deletelogo').remove();
     }
 }

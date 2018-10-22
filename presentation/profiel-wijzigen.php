@@ -91,7 +91,7 @@
 
                                         <div class="form-group">
                                             <label for="website">Website</label>
-                                            <input class="form-control <?php if (array_key_exists('website', $errors)) : ?>is-invalid<?php endif; ?>" type="url" id="input_url" name="website" value="<?= $website; ?>" onblur="check_url()" >
+                                            <input class="form-control <?php if (array_key_exists('website', $errors)) : ?>is-invalid<?php endif; ?>" type="url" id="url_input" name="website" value="<?= $website; ?>" onblur="check_url()" >
                                             <?php if (array_key_exists('info', $errors)) : ?>
                                                 <div class="invalid-feedback"><?= $errors['website']; ?></div>
                                             <?php endif; ?>
@@ -104,7 +104,7 @@
                                         <?php foreach ($allExps as $expertise) : ?>
 
                                             <div class="custom-control custom-checkbox form-group">
-                                                <input type="checkbox" class="custom-control-input" id="expertise<?= $expertise->getId(); ?>" name="expertise<?= $expertise->getId(); ?>" <?php if (array_key_exists($expertise->getId(), $myExpertises)) { echo "checked"; } ?> >
+                                                <input type="checkbox" class="custom-control-input expertise" id="expertise<?= $expertise->getId(); ?>" name="expertise<?= $expertise->getId(); ?>" <?php if (array_key_exists($expertise->getId(), $myExpertises)) { echo "checked"; } ?> >
                                                 <label class="custom-control-label" for="expertise<?= $expertise->getId(); ?>"><?= $expertise->getExpertise(); ?></label>
                                                 <br>
                                                 <label id="inputlabelexpertise<?= $expertise->getId(); ?>">Meer info</label>
