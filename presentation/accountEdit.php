@@ -39,39 +39,43 @@
                     <div class="section-body"><div class="row">
                         <div class="col-12">
                             <div class="card card-primary">
-                                <div class="card-header"><h4>Logo</h4></div><div class="card-body">
+                                
+                                
+                                                
+                                <div class="card-header"><h4>Logo</h4></div>
+                                <div class="card-body">
+                                    
+                                    <?php if ($msg !== '') : ?>
+                                        <div class="alert alert-success"><?= $msg; ?></div>
+                                    <?php endif; ?>
+                                    
                                     <div class="container">
                                         
-                                        <?php if ($account->getLogo()): ?>
+                                        <?php if ($loggedInAccount->getLogo()): ?>
                                         
                                             <div class="row justify-content-center">
                                                 <div id="company_logo" style="margin: auto">
-                                                    <img id="logo" src="images/<?php echo $account->getLogo(); ?>" alt="Logo" style="max-width: 150px;">
+                                                    <img id="logo" src="images/<?php echo $loggedInAccount->getLogo(); ?>" alt="Logo" style="max-width: 150px;">
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div>
-                                                <button id="removelogo" style="margin: 10px" type="button" class="btn btn-primary btn-sm" onclick="remove_logo()">Verwijder logo</button>
+                                                    <button id="removelogo" style="margin: 10px" type="button" class="btn btn-primary btn-sm" onclick="remove_logo()">Verwijder logo</button>
                                                 </div>
                                             </div>
                                         
                                         <?php endif; 
-                                        if (!$account->getLogo()) echo "<p>Geen logo</p>"; ?>
+                                        
+                                        if (!$loggedInAccount->getLogo()) echo "<p>Geen logo</p>"; ?>
                                         
                                             <div class="form-group inputDnD">
                                                 <label class="sr-only" for="inputFile">File Upload</label>
                                                 <input type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Toevoeg logo. Max 10MB">
                                             </div>
-                                        
-                                            <?php if (isset($_SESSION['msg2'])) {
-                                                echo "<div class=\"alert alert-danger\">" . $_SESSION['msg2'] . "</div>";
-                                                $_SESSION['msg2'] = null;
-                                            } ?>
-                                            <?php if (isset($_SESSION['msg'])) {
-                                                echo "<div class=\"alert alert-success\">" . $_SESSION['msg'] . "</div>";
-                                                $_SESSION['msg'] = null;
-                                            } ?>
-                                        
+
+                                            <?php if (array_key_exists('logo', $errors)) : ?>
+                                                <div><?= $errors['logo']; ?></div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -82,14 +86,23 @@
                                         <h4>Omschrijving en website</h4>
                                     </div>
                                     <div class="card-body">
+                                             
                                         <div class="form-group">
-                                            <label for="Info">Korte omschrijving :</label>
-                                            <textarea class="form-control" type="text" id="Info" name="Info" placeholder=""><?php echo $account->getInfo(); ?></textarea>
+                                            <label for="info">Korte omschrijving <i class="ion ion-android-star"></i></label>
+                                            <textarea class="form-control <?php if (array_key_exists('info', $errors)) : ?>is-invalid<?php endif; ?>" type="text" id="info" name="info" ><?= $info; ?></textarea>
+                                            <?php if (array_key_exists('info', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['info']; ?></div>
+                                            <?php endif; ?>
                                         </div>
+                                        
                                         <div class="form-group">
-                                            <label for="website">Website :</label>
-                                            <input class="form-control" id="url_input" type="url" id="website" name="website" placeholder="" value="<?php echo $account->getWebsite(); ?>" onblur="check_url()">
+                                            <label for="website">Website</label>
+                                            <input class="form-control <?php if (array_key_exists('website', $errors)) : ?>is-invalid<?php endif; ?>" type="url" id="input_url" name="website" value="<?= $website; ?>" onblur="check_url()" >
+                                            <?php if (array_key_exists('info', $errors)) : ?>
+                                                <div class="invalid-feedback"><?= $errors['website']; ?></div>
+                                            <?php endif; ?>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -98,40 +111,25 @@
                                     <div class="card-header"><h4>Uw expertisen:</h4></div>
                                     <div class="card-body">
 
-                                        <?php foreach ($allExps as $expertise) : 
-                                            $status = "";
-                                            $info = '';
-                                            foreach ($exps as $exp) {
-                                                if (($exp->getId() === $expertise->getId()) or isset($_POST['inputexpertise' . $expertise->getId()])) {
-                                                    $status = "checked";
-                                                    $info = $exp->getInfo();
-                                                }
-                                            } ?>
+                                        <?php foreach ($allExps as $expertise) : ?>
 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="form-check-input expertise"
-                                                       id="expertise<?php echo $expertise->getId(); ?>"
-                                                       name="expertise<?php echo $expertise->getId(); ?>" <?php echo $status; ?> >
-                                                <label class="form-check-label"
-                                                       for="expertise<?php echo $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?>
-                                                </label>
+                                            <div class="custom-control custom-checkbox form-group">
+                                                <input type="checkbox" class="custom-control-input" id="expertise<?= $expertise->getId(); ?>" name="expertise<?= $expertise->getId(); ?>" <?php if (array_key_exists($expertise->getId(), $myExpertises)) { echo "checked"; } ?> >
+                                                <label class="custom-control-label" for="expertise<?= $expertise->getId(); ?>"><?= $expertise->getExpertise(); ?></label>
+                                                <br>
+                                                <label id="inputlabelexpertise<?= $expertise->getId(); ?>">Meer info</label>
+                                                <textarea id="inputexpertise<?= $expertise->getId(); ?>" name="inputexpertise<?= $expertise->getId(); ?>" class="form-control"><?php if (array_key_exists($expertise->getId(), $myExpertises)) { echo $myExpertises[$expertise->getId()]; } ?></textarea>
                                             </div>
                                         
-                                            <?php if ($status === "checked") { ?>
-                                                <div class="form-check">
-                                                    <label style="margin-left: 12px" id="inputlabelexpertise<?php echo $expertise->getId(); ?>"
-                                                    >Meer info: </label>
-                                                    <input style="margin-left: 12px; margin-bottom: 12px" id="inputexpertise<?php echo $expertise->getId(); ?>" name="inputexpertise<?php echo $expertise->getId(); ?>" type="text" class="form-control" value="<?php echo $info; ?>">
-                                                </div>
-                                            <?php } 
-                                        endforeach; ?>
+                                        <?php endforeach; ?>
 
                                         <div class="form-group">
-                                            <label id="extra" style="margin-top: 12px">Extra expertise: </label>
-                                            <input id="extraexpertise" class="form-control" name="extraexpertise" type="text" class="row" value="<?php if (isset($_POST['extraexpertise'])) echo $_POST['extraexpertise']; elseif ($extraExp) { echo $extraExp->getExpertise(); } ?>">
-                                            <label id="extraexpertiseinfo" style="margin-top: 12px">Meer info over extra expertise: </label>
-                                            <input id="extraexpertiseinfo" class="form-control" name="extraexpertiseinfo" type="text" class="row" value="<?php if (isset($_POST['extraexpertiseinfo'])) echo $_POST['extraexpertiseinfo']; elseif ($extraExp) { echo $extraExp->getInfo(); } ?>">
+                                            <label for="extraexpertise">Extra expertise</label>
+                                            <input id="extraexpertise" class="form-control" name="extraexpertise" type="text" value="<?= $extraExpertise ?>">
+                                            <label for="extraexpertiseinfo">Meer info</label>
+                                            <textarea id="extraexpertiseinfo" class="form-control" name="extraexpertiseinfo"><?= $extraExpertiseInfo; ?></textarea>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -143,36 +141,20 @@
                                     <div class="card-body">
                                         
                                         <?php foreach ($allExps as $expertise) : ?>
-                                            <div class="custom-control custom-checkbox">
-                                                <?php
-                                                $status = '';
-                                                $info = '';
-                                                foreach ($expExps as $exp2) {
-                                                    if ($exp2->getId() === $expertise->getId()) {
-                                                        $status = "checked";
-                                                        if (isset($_POST['inputexpected' . $expertise->getId()])) {
-                                                            $info = $_POST['inputexpected' . $expertise->getId()];
-                                                        } else $info = $exp2->getInfo();
-                                                    }
-                                                }
-                                                ?>
-                                                <input type="checkbox" class="form-check-input expectedExpertise" id="expected<?php echo $expertise->getId(); ?>" name="expected<?php echo $expertise->getId(); ?>" <?= $status; ?>>
-                                                <label class="form-check-label" for="expected<?= $expertise->getId(); ?>"><?php echo $expertise->getExpertise(); ?></label>
+                                            <div class="custom-control custom-checkbox form-group">
+                                                <input type="checkbox" class="custom-control-input" id="expected<?= $expertise->getId(); ?>" name="expected<?= $expertise->getId(); ?>" <?php if (array_key_exists($expertise->getId(), $expectedExpertises)) { echo "checked"; } ?>>
+                                                <label class="custom-control-label" for="expected<?= $expertise->getId(); ?>"><?= $expertise->getExpertise(); ?></label>
+                                                <br>
+                                                <label id="inputlabelexpected<?= $expertise->getId(); ?>">Meer info</label>
+                                                <textarea name="inputexpected<?= $expertise->getId(); ?>" class="form-control"><?php if (array_key_exists($expertise->getId(), $expectedExpertises)) { echo $expectedExpertises[$expertise->getId()]; } ?></textarea>
                                             </div>
-                                        
-                                            <?php if ($status === "checked") { ?>
-                                                <div class="form-check">
-                                                    <label style="margin-left: 12px;" id="inputlabelexpected<?php echo $expertise->getId(); ?>">Meer info: </label>
-                                                    <input style="margin-left: 12px; margin-bottom: 12px" name="inputexpected<?php echo $expertise->getId(); ?>" type="text" class="form-control" value="<?php echo $info; ?>">
-                                                </div>
-                                            <?php }
-                                        endforeach; ?>
+                                        <?php endforeach; ?>
 
                                         <div class="form-group">
-                                            <label id="extraexpected" style="margin-top: 12px">Extra expertise: </label>
-                                            <input class="form-control" id="extraexpected" name="extraexpected" type="text" class="row" value="<?php if (isset($_POST['extraexpected'])) echo $_POST['extraexpected']; elseif ($extraExpExp) { echo $extraExpExp->getExpertise(); } ?>">
-                                            <label id="extraexpectedinfo" style="margin-top: 12px">Meer info over extra expertise: </label>
-                                            <input class="form-control" id="extraexpectedinfo" name="extraexpectedinfo" type="text" class="row" value="<?php if (isset($_POST['extraexpectedinfo'])) echo $_POST['extraexpectedinfo']; elseif ($extraExpExp) { echo $extraExpExp->getInfo(); } ?>">
+                                            <label for="extraexpected">Extra expertise</label>
+                                            <input class="form-control" id="extraexpected" name="extraexpected" type="text" value="<?= $extraExpected ?>">
+                                            <label id="extraexpectedinfo">Meer info</label>
+                                            <textarea class="form-control" id="extraexpectedinfo" name="extraexpectedinfo"><?= $extraExpectedInfo ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +165,12 @@
                                         <h4>Opslaan</h4>
                                     </div>
                                     <div class="card-body">
-                                        <input type="submit" class="btn" name="submit" value="Opslaan">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-sm btn-primary">Wijzig</button>
+                                        </div>        
+                                        
+                                        <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
+
                                     </div>
                                 </div>
                             </div>
