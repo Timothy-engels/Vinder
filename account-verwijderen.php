@@ -83,7 +83,7 @@ if ($_POST) {
 
         if ($loggedInAccount->getAdministrator() === "1") {
             
-            header("location: userList.php");
+            header("location: accounts.php");
             
         } else { 
             // Log out
