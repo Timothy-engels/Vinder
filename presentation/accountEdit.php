@@ -2,9 +2,8 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
-          name="viewport">
-    <title>Vinder | Account aanpassen</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <title>Vinder | Profiel wijzigen</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
@@ -17,9 +16,8 @@
     <script>
         var expertises = [];
         <?php
-        foreach ($allExps as $expertise){ ?>
-        expertises.push("<?php echo $expertise->getId(); ?>");
-
+        foreach ($allExps as $expertise) { ?>
+            expertises.push("<?= $expertise->getId(); ?>");
         <?php }?>
     </script>
 </head>
@@ -34,39 +32,44 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Profiel wijzigen</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
-                    <div class="section-body"><div class="row">
-                        <div class="col-12">
-                            <div class="card card-primary">
-                                
-                                
-                                                
-                                <div class="card-header"><h4>Logo</h4></div>
-                                <div class="card-body">
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">   
+                                    <div class="card-header">
+                                        <h4>Profiel wijzigen</h4>
+                                    </div>
+                                    <div class="card-body">
                                     
-                                    <?php if ($msg !== '') : ?>
-                                        <div class="alert alert-success"><?= $msg; ?></div>
-                                    <?php endif; ?>
-                                    
-                                    <div class="container">
-                                        
-                                        <?php if ($loggedInAccount->getLogo()): ?>
-                                        
+                                        <?php if ($msg !== '') : ?>
+                                            <div class="alert alert-success"><?= $msg; ?></div>
+                                        <?php endif; ?>
+                                            
+                                        <div class="form-group">
+                                            <label>Logo</label>
+                                            
+                                            <?php
+                                            $logo = 'no-image.png';
+                                            if ($loggedInAccount->getLogo() !== null && $loggedInAccount->getLogo() !== '') {
+                                                $logo = $account->getLogo();
+                                            }
+                                            ?>
+                                            
                                             <div class="row justify-content-center">
                                                 <div id="company_logo" style="margin: auto">
-                                                    <img id="logo" src="images/<?php echo $loggedInAccount->getLogo(); ?>" alt="Logo" style="max-width: 150px;">
+                                                    <img id="logo" src="images/<?= $logo; ?>" alt="Logo" style="max-width: 15rem;">
                                                 </div>
                                             </div>
-                                            <div class="row justify-content-center">
-                                                <div>
+                                            
+                                            <?php if ($loggedInAccount->getLogo()): ?>
+
+                                                <div class="row justify-content-center">
                                                     <button id="removelogo" style="margin: 10px" type="button" class="btn btn-primary btn-sm" onclick="remove_logo()">Verwijder logo</button>
                                                 </div>
-                                            </div>
-                                        
-                                        <?php endif; 
-                                        
-                                        if (!$loggedInAccount->getLogo()) echo "<p>Geen logo</p>"; ?>
+       
+                                            <?php endif; ?>
                                         
                                             <div class="form-group inputDnD">
                                                 <label class="sr-only" for="inputFile">File Upload</label>
@@ -77,24 +80,15 @@
                                                 <div><?= $errors['logo']; ?></div>
                                             <?php endif; ?>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Omschrijving en website</h4>
-                                    </div>
-                                    <div class="card-body">
-                                             
-                                        <div class="form-group">
+
+                                        <div class="form-group mt-4">
                                             <label for="info">Korte omschrijving <i class="ion ion-android-star"></i></label>
                                             <textarea class="form-control <?php if (array_key_exists('info', $errors)) : ?>is-invalid<?php endif; ?>" type="text" id="info" name="info" ><?= $info; ?></textarea>
                                             <?php if (array_key_exists('info', $errors)) : ?>
                                                 <div class="invalid-feedback"><?= $errors['info']; ?></div>
                                             <?php endif; ?>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="website">Website</label>
                                             <input class="form-control <?php if (array_key_exists('website', $errors)) : ?>is-invalid<?php endif; ?>" type="url" id="input_url" name="website" value="<?= $website; ?>" onblur="check_url()" >
@@ -104,11 +98,7 @@
                                         </div>
                                         
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header"><h4>Uw expertisen:</h4></div>
+                                    <div class="card-header"><h4>Expertises</h4></div>
                                     <div class="card-body">
 
                                         <?php foreach ($allExps as $expertise) : ?>
@@ -131,12 +121,8 @@
                                         </div>
                                         
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card">
                                     <div class="card-header">
-                                        <h4>Waarover wil ik informatie?</h4>
+                                        <h4>Gewenste expertises</h4>
                                     </div>
                                     <div class="card-body">
                                         
@@ -156,15 +142,7 @@
                                             <label id="extraexpectedinfo">Meer info</label>
                                             <textarea class="form-control" id="extraexpectedinfo" name="extraexpectedinfo"><?= $extraExpectedInfo ?></textarea>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Opslaan</h4>
-                                    </div>
-                                    <div class="card-body">
+
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-sm btn-primary">Wijzig</button>
                                         </div>        
