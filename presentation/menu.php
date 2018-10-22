@@ -1,4 +1,4 @@
-<a href="showProfile.php" class="dropdown-item has-icon">
+<a href="profiel-bekijken.php" class="dropdown-item has-icon">
     <i class="ion ion-android-person"></i> Profiel bekijken
 </a>
 

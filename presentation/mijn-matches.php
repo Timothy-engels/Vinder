@@ -60,7 +60,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <a href="showProfile.php?id=<?= $account->getID(); ?>">
+                                                                <a href="profiel-bekijken.php?id=<?= $account->getID(); ?>">
                                                                     Profiel bekijken
                                                                 </a>
                                                             </div>

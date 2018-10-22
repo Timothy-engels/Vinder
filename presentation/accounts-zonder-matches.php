@@ -58,7 +58,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <a href="showProfile.php?id=<?= $company->getID(); ?>">
+                                                                <a href="profiel-bekijken.php?id=<?= $company->getID(); ?>">
                                                                     Profiel bekijken
                                                                 </a>
                                                             </div>

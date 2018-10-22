@@ -30,6 +30,6 @@ if ($info === null || $info == "") {
     $allExps = $expSrv->getExpertises();
     include("presentation/accountEdit.php");
 } else {
-    include("presentation/accountShow.php");
+    include("presentation/profiel-bekijken.php");
 }
     

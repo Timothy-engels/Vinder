@@ -57,4 +57,4 @@ $expExps     = $expSrv->getExpectedExpertisesById($id);
 $extraExp    = $expSrv->getExtraExpertise($id);
 $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 
-include("presentation/accountShow.php");
+include("presentation/profiel-bekijken.php");

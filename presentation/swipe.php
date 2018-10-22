@@ -254,7 +254,7 @@
 
                         var notification = document.getElementById("notification");
                         var profillink = document.getElementById("profillink");
-                        profillink.setAttribute("href", "showProfile.php?id=" + id);
+                        profillink.setAttribute("href", "profiel-bekijken.php?id=" + id);
 
 
                         var img = document.getElementById("comLog");

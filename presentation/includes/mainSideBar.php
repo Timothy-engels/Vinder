@@ -11,7 +11,7 @@
     <ul class="sidebar-menu">
         <li class="menu-header">Algemeen</li>
         <li>
-            <a href="showProfile.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
+            <a href="profiel-bekijken.php"><i class="ion ion-android-person"></i><span>Mijn profiel</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
             <li <?php if (isset($menuItem) && $menuItem === "swipe") echo 'class="active"'; ?>>

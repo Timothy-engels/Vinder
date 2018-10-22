@@ -51,7 +51,7 @@
                                                             $logo = $row->getLogo();
                                                         endif;
                                                         ?>
-                                                        <a href="showProfile.php?id=<?= $row->getId(); ?>">
+                                                        <a href="profiel-bekijken.php?id=<?= $row->getId(); ?>">
                                                             <div class="logo-wrapper-small mr-3">
                                                                 <img class="rounded-circle" src="images/<?= $logo; ?>" alt="logo">
                                                             </div>
@@ -66,7 +66,7 @@
                                                         <?php endif; ?>
                                                     </td>
                                                     <td>
-                                                        <a href="showProfile.php?id=<?= $row->getId(); ?>">
+                                                        <a href="profiel-bekijken.php?id=<?= $row->getId(); ?>">
                                                             Bekijken
                                                         </a> |
                                                         <a href="account-verwijderen.php?id=<?= $row->getId(); ?>">

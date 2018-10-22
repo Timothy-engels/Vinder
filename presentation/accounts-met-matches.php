@@ -59,7 +59,7 @@
                                                                         <div class="badge badge-primary mb-2 width-100-perc"><?= $amountMatches[$company->getID()]; ?> match(es)</div> 
                                                                     </a><br/>
                                                                 <?php endif; ?>
-                                                                <a href="showProfile.php?id=<?= $company->getID(); ?>">
+                                                                <a href="profiel-bekijken.php?id=<?= $company->getID(); ?>">
                                                                     Profiel bekijken
                                                                 </a>
                                                                 <?php if ($accountInfo === null) : ?>
