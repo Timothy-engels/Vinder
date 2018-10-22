@@ -78,37 +78,7 @@ if ($general == null) {
                 $errors['email'] = $emailErrors;
             }
 
-            $passwordErrors = $validation->checkRequiredAndMaxLength($password, 50);
-     
-            if ($passwordErrors === '') {
-                $passwordErrors = $validation->checkMinLength($password, 8);
-            }
-    
-            if ($passwordErrors === '') {
-                $passwordErrors = $validation->checkSafePassword($password);
-            }
-
-            if ($passwordErrors !== '') {
-                $errors['password'] = $passwordErrors;
-            }
-
-            $repeatPasswordErrors = $validation->checkRequiredAndMaxLength($repeatPassword, 50);
-
-            if ($repeatPasswordErrors === '') {
-                $repeatPasswordErrors = $validation->checkMinLength($repeatPassword, 8);
-            }
-    
-            if ($repeatPasswordErrors === '') {
-                $repeatPasswordErrors = $validation->checkSafePassword($repeatPassword);
-            }
-    
-            if ($repeatPasswordErrors === '') {
-                $repeatPasswordErrors = $validation->checkRepeatPassword($password, $repeatPassword);
-            }
-    
-            if ($repeatPasswordErrors !== '') {
-                $errors['repeatPassword'] = $repeatPasswordErrors;
-            }
+            $errors = $validation->validatePasswords($password, $repeatPassword, $errors);
     
             if (empty($errors)) {
         

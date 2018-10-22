@@ -242,5 +242,51 @@ class ValidationService
         
         return $result;
     }
-     
+    
+    /**
+     * Validate the passwords
+     * 
+     * @param string $password
+     * @param string $repeatPassword
+     * @param array $errors
+     * 
+     * @return array
+     */
+    public function validatePasswords($password, $repeatPassword, $errors = [])
+    {    
+        $passwordErrors = $this->checkRequiredAndMaxLength($password, 50);
+
+        if ($passwordErrors === '') {
+            $passwordErrors = $this->checkMinLength($password, 8);
+        }
+
+        if ($passwordErrors === '') {
+            $passwordErrors = $this->checkSafePassword($password);
+        }
+
+        if ($passwordErrors !== '') {
+            $errors['password'] = $passwordErrors;
+        }
+
+        $repeatPasswordErrors = $this->checkRequiredAndMaxLength($repeatPassword, 50);
+
+        if ($repeatPasswordErrors === '') {
+            $repeatPasswordErrors = $this->checkMinLength($repeatPassword, 8);
+        }
+
+        if ($repeatPasswordErrors === '') {
+            $repeatPasswordErrors = $this->checkSafePassword($repeatPassword);
+        }
+
+        if ($repeatPasswordErrors === '') {
+            $repeatPasswordErrors = $this->checkRepeatPassword($password, $repeatPassword);
+        }
+
+        if ($repeatPasswordErrors !== '') {
+            $errors['repeatPassword'] = $repeatPasswordErrors;
+        }
+        
+        return $errors;
+    }
+    
 }
