@@ -28,7 +28,40 @@ $info = $loggedInAccount->getInfo();
 
 if ($info === null || $info == "") {
     $allExps = $expSrv->getExpertises();
-    include("presentation/accountEdit.php");
+    
+    $info    = $loggedInAccount->getInfo();
+    $website = $loggedInAccount->getWebsite();
+
+    $myExpertises       = [];
+    $expectedExpertises = [];
+    $msg                = '';
+    $errors             = [];
+
+    foreach ($exps as $expertise) {
+        $myExpertises[$expertise->getId()] = $expertise->getInfo();
+    }
+    
+    $extraExpertise     = '';
+    $extraExpertiseInfo = '';
+    
+    if ($extraExp !== null) {
+        $extraExpertise     = $extraExp->getExpertise();
+        $extraExpertiseInfo = $extraExp->getInfo();
+    }
+    
+    foreach ($expExps as $expertise) {
+        $expectedExpertises[$expertise->getId()] = $expertise->getInfo();
+    }
+    
+    $extraExpected     = '';
+    $extraExpectedInfo = '';
+    
+    if ($extraExpExp !== null) {
+        $extraExpected     = $extraExpExp->getExpertise();
+        $extraExpectedInfo = $extraExpExp->getInfo();
+    }
+    
+    include("presentation/profiel-wijzigen.php");
 } else {
     $menuItem = "profiel-bekijken";
     include("presentation/profiel-bekijken.php");
