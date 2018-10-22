@@ -78,7 +78,11 @@
                                                 E-mail
                                             </div>
                                             <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-10">
-                                                <?= $account->getEmail(); ?>
+                                                <?php if ($account->getWebsite()) : ?>
+                                                    <a href="mailto::<?= $account->getEmail(); ?>">
+                                                        <?= $account->getEmail(); ?>
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         
