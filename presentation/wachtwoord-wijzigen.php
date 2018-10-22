@@ -35,7 +35,7 @@
 
                                     <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
 
-                                        <form name="frmUpdatePassword" method="POST" action="updatePassword.php">
+                                        <form name="frmUpdatePassword" method="POST" action="wachtwoord-wijzigen.php">
 
                                             <?php if ($message !== '') : ?>
                                                 <div class="alert alert-success"><?= $message; ?></div>

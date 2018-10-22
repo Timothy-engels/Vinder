@@ -41,8 +41,8 @@
         <li <?php if (isset($menuItem) && $menuItem === "contactgegevens-wijzigen") echo 'class="active"'; ?>>
             <a href="contactgegevens-wijzigen.php"><i class="ion-android-mail"></i><span>Contactgegevens</span></a>
         </li>
-        <li>
-            <a href="updatePassword.php"><i class="ion ion-android-lock"></i><span>Wachtwoord</span></a>
+        <li <?php if (isset($menuItem) && $menuItem === "wachtwoord-wijzigen") echo 'class="active"'; ?>>
+            <a href="wachtwoord-wijzigen.php"><i class="ion ion-android-lock"></i><span>Wachtwoord</span></a>
         </li>
         <?php if ($loggedInAccount->getAdministrator() !== "1") : ?>
             <li <?php if (isset($menuItem) && $menuItem === "account-verwijderen") echo 'class="active"'; ?>>

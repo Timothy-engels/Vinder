@@ -5,6 +5,7 @@ require_once("business/validationService.php");
 
 $accountSvc      = new AccountService();
 $loggedInAccount = $accountSvc->getLoggedInUser();
+$menuItem        = "wachtwoord-wijzigen";
 
 $code            = '';
 $accountId       = $loggedInAccount->getId();
@@ -45,4 +46,4 @@ if ($_POST) {
     
 }
 
-include("presentation/updatePassword.php");
+include("presentation/wachtwoord-wijzigen.php");
