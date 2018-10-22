@@ -44,7 +44,7 @@ if ($_POST) {
         
         // Generate the message
         $currentPath = $accountSvc->getCurrentPath();
-        $link        = $currentPath . "updatePassword.php?code=" . $code;
+        $link        = $currentPath . "wachtwoord-resetten.php?code=" . $code;
         
         $msg = "<p>Beste, <br><br>
                 Klik op de onderstaande link om je wachtwoord te resetten:<br>
@@ -56,7 +56,7 @@ if ($_POST) {
         $mailSvc = new MailService();
         $mailSvc->sendHtmlMail($mail, "Wachtwoord vergeten", $msg);
         
-        $successMsg = "We hebben je een mail gestuurd met een link om je wachtwoord te wijzigen.";
+        $successMsg = "We hebben je een mail gestuurd met een link om je wachtwoord te resetten.";
         
     }
 }

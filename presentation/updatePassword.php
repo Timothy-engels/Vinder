@@ -38,7 +38,7 @@
                                         <form name="frmUpdatePassword" method="POST" action="updatePassword.php">
 
                                             <?php if ($message !== '') : ?>
-                                                <div class="message"><?= $message; ?></div>
+                                                <div class="alert alert-success"><?= $message; ?></div>
                                             <?php endif; ?>
 
                                             <div class="form-group">

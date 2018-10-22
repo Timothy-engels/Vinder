@@ -3,21 +3,29 @@ require_once("business/accountService.php");
 require_once("business/encryptionService.php");
 require_once("business/validationService.php");
 
+// Get the code to specify the user
+$code = filter_input(INPUT_GET, 'code');
+
+// Decrypt the code to get the mailadres of the user
+$encryptionSvc = new EncryptionService();
+$decryptedCode = $encryptionSvc->decryptString(
+    $code,
+    $encryptionSvc::FORGOTTEN_PASSWORD_KEY
+);
+
+// Check if user exists
 $accountSvc      = new AccountService();
-$loggedInAccount = $accountSvc->getLoggedInUser();
+$loggedInAccount = $accountSvc->getByEmail($decryptedCode);
 
-$code            = '';
-$accountId       = $loggedInAccount->getId();
-$urlExtension    = "";
-
-if ($loggedInAccount->getAdministrator() === "1") {
-    $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
-    $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+if ($loggedInAccount !== null) {
+    $accountId = $loggedInAccount->getId();
+} else {
+    header("location: logIn.php");
 }
-    
+
 // Initialize the values
-$errors  = [];
-$message = '';
+$errors          = [];
+$message         = '';
 
 // Get the posted values
 $password       = (filter_input(INPUT_POST, 'password') !== null ? filter_input(INPUT_POST, 'password') : '');
@@ -70,10 +78,10 @@ if ($_POST) {
         $accountSvc->update($loggedInAccount);
         
         // Show the confirmation
-        $message = "Je wachtwoord is met succes gewijzigd.";
+        $message = "<p>Je wachtwoord is met success gereset.<br><a href='logIn.php'>Klik hier om je opnieuw in te loggen.</a></p>";
         
     }
     
 }
 
-include("presentation/updatePassword.php");
+include("presentation/wachtwoord-resetten.php");
