@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/style.css">    
     <link rel="stylesheet" href="css/skins/vinder.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <?php include('includes/nativeAppMeta.php'); ?>
 </head>
 <body>
@@ -22,13 +23,13 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Vinder</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
 
                     <div class="section-body">
 
                         <div class="row">
-                            <div class="col-12 col-md-6 col-lg-6">
+                            <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4>Datums aanpassen</h4>
@@ -40,12 +41,12 @@
                                             <form name="frmRegisterDate" method="POST" action="updateDateSettings.php">
                                         
                                                 <?php if ($message !== '') : ?>
-                                                    <div class="message"><?= $message; ?></div>
+                                                    <div class="alert alert-success"><?= $message; ?></div>
                                                 <?php endif; ?>
                                         
                                                 <div class="form-group">
-                                                    <label for="registerDate" class="d-block">Einddatum registratie/ Startdatum swipen *</label>
-                                                    <input type="text" id="registerDate" class="form-control <?php if (array_key_exists('registerDate', $errors)) : ?>is-invalid<?php endif; ?>" name="registerDate" maxlength="10" autofocus/>
+                                                    <label for="registerDate" class="d-block">Einddatum registratie / Startdatum swipen <i class="ion ion-android-star"></i></label>
+                                                    <input type="text" id="registerDate" class="form-control <?php if (array_key_exists('registerDate', $errors)) : ?>is-invalid<?php endif; ?>" name="registerDate" maxlength/>
                                                     
                                                     <?php if (array_key_exists('registerDate', $errors)) : ?>
                                                         <div class="invalid-feedback"><?= $errors['registerDate']; ?></div>
@@ -53,7 +54,7 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="swipeDate" class="d-block">Einddatum swipen *</label>
+                                                    <label for="swipeDate" class="d-block">Einddatum swipen <i class="ion ion-android-star"></i></label>
                                                     <input type="text" id="swipeDate" class="form-control <?php if (array_key_exists('swipeDate', $errors)) : ?>is-invalid<?php endif; ?>" name="swipeDate" maxlength="10" />
                                                     
                                                     <?php if (array_key_exists('swipeDate', $errors)) : ?>
@@ -62,12 +63,11 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-sm btn-primary">Wijzig</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary mt-2 mb-3">Wijzig</button>
                                                 </div>
                                             </form>
-                                            <p>
-                                                <small>Velden met een * zijn verplicht in te vullen.</small>
-                                            </p>
+                                        
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
                                 
                                         <?php endif; ?>
                                 
@@ -93,6 +93,26 @@
 
 <script src="js/scripts.js"></script>
 <script src="js/custom.js"></script>
+   
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    // werkt niet wegens eerdere comment
+    $(document).ready(function() {
+        $("#registerDate").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        $("#swipeDate").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        $("#registerDate").datepicker("setDate", "<?= $registerDate; ?>");
+        $("#swipeDate").datepicker("setDate", "<?= $swipeDate; ?>");
+
+
+     });
+</script>
 
 </html>
 
