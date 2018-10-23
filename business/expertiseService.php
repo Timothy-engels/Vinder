@@ -163,5 +163,20 @@ class ExpertiseService
         
         return $uniqueExpertise;
     }
+    
+    /**
+     * Check if an expertise is used
+     * 
+     * @param int $expertiseId
+     * 
+     * @return boolean
+     */
+    public function checkExpertiseIsUsed($expertiseId)
+    {
+        $expertiseDAO = new ExpertiseDAO();
+        $result       = $expertiseDAO->checkExpertiseIsUsed($expertiseId);
+        
+        return $result;
+    }
 }
 

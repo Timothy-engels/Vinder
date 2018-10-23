@@ -739,5 +739,47 @@ class ExpertiseDAO
         // Return the result        
         return $swipingInfo;
     }
+    
+    /**
+     * Check if an expertise is used
+     * 
+     * @param int $expertiseId
+     * 
+     * @return boolean
+     */
+    public function checkExpertiseIsUsed($expertiseId)
+    {
+        // Generate the query
+        $query = "SELECT ID
+                  FROM accountexpertises
+                  WHERE ExpertiseID = :expertiseId
+                  UNION
+                  SELECT ID
+                  FROM accountmeerinfo
+                  WHERE ExpertiseID = :expertiseId2";
+        
+        // Create the connection
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        
+        // Execute the query
+        $stmt = $dbh->prepare($query);
+        $stmt->execute([
+            ':expertiseId'  => $expertiseId,
+            ':expertiseId2' => $expertiseId
+        ]);
+        
+        // Get the expertise information
+        $result = false;
+        
+        if ($stmt->rowCount() > 0) {
+            $result = true;
+        }
+        
+        // Close the connection
+        $dbh = null;
+        
+        // Return the result
+        return $result;
+    }
           
 }
