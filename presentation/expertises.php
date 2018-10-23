@@ -22,7 +22,7 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Expertises</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
                     <div class="section-body">
                         <div class="row">
@@ -31,7 +31,7 @@
                                     <div class="card-header">
                                         <h4>Expertises</h4>
                                     </div>
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
@@ -60,22 +60,26 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="card-body">
-                                            <form action="expertises.php" method="POST" class="needs-validation" novalidate="">
-                                                <div class="form-group">
-                                                    <label for="newExpertise">Nieuwe expertise toevoegen:</label>
-                                                    <input type="text" name="newExpertise" class="form-control <?php if ($validation !== '') : ?>is-invalid<?php endif; ?>" tabindex="1" value="<?= $newExpertise; ?>">
+                                    </div>
+                                    <div class="card-header">
+                                        <h4>Expertise toevoegen</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="expertises.php" method="POST" class="needs-validation" novalidate="">
+                                            <div class="form-group">
+                                                <label for="newExpertise">Expertise <i class="ion ion-android-star"></i></label>
+                                                <input type="text" name="newExpertise" class="form-control <?php if ($validation !== '') : ?>is-invalid<?php endif; ?>" tabindex="1" value="<?= $newExpertise; ?>">
+                                                <?php if ($validation !== '') : ?>
+                                                    <div class="invalid-feedback"><?= $validation; ?></div>
+                                                <?php endif; ?>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-sm btn-primary mt-2 mb-3" tabindex="4"  value="Voeg toe">
+                                            </div>
                                             
-                                                    <?php if ($validation !== '') : ?>
-                                                        <div class="invalid-feedback"><?= $validation; ?></div>
-                                                    <?php endif; ?>
-                                            
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-sm btn-primary" tabindex="4"  value="Toevoegen">
-                                                </div>
-                                            </form>
-                                        </div>
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
+                                        </form>
                                     </div>
                                 </div>
                             </div> 
