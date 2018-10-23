@@ -58,4 +58,4 @@ if ($code !== null) {
     }
 }
 
-include ('presentation/deleteMatchingConfirmation.php');
+include ('presentation/bevestiging-matchings-verwijderen.php');

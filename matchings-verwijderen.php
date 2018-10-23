@@ -30,7 +30,7 @@ if ($_POST) {
     
     // Generate the message
     $currentPath = $accountSvc->getCurrentPath();
-    $link        = $currentPath . "deleteMatchingConfirmation.php?code=" . $confirmationCode;
+    $link        = $currentPath . "bevestiging-matchings-verwijderen.php?code=" . $confirmationCode;
     
     $msg = "<p>Beste, <br><br>
             Klik op de onderstaande link om de matchings te verwijderen:<br>
