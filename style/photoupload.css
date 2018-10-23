@@ -28,6 +28,10 @@
     box-shadow: inset 0px 0px 0px 0.25em currentColor;
 }
 
+.inputDnD .is-invalid.form-control-file:before {
+    border-color: #dc3545;
+}
+
 body {
     background-color: #f7f7f9;
 }

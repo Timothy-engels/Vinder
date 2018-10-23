@@ -74,12 +74,12 @@
 
                                                 <div class="form-group inputDnD">
                                                     <label class="sr-only" for="inputFile">File Upload</label>
-                                                    <input type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Voeg een logo toe door het in deze box te slepen (max 10 MB)">
+                                                    <input type="file" name="fileToUpload" class="form-control-file text-primary font-weight-bold <?php if (array_key_exists('logo', $errors)) : ?>is-invalid<?php endif; ?>" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="Voeg een logo toe door het in deze box te slepen (max 10 MB)">
+                                                    <?php if (array_key_exists('logo', $errors)) : ?>
+                                                        <div class="error"><?= $errors['logo']; ?></div>
+                                                    <?php endif; ?>
                                                 </div>
 
-                                                <?php if (array_key_exists('logo', $errors)) : ?>
-                                                    <div><?= $errors['logo']; ?></div>
-                                                <?php endif; ?>
                                             </div>
 
                                             <div class="form-group mt-4">

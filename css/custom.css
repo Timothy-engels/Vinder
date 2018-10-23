@@ -21,6 +21,13 @@
     vertical-align: middle;
 }
 
+.error {
+    width: 100%;
+    margin-top: .50rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
 /* Styles for logo's */
 
 .logo-middle {
