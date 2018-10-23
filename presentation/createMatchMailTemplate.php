@@ -189,9 +189,13 @@
                             <p>Je hebt een match met de volgende firma:</p>
                             
                             <div>
-                                <?php if ($company2->getLogo() !== null && $company2->getLogo() !== '') : ?>
-                                    <img style="vertical-align:middle" src="<?= $currentPath; ?>images/<?= $company2->getLogo(); ?>" class="logoImg">
-                                <?php endif; ?>
+                                <?php
+                                $logo = 'no-image.png';
+                                if ($company2->getLogo() !== null && $company2->getLogo() !== '') {
+                                    $logo = $company2->getLogo();
+                                }
+                                ?>
+                                <img style="vertical-align:middle; max-height: 3rem; max-width: 3rem;" src="images/<?= $logo; ?>">
                                 <span class="h6"><?= $company2->getName(); ?></span>
                             </div>
 
@@ -199,7 +203,7 @@
                                 <p><?= $company2->getInfo(); ?></p>
                             <?php endif; ?>
 
-                            <h5 class="mt-4">Contactgegevens</h5>
+                            <h6 class="mt-4">Contactgegevens</h6>
                                Contactpersoon: <?= $company2->getContactPerson(); ?><br/>
                                E-mail: <a href="mailto::<?= $company2->getEmail(); ?>"><?= $company2->getEmail(); ?></a>
                                <?php if ($company2->getWebsite() !== null && $company2->getWebsite() !== '') : ?>
@@ -208,7 +212,7 @@
                             </p>
 
                             <?php if (!empty($company2->getAccountExpertises()) OR $company2->getAccountExpertiseExtra() !== null) : ?>
-                                <h5 class="mt-4">De firma heeft de volgende expertises:</h5>
+                                <h6 class="mt-4">De firma heeft de volgende expertises:</h6>
 
                                 <ul>
                                     <?php if (!empty($company2->getAccountExpertises())) : ?>
@@ -230,7 +234,7 @@
                             <?php endif; ?>
 
                             <?php if (!empty($company2->getAccountMoreInfo()) OR $company2->getAccountMoreInfoExtra() !== null) : ?>
-                                <h5 class="mt-4">De firma wenst meer info te hebben over:</h5>
+                                <h6 class="mt-4">De firma wenst meer info te hebben over:</h6>
 
                                 <ul>
                                     <?php if (!empty($company2->getAccountMoreInfo())) : ?>
@@ -252,7 +256,7 @@
                             <?php endif; ?>
 
                             <?php if ($tips !== NULL && $tips !== '') : ?>
-                                <h5 class="mt-4">Tips</h5>
+                                <h6 class="mt-4">Tips</h6>
                                 <?= $tips; ?>
                             <?php endif; ?>
         

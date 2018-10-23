@@ -354,7 +354,7 @@ class AccountService
             $companyMail = $company->getEmail();
             
             $mailSrv = new MailService();
-            $mailSrv->sendHtmlMail($companyMail, 'Match gevonden op Vinder', $mailContent);
+            $mailSrv->sendHtmlMail($companyMail, 'Match gevonden op Vinder', $mailContent, false);
         } 
     }     
     

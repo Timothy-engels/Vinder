@@ -4,12 +4,14 @@
 
         <div class="card card-primary">
             <div class="card-header">
-                <h1>
-                    <?php if ($account->getLogo() !== null && $account->getLogo() !== '') : ?>
-                        <img src="images/<?= $account->getLogo(); ?>" style="max-height: 5rem;">
-                    <?php endif;?>
-                    <?= $account->getName();?>
-                </h1>
+                <?php
+                $logo = 'no-image.png';
+                if ($account->getLogo() !== null && $account->getLogo() !== '') {
+                    $logo = $account->getLogo();
+                }
+                ?>
+                <img style="vertical-align:middle; max-height: 3rem; max-width: 3rem;" src="images/<?= $logo; ?>">
+                <span class="h6"><?= $account->getName(); ?></span>
             </div>
             <div class="card-body">
                 <?php if ($account->getInfo() !== null && $account->getInfo() !== '') : ?>
@@ -17,7 +19,7 @@
                 <?php endif; ?>
 
                 <?php if (!empty($account->getAccountExpertises()) OR $account->getAccountExpertiseExtra() !== null) : ?>
-                    <h4><?= $account->getName(); ?> heeft de volgende expertises:</h4>
+                    <h6>Expertises</h6>
                     <ul>
                         <?php if (!empty($account->getAccountExpertises())) : ?>
                             <?php foreach ($account->getAccountExpertises() as $accountExpertise) : ?>
@@ -39,8 +41,7 @@
                 <?php endif; ?>
 
                 <?php if (!empty($account->getAccountMoreInfo()) OR $account->getAccountMoreInfoExtra() !== null) : ?>
-                    <h4><?= $account->getName(); ?> wenst meer info te hebben over</h4>
-
+                    <h6>Gewenste expertises</h6>
                     <ul>
                         <?php if (!empty($account->getAccountMoreInfo())) : ?>
                             <?php foreach ($account->getAccountMoreInfo() as $accountMoreInfo) : ?>

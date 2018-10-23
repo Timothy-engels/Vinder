@@ -44,7 +44,7 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Swipe</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
 
                     <div class="section-body">
@@ -87,12 +87,14 @@
 
                                                             <div class="card card-primary">
                                                                 <div class="card-header">
-                                                                    <h1>
-                                                                        <?php if ($account->getLogo() !== null && $account->getLogo() !== '') : ?>
-                                                                            <img src="images/<?= $account->getLogo(); ?>" style="max-height: 5rem;">
-                                                                        <?php endif;?>
-                                                                        <?= $account->getName();?>
-                                                                    </h1>
+                                                                    <?php
+                                                                    $logo = 'no-image.png';
+                                                                    if ($account->getLogo() !== null && $account->getLogo() !== '') {
+                                                                        $logo = $account->getLogo();
+                                                                    }
+                                                                    ?>
+                                                                    <img style="vertical-align:middle; max-height: 3rem; max-width: 3rem;" src="images/<?= $logo; ?>">
+                                                                    <span class="h6"><?= $account->getName(); ?></span>
                                                                 </div>
                                                                 <div class="card-body">
                                                                     <?php if ($account->getInfo() !== null && $account->getInfo() !== '') : ?>
@@ -100,7 +102,7 @@
                                                                     <?php endif; ?>
                                                                         
                                                                     <?php if (!empty($account->getAccountExpertises()) OR $account->getAccountExpertiseExtra() !== null) : ?>
-                                                                        <h4><?= $account->getName(); ?> heeft de volgende expertises:</h4>
+                                                                        <h6>Expertises</h6>
                                                                         <ul>
                                                                             <?php if (!empty($account->getAccountExpertises())) : ?>
                                                                                 <?php foreach ($account->getAccountExpertises() as $accountExpertise) : ?>
@@ -117,13 +119,12 @@
                                                                                     <?= $accountExpertiseExtra->getInfo(); ?>
                                                                                 </li>                        
                                                                             <?php endif; ?>
-                                                                        </ul>                                     
-                                                                        
+                                                                        </ul>     
+
                                                                     <?php endif; ?>
                                                                         
                                                                     <?php if (!empty($account->getAccountMoreInfo()) OR $account->getAccountMoreInfoExtra() !== null) : ?>
-                                                                        <h4><?= $account->getName(); ?> wenst meer info te hebben over</h4>
-
+                                                                        <h6>Gewenste expertises</h6>
                                                                         <ul>
                                                                             <?php if (!empty($account->getAccountMoreInfo())) : ?>
                                                                                 <?php foreach ($account->getAccountMoreInfo() as $accountMoreInfo) : ?>
@@ -140,10 +141,10 @@
                                                                                     <?= $accountMoreInfoExtra->getInfo(); ?>
                                                                                 </li>                        
                                                                             <?php endif; ?>                                  
-                                                                        </ul>
-                                                                    <?php endif; ?>                                                                        
-                                                                             
-                                                                </div>
+                                                                        </ul>           
+                                                                    <?php endif; ?>  
+                                                                
+                                                            </div>
                                                             </div>
 
                                                             <div class="profile__card__choice m--reject"></div>
