@@ -107,7 +107,7 @@ if ($_POST) {
         }
     }    
 
-    $infoErrors    = $validationSvc->checkRequiredAndMaxLength($info, 255);
+    $infoErrors    = $validationSvc->checkRequired($info);
 
     if ($infoErrors !== '') {
         $errors['info'] = $infoErrors;
