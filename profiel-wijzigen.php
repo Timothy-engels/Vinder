@@ -164,10 +164,14 @@ if ($_POST) {
         }
         
         $expSrv->deleteExtraExpertiseByUserId($id);
-        $expSrv->addExtraExpertiseByUserId($id, $extraExpertise, $extraExpertiseInfo);
-
+        if ($extraExpertise !== '') {
+            $expSrv->addExtraExpertiseByUserId($id, $extraExpertise, $extraExpertiseInfo);
+        }
+        
         $expSrv->deleteExtraExpectedByUserId($id);
-        $expSrv->addExtraExpectedExpertiseByUserId($id, $extraExpected, $extraExpectedInfo);
+        if ($extraExpected !== '') {
+            $expSrv->addExtraExpectedExpertiseByUserId($id, $extraExpected, $extraExpectedInfo);
+        }
 
         $msg = "Uw gegevens zijn met success gewijzigd.";
     }

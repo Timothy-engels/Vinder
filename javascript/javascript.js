@@ -3,37 +3,30 @@ window.onload = function () {
     moreInfo("expectedExpertise");
 };
 
-function moreInfo(expertise) { //function add or delete input elements
+function moreInfo(expertise)
+{ //function add or delete input elements
     var exps = document.getElementsByClassName(expertise);
+    
     for (var i = 0; i < exps.length; i++ ){
+        var id         = exps[i].getAttribute('id');
+        var checkbox   = document.getElementById(id);
+        var detailsDiv = document.getElementById("details-" + id);
+        
+        if (checkbox.checked) {
+            detailsDiv.style.display = 'block';
+        } else {
+            detailsDiv.style.display = 'none';
+        }
+        
         exps[i].addEventListener('click',function (e) {
             var id = this.getAttribute('id');
-            if(this.checked){
-                var inputExtra = document.createElement("input");
-                var inputLabel = document.createElement("label");
-
-                inputExtra.setAttribute("id","input"+id);
-                inputExtra.setAttribute("name","input"+id);
-                inputExtra.setAttribute("type","text");
-                inputExtra.setAttribute("class","form-control");
-
-                inputExtra.style.marginBottom = '12px';
-                inputExtra.style.marginLeft= '12px';
-                inputLabel.style.marginLeft = '12px';
-
-                inputLabel.setAttribute("id","inputlabel"+id);
-                inputLabel.innerHTML = "Meer info: ";
-                inputLabel.setAttribute("class","row");
-
-
-                this.parentNode.insertBefore(inputExtra, this.nextSibling.nextSibling.nextSibling);
-                this.parentNode.insertBefore(inputLabel, this.nextSibling.nextSibling.nextSibling);
-            }else{
-                $('#input'+id).remove();
-                $('#inputlabel'+id).remove();
+            var detailsDiv = document.getElementById("details-" + id);
+            if (this.checked){
+                detailsDiv.style.display = 'block';
+            } else {
+                detailsDiv.style.display = 'none';
             }
-
-        })
+        });
     }
 }
 
