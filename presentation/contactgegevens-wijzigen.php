@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
-    <title>Vinder | Contactpersoon wijzigen</title>
+    <title>Vinder | Contactgegevens wijzigen</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="modules/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
@@ -22,7 +22,7 @@
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Contactgegevens</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
 
                     <div class="section-body">
@@ -44,7 +44,7 @@
                                                 <?php endif; ?>
                                         
                                                 <div class="form-group">
-                                                    <label for="name">Bedrijfsnaam * </label>
+                                                    <label for="name">Bedrijfsnaam <i class="ion ion-android-star"></i> </label>
                                                     <input type="text" class="form-control <?php if (array_key_exists('name', $errors)) : ?>is-invalid<?php endif; ?>" id="name" name="name" maxlength="255" value="<?= $name; ?>" autofocus />
                     
                                                     <?php if (array_key_exists('name', $errors)) : ?>
@@ -53,7 +53,7 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="contactPerson">Contactpersoon *</label>
+                                                    <label for="contactPerson">Contactpersoon <i class="ion ion-android-star"></i></label>
                                                     <input type="text" id="contactPerson" class="form-control <?php if (array_key_exists('contactPerson', $errors)) : ?>is-invalid<?php endif; ?>" name="contactPerson" value="<?= $contactPerson; ?>" maxlength="255" />
                                                     
                                                     <?php if (array_key_exists('contactPerson', $errors)) : ?>
@@ -62,7 +62,7 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="email">E-mail * </label>
+                                                    <label for="email">E-mail <i class="ion ion-android-star"></i> </label>
                                                     <input type="email" id="email" class="form-control <?php if (array_key_exists('email', $errors)) : ?>is-invalid<?php endif; ?>" name="email" maxlength="255" value="<?= $email; ?>" />
                                                     
                                                     <?php if (array_key_exists('email', $errors)) : ?>
@@ -71,12 +71,12 @@
                                                     
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-sm btn-primary">Wijzig</button>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-sm btn-primary mt-2 mb-3">Wijzig</button>
                                                 </div>
                                             </form>
-                                            <p>
-                                                <small>Velden met een * zijn verplicht in te vullen.</small>
-                                            </p>
+
+                                            <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
                                 
                                         <?php endif; ?>
                                 
