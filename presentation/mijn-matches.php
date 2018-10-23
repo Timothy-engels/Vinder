@@ -22,20 +22,19 @@
             <div class="main-sidebar">
                 <?php include('includes/mainSideBar.php'); ?>
             </div>
-            <?php include('includes/mainHeader.php'); ?>
-            <div class="main-sidebar">
-                <?php include('includes/mainSideBar.php'); ?>
-            </div>
             <div class="main-content">
                 <section class="section">
                     <h1 class="section-header">
-                        <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Mijn matches</div>
+                        <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                     </h1>
                     <div class="section-body">
 
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <div class="card">                
+                                <div class="card">   
+                                    <div class="card-header">
+                                        <h4>Mijn matches</h4>
+                                    </div>
                                     <div class="card-body"> 
                                         
                                         <?php if (!empty($matchedAccounts)) : ?>
