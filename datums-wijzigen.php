@@ -8,10 +8,11 @@ require_once("business/accountService.php");
 // Check if an admin is logged in
 $accountSvc      = new AccountService();
 $loggedInAccount = $accountSvc->getLoggedInUser(true);
-if ($loggedInAccount->getAdministrator() === "1") {
-    $amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
-    $amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
-}
+$menuItem        = 'datums-wijzigen';
+
+$amountMatchedCompanies   = $accountSvc->getAmountMatchedCompanies();
+$amountUnmatchedCompanies = $accountSvc->getAmountUnmatchedCompanies();
+
 
 // Get the current values
 $generalService = new GeneralService();
@@ -98,4 +99,4 @@ if ($_POST) {
 }
 
 // Show the view
-include("presentation/updateDateSettings.php");
+include("presentation/datums-wijzigen.php");

@@ -56,8 +56,8 @@
             <li <?php if (isset($menuItem) && $menuItem === "tips-wijzigen") echo 'class="active"'; ?>>
                 <a href="tips-wijzigen.php"><i class="ion ion-android-bulb"></i><span>Tips</span></a>
             </li>
-            <li>
-                <a href="updateDateSettings.php"><i class="ion ion-android-calendar"></i><span>Datums</span></a>
+            <li <?php if (isset($menuItem) && $menuItem === "datums-wijzigen") echo 'class="active"'; ?>>
+                <a href="datums-wijzigen.php"><i class="ion ion-android-calendar"></i><span>Datums</span></a>
             </li>       
             <li <?php if (isset($menuItem) && $menuItem === "matchings-verwijderen") echo 'class="active"'; ?>>
                 <a href="matchings-verwijderen.php"><i class="ion ion-android-delete"></i> Matchings verwijderen</a>
