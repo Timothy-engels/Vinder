@@ -54,7 +54,7 @@ function remove_logo() {
     var logo = document.getElementById("logo");
     var removelogo = document.getElementById("removelogo");
     var company_logo = document.getElementById("company_logo");
-    if (removelogo.innerText !== "Terug") {
+    if (removelogo.innerText !== "Herstel logo") {
         logo.style.opacity = 0.2;
         removelogo.innerText = "Herstel logo";
         var hidden = document.createElement("input");
@@ -64,7 +64,7 @@ function remove_logo() {
         company_logo.appendChild(hidden);
     } else {
         logo.style.opacity = 1;
-        removelogo.innerText = "Verwijdert logo";
+        removelogo.innerText = "Verwijder logo";
         $('#deletelogo').remove();
     }
 }
