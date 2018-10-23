@@ -190,6 +190,7 @@
                     </div>
                 </section>
             </div>
+            <?php include('includes/mainFooter.php'); ?>
         </div>
     </div>
 </body>
