@@ -53,7 +53,7 @@
                                                             <td>
                                                                 <a href='expertise-wijzigen.php?id=<?= $expertise->getId(); ?>'>Wijzigen</a>
                                                                 | 
-                                                                <a href='expertiseDelete.php?edid=<?= $expertise->getId(); ?>'>Verwijderen</a>
+                                                                <a href='expertise-verwijderen.php?edid=<?= $expertise->getId(); ?>'>Verwijderen</a>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
