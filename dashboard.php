@@ -27,7 +27,7 @@ $extraExpExp = $expSrv->getExtraExpectedExpertise($id);
 $info = $loggedInAccount->getInfo();
 
 if ($info === null || $info == "") {
-    $allExps = $expSrv->getExpertises();
+    $allExps = $expSrv->getActiveExpertises();
     
     $info    = $loggedInAccount->getInfo();
     $website = $loggedInAccount->getWebsite();
