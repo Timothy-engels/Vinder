@@ -22,7 +22,7 @@
                 <div class="main-content">
                     <section class="section">
                         <h1 class="section-header">
-                            <div><a href="dashboard.php"><img src="images/icon.png" alt="Vinder" style="width: 2rem;"></a>&nbsp;&nbsp;Account verwijderen</div>
+                            <div><a href="dashboard.php"><img src="images/logo.png" alt="Vinder" class="logo-small"></a></div>
                         </h1>
                         <div class="section-body">
                             <div class="row">
@@ -44,7 +44,7 @@
                                                     
                                                     <div class="form-group">
                                                         
-                                                        <label for="pass">Wachtwoord *</label>
+                                                        <label for="pass">Wachtwoord <i class="ion ion-android-star"></i></label>
                                                         <input type="password" id="pass" name="pass" class="form-control <?php if (array_key_exists('pass', $errors)) : ?>is-invalid<?php endif; ?>" autofocus/>
                                                         <?php if (array_key_exists('pass', $errors)) : ?>
                                                             <div class="invalid-feedback"><?= $errors['pass']; ?></div>
@@ -52,9 +52,11 @@
 
                                                     </div>
                                                     
-                                                    <input type="submit" class="btn btn-sm btn-primary" name="submit" value="Verwijder">
+                                                    <div class="form-group">
+                                                        <input type="submit" class="btn btn-sm btn-primary mt-2 mb-3" name="submit" value="Verwijder">
+                                                    </div>
                                                     
-                                                    <p class="mt-3"><small>Velden met een * zijn verplicht in te vullen.</small></p>
+                                                    <p class="text-muted italic"><small>Velden met een <i class="ion ion-android-star"></i> zijn verplicht in te vullen.</small></p>
                                                 </form>
                                                 
                                             <?php endif; ?>
