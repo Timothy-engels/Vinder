@@ -61,6 +61,7 @@ if ($info === null || $info == "") {
         $extraExpectedInfo = $extraExpExp->getInfo();
     }
     
+    $menuItem = "profiel-wijzigen";
     include("presentation/profiel-wijzigen.php");
 } else {
     $menuItem = "profiel-bekijken";
