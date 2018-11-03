@@ -38,7 +38,7 @@
                             
                                         <?php if (isset($registerMsg) && $registerMsg !== '') :  $registerMsg; else : ?>
                                 
-                                            <form name="frmRegisterDate" method="POST" action="updateDateSettings.php">
+                                            <form name="frmRegisterDate" method="POST" action="datums-wijzigen.php">
                                         
                                                 <?php if ($message !== '') : ?>
                                                     <div class="alert alert-success"><?= $message; ?></div>
